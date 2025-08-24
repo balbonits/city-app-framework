@@ -1,63 +1,43 @@
-# City App Framework
+# City App Framework Repository
 
 ## Overview
-A modular, city-themed framework for front-end (FE) and back-end (BE) web projects, adaptable to CSR, SSR, SSG, PWA, or Native/Hybrid apps. Emphasizes mobile-first, responsive design, minimal dependencies, and scalable workflows with feature flagging and code review.
+GitHub repo collecting notes, documentation, and case study for the City App Framework—a modular, city-themed development framework for FE/BE web projects. Adapts to CSR, SSR, SSG, PWA, Native/Hybrid. Emphasizes mobile-first responsive design, minimal dependencies, feature flagging, code review.
 
 ## Structure
 - **City Hall**: Centralized FE state management (`context/Providers.tsx`, wraps `App.tsx` with error boundary).
-- **Works**: Hooks (`hooks/useTheme.ts`) and utilities (`utils/sanitize/`) for FE/BE logic, security, a11y, i18n, analytics, feature flags.
-- **Components**: Reusable FE components (`components/Button/`) tested in Storybook.
-- **Arts**: Mobile-first, responsive styles (`styles/arts.css`) with Tailwind, themes in `styles/themes/`.
-- **Store**: FE state (`store/useAuthContext.ts`) and BE APIs (`server/api/`).
-- **Models**: TypeScript types (`types/User.ts`) for FE/BE.
-- **Districts**: FE routing (`routes/`) and BE routing (`server/routes/`).
-- **Specs**: Docs (`README.md`, `COMPLIANCE.md`), Storybook, configs (`.gitattributes`), FE/BE DevOps, code review.
+- **Works**: Hooks and utilities (`hooks/`, `utils/`) for logic, security, a11y, i18n, analytics, feature flags.
+- **Components**: Reusable FE components (`components/`) tested in Storybook.
+- **Arts**: Styles (`styles/arts.css`) with Tailwind, mobile-first, responsive, themes.
+- **Store**: FE state (`store/`) and BE APIs (`server/api/`).
+- **Models**: Types (`types/` for FE/BE).
+- **Districts**: Routing (`routes/` for FE, `server/routes/` for BE).
+- **Specs**: Docs (this README, `AI_CONTEXT.md`, `HISTORY.md`, `DEV_JOURNEY.md`, `PROJECT.md`, `TODOS.md`, `UX.md`, `API.md`, `SECURITY.md`, `ARCHITECTURE.md`, `SPECS.md`, `COMPLIANCE.md`), configs, DevOps.
 
 ## Setup
-1. **Clone Repo**:
-   ```bash
-   git clone <repo-url>
-   cd city-app-framework
-   ```
-2. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
-3. **Configure Environment**:
-   - Copy `.env.example` to `.env` and set variables (e.g., `FEATURE_FLAGS=NEW_FEATURE_A:T1`).
-4. **Run Development**:
-   - FE: `npm run dev` (Vite).
-   - BE: `npm run start:server` (Node.js/Express).
-5. **Test**:
-   ```bash
-   npm run test # Jest/Vitest
-   npm run lint # ESLint
-   npm run check-conventions # Naming/structure
-   npm run check-a11y # Accessibility
-   ```
-6. **Build**:
-   ```bash
-   npm run build # Vite for FE, esbuild for BE
-   ```
-7. **Deploy**:
-   - FE: Vercel/Netlify.
-   - BE: Heroku/AWS.
+1. Clone repo: `git clone <repo-url>`.
+2. Install: `npm install`.
+3. Configure: Copy `.env.example` to `.env`, set vars (e.g., `FEATURE_FLAGS=NEW_FEATURE_A:T1`).
+4. Run FE: `npm run dev`.
+5. Run BE: `npm run start:server`.
+6. Test: `npm test` (unit), `npm run e2e` (E2E).
+7. Build: `npm run build` (FE Vite, BE esbuild).
+8. Deploy: FE to Vercel/Netlify, BE to Heroku/AWS.
 
 ## Key Features
-- **Mobile-First Design**: Tailwind in `arts.css` with responsive breakpoints.
-- **Feature Flagging**: Toggle features via URL params (`?flags=NEW_FEATURE_A:T1`) or `.env`, tied to `feature/`, `fix/`, `doc/` branches.
-- **Code Review**: PRs for all branches, solo or 1-2 team approvals, automated checks (ESLint, conventions, a11y).
-- **Optimization**: Network caching, critical CSS, minification, lazy loading, memoization.
-- **Rendering**: CSR (React), SSR/SSG (Next.js), PWA (service workers), Native/Hybrid (React Native, Capacitor).
-- **Compliance**: WCAG, GDPR via `utils/a11y/`, `utils/compliance/`.
+- **Mobile-First Design**: Base styles for small screens in `arts.css`, scale with media queries.
+- **Feature Flagging**: Multi-flag variants (`utils/flags/getFeatureFlags.ts`), set via URL params/env, tied to branches (`feature/`, `fix/`, `doc/`), A/B testing.
+- **Code Review**: PRs for branches, solo/team approvals, automated checks (ESLint, conventions, a11y) in CI/CD.
+- **Optimization**: Network caching, critical CSS, minification, lazy loading, memoization (FE); query caching, compression (BE).
+- **Rendering**: CSR (React), SSR/SSG (Next.js), PWA (service workers), Native/Hybrid (React Native/Capacitor).
+- **Compliance**: WCAG/GDPR via `utils/a11y/`, `utils/compliance/`, `COMPLIANCE.md`.
 
 ## Usage
-- **FE Example**:
+- FE Example:
   ```tsx
   import { useFeatureFlags } from './store/useFeatureFlags';
   import { useTranslation } from './hooks/useTranslation';
 
-  const Component: React.FC = () => {
+  const Component = () => {
     const flags = useFeatureFlags();
     const { t } = useTranslation();
     return (
@@ -67,7 +47,7 @@ A modular, city-themed framework for front-end (FE) and back-end (BE) web projec
     );
   };
   ```
-- **BE Example**:
+- BE Example:
   ```ts
   // server/api/auth.ts
   import express from 'express';
@@ -79,8 +59,8 @@ A modular, city-themed framework for front-end (FE) and back-end (BE) web projec
   ```
 
 ## Contributing
-- Create branches (`feature/`, `fix/`, `doc/`, `chore/`, `refactor/`).
-- Follow naming: `{type}{PascalCase}` IDs, `camelCase` variables.
+- Branches: `feature/`, `fix/`, `doc/`, `chore/`, `refactor/`.
+- Naming: `{type}{PascalCase}` IDs, `camelCase` variables.
 - Submit PRs, ensure CI/CD passes (linting, tests, conventions, a11y).
 - Document in `SPECS.md`, `COMPLIANCE.md`.
 
