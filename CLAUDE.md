@@ -130,12 +130,16 @@ As the **Lead Architect** and **City Planner** for this framework:
 
 ## Project Constraints & Preferences
 
-### User Constraints
-- Solo developer with limited time
-- Strong preference for TypeScript
-- AI-first approach to development
-- Quality over speed
-- Enterprise-level capabilities for individual use
+### User Constraints & Priorities
+- **Time Available**: 5-10 hours/week (serious side project)
+- **Technical Comfort**: React (3/5), CLI/Node/RN/AI (1/5 each) - learning opportunity
+- **Primary Goal**: Personal tool for faster development, potential job enabler
+- **Vision**: Help solo developers bypass setup and get building immediately
+- **Success**: Framework as good as Vite/Next.js for AI-driven projects within 6 months
+- **Philosophy**: Comprehensive but approachable > simple focused > full-featured
+- **Must Use**: React, TypeScript, Node.js/Python, Firebase
+- **Want to Avoid**: Too many 3rd-party plugins - only essential ones
+- **Packaging**: `npx create-city-app` similar to create-react-app
 
 ### Technical Constraints
 - Must work with Claude Code as primary AI agent
