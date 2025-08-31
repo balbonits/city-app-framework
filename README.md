@@ -1,87 +1,92 @@
-# The "CITY" App Framework
+# City App Framework
 
-## Overview
-The "CITY" App Framework is a modular, city-themed development framework for front-end (FE) and back-end (BE) web projects. It adapts to CSR, SSR, SSG, PWA, Native/Hybrid apps, emphasizing mobile-first responsive design, minimal dependencies, feature flagging, and code review. Built through iterative AI-assisted discussions, it prioritizes hook-centric logic, reusable components, and scalable workflows.
+The world's first **AI-native development framework** that enables solo developers to build applications with the capability and quality of entire development teams.
 
-## Core Tenets
-- **Mobile-First UX/UI**: Base styles for small screens in Arts, scale with media queries.
-- **Hook-Centric**: Logic in Works (hooks/utilities) for state, side effects.
-- **TypeScript Preferred**: For type safety in Models.
-- **Minimal Dependencies**: Case-by-case evaluation (e.g., React Markdown for docs, DOMPurify for XSS).
-- **Adaptability**: Dev team selects rendering/deployment approach.
+## 🏛️ **The Mayor-Citizens Model**
 
-## Structure
-- **City Hall**: Centralized FE state management (`context/Providers.tsx`, wraps `App.tsx` with error boundary).
-- **Works**: Hooks/utilities (`hooks/`, `utils/`) for logic, security, a11y, i18n, analytics, feature flags.
-- **Components**: Reusable FE components (`components/`) in Storybook.
-- **Arts**: Styles (`styles/arts.css`) with Tailwind, mobile-first, responsive, themes.
-- **Store**: FE state (`store/`) and BE APIs (`server/api/`).
-- **Models**: Types (`types/`) for FE/BE.
-- **Districts**: Routing (`routes/` FE, `server/routes/` BE).
-- **Specs**: Docs (`README.md`, `COMPLIANCE.md`), configs, DevOps, code review.
+**You are the Mayor** of your digital city, providing vision and governance while **AI Citizens** serve as your specialized council of experts - from City Planners to Security Chiefs - working autonomously to build your perfect application.
 
-## Setup
-1. Clone repo: `git clone <repo-url>`.
-2. Install: `npm install`.
-3. Configure `.env`: Set vars (e.g., `FEATURE_FLAGS=NEW_FEATURE_A:T1`).
-4. Run FE: `npm run dev` (Vite).
-5. Run BE: `npm run start:server` (Node.js/Express).
-6. Test: `npm test` (unit), `npm run e2e` (E2E).
-7. Build: `npm run build` (FE Vite, BE esbuild).
-8. Deploy: FE Vercel/Netlify, BE Heroku/AWS.
+## 🚀 **Key Innovations**
 
-## Key Features
-- **Mobile-First Design**: Tailwind in Arts with responsive breakpoints.
-- **Feature Flagging**: Multi-variant flags (`utils/flags/getFeatureFlags.ts`), set via URL/env, tied to branches (`feature/`, `fix/`).
-- **Code Review**: PRs for branches, solo/team approvals, automated checks (ESLint, conventions, a11y) in CI/CD.
-- **Optimization**: Network caching, critical CSS, minification, lazy loading, memoization (FE); query caching, compression (BE).
-- **Rendering**: CSR (React), SSR/SSG (Next.js), PWA (service workers), Native/Hybrid (React Native/Capacitor).
-- **Compliance**: WCAG/GDPR via `utils/a11y/`, `utils/compliance/`, `COMPLIANCE.md`.
+- **🧠 AI-Native Architecture**: Built from the ground up for AI collaboration
+- **🏙️ Self-Organizing AI Council**: AI citizens automatically specialize and coordinate 
+- **📋 Tests as City Policies**: Tests govern behavior and ensure quality
+- **📚 Context-Rich Development**: Every element guides AI decision-making
+- **⚙️ Template-Driven Autonomy**: Pre-built workflows enable autonomous execution
 
-## Usage
-- **FE State with City Hall**:
-  ```tsx
-  import Providers from './context/Providers';
-  import AppRoutes from './routes/routes';
+## 📖 **Documentation**
 
-  const App = () => (
-    <Providers>
-      <AppRoutes />
-    </Providers>
-  );
-  ```
+### **Core Framework**
+- [**README**](docs/README.md) - Complete framework overview
+- [**Architecture**](docs/core/ARCHITECTURE.md) - System design and patterns
+- [**Project Structure**](docs/core/PROJECT.md) - Framework organization
+- [**Platform Support**](docs/core/PLATFORM_SUPPORT.md) - Web, native, hybrid platforms
+- [**Technology Stack**](docs/core/TECH_STACK_OPTIONS.md) - All technology choices
+- [**API Reference**](docs/core/API.md) - Framework APIs
+- [**UX Guidelines**](docs/core/UX.md) - User experience principles
+- [**Security**](docs/core/SECURITY.md) - Security best practices
+- [**Compliance**](docs/core/COMPLIANCE.md) - WCAG, GDPR guidelines
+- [**Specifications**](docs/core/SPECS.md) - Technical specifications
 
-- **Feature Flag in Component**:
-  ```tsx
-  import { useFeatureFlags } from './store/useFeatureFlags';
+### **AI System**
+- [**AI Framework**](docs/ai-system/AI_FRAMEWORK_SPEC.md) - AI-native architecture
+- [**Context System**](docs/ai-system/AI_CONTEXT_SYSTEM.md) - AI knowledge infrastructure
+- [**Agent Integration**](docs/ai-system/AI_AGENT_INTEGRATION.md) - Multi-agent coordination
+- [**AI Roles**](docs/ai-system/AI_ROLES_SYSTEM.md) - Specialized AI citizen roles
+- [**Context Definition**](docs/ai-system/CONTEXT_DEFINITION.md) - Project context building
+- [**Role Templates**](docs/ai-system/ROLE_TEMPLATES.md) - Workflow templates
 
-  const Component = () => {
-    const flags = useFeatureFlags();
-    return flags['NEW_FEATURE_A'] === 'T1' ? <NewFeature /> : <OldFeature />;
-  };
-  ```
+### **Implementation**
+- [**CLI Specification**](docs/implementation/CREATE_CITY_APP_SPEC.md) - CLI tool design
+- [**Testing Strategy**](docs/implementation/TESTING_STRATEGY.md) - Comprehensive testing approach
 
-- **BE API Endpoint**:
-  ```ts
-  // server/api/auth.ts
-  import express from 'express';
+### **Development**
+- [**Development Journey**](docs/DEV_JOURNEY.md) - Complete evolution and decisions
+- [**Project Q&A**](docs/PROJECT_QA.md) - Implementation planning questions
 
-  const router = express.Router();
-  router.post('/login', (req, res) => {
-    res.json({ id: 'user1', name: 'User' });
-  });
-  export default router;
-  ```
+### **Reference**
+- [**Original Framework**](docs/reference/CITY_APP_FRAMEWORK.md) - Complete chat history
+- [**Case Study**](docs/reference/city_framework_case_study.md) - Dashboard example
+- [**Arts UI Framework**](docs/reference/ARTS_UI_FRAMEWORK.md) - UI system details
+- [**History**](docs/reference/HISTORY.md) - Framework evolution
+- [**AI Context (Legacy)**](docs/reference/AI_CONTEXT.md) - Original AI context
+- [**TODOs**](docs/reference/TODOS.md) - Task tracking
 
-## Contributing
-- Branches: `feature/`, `fix/`, `doc/`, `chore/`, `refactor/`.
-- Naming: `{type}{PascalCase}` IDs, `camelCase` variables.
-- Submit PRs, ensure CI/CD passes (linting, tests, conventions, a11y).
-- Document in `SPECS.md`, `COMPLIANCE.md`.
+## 🎯 **Quick Start**
 
-## License
-MIT
+*Coming soon: Once implementation begins*
 
-## Resources
-- Full chat thread: `CITY_APP_FRAMEWORK.md` (complete documentation and history).
-- Case Study: `city_framework_case_study.md` (dashboard app example).
+```bash
+# Install the CLI
+npm install -g create-city-app
+
+# Create a new city
+npx create-city-app my-app
+
+# Answer a few questions about your vision
+# AI citizens organize and build your app
+# Start developing with your AI council
+```
+
+## 🏗️ **Current Status**
+
+**Phase**: Comprehensive specification complete, implementation planning in progress
+
+- ✅ Framework architecture and philosophy defined
+- ✅ AI system design and role specialization complete
+- ✅ Testing strategy and quality assurance planned
+- ✅ Multi-platform support strategy designed
+- ✅ Implementation roadmap and questions prepared
+- 🔄 CLI tool implementation starting soon
+
+## 🌟 **Vision**
+
+Transform solo development by providing **enterprise-level development capabilities through AI collaboration**. Enable anyone with vision to build world-class applications with the support of an autonomous AI development team.
+
+## 📜 **License**
+
+MIT - Built for the community of solo developers and AI enthusiasts.
+
+---
+
+*The future of development is collaborative intelligence between human creativity and AI execution.* 🏙️✨
