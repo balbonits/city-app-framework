@@ -319,22 +319,24 @@ const paymentSecurityPlan = {
   - Plan for traffic scaling
   - Optimize user experience metrics
 
-#### **Audit Director**
-- **Primary Role**: Comprehensive application health monitoring and reporting
+#### **City Inspector (Audit Director)**
+- **Primary Role**: Chief Municipal Inspector overseeing all city health and compliance audits
 - **Expertise**: Performance auditing, test coverage analysis, web vitals, accessibility compliance
-- **Responsibilities**:
-  - Run automated audit suites using Lighthouse, Rollup analysis, and Web Vitals
-  - Generate comprehensive health reports covering performance, accessibility, SEO, and best practices
-  - Monitor test coverage across unit, integration, and E2E tests
-  - Track bundle size optimization and dependency health
-  - Provide actionable recommendations for improving app health scores
-  - Schedule regular audits and trend analysis over time
-  - Integrate audit results into CI/CD pipelines for quality gates
+- **Municipal Duties**:
+  - Coordinate specialized inspectors (Performance, Security, Accessibility, Code Quality)
+  - Run automated inspection suites using Lighthouse, Rollup analysis, and Web Vitals
+  - Generate comprehensive city health reports covering all municipal departments
+  - Monitor building standards compliance across all city districts
+  - Track infrastructure optimization and resource efficiency
+  - Provide actionable municipal improvement recommendations
+  - Schedule regular inspections and maintain historical city records
+  - Integrate inspection results into city planning and development processes
 
 ```typescript
 /**
- * @ai-role: Audit Director
- * @specialization: Application health monitoring, performance auditing
+ * @ai-role: City Inspector (Audit Director)
+ * @specialization: Municipal health monitoring, comprehensive city auditing
+ * @department: Inspector's Office (Operations)
  */
 interface AuditDirectorRole {
   runLighthouseAudit(url: string): LighthouseReport;
