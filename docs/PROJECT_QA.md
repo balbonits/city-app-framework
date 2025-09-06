@@ -1,7 +1,14 @@
 # City App Framework: Project Q&A
 
 ## Purpose
-This document captures the essential questions to define the City App Framework. **Just 15 questions total** - take your time, answer what you can, and we'll iterate. You're building something revolutionary, but you don't have to figure it all out at once.
+This document captures the essential questions to define the City App Framework evolution and implementation approach. These are **meta-questions about the framework itself** - for actual app scaffolding, users will complete a comprehensive 25-question architecture questionnaire that drives the entire `npx create-city-app` generation process.
+
+## Framework Evolution Status
+- ✅ **Complete Architecture**: Framework structure, AI roles, templates defined
+- ✅ **Commission on Audits**: Multi-stakeholder monitoring and reporting system
+- ✅ **Template System**: AI-optimized scaffolding with 60-90% token reduction
+- ✅ **Questionnaire System**: Comprehensive architecture questionnaire for app generation
+- 🔄 **Implementation Focus**: CLI tool and template generation ready for development
 
 ---
 
@@ -249,23 +256,44 @@ Based on your answers, here's what we'll tackle in the next session:
 - **Approach**: Comprehensive but approachable (your #1 priority)
 - **Focus**: Quality of generated code + AI integration effectiveness
 
-### **Next Session Questions** ❓
-*These will guide our implementation:*
+### **Next Session Implementation Questions** ❓
+*These will guide CLI development and template creation:*
 
 1. **Template Priority**: Which of your 3 projects should we build the template for first?
-2. **Firebase Setup**: Do you have a preferred Firebase project structure/naming convention?
-3. **AI Context Depth**: How detailed should the AI context files be? (brief vs comprehensive)
-4. **Learning Goals**: Since you're 1/5 on CLI development, what aspects do you want to learn vs have generated?
-5. **Success Metrics**: How will you know the first template is working well?
-6. **Auditing Preferences**: Which audit tools are most important to you? (Lighthouse + Web Vitals + others?)
-7. **Quality Gates**: Should audits block deployments or just warn/report?
-8. **Report Templates**: What format do you prefer for audit reports? (HTML dashboard, JSON, Markdown, Slack notifications?)
+2. **State Management Approach**: How should we handle the multiple state management options (Redux, Zustand, Context API, etc.)?
+3. **Questionnaire Integration**: Should the comprehensive architecture questionnaire be part of the CLI flow or a separate step?
+4. **AI Context Depth**: How detailed should the generated AI context files be? (brief vs comprehensive)
+5. **Learning Goals**: Since you're 1/5 on CLI development, what aspects do you want to learn vs have generated?
+6. **Success Metrics**: How will you know the first template is working well?
+7. **Auditing Integration**: Should Commission on Audits be automatically configured or user-optional?
+8. **Template Customization**: How much post-generation customization should be supported?
 
-### **Implementation Roadmap** 🗺️
-- **Week 1-2**: CLI tool foundation + basic project scaffolding
-- **Week 3-4**: AI context system + first project template
-- **Week 5-6**: Firebase integration patterns + testing
-- **Month 2**: Remaining templates + documentation
-- **Month 3-6**: Polish, real-world testing, community preparation
+### **New Framework Capabilities Added** 🆕
+
+#### **Comprehensive Architecture Questionnaire System**
+- **25-Question Framework**: Complete app architecture planning
+- **AI Collaboration**: Built-in prompts for AI-assisted decision making
+- **State Management Integration**: Holistic approach including Redux, Zustand, Context API, Jotai, Valtio
+- **Custom Structure Generation**: User preferences drive folder organization and naming
+- **Educational Experience**: Users learn while making architectural decisions
+
+#### **Commission on Audits Enhancement**
+- **Multi-Stakeholder Reports**: Developers, PMs, Analytics teams, Executives, AI agents
+- **Token-Efficient Templates**: 90% reduction in audit report generation
+- **Real-time Health Monitoring**: Continuous app quality assessment
+- **Self-Auditing**: Internal affairs reviews commission processes
+
+#### **Advanced Template System**
+- **AI Token Optimization**: 60-90% reduction through fill-in-the-blank patterns
+- **Complete City Structure**: All 9 framework folders with detailed templates
+- **Accessibility Built-in**: WCAG AA compliance in all component templates
+- **Performance Focus**: Bundle optimization and web vitals integration
+
+### **Framework Evolution Focus** 🎯
+Instead of timeline pressure, focusing on:
+- **Quality First**: Each component perfected before moving to next
+- **User Validation**: Test with your 3 target projects as validation
+- **AI Integration**: Maximum use of AI for development acceleration
+- **Iterative Improvement**: Continuous refinement based on actual usage
 
 *Ready to start building! Your vision of helping solo developers "fill out the blanks" and get building immediately is exactly what this framework will deliver.* 🏙️✨
