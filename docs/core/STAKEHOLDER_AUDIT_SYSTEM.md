@@ -1,61 +1,65 @@
-# 🏛️ City Inspector's Office: Multi-Stakeholder Intelligence System
+# 🏛️ Commission on Audits: Multi-Stakeholder Intelligence System
 
 ## Overview
 
-In the City App Framework, the **City Inspector's Office** serves as the municipal department responsible for monitoring the health, safety, and compliance of your digital city. Just as real cities have building inspectors, health inspectors, and fire marshals, your City App has specialized **AI Inspector Citizens** who audit every aspect of your application.
+In the City App Framework, the **Commission on Audits** serves as the independent oversight body responsible for monitoring the health, efficiency, and integrity of your digital city. Just like real government audit commissions that investigate corruption and ensure accountability, your City App has an autonomous **AI Audit Commission** that maintains transparency and quality across all municipal operations.
 
-The Inspector's Office serves **all city stakeholders** - from developers (construction workers) to PMs (city planners), analytics teams (traffic analysts) to executives (city council). Most importantly, it provides **AI-readable municipal records** that enable Claude Code and other AI agents to continuously analyze, learn from, and act on inspection results.
+Drawing inspiration from the Philippine Commission on Audits and similar oversight bodies worldwide, this system provides independent, comprehensive auditing that keeps all city departments - including itself - accountable to the highest standards.
 
-## 🏛️ City Inspector's Office Structure
+The Commission serves **all city stakeholders** - from developers (construction workers) to PMs (city planners), analytics teams (traffic analysts) to executives (city council). Most importantly, it provides **AI-readable audit records** that enable Claude Code and other AI agents to continuously analyze, learn from, and act on audit findings.
 
-### **🔍 Inspector Specializations**
-- **Performance Inspector**: Monitors city traffic flow and infrastructure efficiency
-- **Security Inspector**: Protects against threats and ensures compliance  
-- **Accessibility Inspector**: Ensures equal access for all digital citizens
-- **Code Quality Inspector**: Reviews building standards and structural integrity
-- **Environmental Inspector**: Monitors resource usage and sustainability
-- **Fire Marshal**: Emergency response and disaster preparedness
-- **Health Inspector**: Public health and user experience monitoring
+## 🏛️ Commission on Audits Structure
+
+### **🔍 Audit Specializations**
+- **Performance Auditor**: Monitors city infrastructure efficiency and resource optimization
+- **Security Auditor**: Investigates vulnerabilities and compliance violations
+- **Accessibility Auditor**: Ensures equal access and civil rights compliance
+- **Code Quality Auditor**: Reviews building standards and regulatory adherence  
+- **Financial Auditor**: Monitors resource usage and operational efficiency
+- **Compliance Auditor**: Ensures adherence to municipal codes and regulations
+- **Internal Affairs**: Audits the audit commission itself for transparency
 
 ## 🏙️ City Stakeholder Ecosystem
 
 ### **👷 Construction Workers (Developers)**
-- **Inspector Reports**: Technical violations, building code compliance, structural integrity
-- **Inspection Frequency**: Every build, pull request, deployment
+- **Audit Reports**: Technical violations, building code compliance, structural integrity
+- **Audit Frequency**: Every build, pull request, deployment
 - **Report Format**: Detailed technical reports, IDE integration, CLI output
 
 ### **🏛️ City Planners (Product Managers)**  
-- **Inspector Reports**: Municipal health, citizen satisfaction, infrastructure efficiency
-- **Inspection Frequency**: Weekly/monthly strategic reviews
+- **Audit Reports**: Municipal health, citizen satisfaction, infrastructure efficiency
+- **Audit Frequency**: Weekly/monthly strategic reviews
 - **Report Format**: Executive dashboards, trend analysis, ROI metrics
 
 ### **📊 Traffic Analysts (Analytics Teams)**
-- **Inspector Reports**: Traffic flow patterns, congestion points, citizen behavior
-- **Inspection Frequency**: Continuous monitoring, special event analysis
+- **Audit Reports**: Traffic flow patterns, congestion points, citizen behavior
+- **Audit Frequency**: Continuous monitoring, special event analysis
 - **Report Format**: Data exports, API integration, custom dashboards
 
 ### **🏛️ City Council (Executives/Stakeholders)**
-- **Inspector Reports**: Overall city health, competitive standing, strategic risks
-- **Inspection Frequency**: Quarterly reviews, board presentations
+- **Audit Reports**: Overall city health, competitive standing, strategic risks
+- **Audit Frequency**: Quarterly reviews, board presentations
 - **Report Format**: High-level summaries, visual dashboards, trend reports
 
-### **🤖 AI Inspector Citizens (Claude Code, etc.)**
-- **Inspector Reports**: Structured municipal data, historical patterns, predictive insights
-- **Inspection Frequency**: Continuous analysis, real-time decision making
+### **🤖 AI Audit Commission (Claude Code, etc.)**
+- **Audit Reports**: Structured municipal data, historical patterns, predictive insights
+- **Audit Frequency**: Continuous analysis, real-time decision making
 - **Report Format**: JSON schemas, semantic annotations, contextual metadata
 
-## 📋 Inspection Types & Schedules
+## 📋 Audit Types & Schedules
 
-### **🔄 Routine Inspections**
+### **🔄 Routine Audits**
 - **Daily**: Performance monitoring, error tracking, security scans
-- **Weekly**: Code quality review, dependency health, accessibility checks
+- **Weekly**: Code quality review, dependency health, accessibility compliance
 - **Monthly**: Comprehensive audit, trend analysis, competitive benchmarking
+- **Quarterly**: Commission findings report, strategic recommendations
 
-### **🔍 Special Inspections**
-- **Pre-Launch**: Full city inspection before major releases
-- **Post-Incident**: Emergency response and root cause analysis
+### **🔍 Special Investigations**
+- **Pre-Launch Audit**: Full city examination before major releases
+- **Post-Incident Investigation**: Emergency response and root cause analysis
 - **Compliance Audit**: Regulatory adherence (GDPR, WCAG, SOX)
-- **Competitive Analysis**: Benchmarking against other cities
+- **Competitive Intelligence**: Benchmarking against other cities
+- **Internal Affairs Review**: Self-audit of commission processes and accuracy
 
 ## AI-Readable Audit Schema
 

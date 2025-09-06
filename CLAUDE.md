@@ -78,7 +78,8 @@ city-app/
 │   ├── styles/           # Arts (Styling)
 │   ├── store/            # Store (State and APIs)
 │   ├── types/            # Models (TypeScript types)
-│   └── routes/           # Districts (Routing)
+│   ├── routes/           # Districts (Routing)
+│   └── audits/           # Commission on Audits (Health monitoring)
 ```
 
 ## Current Status
