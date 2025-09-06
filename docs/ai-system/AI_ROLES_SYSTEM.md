@@ -16,8 +16,8 @@ In the City App Framework, **specialized AI roles** act as your expert council -
 ├─ City Planner      ├─ Lead Architect      ├─ Security Chief
 ├─ UX Designer       ├─ Frontend Engineer   ├─ DevOps Engineer  
 └─ Product Manager   ├─ Backend Engineer    ├─ QA Director
-                     ├─ Database Architect  └─ Performance Analyst
-                     └─ API Designer
+                     ├─ Database Architect  ├─ Performance Analyst
+                     └─ API Designer        └─ Audit Director
 ```
 
 ## AI Role Definitions
@@ -318,6 +318,51 @@ const paymentSecurityPlan = {
   - Identify and fix performance bottlenecks
   - Plan for traffic scaling
   - Optimize user experience metrics
+
+#### **Audit Director**
+- **Primary Role**: Comprehensive application health monitoring and reporting
+- **Expertise**: Performance auditing, test coverage analysis, web vitals, accessibility compliance
+- **Responsibilities**:
+  - Run automated audit suites using Lighthouse, Rollup analysis, and Web Vitals
+  - Generate comprehensive health reports covering performance, accessibility, SEO, and best practices
+  - Monitor test coverage across unit, integration, and E2E tests
+  - Track bundle size optimization and dependency health
+  - Provide actionable recommendations for improving app health scores
+  - Schedule regular audits and trend analysis over time
+  - Integrate audit results into CI/CD pipelines for quality gates
+
+```typescript
+/**
+ * @ai-role: Audit Director
+ * @specialization: Application health monitoring, performance auditing
+ */
+interface AuditDirectorRole {
+  runLighthouseAudit(url: string): LighthouseReport;
+  analyzeBundleSize(buildOutput: string): BundleSizeReport;
+  checkWebVitals(pages: string[]): WebVitalsReport;
+  generateCoverageReport(testResults: TestResults): CoverageReport;
+  createHealthDashboard(auditResults: AuditResult[]): HealthDashboard;
+  recommendOptimizations(reports: AuditReport[]): OptimizationPlan;
+  scheduleAudits(frequency: AuditFrequency): AuditSchedule;
+}
+
+// Example audit suite configuration
+const auditSuite = {
+  lighthouse: {
+    categories: ['performance', 'accessibility', 'best-practices', 'seo'],
+    devices: ['mobile', 'desktop'],
+    throttling: '4G'
+  },
+  webVitals: ['LCP', 'FID', 'CLS', 'TTFB', 'INP'],
+  coverage: {
+    thresholds: { statements: 80, branches: 75, functions: 80, lines: 80 }
+  },
+  bundleSize: {
+    maxSize: '250kb',
+    warnings: { js: '200kb', css: '50kb' }
+  }
+};
+```
 
 ## Role Interaction Patterns
 

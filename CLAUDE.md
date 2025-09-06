@@ -27,7 +27,7 @@ The **world's first AI-native development framework** that enables solo develope
 ### 2. Mayor-Citizens Governance Model
 - **Planning Department**: City Planner, UX Designer, Product Manager
 - **Engineering Department**: Lead Architect, Frontend/Backend Engineers, Database Architect
-- **Operations Department**: Security Chief, DevOps Engineer, QA Director, Performance Analyst
+- **Operations Department**: Security Chief, DevOps Engineer, QA Director, Performance Analyst, Audit Director
 
 ### 3. Tests as City Policies
 - Tests aren't just validation - they're governance rules
@@ -140,6 +140,7 @@ As the **Lead Architect** and **City Planner** for this framework:
 - **Must Use**: React, TypeScript, Node.js/Python, Firebase
 - **Want to Avoid**: Too many 3rd-party plugins - only essential ones
 - **Packaging**: `npx create-city-app` similar to create-react-app
+- **Quality Focus**: Comprehensive auditing suite for app health monitoring (performance, accessibility, security)
 
 ### Technical Constraints
 - Must work with Claude Code as primary AI agent

@@ -257,6 +257,9 @@ Based on your answers, here's what we'll tackle in the next session:
 3. **AI Context Depth**: How detailed should the AI context files be? (brief vs comprehensive)
 4. **Learning Goals**: Since you're 1/5 on CLI development, what aspects do you want to learn vs have generated?
 5. **Success Metrics**: How will you know the first template is working well?
+6. **Auditing Preferences**: Which audit tools are most important to you? (Lighthouse + Web Vitals + others?)
+7. **Quality Gates**: Should audits block deployments or just warn/report?
+8. **Report Templates**: What format do you prefer for audit reports? (HTML dashboard, JSON, Markdown, Slack notifications?)
 
 ### **Implementation Roadmap** 🗺️
 - **Week 1-2**: CLI tool foundation + basic project scaffolding
