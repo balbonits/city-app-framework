@@ -80,6 +80,11 @@ native-app/
 │   ├── navigation/        # React Navigation
 │   ├── screens/          # Screen components
 │   ├── services/         # Native modules
+│   ├── audits/           # Commission on Audits (Performance monitoring)
+│   │   ├── performance/  # App performance metrics
+│   │   ├── memory/       # Memory usage tracking
+│   │   ├── battery/      # Battery optimization reports
+│   │   └── reports/      # Platform-specific audit reports
 │   └── utils/            # Platform utilities
 ├── ios/                   # iOS project files
 ├── android/              # Android project files

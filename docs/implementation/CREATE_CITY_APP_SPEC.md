@@ -374,6 +374,11 @@ my-app/
 │   │   ├── api.ts
 │   │   ├── user.ts
 │   │   └── common.ts
+│   ├── audits/            # Commission on Audits (Health monitoring)
+│   │   ├── lighthouse/    # Lighthouse performance reports
+│   │   ├── coverage/      # Test coverage reports
+│   │   ├── security/      # Security audit results
+│   │   └── reports/       # Formatted audit reports
 │   ├── routes/            # Districts (Routing)
 │   │   ├── AppRoutes.tsx
 │   │   └── PrivateRoute.tsx

@@ -181,6 +181,11 @@ city-app/
 │   ├── hooks/             # Works + AI Hooks
 │   ├── utils/             # Works + AI Utils
 │   ├── components/        # Components + AI Templates
+│   ├── audits/            # Commission on Audits + AI Health Monitoring
+│   │   ├── performance/   # Performance audit reports and metrics
+│   │   ├── security/      # Security audit and vulnerability tracking
+│   │   ├── accessibility/ # Accessibility compliance monitoring
+│   │   └── reports/       # Multi-stakeholder audit reports
 │   ├── ai/                # Observatory (new)
 │   │   ├── monitor/       # AI monitoring
 │   │   ├── validate/      # AI validation
