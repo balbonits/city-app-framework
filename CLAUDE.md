@@ -3,11 +3,23 @@
 ## Project Overview
 **Name**: City App Framework  
 **Type**: Revolutionary AI-native development framework  
-**Status**: Specification complete, implementation planning phase  
+**Status**: MVP implementation ready - CLI tool with Claude Code optimization  
 **Repository**: https://github.com/balbonits/city-app-framework  
 
 ## What This Framework Is
 The **world's first AI-native development framework** that enables solo developers to build applications with enterprise-level capabilities through AI collaboration. Uses a city governance metaphor where the developer is the "mayor" and AI agents are specialized "citizens" who build, maintain, and evolve the application.
+
+## MVP Focus: Claude Code + Vite/Next.js Simplicity
+
+### **Current Implementation Phase**
+We're building the **MVP version** that combines the proven simplicity of `create-next-app` and `create-vite` with comprehensive Claude Code integration. The full AI-citizen system is the long-term vision; the MVP focuses on immediate productivity gains.
+
+### **MVP Key Differentiators**
+1. **8-Question Setup**: Fast project generation following Next.js/Vite patterns
+2. **Claude Code Optimization**: Rich context files (CLAUDE.md + .claude/commands/) from day one
+3. **Quality Defaults**: TypeScript strict mode, testing, accessibility built-in
+4. **Template-Driven**: Minimal, Dashboard, E-commerce, Blog templates with AI token optimization
+5. **Multi-Platform Ready**: Web + mobile from single codebase (Capacitor/React Native)
 
 ## Core Philosophy & Metaphor
 - **Developer = Mayor**: Provides vision, policies, and governance
@@ -82,28 +94,29 @@ city-app/
 │   └── audits/           # Commission on Audits (Health monitoring)
 ```
 
-## Current Status
+## Current Status (MVP Focus)
 
 ### Completed ✅
-- Complete framework architecture and philosophy
-- AI system design with specialized roles
-- Multi-platform support strategy
-- Comprehensive testing approach
-- CLI specification and design
-- Template system with quality gates
-- Documentation organization and context
+- **MVP Architecture**: CLI structure, build system, template system
+- **Documentation Complete**: MVP_SPECIFICATION.md, CLI_ARCHITECTURE.md, BUILD_SYSTEM.md
+- **Simplified Approach**: 8-question CLI following Next.js/Vite patterns
+- **Claude Code Integration**: Rich context generation system designed
+- **Template System**: Multi-layer inheritance with AI optimization
+- **Testing Strategy**: Unit, integration, and E2E testing approach
 
-### In Progress 🔄
-- Implementation planning through PROJECT_QA.md (15 essential questions)
-- Technology stack finalization
-- MVP definition based on user needs
+### Ready for Implementation 🚀
+- **CLI Development**: TypeScript + tsx workflow documented
+- **Template Processing**: Handlebars + string replacement system
+- **Context Generation**: CLAUDE.md + .claude/commands/ system
+- **Build Pipeline**: Complete npm publishing workflow
+- **Quality Gates**: ESLint, Prettier, TypeScript strict mode
 
 ### Next Steps 📋
-1. User completes PROJECT_QA.md to define priorities
-2. Build CLI tool for project scaffolding
-3. Implement context building system
-4. Create AI integration workflows
-5. Add multi-platform support
+1. **Answer PROJECT_QA.md**: 20 implementation-focused questions
+2. **Initialize Repository**: Set up CLI development environment
+3. **Build First Template**: Start with user's priority template
+4. **Implement CLI Core**: Basic command structure and prompts
+5. **Test MVP**: Generate working projects with Claude Code context
 
 ## AI Agent Role (Claude Code)
 
@@ -141,7 +154,8 @@ As the **Lead Architect** and **City Planner** for this framework:
 - **Must Use**: React, TypeScript, Node.js/Python, Firebase
 - **Want to Avoid**: Too many 3rd-party plugins - only essential ones
 - **Packaging**: `npx create-city-app` similar to create-react-app
-- **Quality Focus**: Comprehensive auditing suite for app health monitoring (performance, accessibility, security)
+- **Quality Focus**: Commission on Audits with multi-stakeholder reporting
+- **MVP Approach**: 8 questions vs 25, focusing on speed + Claude Code integration
 
 ### Technical Constraints
 - Must work with Claude Code as primary AI agent
@@ -172,20 +186,22 @@ As the **Lead Architect** and **City Planner** for this framework:
 
 ## Key Files & Documentation
 
-### Core Framework Documentation
-- `docs/README.md` - Complete documentation index
-- `docs/DEV_JOURNEY.md` - Complete evolution and decision history
-- `docs/PROJECT_QA.md` - 15 essential implementation questions
+### MVP Implementation Documentation
+- `docs/MVP_SPECIFICATION.md` - Complete MVP approach and features  
+- `docs/core/CLI_ARCHITECTURE.md` - 13-component CLI system design
+- `docs/core/BUILD_SYSTEM.md` - Build pipeline and development workflow
+- `docs/core/FRAMEWORK_QUESTIONNAIRE_SYSTEM.md` - Updated for MVP approach
+- `docs/PROJECT_QA.md` - 20 implementation-focused questions
 
-### AI System Documentation
-- `docs/ai-system/AI_FRAMEWORK_SPEC.md` - AI-native architecture
-- `docs/ai-system/AI_ROLES_SYSTEM.md` - Specialized AI citizen roles
-- `docs/ai-system/ROLE_TEMPLATES.md` - Pre-built workflows
-- `docs/ai-system/CONTEXT_DEFINITION.md` - Project context building
+### Template System Documentation
+- `docs/core/CITY_STRUCTURE_TEMPLATES.md` - Complete scaffolding templates
+- `docs/core/STAKEHOLDER_AUDIT_SYSTEM.md` - Commission on Audits system
 
-### Implementation Documentation
-- `docs/implementation/CREATE_CITY_APP_SPEC.md` - CLI tool design
-- `docs/implementation/TESTING_STRATEGY.md` - Comprehensive testing approach
+### Reference Documentation (Full Framework Vision)
+- `docs/ai-system/AI_FRAMEWORK_SPEC.md` - Complete AI-native architecture
+- `docs/ai-system/AI_ROLES_SYSTEM.md` - Specialized AI citizen roles (future)
+- `docs/ai-system/ROLE_TEMPLATES.md` - Pre-built workflows (future)
+- `docs/implementation/CREATE_CITY_APP_SPEC.md` - Original CLI specification
 
 ## Communication Patterns
 
@@ -235,7 +251,7 @@ This document will be updated as the project evolves. Key areas for updates:
 
 ---
 
-**Last Updated**: August 31, 2025 - Initial framework specification completion  
-**Next Update**: After PROJECT_QA.md completion and MVP definition
+**Last Updated**: September 6, 2025 - MVP specifications complete, ready for implementation  
+**Next Update**: After initial CLI development and first template validation
 
 *This context file ensures continuity and quality in our AI-human collaboration to build the future of development frameworks.*

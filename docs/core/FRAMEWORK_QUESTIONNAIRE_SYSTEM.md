@@ -1,122 +1,103 @@
-# City App Framework: Comprehensive Architecture Questionnaire System
+# City App Framework: MVP Questionnaire System
 
 ## Overview
 
-The City App Framework uses a comprehensive questionnaire-driven approach to scaffold applications that perfectly match user requirements. Rather than imposing opinionated templates, the framework asks strategic questions to understand project needs and generates customized architecture, folder structures, and configurations.
+The City App Framework MVP uses a streamlined questionnaire approach that balances simplicity with power. Drawing inspiration from `create-next-app` and `create-vite`, we ask 8 focused questions to scaffold projects quickly while providing comprehensive Claude Code integration for AI-driven development.
 
-## Philosophy: Adaptive Framework Design
+## MVP Philosophy: Vite/Next.js Simplicity + AI Context Excellence
 
-### **Traditional Approach Problems**:
-- One-size-fits-all templates
-- Opinionated architectural decisions
-- Users forced to work around framework constraints
-- Generic solutions that don't fit specific needs
+Based on research into how vibe coders work with AI tools, our MVP combines proven CLI patterns with the AI context setup that developers actually need.
 
-### **Our Questionnaire Approach Benefits**:
-- **User-Driven Architecture**: Every decision based on actual project requirements
-- **AI-Collaborative Planning**: Users can discuss answers with AI for better decisions
-- **Custom Scaffolding**: Generated structure perfectly matches project needs
-- **Educational Experience**: Users learn about options while making decisions
-- **Living Documentation**: Answers become project documentation
+## MVP Approach: Speed + Quality
 
-## Comprehensive Framework Coverage
+### **Why 8 Questions Instead of 25?**
+- **Next.js/Vite Success**: Proven 6-8 question pattern works
+- **Vibe Coder Needs**: Quick setup, immediate productivity
+- **AI Context Focus**: Rich context more valuable than extensive customization
+- **Smart Defaults**: Sensible choices reduce decision fatigue
 
-### **Complete Architecture Scope**
-The questionnaire covers every aspect of application architecture:
+### **MVP Benefits**:
+- **<2 Minute Setup**: From command to working project
+- **AI-Ready**: Comprehensive Claude Code context from day one
+- **Quality Defaults**: TypeScript strict mode, testing, accessibility
+- **Extensible**: Advanced customization through future questionnaire mode
 
-1. **Project Vision** (5 questions)
-   - Project type, domain, and purpose
-   - Target users and expected scale
-   - Platform requirements (web, mobile, desktop)
-   - Success criteria and business goals
-   - Timeline, resources, and constraints
+## MVP Questionnaire: 8 Focused Questions
 
-2. **Technical Architecture** (8 questions)
-   - Frontend framework and rendering approach
-   - Backend requirements and API strategy
-   - Database and data management strategy
-   - **State management philosophy and patterns**
-   - Routing and navigation approach
-   - Styling system and design methodology
-   - Authentication and authorization strategy
-   - API design and third-party integrations
+### **Core Questions (Next.js/Vite Pattern)**
 
-3. **Development Experience** (5 questions)
-   - Testing strategy and coverage requirements
-   - Development tools and workflow preferences
-   - Code organization and architectural patterns
-   - Performance optimization priorities
-   - Deployment and DevOps approach
+1. **Project Name**: `my-app` with npm name validation
+2. **TypeScript**: `Yes/No` (default: Yes)
+3. **Framework**: `React` (MVP scope)
+4. **State Management**: `Zustand/Redux Toolkit/Context API` (default: Zustand)
+5. **Styling**: `Tailwind CSS` (default: Yes)
+6. **AI Context**: `Claude Code setup` (default: Yes, recommended)
+7. **Commission on Audits**: `Quality monitoring` (default: Yes)
+8. **Template**: `Minimal/Dashboard/E-commerce/Blog` (default: Minimal)
 
-4. **Quality & Governance** (4 questions)
-   - Code quality standards and enforcement
-   - Accessibility and compliance requirements
-   - Security requirements and threat modeling
-   - Monitoring, auditing, and health checks
+### **Smart Defaults Philosophy**
+- **TypeScript**: Strict mode enabled (better AI validation)
+- **Zustand**: Lightweight, TypeScript-first state management
+- **Tailwind**: Utility classes perfect for AI generation
+- **Testing**: Vitest + React Testing Library
+- **Build Tool**: Vite (fast HMR for AI development)
+- **Quality Gates**: ESLint, Prettier, accessibility checks
 
-5. **AI Integration** (3 questions)
-   - AI development assistance preferences
-   - Context and documentation depth
-   - Automation and code generation preferences
+## State Management Integration
 
-## State Management Integration Example
+### **Q4: State Management Choice**
+```typescript
+// CLI Prompt
+? Which state management would you like? 
+  ● Zustand (Lightweight, TypeScript-first, simple API)
+  ○ Redux Toolkit (Predictable, DevTools, time-travel debugging)  
+  ○ Context API (Built-in React, component tree focused)
 
-Instead of separate questionnaires, state management becomes part of the holistic architecture discussion:
+// Generated Structure for Zustand:
+src/
+├── store/
+│   ├── index.ts           # Main store configuration
+│   ├── auth.ts            # Authentication state
+│   ├── ui.ts              # UI state (theme, modals)
+│   └── types.ts           # Store type definitions
 
-### **Q9: State Management Philosophy**
-```markdown
-**State Complexity Assessment:**
-How complex will your application's state be?
-- [ ] Simple (User preferences, theme, basic forms)
-- [ ] Moderate (Auth, user profile, settings, shared data)
-- [ ] Complex (Real-time data, multiple user roles, workflows)
-- [ ] Enterprise (Multi-tenant, permissions, data sync)
+// Generated for Redux Toolkit:
+src/
+├── store/
+│   ├── index.ts           # Store configuration
+│   ├── slices/
+│   │   ├── authSlice.ts   # Authentication slice
+│   │   └── uiSlice.ts     # UI state slice
+│   └── types.ts           # Redux type definitions
 
-**State Sharing & Performance:**
-- [ ] Component-local focus (minimal global state)
-- [ ] Moderate sharing (auth, theme, key settings)
-- [ ] Extensive sharing (interconnected components)
-- [ ] Performance critical (bundle size optimization)
-- [ ] Developer experience critical (debugging tools)
-
-**Preferred Approach:**
-- [ ] Redux Toolkit (Predictable, DevTools, time-travel debugging)
-- [ ] Zustand (Lightweight, TypeScript-first, simple API)
-- [ ] Context API (Built-in React, component tree focused)
-- [ ] Jotai (Atomic state, granular updates, bottom-up)
-- [ ] Valtio (Proxy-based, mutable style, direct mutations)
-- [ ] Mixed approach (different tools for different needs)
-- [ ] Custom solution (specific requirements)
-
-**Persistence Requirements:**
-What state should persist between sessions?
-- [ ] None (fresh state each time)
-- [ ] User preferences only
-- [ ] Authentication state
-- [ ] Work in progress/drafts
-- [ ] Complete application state
-
-**Custom Requirements:**
-_Describe any specific state patterns, real-time sync needs, offline support, or performance constraints..._
-
-**AI Collaboration Prompt:**
-> "Based on my state complexity, sharing needs, and performance priorities above, recommend the optimal state management approach and folder structure for my project. Consider how it integrates with my other architectural choices."
+// Generated for Context API:
+src/
+├── context/
+│   ├── AuthContext.tsx    # Authentication context
+│   ├── UIContext.tsx      # UI state context
+│   └── index.ts           # Context exports
 ```
 
-## Framework Generation Process
+### **Template Integration**
+State management templates are automatically customized based on:
+- **Template Choice**: Dashboard includes auth state, E-commerce adds cart state
+- **Persistence**: LocalStorage integration for user preferences
+- **DevTools**: Redux DevTools or Zustand DevTools based on choice
 
-### **Input: Completed Questionnaire**
-User answers 25 strategic questions about their project requirements, either independently or with AI collaboration.
+## MVP Generation Process
 
-### **Processing: Architecture Analysis**
-The framework analyzes answers to:
-- Detect conflicting requirements and suggest resolutions
-- Identify optimal tool combinations
-- Generate custom folder structures
-- Select appropriate templates and patterns
-- Configure development tools and workflows
+### **Input: 8 Focused Questions**
+User completes streamlined questionnaire in <2 minutes, following Next.js/Vite patterns.
 
-### **Output: Customized City App**
+### **Processing: Smart Template Selection**
+The framework uses answers to:
+- Select base template (Minimal, Dashboard, E-commerce, Blog)
+- Configure state management layer (Zustand, Redux, Context)
+- Set up styling system (Tailwind CSS configuration)
+- Generate Claude Code context files
+- Configure quality gates and auditing
+
+### **Output: AI-Ready City App**
 Generated project includes:
 
 1. **Optimal Architecture Blueprint**
@@ -155,34 +136,37 @@ Generated project includes:
 
 ## CLI Integration Workflow
 
-### **Project Creation Flow**
+### **Project Creation Flow (MVP)**
 ```bash
 npx create-city-app my-project
 
-? Welcome to City App Framework! How would you like to proceed?
-  ● Complete architecture questionnaire (Recommended for custom fit)
-  ○ Use preset template (Dashboard, E-commerce, Blog, Portfolio)  
-  ○ Minimal setup (Basic structure, configure later)
-
-? Questionnaire completion method:
-  ● Interactive mode (Guided questions with explanations)
-  ○ AI collaboration mode (Discuss requirements with AI first)
-  ○ File editing mode (Edit questionnaire markdown file)
-  ○ Import existing answers (Use previous project as starting point)
+? What is your project named? › my-app
+? Would you like to use TypeScript? › Yes
+? Which framework would you like to use? › React
+? Which state management would you like? › Zustand
+? Would you like to use Tailwind CSS? › Yes  
+? Would you like AI context setup? (recommended) › Yes
+? Would you like Commission on Audits? › Yes
+? Choose a starting template:
+  › Minimal (blank slate)
+  › Dashboard (admin panel)
+  › E-commerce (shop)
+  › Blog (CMS)
 ```
 
-### **Questionnaire Experience**
-- **Progressive Disclosure**: Questions build on previous answers
-- **Smart Defaults**: Reasonable defaults based on project type
-- **Conflict Detection**: Framework identifies incompatible choices
-- **AI Integration**: Built-in prompts for AI collaboration at each step
-- **Save & Resume**: Can pause and continue questionnaire later
+### **MVP Experience Features**
+- **Fast Flow**: 8 questions, 2 minutes total
+- **Smart Defaults**: `--yes` flag for all defaults
+- **Validation**: NPM name validation, dependency checks
+- **Progress Indicators**: Spinners and progress feedback
+- **Claude Integration**: Immediate AI context setup
 
-### **Generation & Validation**
-- **Architecture Review**: Summary of all decisions for user approval
-- **Conflict Resolution**: Alternative suggestions for incompatible choices
-- **Customization Options**: Fine-tune generated structure
-- **Validation Checks**: Ensure all required tools and dependencies available
+### **Generation & Quality Assurance**
+- **Template Processing**: Multi-layer template inheritance
+- **Context Generation**: Rich CLAUDE.md and .claude/ files
+- **Quality Gates**: TypeScript strict mode, ESLint, Prettier
+- **Dependency Installation**: Automatic npm/yarn installation
+- **Git Initialization**: Ready for version control
 
 ## Benefits for Different User Types
 
@@ -285,24 +269,48 @@ export const useAuthStore = create<AuthState>()(
 // All customized based on questionnaire responses
 ```
 
-## Success Metrics
+## MVP Success Metrics
 
 ### **User Experience**
-- **Setup Time**: Reduce project setup from days to hours
-- **Decision Quality**: Better architectural decisions through guided questions
-- **Learning**: Users understand their choices rather than accepting defaults
-- **Satisfaction**: High satisfaction with generated project structure
+- **Setup Time**: <2 minutes from command to working project
+- **First Success**: Project builds and runs on first try
+- **AI Productivity**: Claude Code immediately productive with context
+- **Learning Curve**: Minimal - follows Next.js/Vite patterns
 
-### **Framework Quality**  
-- **Adoption**: Users complete questionnaire vs choosing presets
+### **Framework Quality**
+- **Generation Success**: 100% working projects on first generation
+- **Code Quality**: All generated code passes linting and type checking
+- **Template Adoption**: Usage distribution across templates
 - **Customization**: How often users modify generated structure
-- **Reuse**: Users export/import questionnaire answers for new projects
-- **Community**: Sharing and evolution of questionnaire patterns
 
 ### **AI Integration**
-- **Collaboration**: Users engage with AI during questionnaire completion
-- **Context Quality**: AI provides better assistance with rich project context
-- **Efficiency**: Faster development with optimized AI collaboration setup
+- **Context Effectiveness**: Claude Code understanding and productivity
+- **Development Speed**: Time from idea to working feature
+- **Quality Maintenance**: AI-assisted quality gates and auditing
+
+## Future Evolution: Advanced Questionnaire Mode
+
+### **Post-MVP: Comprehensive Mode**
+Once MVP is validated, we can add an advanced mode with:
+- **Comprehensive Questionnaire**: 25+ questions for complex projects
+- **Architecture Planning**: Deep customization options
+- **AI Collaboration**: Extended AI planning discussions
+- **Custom Templates**: User-defined project structures
+
+### **CLI Integration**
+```bash
+npx create-city-app my-project --mode=advanced
+
+? Would you like to complete the comprehensive architecture questionnaire?
+  ● Yes (25+ questions, full customization)
+  ○ Use quick mode (8 questions, smart defaults)
+```
+
+This allows us to:
+1. **Validate MVP**: Simple, fast, AI-focused approach
+2. **Gather Feedback**: Understanding user needs and pain points  
+3. **Evolve Gradually**: Add complexity only where it adds value
+4. **Maintain Focus**: Keep the core experience simple and effective
 
 ---
 
