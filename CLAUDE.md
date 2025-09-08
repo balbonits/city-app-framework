@@ -103,6 +103,7 @@ city-app/
 - **Claude Code Integration**: Rich context generation system designed
 - **Template System**: Multi-layer inheritance with AI optimization
 - **Testing Strategy**: Unit, integration, and E2E testing approach
+- **GitHub Wiki**: Comprehensive 13-page documentation hub live at https://github.com/balbonits/city-app-framework/wiki
 
 ### Ready for Implementation 🚀
 - **CLI Development**: TypeScript + tsx workflow documented
@@ -193,6 +194,13 @@ As the **Lead Architect** and **City Planner** for this framework:
 - `docs/core/FRAMEWORK_QUESTIONNAIRE_SYSTEM.md` - Updated for MVP approach
 - `docs/PROJECT_QA.md` - 20 implementation-focused questions
 
+### Community Documentation (GitHub Wiki)
+- **Live Wiki**: https://github.com/balbonits/city-app-framework/wiki
+- **13 Comprehensive Pages**: Installation, Quick Start, CLI Usage, Templates, AI Integration
+- **Developer Guide**: Architecture, Contributing, Anti-Overengineering principles
+- **Template Documentation**: Blog/CMS, Minimal, and future template guides
+- **AI Context Setup**: Complete Claude Code integration instructions
+
 ### Template System Documentation
 - `docs/core/CITY_STRUCTURE_TEMPLATES.md` - Complete scaffolding templates
 - `docs/core/STAKEHOLDER_AUDIT_SYSTEM.md` - Commission on Audits system
@@ -251,7 +259,7 @@ This document will be updated as the project evolves. Key areas for updates:
 
 ---
 
-**Last Updated**: September 6, 2025 - MVP specifications complete, ready for implementation  
+**Last Updated**: September 8, 2025 - GitHub wiki completed with comprehensive community documentation  
 **Next Update**: After initial CLI development and first template validation
 
 *This context file ensures continuity and quality in our AI-human collaboration to build the future of development frameworks.*
