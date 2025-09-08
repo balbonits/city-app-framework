@@ -22,7 +22,11 @@ Which template should we implement first to validate the MVP?
 - [ ] **Terminal Game Template**: ASCII-based RPG (unique, fun demo)
 
 **Your Answer:**
-
+- [1] **Minimal Template**: Basic React + TypeScript setup (fastest to build)
+- [2] **Dashboard Template**: Admin panel with auth (matches most real projects)
+- [3] **Blog Template**: CMS-style for your portfolio site (personal use case)
+- [4] **Terminal Game Template**: ASCII-based RPG (unique, fun demo)
+* #1 would be MVP, while the rest is ordered by priority. you can say #2 is for "v1", while the rest is after that.
 
 ### **Q2: CLI Development Learning vs Generation**
 Since you're 1/5 on CLI development, how do you want to approach building the CLI?
@@ -32,6 +36,10 @@ Since you're 1/5 on CLI development, how do you want to approach building the CL
 - [ ] **Full AI Generation**: Focus only on templates and configuration
 
 **Your Answer:**
+- [ ] **Learn by Building**: Write CLI code yourself with AI guidance (educational)
+- [ ] **AI-Generated Foundation**: Have AI generate the CLI, then you customize (faster)
+- [ ] **Hybrid Approach**: AI generates structure, you learn by adding features
+- [X] **Full AI Generation**: Focus only on templates and configuration
 
 
 ### **Q3: Claude Code Context Depth**
@@ -42,6 +50,10 @@ How comprehensive should the generated AI context files be?
 - [ ] **Comprehensive Context**: Everything + architectural decisions + learning guides
 
 **Your Answer:**
+- [ ] **Minimal Context**: Basic CLAUDE.md with project overview (fast generation)
+- [ ] **Standard Context**: CLAUDE.md + .claude/commands/ (MVP spec level)
+- [ ] **Rich Context**: Full documentation + AI prompts + examples
+- [X] **Comprehensive Context**: Everything + architectural decisions + learning guides
 
 
 ### **Q4: State Management Implementation**
@@ -52,6 +64,10 @@ How should we handle the 3 state management options (Zustand, Redux, Context API
 - [ ] **Template-Specific**: Different templates use different state management
 
 **Your Answer:**
+- [ ] **Zustand Only**: Focus on one option, do it perfectly (MVP approach)
+- [ ] **All Three Options**: Complete implementation of all (more complex)
+- [ ] **Zustand + Context**: Cover lightweight and built-in options
+- [X] **Template-Specific**: Different templates use different state management
 
 
 ### **Q5: Firebase Integration Level**
@@ -62,6 +78,11 @@ Since you want Firebase as db & auth, how deep should the integration be?
 - [ ] **Progressive Setup**: Basic config, with expansion templates available
 
 **Your Answer:**
+- [1] **Configuration Only**: Firebase config files and environment setup
+- [3] **Auth Templates**: Complete authentication setup with login/logout
+- [4] **Full Integration**: Auth + Firestore + deployment configuration
+- [2] **Progressive Setup**: Basic config, with expansion templates available
+* #1 would be MVP, while the rest is ordered by priority. you can say #2 is for "v1", while the rest is after that.
 
 
 ### **Q6: Commission on Audits MVP**
@@ -72,6 +93,11 @@ How should we implement the auditing system in MVP?
 - [ ] **Optional Feature**: Users can choose to include or skip
 
 **Your Answer:**
+- [1] **Script-Based**: NPM scripts for lighthouse, coverage, security
+- [3] **Basic Dashboard**: Simple React component showing audit results
+- [4] **Full Commission**: Multi-stakeholder reports as designed
+- [2] **Optional Feature**: Users can choose to include or skip
+* #1 would be MVP, while the rest is ordered by priority. you can say #2 is for "v1", while the rest is after that.
 
 
 ### **Q7: Multi-Platform Approach**
@@ -82,6 +108,11 @@ You want both web + mobile from day one. How should we structure this?
 - [ ] **Capacitor Integration**: Web app with mobile compilation ready
 
 **Your Answer:**
+- [2] **Web-First**: Perfect web experience, basic mobile setup
+- [3] **Shared Components**: Single codebase with platform detection
+- [4] **Template Choice**: Separate "Web App" vs "Mobile App" vs "Hybrid" templates
+- [1] **Capacitor Integration**: Web app with mobile compilation ready
+* #1 would be MVP, while the rest is ordered by priority. you can say #2 is for "v1", while the rest is after that.
 
 
 ### **Q8: Testing and Quality Gates**
@@ -92,6 +123,11 @@ How comprehensive should the testing setup be in generated projects?
 - [ ] **Full TDD**: Test templates and examples for major features
 
 **Your Answer:**
+- [1] **Basic Setup**: Vitest + React Testing Library configured
+- [4] **Template Tests**: Pre-written tests for generated components
+- [3] **Quality Pipeline**: Tests + ESLint + Prettier + TypeScript strict
+- [2] **Full TDD**: Test templates and examples for major features
+* #1 would be MVP, while the rest is ordered by priority. you can say #2 is for "v1", while the rest is after that.
 
 
 ---
@@ -106,6 +142,11 @@ What's the optimal development setup for building the CLI?
 - [ ] **Bun-based**: Modern runtime for better performance
 
 **Your Answer:**
+- [2] **TypeScript + tsx**: Development with hot reload (as documented)
+- [3] **JavaScript + Node**: Simple setup, faster iteration
+- [4] **TypeScript + ts-node**: Alternative TypeScript approach
+- [1] **Bun-based**: Modern runtime for better performance
+* #1 would be MVP, while the rest is ordered by priority. you can say #2 is for "v1", while the rest is after that.
 
 
 ### **Q10: Template Generation Strategy** 
@@ -116,6 +157,10 @@ How should the template system work internally?
 - [ ] **Dynamic Generation**: Generate files completely in code
 
 **Your Answer:**
+- [ ] **Handlebars Templates**: Full templating engine (as documented)
+- [ ] **Simple String replacement**: {{projectName}} style replacement
+- [ ] **File Copying + Processing**: Copy files, then process variables
+- [X] **Dynamic Generation**: Generate files completely in code
 
 
 ### **Q11: Error Handling and Validation**
@@ -126,6 +171,10 @@ How robust should the CLI error handling be?
 - [ ] **Production-Grade**: Full error reporting and logging
 
 **Your Answer:**
+- [ ] **Basic Validation**: Check NPM name, directory exists
+- [ ] **Comprehensive Checks**: Network, permissions, dependencies
+- [ ] **Recovery System**: Cleanup on failure, resume capability
+- [X] **Production-Grade**: Full error reporting and logging
 
 
 ### **Q12: Package Manager Detection**
@@ -136,6 +185,11 @@ How should the CLI handle yarn vs npm preference?
 - [ ] **Configuration**: Let users set preference globally
 
 **Your Answer:**
+- [3] **Auto-detect**: Check for yarn.lock, package-lock.json
+- [2] **User Choice**: Ask during CLI flow
+- [1] **npm Default**: Always use npm, keep it simple
+- [4] **Configuration**: Let users set preference globally
+* #1 would be MVP, while the rest is ordered by priority. you can say #2 is for "v1", while the rest is after that.
 
 
 ### **Q13: Build and Publish Strategy**
@@ -146,6 +200,11 @@ How do you want to handle CLI packaging and distribution?
 - [ ] **Both**: GitHub for development, npm for final release
 
 **Your Answer:**
+- [3] **npm Publish**: Standard npm package distribution
+- [2] **GitHub Releases**: Development and testing through GitHub
+- [1] **Local Development**: Focus on local testing first
+- [4] **Both**: GitHub for development, npm for final release
+* #1 would be MVP, while the rest is ordered by priority. you can say #2 is for "v1", while the rest is after that.
 
 
 ---
@@ -160,6 +219,11 @@ How will you know the MVP is working well?
 - [ ] **All of the Above**: Complete success across all metrics
 
 **Your Answer:**
+- [ ] **Generated Project Builds**: Project compiles and runs without errors
+- [ ] **Claude Code Effectiveness**: AI immediately understands and can work with project
+- [ ] **Personal Productivity**: You can build your 3 target projects faster
+- [X] **All of the Above**: Complete success across all metrics
+* tests and reporting has to be on-point, with a focus on spec > behavior > test in terms of heirarchy in setting feature requirements & dev methodology approach (we're doing a hybrid of all 3 methodologies [SDD,BDD,TDD] + Agile).
 
 
 ### **Q15: Timeline and Milestones**
@@ -170,6 +234,10 @@ Given your 5-10 hours per week, what's a realistic development timeline?
 - [ ] **8 Weeks**: MVP + refinement based on testing
 
 **Your Answer:**
+- [X] **2 Weeks**: Basic CLI + minimal template
+- [ ] **4 Weeks**: CLI + 2 templates + basic AI context
+- [ ] **6 Weeks**: Full MVP with all features
+- [ ] **8 Weeks**: MVP + refinement based on testing
 
 
 ### **Q16: Documentation Priority**
@@ -180,6 +248,11 @@ How much documentation should accompany the MVP?
 - [ ] **Comprehensive**: User guide + developer guide + API docs
 
 **Your Answer:**
+- [ ] **Essential Only**: README with basic usage
+- [ ] **User-Focused**: Installation, usage, examples
+- [ ] **Developer-Focused**: Architecture, contributing, extending
+- [X] **Comprehensive**: User guide + developer guide + API docs
+* Comprehensive documentation isn't just important, it also drives development. Since we're defining the project on-the-fly, it's essential to start with documentation to keep record of every idea & thought process before we start implementation. Even the idea of writing specs & tests is based on this idea, where we have to define the destination before starting the journey of building the framework.
 
 
 ### **Q17: Community Preparation**
@@ -190,6 +263,10 @@ When should we start thinking about open source release?
 - [ ] **When Job-Ready**: Polish for portfolio presentation
 
 **Your Answer:**
+- [ ] **Immediately**: Develop in public from day one
+- [ ] **After MVP**: Perfect the tool, then share
+- [ ] **After Personal Use**: Validate with your projects first
+- [X] **When Job-Ready**: Polish for portfolio presentation
 
 
 ---
@@ -204,6 +281,11 @@ What should be the very first thing we build?
 - [ ] **Complete Minimal Flow**: End-to-end working minimal template
 
 **Your Answer:**
+- [2] **CLI Structure**: Basic command parsing and prompts
+- [3] **Template System**: File generation and processing
+- [1] **AI Context Generation**: CLAUDE.md and .claude/ files
+- [4] **Complete Minimal Flow**: End-to-end working minimal template
+* we'll build all of these on MVP, ordering by priority.
 
 
 ### **Q19: Development Workflow**
@@ -214,6 +296,10 @@ How do you want to work on this project?
 - [ ] **Test-Driven**: Write tests first, implement to pass
 
 **Your Answer:**
+- [ ] **Feature-Complete Branches**: Build entire features before merging
+- [ ] **Incremental Commits**: Small, frequent commits with partial functionality
+- [ ] **Spike-and-Refine**: Quick prototypes, then polish
+- [X] **Test-Driven**: Write tests first, implement to pass
 
 
 ### **Q20: Dependency Management**
@@ -224,6 +310,10 @@ How minimal should the CLI dependencies be?
 - [ ] **Full-Featured**: Whatever makes development easier
 
 **Your Answer:**
+- [ ] **Ultra-Minimal**: Only Node.js built-ins
+- [X] **Essential Only**: commander, prompts, fs-extra, chalk
+- [ ] **Quality-of-Life**: Add ora (spinners), execa (shell commands)
+- [ ] **Full-Featured**: Whatever makes development easier
 
 
 ---
