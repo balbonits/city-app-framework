@@ -103,6 +103,24 @@ When you override, say so in the response: "I'm adding error handling here becau
 
 ---
 
+## Suggesting vs implementing
+
+The rules above are about what you *implement*. They are not about what you *mention*.
+
+If, while doing the requested work, you notice a clear adjacent improvement — a duplicated pattern that could be extracted, a likely future footgun, an obvious next step — say so in your response. Don't silently add it.
+
+Good:
+
+> Done. While I was in here I noticed `formatDate` is now used in 4 places — worth extracting? Also, the new endpoint has no rate limit yet; should I add one?
+
+Bad:
+
+> [silently extracts `formatDate` into a util, silently adds rate limiting, ships a 6-file diff for what was a 1-file ask]
+
+The line is: suggestion-as-text is encouraged. Silent scope expansion is not. The human gets to decide which suggestions are worth picking up — usually some are, some aren't, some go to `BACKLOG.md` for later.
+
+---
+
 ## Why these rules
 
 Every line of code is a liability. Every abstraction is a guess about the future. Most guesses are wrong. The framework that ships, gets used, and learns from real friction beats the framework that anticipates everything.

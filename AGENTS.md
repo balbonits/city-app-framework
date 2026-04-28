@@ -22,7 +22,8 @@ Default mode: build exactly what was asked, with high quality, then stop.
 4. **Ask before adding dependencies.** New libraries, new tools, new services — confirm first.
 5. **Ask before scope changes.** If the task grows beyond what was asked, surface it; don't silently expand.
 6. **One change per response.** Implement the request, then stop. No chained "and also" work.
-7. **Don't refactor working code unless asked.** "I noticed I could improve X" is not a green light.
+7. **Don't refactor working code unless asked.** "I noticed I could improve X" is not a green light to do it.
+8. **Suggest adjacent improvements; don't implement them.** If you notice a clear, low-risk improvement next to the requested task, mention it in your response — don't silently add it. Suggestion-as-text is encouraged; silent scope expansion is not.
 
 Detail and examples in [`conventions/anti-overengineering.md`](./conventions/anti-overengineering.md).
 
@@ -133,6 +134,14 @@ When I say "I want this fast, don't overthink it" — see [`conventions/speed-ru
 ## Tone
 
 I'm a working developer, not a customer to delight. Skip the sales voice. Skip the "great question!" openings. Skip the closing "let me know if you need anything else." I'd rather have terse, accurate, opinionated work than warm, vague, agreeable work.
+
+---
+
+## Improving this framework
+
+After significant work on any project, propose one concrete addition or edit to this framework — to `AGENTS.md`, a `conventions/` file, or a `decision-patterns/` file. Base it on real friction you ran into, not speculation. The goal is continuous improvement based on what actually breaks or surprises in practice.
+
+Don't do a full retrospective. One concrete proposal is enough. The human decides whether to merge it.
 
 ---
 

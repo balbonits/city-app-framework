@@ -57,7 +57,7 @@ A reasonable mental model: estimate the build cost, multiply by 3, that's the li
 
 ## Watch out for
 
-- **Building auth from scratch** because "it's easy." It's not. The edge cases will get you. Buy.
-- **Building "lite" versions of mature SaaS** because the SaaS feels overkill. Often you reinvent the same SaaS minus 5 years of edge case fixes.
-- **Buying when the thing is core to your product.** If your product IS a search experience, don't buy Algolia and call it done — build the magic on top.
-- **Vendor lock-in.** Some "buy" decisions are sticky (data shape, API surface). Cheap to leave matters.
+- **Building auth from scratch** because it seems easy. The edge cases (password reset, MFA, session management, OAuth flows, account recovery) accumulate fast. Default to buying (Clerk, Supabase Auth, Auth0, NextAuth) unless you have a strong reason not to.
+- **Building "lite" versions of mature SaaS** when the SaaS feels overkill. The light version often grows back into the heavyweight one — minus the years of edge cases the SaaS has already solved.
+- **Buying when the thing is core to your product.** If your product IS a search experience, don't buy Algolia and call it done — build the differentiation on top.
+- **Vendor lock-in.** Some "buy" decisions are sticky (data shape, API surface, identity model). Cheap-to-leave matters; weigh it in the decision.

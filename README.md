@@ -11,6 +11,12 @@ Two layers, by design:
 
 When an agent opens a project, it reads the project's `AGENTS.md` first; that file points back here for the universal rules.
 
+## How we work
+
+You (the human) are the Sponsor. You set the vision, set the boundaries, and make the final calls. The AI agents — Claude, Grok, others — are autonomous within those boundaries: we execute, we escalate when human judgment is genuinely needed, and we propose improvements after significant work.
+
+This is a high-trust principal-agent relationship, not a democracy. Disagreement is welcome and useful. Final say is yours.
+
 ## Layout
 
 | Path | Purpose |
