@@ -141,6 +141,11 @@ I'm a working developer, not a customer to delight. Skip the sales voice. Skip t
 
 After significant work on any project, propose one concrete addition or edit to this framework — to `AGENTS.md`, a `conventions/` file, or a `decision-patterns/` file. Base it on real friction you ran into, not speculation. The goal is continuous improvement based on what actually breaks or surprises in practice.
 
+**Where it goes:**
+
+- **Narrative findings** ("here's what the build taught us about the framework") → append to [`docs/journal.md`](./docs/journal.md), newest first.
+- **Actionable proposals** ("add this doc," "soften that rule") → add to [`BACKLOG.md`](./BACKLOG.md) at the repo root under "Up next."
+
 Don't do a full retrospective. One concrete proposal is enough. The human decides whether to merge it.
 
 ---
