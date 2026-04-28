@@ -45,6 +45,8 @@ This is a high-trust principal-agent relationship, not a democracy. Disagreement
 
 Early. Extracted from real `AGENTS.md` files in [`jdilig-me-v3`](https://github.com/balbonits/jdilig-me-v3), [`coding-interview-reviewer`](https://github.com/balbonits/coding-interview-reviewer), and [`ai-browser-game-demos`](https://github.com/balbonits/ai-browser-game-demos), plus operational rules from earlier framework iterations. Expected to evolve as patterns prove or fail in real use.
 
+**Demo / whitepaper site:** <https://website-pi-one-3ymijizbxt.vercel.app> (source at [`examples/website/`](./examples/website/)).
+
 ## History
 
 - **v1** (Sept 2025, commit [`de9a303`](https://github.com/balbonits/city-app-framework/commit/de9a303a86d596047a9f9310edebbdbd5751d5ac)) — "Mayor + Citizens" model, CLI MVP (`create-city-app`), concrete anti-overengineering rules. Active human role.

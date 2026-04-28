@@ -28,3 +28,4 @@ _(none — initial build complete)_
 - **Vercel deploy config** (`vercel.json` SPA rewrite).
 - **Project docs** (AGENTS.md, CLAUDE.md, GROK.md, README.md).
 - **Decision logs** in `docs/decisions/`.
+- **Deployed to Vercel** at <https://website-pi-one-3ymijizbxt.vercel.app>. Project `john-diligs-projects/website`. Production target. Custom domain not configured yet — TBD.

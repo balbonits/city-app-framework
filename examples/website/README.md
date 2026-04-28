@@ -4,6 +4,12 @@ The official whitepaper / marketing site for [city-app-framework](https://github
 
 This project is also the framework's first **dogfood** example — it was built using the framework's own rules. Its [`AGENTS.md`](./AGENTS.md) follows the per-project template; the universal rules link upward to the framework root.
 
+## Live
+
+**<https://website-pi-one-3ymijizbxt.vercel.app>**
+
+(Custom domain TBD. The Vercel-generated subdomain is fine for v0.1.)
+
 ## Status
 
 v0.1 — built, deployed. Expected to evolve as the framework itself does.
