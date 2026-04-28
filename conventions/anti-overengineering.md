@@ -88,6 +88,18 @@ Tempted to wrap everything in try/catch? Don't. Handle errors at boundaries (use
 
 Tempted to wrap every callback in `useCallback` and every value in `useMemo`? Don't. Profile first. Most of the time it's net-negative because the memoization itself costs.
 
+### Audit-everything
+
+Tempted to run the full healthcheck / lint / typecheck / test suite for every small change? Don't — at least not by default. Run targeted checks for the affected files or pages. Save the full audit for release prep, branch merges, or when you genuinely don't know what touched what. Targeted is faster and the signal is cleaner.
+
+### Reorganizing as you pass through
+
+Tempted to reorder imports, normalize CSS class lists, or rename a misspelled variable while you're in the file for an unrelated reason? Don't. The rule:
+
+> If you're not touching styles/structure, leave imports and CSS alone. If you're not touching naming, leave names alone.
+
+Adjacent cleanups bloat the diff, obscure the actual change in review, and increase rollback risk (a revert hits unrelated files too). Surface them as suggestions in your response, not silent edits.
+
 ---
 
 ## When to override

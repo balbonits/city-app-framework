@@ -121,6 +121,7 @@ Every project should have:
 - `AGENTS.md` — for AI agents, project-specific stack and rules.
 - `CLAUDE.md` and `GROK.md` — one-liners pointing at `AGENTS.md`.
 - `BACKLOG.md` — live work queue. Update on every merge to `main`. See [`jdilig-me-v3`](https://github.com/balbonits/jdilig-me-v3) for the pattern.
+- `CHANGELOG.md` — visible deltas over time. See [`conventions/changelog.md`](./conventions/changelog.md).
 - `docs/decisions/` — ADRs, written when a non-obvious choice is made.
 
 ---
@@ -139,14 +140,18 @@ I'm a working developer, not a customer to delight. Skip the sales voice. Skip t
 
 ## Improving this framework
 
-After significant work on any project, propose one concrete addition or edit to this framework — to `AGENTS.md`, a `conventions/` file, or a `decision-patterns/` file. Base it on real friction you ran into, not speculation. The goal is continuous improvement based on what actually breaks or surprises in practice.
+**Always journal.** After any session of substantive work — not just framework edits, but real builds, audits, debugging spikes, design conversations, anything where friction or learning surfaced — append a `docs/journal.md` entry (newest first). Don't skip when no concrete proposal emerges; the journal compounds, and missing entries can't be recovered.
+
+If the session also yielded an actionable proposal (a new convention, a softened rule, a changed default), surface that *separately* in `BACKLOG.md`. **Journaling is not contingent on having a proposal.**
 
 **Where it goes:**
 
-- **Narrative findings** ("here's what the build taught us about the framework") → append to [`docs/journal.md`](./docs/journal.md), newest first.
-- **Actionable proposals** ("add this doc," "soften that rule") → add to [`BACKLOG.md`](./BACKLOG.md) at the repo root under "Up next."
+- **Narrative findings** ("here's what the build / session taught us") → [`docs/journal.md`](./docs/journal.md), newest first.
+- **Actionable proposals** ("add this doc," "soften that rule") → [`BACKLOG.md`](./BACKLOG.md) under "Up next."
 
-Don't do a full retrospective. One concrete proposal is enough. The human decides whether to merge it.
+The journal is the diary. The BACKLOG is the to-do list. Don't conflate them.
+
+Don't do a full retrospective for every session — that's overhead theater. A short entry (what was done, what worked, what surfaced, optionally one meta-observation) is enough. Length isn't the point; consistency is.
 
 ---
 
