@@ -6,6 +6,35 @@ The point of this journal is not the build narrative — it's what the build *ta
 
 ---
 
+## 2026-04-30 — Postgres video → FAANG cross-cut → codebase-shape doc
+
+**What:** Started with John sharing Grok's analysis of "I replaced my entire stack with Postgres" (The Coding Gopher, 10:44, Neon-sponsored). Grok recommended adding a Postgres-first section to the framework's universal layer. Pushed back: that would smuggle a stack opinion into a layer designed to be tech-agnostic. The right framing was a *philosophy* (don't add services prematurely), not a *stack mandate*. John asked for two workflow models — monolith and microservices — drawn tech-agnostic. Then asked to look at Amazon's package-based codebase approach. Then expanded to all of FAANG/MAANG.
+
+**The research arc:**
+
+1. Watched the actual video via `yt-dlp` install + transcript extraction (couldn't fetch YouTube directly via WebFetch — JS-rendered shell).
+2. Single Amazon agent — established Brazil + version sets, API mandate, two-pizza teams, "you build it, you run it," Apollo. Composite: enforced decoupling all the way down.
+3. Four parallel agents — Meta, Apple, Netflix, Google. Composite pictures emerged distinctly: Meta = invest in platform so product can stay fast; Google = one version at head, always green, always shippable; Netflix = highly aligned, loosely coupled to its logical extreme; Apple = functional silos with annual train releases (less knowable from public sources).
+4. First draft of `codebase-shape.md`. Reframe: "monolith vs. microservices" is the wrong axis. Two orthogonal axes — repo structure and deploy unit. The five companies fill three of four cells.
+5. John course-correct: be evidence-based, no editorializing. Two more parallel agents dispatched — one to verify "universal pattern" claims at every company (so each could be cited per-company instead of asserted), one for an Apple community deep-cut.
+6. Two surprising findings: (a) Apple is **polyrepo, not monorepo**, per a current ex-employee HN account ("thousands of individual projects"); (b) Apple has dedicated SRE job postings, suggesting a Google-style split rather than Netflix-style full-cycle ownership. Several "universal pattern" claims didn't survive scrutiny — needed per-company grading with explicit gaps.
+7. Doc rewritten: per-claim inline citations, per-company evidence grading (primary / secondary / no source found), explicit acknowledgment of what the public record doesn't establish.
+
+**Lessons for the framework:**
+
+- **The tooling tax is the only true universal across FAANG.** Brazil, Sapling, Buck2, Piper, Bazel, Spinnaker, Apollo, Critique, TAP, Nebula, llbuild, XBS — these aren't garnish, they're load-bearing infra. Cultural patterns (trunk, flags, oncall) are downstream of the tooling that enables them. Implication: this framework *is* the tooling investment for AI-augmented solo dev. The lens for evaluating future additions: does it close a tooling gap, or is it just another doc?
+- **The "monolith vs. microservices" framing is genuinely misleading.** It collapses two independent questions and causes people to import the wrong costs. The two-axis reframe isn't academic — it's a corrective. Validated by every company in the research filling a cell that the conventional framing struggles to explain (e.g., Apple as polyrepo + train-based-single-deploy).
+- **AI-augmented solo dev probably changes which cell is right.** Conventional wisdom puts solo devs in monorepo + single deploy. AI agents are good at maintaining cross-file consistency and navigating large codebases via tools, bad at cross-repo coordination without context. That asymmetry pushes toward monorepo + many deploys (Google's cell) being more accessible to AI-augmented solo dev than to traditional solo dev. Speculative; worth tracking.
+- **The framework is currently heavy on conventions, light on tooling.** FAANG companies don't have giant convention docs because their tools enforce the patterns. The sub-agents convention shipped this session was a step toward "tooling that enforces patterns" rather than "docs that prescribe patterns." If the framework ages well, more of it probably needs to move that direction.
+- **Sub-agents dispatch worked exceptionally well.** Six agents dispatched across two rounds (one Amazon, then four parallel for Meta/Apple/Netflix/Google, then two parallel for universal-patterns verification + Apple deep-cut). Real wall-clock savings vs. serial. Eating the dogfood from the freshly-shipped `conventions/sub-agents.md` — it works.
+- **Strict evidence standards forced honest gaps.** First draft over-claimed "universal" for several patterns; a second-pass verification round revealed Netflix trunk-based dev only has secondary sources, Apple's branching/code-review tools are not publicly named, etc. The discipline of per-claim citation surfaced these gaps that the editorial first draft hid.
+
+**Where the doc landed vs. where it started:** First draft had editorial framing ("almost everyone should be here," "scales to roughly zero engineers," "Why monolith vs microservices is the wrong frame"). John course-corrected to strict evidence-based tone. Final version is a reference doc, not an opinion piece — opinion lives in the chat-only synthesis delivered separately.
+
+No proposals significant enough for `BACKLOG.md` from this session — the "framework should evolve toward tooling" observation is directional, not a discrete item.
+
+---
+
 ## 2026-04-29 — README diagrams, and a "is this text or visual?" gotcha
 
 **What:** John asked for diagrams that explain the framework, in `README.md`. Three Mermaid diagrams added: (1) two-layer architecture (universal + per-project with fallback), (2) Sponsor &harr; AI Agents principal-agent loop, (3) decision flow for "ask vs proceed" when an agent picks up a task. Placed inline next to the prose they illustrate, not in a standalone section.
