@@ -30,6 +30,7 @@ Updated whenever a session surfaces real friction worth fixing.
 
 ## Recently shipped
 
+- **`conventions/sub-agents.md` + README Mermaid diagrams.** New convention covers when the main agent should delegate to specialized sub-agents (Explore, Plan, code-reviewer, general-purpose), what they actually buy (context isolation, independent reading, parallelism), the personas-vs-sub-agents distinction, anti-patterns, and a tool-portability note. `AGENTS.md` got a brief pointer section. `README.md` got three Mermaid diagrams (two-layer architecture, Sponsor/Agents loop, agent decision flow) with `classDef` styling. Surfaced from the "would this work with one AI vs. many vs. one-with-sub-agents?" conversation. ([`1a43b01`](https://github.com/balbonits/city-app-framework/commit/1a43b01))
 - **Universal AGENTS.md + operational conventions + decision-patterns + templates.** Bulk slim-down of the v2 framework, replacing the philosophical 22-doc structure with operational rules. ([`bc29600`](https://github.com/balbonits/city-app-framework/commit/bc29600))
 - **Grok's review feedback applied.** Proactive-suggestion rule (#8), "How we work" in README, "Improving this framework" section, softened decision-patterns prose. ([`17f17ad`](https://github.com/balbonits/city-app-framework/commit/17f17ad))
 - **First dogfood — `examples/website/`** with full per-project doc set, deployed to Vercel. Survived first contact: stack alignment worked, ADR pattern worked, anti-overengineering held. ([`2293b14`](https://github.com/balbonits/city-app-framework/commit/2293b14))
