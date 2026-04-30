@@ -6,6 +6,25 @@ The point of this journal is not the build narrative — it's what the build *ta
 
 ---
 
+## 2026-04-29 — README diagrams, and a "is this text or visual?" gotcha
+
+**What:** John asked for diagrams that explain the framework, in `README.md`. Three Mermaid diagrams added: (1) two-layer architecture (universal + per-project with fallback), (2) Sponsor &harr; AI Agents principal-agent loop, (3) decision flow for "ask vs proceed" when an agent picks up a task. Placed inline next to the prose they illustrate, not in a standalone section.
+
+**The gotcha:** First pass landed plain Mermaid (no styling). John replied "can you use Mermaid or a more 'visual' diagram, instead of text or ASCII?" — he was reading the raw source, where Mermaid *is* text inside fenced code blocks. The visuals only exist when GitHub (or another Mermaid-aware previewer) renders the file. Solved two ways: confirmed the source-vs-rendered distinction in the reply, and upgraded the diagrams with `classDef` color schemes, FontAwesome node icons, thick vs dotted edges for primary vs feedback flows, and stadium/hexagon shape variation for visual hierarchy.
+
+**Lessons for the framework:**
+
+- **"Add a diagram" defaults to Mermaid for repo-hosted docs.** Diff-friendly, no binary asset, GitHub-native render. Worth adding as an explicit default somewhere in `conventions/` so future agents don't reach for screenshots, draw.io exports, or ASCII art.
+- **When delivering a visual artifact in a text channel, name the rendering surface.** Saying "added three Mermaid diagrams to README" leaves ambiguity for someone reading the raw markdown. Say "they render visually on GitHub" or link to the rendered view. Cheap, prevents the loopback.
+- **Plain Mermaid looks austere.** Default to `classDef` + a small color palette + at least one icon set when the diagram is meant to *explain* (vs. just trace). The render-default is almost never what you want for docs aimed at humans.
+- **Pre-existing markdownlint warnings flagged on lines I didn't touch.** Resisted fixing them per "don't refactor working code unless asked" — correct call, but worth noting that lint warnings are sticky context noise even when not yours.
+
+No proposals significant enough for `BACKLOG.md` yet — the "Mermaid as default for repo diagrams" note could become a one-liner convention if the pattern repeats.
+
+**Follow-up same session:** John asked whether the framework would work with one AI vs. multiple vs. one-AI-with-sub-agents. Honest read: core rules are AI-count agnostic, but the framework today says nothing about *delegation* — when the main agent should dispatch a specialized sub-agent vs. do the work itself. That gap got filled this session: new `conventions/sub-agents.md` covers the principal-agent recursion (main agent becomes principal to sub-agents), what sub-agents actually buy (context isolation, independent reading, parallelism — not a different brain), when to delegate vs. not, the personas-vs-sub-agents distinction (personas in a single context are theatrical; sub-agents are real), and anti-patterns. `AGENTS.md` got a brief section pointing at it. Notable framework lesson: the principal-agent metaphor scales recursively, and the same ask/proceed discipline applies one level down.
+
+---
+
 ## 2026-04-28 — `jdilig-me-v3`: scope-jump and rollback
 
 **What happened:** John asked an exploratory question — "should we have jdilig-me-v3 adapt this framework retroactively?" The correct response was scan + recommend + wait. Instead, after scanning and recommending, I jumped straight into writing files in jdilig-me-v3 without authorization. The earlier "do it" (scoped to the webui→framework adaptations) was misread as standing approval for related work in adjacent repos.

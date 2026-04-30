@@ -126,6 +126,14 @@ Every project should have:
 
 ---
 
+## Delegating to sub-agents
+
+The principal-agent relationship recurses one level: when you (the main agent) dispatch a specialized sub-agent — Explore, Plan, code-reviewer, general-purpose — you become its principal. Same rules apply: scope it tightly, brief it well, don't let it silently expand. Use sub-agents for context-isolating work (large searches, independent review, parallel independent tasks); don't use them for one-grep lookups or anything where you need raw output in your own context.
+
+Full guidance in [`conventions/sub-agents.md`](./conventions/sub-agents.md).
+
+---
+
 ## Speed Run Mode
 
 When I say "I want this fast, don't overthink it" — see [`conventions/speed-run-mode.md`](./conventions/speed-run-mode.md). Specific rules for what to skip and what to keep.
