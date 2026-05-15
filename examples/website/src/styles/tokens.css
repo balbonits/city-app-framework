@@ -21,6 +21,12 @@
   --color-accent-hover: #fbbf24;
   --color-accent-contrast: #0a0e1a;
 
+  /* semantic — for chips, alerts, charts. yellow for warning is lemon-tinted to distinguish from amber accent. */
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-warning: #facc15;
+  --color-info: #3b82f6;
+
   /* borders */
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-strong: rgba(255, 255, 255, 0.18);
@@ -57,6 +63,12 @@
   --color-accent: #b45309;
   --color-accent-hover: #92400e;
   --color-accent-contrast: #ffffff;
+
+  /* semantic darken in light mode for readability against light backgrounds */
+  --color-success: #047857;
+  --color-danger: #b91c1c;
+  --color-warning: #a16207;
+  --color-info: #1d4ed8;
 
   --color-border: rgba(0, 0, 0, 0.1);
   --color-border-strong: rgba(0, 0, 0, 0.22);

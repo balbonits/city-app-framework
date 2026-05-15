@@ -1,5 +1,7 @@
 import { Section } from '@/components/Section';
 import { Eyebrow } from '@/components/Eyebrow';
+import { Button } from '@/components/ui/Button';
+import { Chip } from '@/components/ui/Chip';
 
 interface RuleGroup {
   title: string;
@@ -61,7 +63,7 @@ export function Rules() {
   return (
     <Section id="rules">
       <Eyebrow>What's encoded</Eyebrow>
-      <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">The rules.</h2>
+      <h2 className="text-3xl font-semibold tracking-tight">The rules.</h2>
       <p className="mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted">
         Three groups of rules. Each one is short, operational, and lives next to a worked example.
         Strong defaults — overridable when the project demands it.
@@ -87,13 +89,157 @@ export function Rules() {
               href={group.link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-block font-mono text-xs text-accent hover:text-accent-hover"
+              className="mt-5 inline-block font-mono text-sm text-accent hover:text-accent-hover"
             >
               → {group.link.label}
             </a>
           </article>
         ))}
       </div>
+
+      <VisualRules />
     </Section>
+  );
+}
+
+function VisualRules() {
+  return (
+    <div className="mt-16">
+      <p className="mb-6 font-mono text-sm uppercase tracking-wider text-fg-faint">
+        Three rules, made visible
+      </p>
+
+      <div className="grid gap-6 md:grid-cols-3">
+        <RuleDemo
+          rule="Hierarchy via contrast"
+          file="conventions/ui-design/hierarchy.md"
+          before={<HierarchyBefore />}
+          after={<HierarchyAfter />}
+        />
+        <RuleDemo
+          rule="Buttons get five states"
+          file="conventions/ui-design/states-feedback.md"
+          before={<ButtonsBefore />}
+          after={<ButtonsAfter />}
+        />
+        <RuleDemo
+          rule="Semantic > brand for status"
+          file="conventions/ui-design/color.md"
+          before={<ChipsBefore />}
+          after={<ChipsAfter />}
+        />
+      </div>
+    </div>
+  );
+}
+
+function RuleDemo({
+  rule,
+  file,
+  before,
+  after,
+}: {
+  rule: string;
+  file: string;
+  before: React.ReactNode;
+  after: React.ReactNode;
+}) {
+  return (
+    <article className="rounded-lg border border-border-DEFAULT bg-surface p-5">
+      <h4 className="text-base font-semibold text-fg-strong">{rule}</h4>
+      <p className="mt-1 font-mono text-sm text-fg-muted">{file}</p>
+      <div className="mt-4 grid gap-3">
+        <div>
+          <p className="mb-1.5 font-mono text-sm uppercase tracking-wider text-fg-faint">Before</p>
+          <div className="rounded border border-border-faint bg-bg p-3">{before}</div>
+        </div>
+        <div>
+          <p className="mb-1.5 font-mono text-sm uppercase tracking-wider text-accent">After</p>
+          <div className="rounded border border-border-faint bg-bg p-3">{after}</div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/* Hierarchy demos: same content, with vs without size/position/color contrast */
+
+function HierarchyBefore() {
+  return (
+    <div className="space-y-1 text-base text-fg">
+      <p>Pro plan</p>
+      <p>$29/month</p>
+      <p>Unlimited links, custom domains, team access</p>
+    </div>
+  );
+}
+
+function HierarchyAfter() {
+  return (
+    <div>
+      <p className="text-sm text-fg-muted">Pro plan</p>
+      <p className="text-xl font-semibold text-fg-strong">$29/month</p>
+      <p className="mt-1 text-sm text-fg-muted">
+        Unlimited links, custom domains, team access
+      </p>
+    </div>
+  );
+}
+
+/* Button states demos: hover-only vs full state coverage */
+
+function ButtonsBefore() {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <button
+        type="button"
+        className="rounded-md bg-accent px-3 py-1.5 text-sm font-semibold text-accent-contrast"
+      >
+        Save
+      </button>
+      <span className="font-mono text-sm text-fg-muted">hover only</span>
+    </div>
+  );
+}
+
+function ButtonsAfter() {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <Button size="sm">Save</Button>
+      <Button size="sm" loading>
+        Save
+      </Button>
+      <Button size="sm" disabled>
+        Save
+      </Button>
+    </div>
+  );
+}
+
+/* Chip demos: brand-only colors vs semantic colors */
+
+function ChipsBefore() {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <span className="rounded-full border border-border-DEFAULT bg-accent/15 px-2.5 py-0.5 text-sm font-medium text-accent">
+        Live
+      </span>
+      <span className="rounded-full border border-border-DEFAULT bg-accent/15 px-2.5 py-0.5 text-sm font-medium text-accent">
+        Failed
+      </span>
+      <span className="rounded-full border border-border-DEFAULT bg-accent/15 px-2.5 py-0.5 text-sm font-medium text-accent">
+        Pending
+      </span>
+    </div>
+  );
+}
+
+function ChipsAfter() {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <Chip tone="success">Live</Chip>
+      <Chip tone="danger">Failed</Chip>
+      <Chip tone="warning">Pending</Chip>
+    </div>
   );
 }

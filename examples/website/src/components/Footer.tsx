@@ -31,7 +31,7 @@ export function Footer() {
             </a>
           </div>
         </div>
-        <p className="mt-8 text-xs text-fg-faint">
+        <p className="mt-8 text-sm text-fg-faint">
           Built with the framework it documents. See{' '}
           <a
             href="https://github.com/balbonits/city-app-framework/tree/main/examples/website"

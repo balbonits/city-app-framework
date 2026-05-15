@@ -70,17 +70,32 @@ examples/website/
 │   │   └── tokens.css              # design tokens (colors, fonts, radii)
 │   ├── hooks/
 │   │   └── useTheme.ts             # light/dark toggle, persists to localStorage
+│   ├── stories/                    # Storybook token displays (no components)
+│   │   ├── Color.stories.tsx       # color palette swatches
+│   │   ├── Typography.stories.tsx  # type scale + tightening demo
+│   │   └── Spacing.stories.tsx     # 4-point grid display
 │   └── components/
 │       ├── Header.tsx              # sticky top bar: name + theme toggle + GitHub
 │       ├── Footer.tsx              # repo link + meta
-│       ├── Hero.tsx                # headline + CTA
+│       ├── Hero.tsx                # headline + CTA + product preview
 │       ├── Problem.tsx             # "stateless agents, first-prompt forever"
 │       ├── Solution.tsx            # two-layer model + how it loads
-│       ├── Rules.tsx               # featured rule groups
+│       ├── Rules.tsx               # featured rule groups + visual rule demos
+│       ├── DesignSystem.tsx        # on-site live tokens + components showcase
+│       ├── Showcase.tsx            # vibe-coded vs rules-applied SaaS dashboards
 │       ├── GetStarted.tsx          # three-step onboarding
 │       ├── Section.tsx             # max-width container primitive
 │       ├── Eyebrow.tsx             # § accent label
-│       └── CodeBlock.tsx           # bordered code surface
+│       ├── CodeBlock.tsx           # bordered code surface
+│       └── ui/                     # design-system primitives (per conventions/ui-design/)
+│           ├── Button.tsx          # 3 variants × 5 states
+│           ├── Button.stories.tsx
+│           ├── Input.tsx           # 5 states (default/focus/error/warning/disabled)
+│           ├── Input.stories.tsx
+│           ├── Card.tsx            # surface container, no double-nest
+│           ├── Card.stories.tsx
+│           ├── Chip.tsx            # 5 semantic tones (neutral/success/danger/warning/info)
+│           └── Chip.stories.tsx
 ├── tsconfig.app.json               # strict TS, @/ alias
 ├── tsconfig.json
 ├── tsconfig.node.json
@@ -116,9 +131,10 @@ Configured in `tsconfig.app.json` (`paths`) and `vite.config.ts` (`resolve.alias
 
 - **Tokens** live in `src/styles/tokens.css` and are exposed to Tailwind v4 via `@theme inline { ... }` in `src/index.css`.
 - **Dark is the default.** `[data-theme="light"]` flips to light. `index.html` includes an inline script that resolves the initial theme before the React tree mounts (prevents FOUC).
-- **Cascade layer order** (declared at top of `index.css`): `@layer tokens, theme, base, components, utilities;` — utilities win over tokens' base styles.
-- **Available token utilities**: `bg-bg`, `bg-surface`, `bg-surface-raised`, `text-fg`, `text-fg-strong`, `text-fg-muted`, `text-fg-faint`, `text-accent`, `text-accent-contrast`, `border-border-DEFAULT`, `border-border-strong`, `border-border-faint`, `font-sans`, `font-mono`.
+- **Cascade layer order** (declared at top of `index.css`): `@layer theme, tokens, base, components, utilities;` — `tokens` MUST come AFTER `theme`. Why: Tailwind v4 emits `@theme inline { --color-x: var(--color-x); }` blocks into `:root` in the `theme` layer. With the original `tokens, theme, ...` order, those self-referencing declarations won the cascade and resolved every var to empty. Putting `tokens` after `theme` makes the real values from `tokens.css` win. Don't change this order.
+- **Available token utilities**: `bg-bg`, `bg-surface`, `bg-surface-raised`, `text-fg`, `text-fg-strong`, `text-fg-muted`, `text-fg-faint`, `text-accent`, `text-accent-contrast`, `text-[var(--color-success|danger|warning|info)]`, `border-border-DEFAULT`, `border-border-strong`, `border-border-faint`, `font-sans`, `font-mono`.
 - **Accent color** is amber (`#f59e0b` dark / `#b45309` light) — readable on both themes, picked over violet/cyan for "warm city-at-night" tone without theatrics.
+- **Semantic colors** (success/danger/warning/info) are a separate ramp from the brand accent — see `conventions/ui-design/color.md`. Warning is lemon-tinted (`#facc15` / `#a16207`) to distinguish from amber accent.
 
 ---
 
@@ -140,9 +156,11 @@ If a future change needs multi-page, switch to React Router v7 — don't reach f
 
 ## Testing
 
-No test runner yet. Justification: the site is mostly static content with one `useTheme` hook. The build (strict TS + ESLint) catches the realistic failure modes. If interactive features grow (e.g., search, code copy, animations with state), add Vitest for unit tests.
-
-Per project rule: don't write tests for trivial UI components.
+- **Playwright** (`@playwright/test` 1.59) for E2E + visual smoke. Tests live in `tests/`. Config in `playwright.config.ts` auto-starts `npm run dev` via `webServer`. Run with `npm run test:e2e` (headless) or `npm run test:e2e:ui` (interactive).
+- The smoke suite covers: page load, all section IDs render, design system content, showcase dashboards, hero product preview, dual-theme full-page screenshots into `tests/screenshots/`. Theme is forced via `localStorage` + reload (not `addInitScript` — that races with React mount).
+- **Storybook** (`storybook` 10.3) for component review in isolation. Stories colocated with primitives in `src/components/ui/*.stories.tsx`; token displays in `src/stories/`. Preview at `npm run storybook` (port 6006). Static export via `npm run build-storybook`.
+- **Vitest** is in `devDependencies` (added by Storybook init for `addon-vitest`) but no unit test config / suite yet. Add only when interactive logic justifies it.
+- Per project rule: don't write tests for trivial UI components. The smoke + screenshots are enough to catch regressions in the design system itself.
 
 ---
 

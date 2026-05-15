@@ -22,6 +22,7 @@ _(none — initial build complete)_
 
 ## Recently shipped
 
+- **UI design system + Showcase + Storybook + Playwright (2026-05-05).** Site redesigned to follow the new `conventions/ui-design/` rules. Added: 4 primitive components in `src/components/ui/` (Button with all 5 states, Input with all 5 states, Card, Chip with semantic tones); semantic color tokens (`--color-success/danger/warning/info`) in `tokens.css`; on-site `DesignSystem` section showing live tokens + components; on-site `Showcase` section with side-by-side vibe-coded vs. rules-applied URL-shortener dashboards; Visual Rules subsection in `Rules.tsx` showing 3 rules in before/after pairs; refreshed Hero with stylized AGENTS.md product preview. Storybook 10.3 installed with stories for all primitives + token displays (Color, Typography, Spacing). Playwright 1.59 installed with smoke tests + dual-theme screenshot capture. **Caught a real bug**: the original `@layer tokens, theme, ...` order made `@theme inline`'s self-referencing `--color-x: var(--color-x)` win over `tokens.css` (later layers win cascade), resolving all CSS vars to empty. Reordered to `@layer theme, tokens, ...` so tokens win. Build clean, lint clean, 7/7 Playwright tests passing.
 - **Initial build.** Hero, Problem, Solution, Rules, GetStarted, Header, Footer.
 - **Tailwind v4 + tokens.css cascade-layer setup.**
 - **Light/dark theme** with FOUC-prevention inline script.

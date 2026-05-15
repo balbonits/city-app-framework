@@ -5,7 +5,7 @@ export function Problem() {
   return (
     <Section id="problem">
       <Eyebrow>The problem</Eyebrow>
-      <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+      <h2 className="text-3xl font-semibold tracking-tight">
         Stateless agents, first-prompt forever.
       </h2>
       <div className="mt-8 max-w-2xl space-y-5 text-lg leading-relaxed text-fg-muted">

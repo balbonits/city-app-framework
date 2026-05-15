@@ -1,5 +1,6 @@
-import { ArrowRight, Github } from 'lucide-react';
+import { ArrowRight, Github, FileText } from 'lucide-react';
 import { Eyebrow } from '@/components/Eyebrow';
+import { Button } from '@/components/ui/Button';
 
 export function Hero() {
   return (
@@ -8,7 +9,7 @@ export function Hero() {
       className="mx-auto w-full max-w-4xl px-6 pt-16 pb-12 sm:px-8 sm:pt-24 sm:pb-20"
     >
       <Eyebrow>An operating system for AI-assisted development</Eyebrow>
-      <h1 className="text-4xl font-semibold tracking-tight text-fg-strong sm:text-6xl">
+      <h1 className="text-3xl font-semibold tracking-tight text-fg-strong sm:text-6xl">
         Rules AI agents read first.
       </h1>
       <p className="mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted sm:text-xl">
@@ -18,23 +19,57 @@ export function Hero() {
         re-explaining how you build.
       </p>
       <div className="mt-10 flex flex-wrap items-center gap-3">
-        <a
-          href="https://github.com/balbonits/city-app-framework"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-contrast transition-colors hover:bg-accent-hover"
-        >
+        <Button href="https://github.com/balbonits/city-app-framework" external>
           <Github size={16} aria-hidden />
           View on GitHub
           <ArrowRight size={16} aria-hidden />
-        </a>
-        <a
-          href="#problem"
-          className="inline-flex items-center gap-2 rounded-md border border-border-strong px-5 py-3 text-sm font-semibold text-fg-strong transition-colors hover:bg-surface"
-        >
+        </Button>
+        <Button href="#problem" variant="secondary">
           Read the rules
-        </a>
+        </Button>
       </div>
+
+      <ProductPreview />
     </section>
+  );
+}
+
+function ProductPreview() {
+  return (
+    <figure
+      aria-label="Excerpt from the framework's AGENTS.md file"
+      className="mt-14 overflow-hidden rounded-lg border border-border-DEFAULT bg-surface shadow-2xl shadow-black/30 dark:shadow-black/50"
+    >
+      <div className="flex items-center gap-2 border-b border-border-DEFAULT bg-surface-raised px-4 py-2.5">
+        <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-fg-faint/60" />
+        <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-fg-faint/60" />
+        <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-fg-faint/60" />
+        <span className="ml-2 inline-flex items-center gap-1.5 font-mono text-sm text-fg-muted">
+          <FileText size={13} aria-hidden />
+          AGENTS.md
+        </span>
+      </div>
+      <pre className="overflow-x-auto px-5 py-5 text-sm leading-relaxed text-fg">
+        <code>
+          <span className="text-accent">## Hard rules — never violate</span>
+          {'\n\n'}
+          1. <span className="text-fg-strong">Build exactly what's asked for.</span> No bonus
+          features.{'\n'}
+          2. <span className="text-fg-strong">Stop at working.</span> Don't add polish that
+          wasn't requested.{'\n'}
+          3. <span className="text-fg-strong">Abstract only after 3+ identical patterns exist.</span>
+          {'\n'}
+          4. <span className="text-fg-strong">Ask before adding dependencies.</span>
+          {'\n'}
+          5. <span className="text-fg-strong">Ask before scope changes.</span>
+          {'\n'}
+          6. <span className="text-fg-strong">One change per response.</span>
+          {'\n\n'}
+          <span className="text-fg-muted">
+            Detail in conventions/anti-overengineering.md.
+          </span>
+        </code>
+      </pre>
+    </figure>
   );
 }

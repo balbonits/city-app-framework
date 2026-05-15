@@ -1,4 +1,4 @@
-@layer tokens, theme, base, components, utilities;
+@layer theme, tokens, base, components, utilities;
 
 @import 'tailwindcss';
 @import './styles/tokens.css' layer(tokens);
@@ -16,6 +16,11 @@
   --color-accent: var(--color-accent);
   --color-accent-hover: var(--color-accent-hover);
   --color-accent-contrast: var(--color-accent-contrast);
+
+  --color-success: var(--color-success);
+  --color-danger: var(--color-danger);
+  --color-warning: var(--color-warning);
+  --color-info: var(--color-info);
 
   --color-border-DEFAULT: var(--color-border);
   --color-border-strong: var(--color-border-strong);

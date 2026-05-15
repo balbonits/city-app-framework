@@ -4,6 +4,8 @@ import { Hero } from '@/components/Hero';
 import { Problem } from '@/components/Problem';
 import { Solution } from '@/components/Solution';
 import { Rules } from '@/components/Rules';
+import { DesignSystem } from '@/components/DesignSystem';
+import { Showcase } from '@/components/Showcase';
 import { GetStarted } from '@/components/GetStarted';
 
 export default function App() {
@@ -15,6 +17,8 @@ export default function App() {
         <Problem />
         <Solution />
         <Rules />
+        <DesignSystem />
+        <Showcase />
         <GetStarted />
       </main>
       <Footer />
