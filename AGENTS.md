@@ -171,4 +171,5 @@ Don't load these unless relevant to the current task:
 - [`conventions/claude-code/`](./conventions/claude-code/) — Claude Code-specific primitives (skills, custom subagents, MCP, hooks). Load when authoring any of those.
 - [`decision-patterns/`](./decision-patterns/) — recurring tradeoffs.
 - [`templates/`](./templates/) — starting templates for new projects.
+- [`scripts/`](./scripts/) — bootstrap scripts. `new-project.sh` to start a new project from the templates.
 - [`docs/design-notes/`](./docs/design-notes/) — the philosophical layer ("City 2.0" design exercise). Useful for thinking about the framework, not for daily execution.
