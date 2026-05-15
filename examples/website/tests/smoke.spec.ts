@@ -40,6 +40,9 @@ for (const theme of ['dark', 'light'] as const) {
     await page.reload();
     await page.waitForLoadState('networkidle');
     await page.screenshot({ path: `tests/screenshots/${theme}-hero.png` });
+    await page.locator('#solution').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: `tests/screenshots/${theme}-solution.png` });
     await page.locator('#design-system').scrollIntoViewIfNeeded();
     await page.waitForTimeout(300);
     await page.screenshot({ path: `tests/screenshots/${theme}-design-system.png` });
@@ -49,5 +52,8 @@ for (const theme of ['dark', 'light'] as const) {
     await page.locator('#rules').scrollIntoViewIfNeeded();
     await page.waitForTimeout(300);
     await page.screenshot({ path: `tests/screenshots/${theme}-rules.png` });
+    await page.locator('#get-started').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: `tests/screenshots/${theme}-get-started.png` });
   });
 }
