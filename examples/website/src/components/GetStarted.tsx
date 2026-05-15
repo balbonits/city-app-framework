@@ -13,22 +13,20 @@ interface Step {
 const steps: Step[] = [
   {
     number: '01',
-    title: 'Clone or copy',
-    body: 'The framework lives in one repo. Clone it, or just copy the templates and conventions into your own setup.',
+    title: 'Clone the framework',
+    body: 'The framework lives in one repo. Clone it once, reuse across every project.',
     code: 'git clone https://github.com/balbonits/city-app-framework',
   },
   {
     number: '02',
-    title: 'Drop in the templates',
-    body: 'Copy the per-project starter files into your project. Fill in stack, commands, layout, naming.',
-    code: `cp templates/project-AGENTS.md /your/project/AGENTS.md
-cp templates/project-CLAUDE.md /your/project/CLAUDE.md
-cp templates/project-GROK.md   /your/project/GROK.md`,
+    title: 'Run the bootstrap script',
+    body: 'One command scaffolds a new project with AGENTS.md, CLAUDE.md, GROK.md, README.md, BACKLOG.md skeleton, docs/decisions/, and git init — prompts for description and repo URL inline.',
+    code: `./scripts/new-project.sh ~/Projects/my-app "My App"`,
   },
   {
     number: '03',
     title: 'Open in your agent and ship',
-    body: 'Claude Code, Cursor, Grok — they read AGENTS.md automatically at session start. The agent shows up already aligned with how you build.',
+    body: 'Claude Code, Cursor, Grok — they read AGENTS.md automatically at session start. The agent shows up already aligned with how you build. For Claude Code specifically: skills, custom subagents, MCP, and hooks have their own conventions under conventions/claude-code/.',
   },
 ];
 
