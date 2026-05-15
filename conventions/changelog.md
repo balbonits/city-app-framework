@@ -38,6 +38,19 @@ You can't include a commit's own SHA in its own message — the SHA isn't comput
 
 **The solve: pair every work commit with a documentation commit.**
 
+```mermaid
+flowchart LR
+    classDef work fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef doc fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+    classDef stop fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+
+    A["fa:fa-code  <b>Commit A</b><br/>feat: add login form<br/><i>abc1234</i>"]:::work
+    B["fa:fa-file-alt  <b>Commit B</b><br/>docs: changelog entry for abc1234<br/><i>def5678</i>"]:::doc
+    Stop(["fa:fa-stop-circle  <b>Cycle ends</b><br/>don't document B"]):::stop
+
+    A ==>|paired with| B ==> Stop
+```
+
 | Commit | Purpose | What changes |
 | --- | --- | --- |
 | A | The actual work | Feature / fix code |

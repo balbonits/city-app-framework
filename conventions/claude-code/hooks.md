@@ -4,6 +4,28 @@ When framework rules should be enforced by a runtime hook vs. left as documentat
 
 Hooks are deterministic event handlers that run outside the model. The harness fires them; Claude doesn't decide whether they run. That's their value — and their limit.
 
+```mermaid
+flowchart LR
+    classDef event fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
+    classDef harness fill:#854d0e,stroke:#713f12,color:#ffffff,stroke-width:2px
+    classDef block fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+    classDef pass fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+    classDef model fill:#dbeafe,stroke:#1e40af,color:#0f172a,stroke-width:1px,stroke-dasharray: 4 2
+
+    Event(["fa:fa-bolt  Runtime event<br/>PreToolUse / PostToolUse /<br/>SessionStart / Stop / …"]):::event
+    Hook["fa:fa-shield-alt  Hook command runs<br/><i>outside the model</i>"]:::harness
+    Exit{"fa:fa-question  Exit code?"}:::harness
+    Block["fa:fa-ban  exit 2 — blocked<br/>stderr fed to model"]:::block
+    Pass["fa:fa-check  exit 0 — pass<br/>stdout may inject context"]:::pass
+    Model["fa:fa-robot  Model continues"]:::model
+
+    Event --> Hook --> Exit
+    Exit -->|2| Block
+    Exit -->|0| Pass
+    Pass --> Model
+    Block -.->|tool call rejected| Model
+```
+
 ---
 
 ## When a hook is load-bearing

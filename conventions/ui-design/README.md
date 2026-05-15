@@ -4,6 +4,23 @@ Rules to keep AI-generated UI from looking AI-generated. Distilled from public U
 
 The core insight: AI defaults to "vibe-coded" UI — bright clashing colors, repeated KPI blocks, sparse modals, gradient monogram avatars, emoji icons, lame chart palettes. These are *predictable failure modes*, not random taste. Pin the right decisions before codegen, apply rules during, run a checklist after — and most of the gap closes.
 
+```mermaid
+flowchart LR
+    classDef phase fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef pin fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+    classDef generate fill:#3730a3,stroke:#312e81,color:#ffffff,stroke-width:2px
+    classDef review fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+    classDef out fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
+
+    Pin["fa:fa-thumbtack  <b>1. Pin</b><br/><i>before codegen</i><br/>color foundation, layout direction,<br/>density, brand voice"]:::pin
+    Gen["fa:fa-code  <b>2. Generate</b><br/><i>during codegen</i><br/>color, hierarchy, layout,<br/>states, mobile"]:::generate
+    Review["fa:fa-check-double  <b>3. Review</b><br/><i>before claiming done</i><br/>checklist, anti-pattern hunt"]:::review
+    Output(["fa:fa-rocket  UI that doesn't smell AI-made"]):::out
+
+    Pin ==> Gen ==> Review ==> Output
+    Review -.->|fail — back to generate| Gen
+```
+
 ---
 
 ## How to use this collection

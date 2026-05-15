@@ -2,6 +2,27 @@
 
 A recurring decision: when user-facing behavior conflicts with the technically clean implementation, which wins?
 
+```mermaid
+flowchart TD
+    classDef start fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
+    classDef decision fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:1px
+    classDef user fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef tech fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+
+    Start(["fa:fa-balance-scale  Conflict between user feel and clean impl"]):::start
+    Q1{"fa:fa-question  Money, audit,<br/>compliance, or multi-user<br/>consistency at stake?"}:::decision
+    Q2{"fa:fa-question  Personal tool, game,<br/>or single-user feel?"}:::decision
+
+    User(["fa:fa-user-friends  <b>USER PERCEPTION</b><br/>Local midnight, jump feel,<br/>optimistic UI"]):::user
+    Tech(["fa:fa-cog  <b>TECHNICAL SIMPLICITY</b><br/>UTC, fixed timestep,<br/>idempotency keys"]):::tech
+
+    Start --> Q1
+    Q1 -->|yes| Tech
+    Q1 -->|no| Q2
+    Q2 -->|yes| User
+    Q2 -->|no| Tech
+```
+
 ---
 
 ## Bias toward user perception when

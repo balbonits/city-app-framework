@@ -51,6 +51,23 @@ For non-OAuth schemes (Kerberos, internal SSO, short-lived tokens), `headersHelp
 
 ## Scope precedence
 
+```mermaid
+flowchart TB
+    classDef local fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef project fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+    classDef user fill:#854d0e,stroke:#713f12,color:#ffffff,stroke-width:2px
+    classDef plugin fill:#3730a3,stroke:#312e81,color:#ffffff,stroke-width:2px
+    classDef connector fill:#475569,stroke:#334155,color:#ffffff,stroke-width:1px
+
+    L["fa:fa-laptop  <b>1. Local</b><br/>~/.claude.json (per-project)<br/><i>not shared</i>"]:::local
+    P["fa:fa-folder  <b>2. Project</b><br/>.mcp.json in repo root<br/><i>committed to VCS</i>"]:::project
+    U["fa:fa-user  <b>3. User</b><br/>~/.claude.json top-level<br/><i>all your projects</i>"]:::user
+    PL["fa:fa-puzzle-piece  <b>4. Plugin</b><br/>.mcp.json inside plugin<br/><i>where plugin enabled</i>"]:::plugin
+    C["fa:fa-link  <b>5. claude.ai connectors</b><br/><i>account-level</i>"]:::connector
+
+    L -->|highest priority| P --> U --> PL --> C
+```
+
 | Scope | Where | Shared? |
 | --- | --- | --- |
 | Local | `~/.claude.json` under `projects.<path>.mcpServers` | No — current account, current project. |

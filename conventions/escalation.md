@@ -2,6 +2,32 @@
 
 When to ask the human, and how to ask well.
 
+```mermaid
+flowchart TD
+    classDef start fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
+    classDef decision fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:1px
+    classDef always fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+    classDef probably fill:#854d0e,stroke:#713f12,color:#ffffff,stroke-width:2px
+    classDef never fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+
+    Start(["fa:fa-tasks  Picking up a task"]):::start
+    Q1{"fa:fa-question  New dep, scope change,<br/>arch choice, irreversible op,<br/>or prod deploy?"}:::decision
+    Q2{"fa:fa-question  Significant tradeoff or<br/>embarrassment risk?"}:::decision
+    Q3{"fa:fa-question  Pattern already in repo<br/>or trivial doc/build edit?"}:::decision
+
+    Ask(["fa:fa-hand-paper  <b>ASK</b><br/>Structured ask with<br/>options + recommendation"]):::always
+    Probably(["fa:fa-question-circle  <b>PROBABLY ASK</b><br/>Tradeoff deserves alignment"]):::probably
+    Proceed(["fa:fa-check  <b>PROCEED</b><br/>Just do it"]):::never
+
+    Start --> Q1
+    Q1 -->|yes| Ask
+    Q1 -->|no| Q2
+    Q2 -->|yes| Probably
+    Q2 -->|no| Q3
+    Q3 -->|yes| Proceed
+    Q3 -->|no| Probably
+```
+
 ---
 
 ## When to ask

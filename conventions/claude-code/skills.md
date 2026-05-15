@@ -4,6 +4,26 @@ When to author a Claude Code Skill, how to write one, and how to tell whether th
 
 A Skill is a markdown file (with optional bundled scripts and references) that Claude loads into context when its description matches the current task. Slash commands have been folded into skills — `/deploy` works whether it comes from `.claude/commands/deploy.md` or `.claude/skills/deploy/SKILL.md`. Skills are the preferred form because they can carry a directory of supporting files.
 
+```mermaid
+flowchart LR
+    classDef session fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
+    classDef meta fill:#dbeafe,stroke:#1e40af,color:#0f172a,stroke-width:1px
+    classDef body fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef resource fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+    classDef context fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:1px
+
+    Start(["fa:fa-play  Session starts"]):::session
+    Meta["fa:fa-file-alt  Skill metadata loaded<br/><i>~100 tokens / skill</i><br/>name + description only"]:::meta
+    Match{"fa:fa-search  User request<br/>matches description?"}:::context
+    Body["fa:fa-book-open  Skill body loaded<br/><i>under ~5k tokens</i><br/>persists rest of session"]:::body
+    Resources["fa:fa-folder-open  Bundled scripts / references<br/><i>loaded on demand</i><br/>scripts run via bash"]:::resource
+
+    Start --> Meta --> Match
+    Match -->|yes| Body
+    Body -.->|when body references them| Resources
+    Match -.->|no — stays as metadata| Meta
+```
+
 ---
 
 ## When to write a Skill

@@ -6,6 +6,31 @@ The Sponsor → Agent relationship recurses one level: the main agent becomes a 
 
 This convention is written Claude-Code-first because that's the tool with the richest sub-agent support today. Other environments (Grok, plain chat UIs) often don't offer the same primitives — see "Other environments" at the bottom.
 
+```mermaid
+flowchart TD
+    classDef main fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef decision fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:1px
+    classDef delegate fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+    classDef self fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+
+    Main(["fa:fa-robot  Main agent picks up a task"]):::main
+    Q1{"fa:fa-question  Need raw output<br/>in main context for<br/>the next edit?"}:::decision
+    Q2{"fa:fa-question  Multi-step research,<br/>large search, or independent<br/>review needed?"}:::decision
+    Q3{"fa:fa-question  Multiple genuinely<br/>independent tasks?"}:::decision
+
+    Self(["fa:fa-check  Do it yourself<br/><i>Read / Grep directly</i>"]):::self
+    One(["fa:fa-user-secret  Dispatch one sub-agent<br/><i>Explore / Plan / code-reviewer</i>"]):::delegate
+    Many(["fa:fa-users  Dispatch parallel sub-agents<br/><i>batch in one turn</i>"]):::delegate
+
+    Main --> Q1
+    Q1 -->|yes| Self
+    Q1 -->|no| Q2
+    Q2 -->|no| Self
+    Q2 -->|yes| Q3
+    Q3 -->|yes| Many
+    Q3 -->|no| One
+```
+
 ---
 
 ## What sub-agents actually buy you
