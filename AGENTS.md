@@ -168,6 +168,8 @@ Don't do a full retrospective for every session — that's overhead theater. A s
 Don't load these unless relevant to the current task:
 
 - [`conventions/`](./conventions/) — operational rules with examples.
+- [`conventions/cross-platform-testing.md`](./conventions/cross-platform-testing.md) — automated testing across web, mobile, TV, console. Load when targeting non-web platforms.
+- [`conventions/visual-verification.md`](./conventions/visual-verification.md) — AI uses its own multimodal vision to verify UI output. Load after any UI edit.
 - [`conventions/claude-code/`](./conventions/claude-code/) — Claude Code-specific primitives (skills, custom subagents, MCP, hooks). Load when authoring any of those.
 - [`decision-patterns/`](./decision-patterns/) — recurring tradeoffs.
 - [`templates/`](./templates/) — starting templates for new projects.
