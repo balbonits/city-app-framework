@@ -168,6 +168,7 @@ Don't do a full retrospective for every session — that's overhead theater. A s
 Don't load these unless relevant to the current task:
 
 - [`conventions/`](./conventions/) — operational rules with examples.
+- [`conventions/claude-code/`](./conventions/claude-code/) — Claude Code-specific primitives (skills, custom subagents, MCP, hooks). Load when authoring any of those.
 - [`decision-patterns/`](./decision-patterns/) — recurring tradeoffs.
 - [`templates/`](./templates/) — starting templates for new projects.
 - [`docs/design-notes/`](./docs/design-notes/) — the philosophical layer ("City 2.0" design exercise). Useful for thinking about the framework, not for daily execution.
