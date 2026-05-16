@@ -2,6 +2,30 @@
 
 When building a game, when do you reach for an engine vs hand-roll it?
 
+```mermaid
+flowchart TD
+    classDef start fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
+    classDef decision fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:1px
+    classDef vanilla fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef engine fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+
+    Start(["fa:fa-gamepad  Building a game"]):::start
+    Q1{"fa:fa-question  Scope &gt; 2 weeks<br/>or commercial?"}:::decision
+    Q2{"fa:fa-question  Need physics, scenes,<br/>asset pipeline, audio mixing?"}:::decision
+    Q3{"fa:fa-question  Want to learn /<br/>boilerplate IS the point?"}:::decision
+
+    Vanilla(["fa:fa-code  <b>VANILLA CANVAS</b><br/>requestAnimationFrame +<br/>state machine + AABB"]):::vanilla
+    Engine(["fa:fa-cogs  <b>GAME ENGINE</b><br/>Phaser / Godot / Unity"]):::engine
+
+    Start --> Q1
+    Q1 -->|yes| Q2
+    Q1 -->|no| Q3
+    Q2 -->|yes| Engine
+    Q2 -->|no| Vanilla
+    Q3 -->|yes| Vanilla
+    Q3 -->|no| Vanilla
+```
+
 ---
 
 ## Vanilla Canvas / hand-rolled

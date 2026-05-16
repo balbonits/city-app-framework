@@ -10,6 +10,33 @@ Sibling convention [`sub-agents.md`](../sub-agents.md) covers the *dispatch* pat
 
 ## The five primitives
 
+```mermaid
+flowchart TB
+    classDef skill fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef agent fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+    classDef mcp fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+    classDef hook fill:#854d0e,stroke:#713f12,color:#ffffff,stroke-width:2px
+    classDef plugin fill:#3730a3,stroke:#312e81,color:#ffffff,stroke-width:2px
+    classDef model fill:#f1f5f9,stroke:#475569,color:#0f172a,stroke-width:1px,stroke-dasharray: 4 2
+
+    Model(["fa:fa-robot  Main agent context"]):::model
+
+    Skill["fa:fa-bolt  <b>Skill</b><br/><i>modifies current agent in-place</i><br/>.claude/skills/&lt;name&gt;/SKILL.md"]:::skill
+    Agent["fa:fa-user-secret  <b>Custom subagent</b><br/><i>forks fresh context window</i><br/>.claude/agents/&lt;name&gt;.md"]:::agent
+    MCP["fa:fa-plug  <b>MCP server</b><br/><i>external tools via network/IPC</i><br/>.mcp.json"]:::mcp
+    Hook["fa:fa-shield-alt  <b>Hook</b><br/><i>runs outside the model</i><br/>.claude/settings.json"]:::hook
+    Plugin["fa:fa-box-open  <b>Plugin</b><br/><i>distribution container</i><br/>.claude-plugin/plugin.json"]:::plugin
+
+    Skill -->|injects body into context| Model
+    Agent -.->|spawns separate context| Model
+    MCP -->|adds tools| Model
+    Hook ==>|intercepts events| Model
+    Plugin -.->|bundles any of the above| Skill
+    Plugin -.-> Agent
+    Plugin -.-> MCP
+    Plugin -.-> Hook
+```
+
 | Primitive | Lives at | Trigger | Where it runs | Token cost |
 | --- | --- | --- | --- | --- |
 | **Skill** | `.claude/skills/<name>/SKILL.md` | `description` match (model decides) or `/name` (user types) | Same context — modifies current agent in-place | ~100 tokens metadata at startup; body loads on use |
@@ -21,6 +48,39 @@ Sibling convention [`sub-agents.md`](../sub-agents.md) covers the *dispatch* pat
 ---
 
 ## Which primitive for which job
+
+```mermaid
+flowchart TD
+    classDef start fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
+    classDef decision fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:1px
+    classDef skill fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef agent fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+    classDef hook fill:#854d0e,stroke:#713f12,color:#ffffff,stroke-width:2px
+    classDef mcp fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+    classDef doc fill:#475569,stroke:#334155,color:#ffffff,stroke-width:1px
+
+    Start(["fa:fa-circle-question  I have a recurring pattern to capture"]):::start
+    Q1{"fa:fa-question  Need an external tool<br/>(DB, API, browser)?"}:::decision
+    Q2{"fa:fa-question  Must this rule be<br/>unviolable?"}:::decision
+    Q3{"fa:fa-question  Needs isolation from<br/>main conversation?"}:::decision
+    Q4{"fa:fa-question  Needs ongoing<br/>conversation context?"}:::decision
+
+    MCP["fa:fa-plug  Add an MCP server"]:::mcp
+    Hook["fa:fa-shield-alt  Write a Hook"]:::hook
+    Agent["fa:fa-user-secret  Write a custom subagent"]:::agent
+    Skill["fa:fa-bolt  Write a Skill"]:::skill
+    Doc["fa:fa-book  Keep it as a convention doc"]:::doc
+
+    Start --> Q1
+    Q1 -->|yes| MCP
+    Q1 -->|no| Q2
+    Q2 -->|yes| Hook
+    Q2 -->|no| Q3
+    Q3 -->|yes| Agent
+    Q3 -->|no| Q4
+    Q4 -->|yes| Skill
+    Q4 -->|no| Doc
+```
 
 Use this table when you have a recurring pattern you want to capture.
 

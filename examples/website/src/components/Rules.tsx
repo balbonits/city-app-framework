@@ -57,6 +57,36 @@ const groups: RuleGroup[] = [
       label: 'decision-patterns/',
     },
   },
+  {
+    title: 'Engineering practices',
+    description:
+      'Testing, CI/CD, DevOps, and releases for AI-built code. Evidence-based with primary-source citations (Anthropic, Google SRE, Meta Engineering, Kent Beck, peer-reviewed papers). Documents what AI gets wrong and how to catch it.',
+    bullets: [
+      'Testing: property-based + mutation testing for AI blind spots',
+      'CI/CD: pin actions to SHA, concurrency cancels, AI review never blocks merge',
+      'DevOps: OTel GenAI conventions, sandbox isolation, cost controls',
+      'Releases: git-cliff, trunk-based, accurate AI co-author attribution',
+    ],
+    link: {
+      href: 'https://github.com/balbonits/city-app-framework/blob/main/conventions/testing.md',
+      label: 'conventions/{testing,ci-cd,devops,releases}.md',
+    },
+  },
+  {
+    title: 'Claude Code primitives',
+    description:
+      'When and how to use Claude Code\'s five extensibility primitives — skills, custom subagents, MCP servers, hooks, plugins. Each doc flags what NOT to convert (most conventions stay as markdown, not skills). Subfolder pattern matches conventions/ui-design/.',
+    bullets: [
+      'Skills: load-on-trigger procedures, not always-loaded reference',
+      'Custom subagents: when isolation is the point',
+      'MCP servers: 3 deployment models; recommended servers per stack',
+      'Hooks: load-bearing for blocking, theater for guidance',
+    ],
+    link: {
+      href: 'https://github.com/balbonits/city-app-framework/tree/main/conventions/claude-code',
+      label: 'conventions/claude-code/',
+    },
+  },
 ];
 
 export function Rules() {
@@ -65,8 +95,9 @@ export function Rules() {
       <Eyebrow>What's encoded</Eyebrow>
       <h2 className="text-3xl font-semibold tracking-tight">The rules.</h2>
       <p className="mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted">
-        Three groups of rules. Each one is short, operational, and lives next to a worked example.
-        Strong defaults — overridable when the project demands it.
+        Five groups. Operational rules with worked examples. Strong defaults — overridable when the
+        project demands it. Engineering practices and Claude Code primitive guidance are evidence-based
+        with primary-source citations.
       </p>
 
       <div className="mt-10 space-y-6">

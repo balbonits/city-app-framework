@@ -2,6 +2,35 @@
 
 When should you spend cycles on performance vs ship and revisit?
 
+```mermaid
+flowchart TD
+    classDef start fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
+    classDef decision fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:1px
+    classDef now fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+    classDef later fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+    classDef measure fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+
+    Start(["fa:fa-tachometer-alt  Performance question raised"]):::start
+    Q1{"fa:fa-question  Have you measured?"}:::decision
+    Measure["fa:fa-search  Measure first<br/><i>DevTools, Lighthouse, EXPLAIN</i>"]:::measure
+    Q2{"fa:fa-question  Core user requirement<br/>or visibly harming UX?"}:::decision
+    Q3{"fa:fa-question  Hard to change later<br/>(DB shape, public API)?"}:::decision
+    Q4{"fa:fa-question  Cheap fix, no added<br/>complexity?"}:::decision
+
+    Now(["fa:fa-bolt  <b>OPTIMIZE NOW</b><br/>Fix the bottleneck"]):::now
+    Later(["fa:fa-clock  <b>OPTIMIZE LATER</b><br/>Ship, gather data, revisit"]):::later
+
+    Start --> Q1
+    Q1 -->|no| Measure --> Q2
+    Q1 -->|yes| Q2
+    Q2 -->|yes| Now
+    Q2 -->|no| Q3
+    Q3 -->|yes| Now
+    Q3 -->|no| Q4
+    Q4 -->|yes| Now
+    Q4 -->|no| Later
+```
+
 ---
 
 ## Optimize now when

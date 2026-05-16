@@ -168,6 +168,7 @@ Don't do a full retrospective for every session — that's overhead theater. A s
 Don't load these unless relevant to the current task:
 
 - [`conventions/`](./conventions/) — operational rules with examples.
+- [`conventions/testing.md`](./conventions/testing.md), [`ci-cd.md`](./conventions/ci-cd.md), [`devops.md`](./conventions/devops.md), [`releases.md`](./conventions/releases.md) — testing, pipelines, operations, releases for AI-built code. Evidence-based with citations.
 - [`conventions/claude-code/`](./conventions/claude-code/) — Claude Code-specific primitives (skills, custom subagents, MCP, hooks). Load when authoring any of those.
 - [`decision-patterns/`](./decision-patterns/) — recurring tradeoffs.
 - [`templates/`](./templates/) — starting templates for new projects.

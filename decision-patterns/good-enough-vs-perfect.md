@@ -2,6 +2,33 @@
 
 When is "ship the rough version" right vs "polish first"?
 
+```mermaid
+flowchart TD
+    classDef start fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
+    classDef decision fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:1px
+    classDef good fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef perfect fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+
+    Start(["fa:fa-question-circle  About to build feature X"]):::start
+    Q1{"fa:fa-question  Affects security,<br/>compliance, or trust?"}:::decision
+    Q2{"fa:fa-question  Hard / expensive<br/>to reverse?"}:::decision
+    Q3{"fa:fa-question  Foundation other code<br/>will sit on?"}:::decision
+    Q4{"fa:fa-question  User-facing first<br/>impression?"}:::decision
+
+    Good(["fa:fa-rocket  <b>GOOD ENOUGH</b><br/>Ship rough, iterate"]):::good
+    Perfect(["fa:fa-gem  <b>PERFECT</b><br/>Polish before ship"]):::perfect
+
+    Start --> Q1
+    Q1 -->|yes| Perfect
+    Q1 -->|no| Q2
+    Q2 -->|yes| Perfect
+    Q2 -->|no| Q3
+    Q3 -->|yes| Perfect
+    Q3 -->|no| Q4
+    Q4 -->|yes| Perfect
+    Q4 -->|no| Good
+```
+
 ---
 
 ## Good enough wins when

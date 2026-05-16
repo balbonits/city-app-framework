@@ -128,6 +128,25 @@ Patterns:
 
 ## Triggering — four invocation paths
 
+```mermaid
+flowchart TD
+    classDef path fill:#dbeafe,stroke:#1e40af,color:#0f172a,stroke-width:1px
+    classDef dispatch fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
+    classDef hard fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+
+    Auto["fa:fa-magic  <b>Auto-delegation</b><br/>main agent matches description<br/><i>not guaranteed</i>"]:::path
+    NL["fa:fa-comment  <b>Natural language</b><br/>'Use the code-reviewer'<br/><i>usually but not guaranteed</i>"]:::path
+    Mention["fa:fa-at  <b>@-mention</b><br/>@code-reviewer<br/><i>guarantees invocation</i>"]:::hard
+    Flag["fa:fa-flag  <b>Session-wide</b><br/>claude --agent code-reviewer<br/><i>replaces default system prompt</i>"]:::hard
+
+    Subagent(["fa:fa-user-secret  Custom subagent runs in fresh context"]):::dispatch
+
+    Auto -.->|low confidence| Subagent
+    NL -.->|usually| Subagent
+    Mention ==>|guaranteed| Subagent
+    Flag ==>|whole session| Subagent
+```
+
 1. **Auto-delegation.** Main agent reads the user message + each subagent's `description`, decides whether to delegate, calls the Agent tool. To bias toward auto-invocation, include "Use proactively" or "Use immediately after…" in the description.
 2. **Natural language.** "Use the code-reviewer subagent on my auth changes." Main agent usually delegates; not guaranteed.
 3. **@-mention.** `@code-reviewer` — typeahead picker. **Guarantees** invocation for that turn.

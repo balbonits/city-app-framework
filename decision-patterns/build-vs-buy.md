@@ -2,6 +2,30 @@
 
 When should you build a feature yourself vs use a library or service?
 
+```mermaid
+flowchart TD
+    classDef start fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
+    classDef decision fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:1px
+    classDef build fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
+    classDef buy fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
+
+    Start(["fa:fa-question-circle  Need to add capability X"]):::start
+    Q1{"fa:fa-question  Is X core to<br/>product differentiation?"}:::decision
+    Q2{"fa:fa-question  Mature SaaS exists<br/>that meets requirements?"}:::decision
+    Q3{"fa:fa-question  Lifetime SaaS cost &lt;<br/>build × 3 + maintenance?"}:::decision
+
+    Build(["fa:fa-hammer  <b>BUILD</b><br/>Owns the differentiation"]):::build
+    Buy(["fa:fa-shopping-cart  <b>BUY / INTEGRATE</b><br/>Compose, don't reinvent"]):::buy
+
+    Start --> Q1
+    Q1 -->|yes| Build
+    Q1 -->|no| Q2
+    Q2 -->|no| Build
+    Q2 -->|yes| Q3
+    Q3 -->|yes| Buy
+    Q3 -->|no| Build
+```
+
 ---
 
 ## Build when

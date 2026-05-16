@@ -17,18 +17,23 @@ export function Solution() {
           <p className="font-mono text-sm uppercase tracking-wider text-fg-faint">Layer 1</p>
           <h3 className="mt-2 text-xl font-semibold">Universal</h3>
           <p className="mt-3 text-sm leading-relaxed text-fg-muted">
-            Rules and patterns shared across every project. Anti-overengineering, escalation
-            triggers, decision patterns, communication norms. Lives once, in a shared{' '}
+            Rules and patterns shared across every project. Anti-overengineering, escalation,
+            decision patterns, communication norms, testing, CI/CD, DevOps, releases, Claude
+            Code primitives. Lives once, in a shared{' '}
             <code className="rounded bg-[var(--color-code-bg)] px-1.5 py-0.5 text-[0.85em]">
               AGENTS.md
+            </code>{' '}
+            +{' '}
+            <code className="rounded bg-[var(--color-code-bg)] px-1.5 py-0.5 text-[0.85em]">
+              conventions/
             </code>
             .
           </p>
           <ul className="mt-4 space-y-1.5 text-sm text-fg-muted">
-            <li>· anti-overengineering</li>
-            <li>· ask vs proceed</li>
-            <li>· decision patterns</li>
-            <li>· communication norms</li>
+            <li>· anti-overengineering, ask vs proceed</li>
+            <li>· testing, CI/CD, DevOps, releases <span className="text-fg-faint">(evidence-based, cited)</span></li>
+            <li>· Claude Code primitives <span className="text-fg-faint">(skills, agents, MCP, hooks)</span></li>
+            <li>· UI design, decision patterns, escalation</li>
           </ul>
         </article>
 
