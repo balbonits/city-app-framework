@@ -1,6 +1,6 @@
 # Plan: the `/city-app:*` skill suite
 
-Status: proposal, waiting for approval. Nothing below is built yet.
+Status: approved. Phase 1 steps 1 and 2 are built and tested (`setup`, `lesson`, `rules:test`); step 3 (`ui:check`) is next.
 
 ## Goal
 
@@ -50,7 +50,7 @@ Our own experiments already have working code for gaps 1 and 4.
 | --- | --- | --- |
 | `/city-app:setup` | Installs the kit (AGENTS.md, CLAUDE.md import, hooks) and fills in facts it can read from the repo | Existing tested installer; fixes the "AGENTS.md never loads" bug for new projects |
 | `/city-app:lesson` | Turns a correction into the strongest form: a test, a hook, or one AGENTS.md line; logs it | Gap 4. Tested: journal lessons 0/5, rules and checks 5/5 |
-| `/city-app:rules:test` | A/B-tests one rule, hook or skill on your repo: N headless runs with and without it, fixed checks, the difference, cost shown before running | Gap 1. Reuses the experiment harness |
+| `/city-app:rules:test` | A/B-tests one AGENTS.md rule on your repo: N headless runs with and without it, scored by fixed checks; shows the plan and asks before using your usage (hooks and skills later) | Gap 1. Reuses the experiment harness |
 | `/city-app:ui:check` | Runs fixed checks on the pages you changed: accessibility scan (axe), console errors, screenshots at phone/tablet/desktop sizes; fails with a fix-it message | Gap 5. Built for front-end work |
 
 **Phase 2: only after Phase 1 proves useful.**
@@ -97,10 +97,10 @@ experiments/                      existing research harness (rules:test reuses l
 3. `ui:check` → pass/fail on the planted bugs → **stop**.
 4. Phase 2 only if you approve it.
 
-Rough cost: under $10 of test runs for all of Phase 1.
+Before any batch of test runs: ask first, in plain words, with the number of test sessions.
 
-## Decisions needed from you
+## Decisions (made)
 
-1. **Hooks:** keep them per project, copied in by `setup` (recommended: they then work in cloud sessions and with other agents), or ship them inside the plugin so they apply everywhere it's enabled?
-2. **`ui:check` tools:** add Playwright and axe-core as dev dependencies in each project (recommended: the checks then run with `npm test`), or fetch them on demand with `npx` each time?
-3. **Scope:** Phase 1 as listed, or swap in something from Phase 2?
+1. **Hooks:** per project, copied in by `setup`.
+2. **`ui:check` tools:** Playwright and axe-core as dev dependencies.
+3. **Scope:** Phase 1 as listed.

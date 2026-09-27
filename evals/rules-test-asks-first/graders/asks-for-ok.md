@@ -1,6 +1,6 @@
 ---
 type: regex
 target: last_message
-pattern: "usage"
+pattern: "\\b(sure|okay|ok)\\b[^\\n]*\\?"
 flags: i
 ---

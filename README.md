@@ -31,6 +31,7 @@ No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs th
 | --- | --- | --- |
 | `/city-app:setup` | Installs the per-project files and fills in AGENTS.md | v3's setup kept Claude from loading AGENTS.md at all |
 | `/city-app:lesson` | Turns a correction into a test, a guard rule, or one AGENTS.md line, and logs it | Lessons in a journal were never read; rules and checks were |
+| `/city-app:rules:test` | Checks whether one AGENTS.md rule changes what the agent does on your project: the same task with and without it, each run scored by a check. Shows the plan and asks before using your usage | Many rules make no difference; this shows which ones earn their place |
 
 More are planned: see [the plan](docs/plan-city-app-skills.md).
 
@@ -55,7 +56,7 @@ To approve a dependency, add its name to `.claude/approved-deps.txt` yourself. T
 | Did the v3 escalation table help? | It over-corrected: agents stopped to ask and built nothing in 3 of 5 runs. |
 | Do lessons carry over between sessions? | Only if the next session runs into them. Journal only: 0/5. One line in AGENTS.md: 5/5. A failing check: 5/5, even with no written rule. |
 | Does a second "reviewer" agent help? | Not on small, clear tasks: the solo agent was right 15 of 16 times, and the reviewer missed the one bug while costing more than the build. |
-| Is "describe it, get an app" still a dream? | No. A 4-sentence spec gave a working CLI in 4 of 4 runs (about $0.15, 1 minute), with no framework at all. |
+| Is "describe it, get an app" still a dream? | No. A 4-sentence spec gave a working CLI in 4 of 4 runs (about 1 minute each), with no framework at all. |
 
 Full numbers, methods and sources: [docs/findings-2026-09.md](docs/findings-2026-09.md). Raw data: [experiments/results/](experiments/results/).
 

@@ -31,7 +31,7 @@ Show the human the output. If it warns about a check or about CLAUDE.md, fix tha
 
 ## 3. Ask before running
 
-A real run uses 2 x runs test sessions of the human's usage (6 with 3 runs). Ask in plain words, for example: "This is going to use a lot of your usage (6 test sessions). Are you sure you're okay with it?" Never mention prices. Then stop and wait for a yes.
+A real run uses 2 x runs test sessions of the human's usage (6 with 3 runs). Ask with this sentence, filling in the number: "This is going to use a lot of your usage (6 test sessions). Are you sure you're okay with it?" Never mention prices. Then stop and wait for a yes.
 
 ## 4. Run and report
 
