@@ -68,8 +68,8 @@ The harness in [`experiments/`](experiments/) runs headless Claude Code against 
 
 ```sh
 npm test                                   # hooks, installer, eval graders (free, offline)
-node evals/run-local.mjs --runs 2          # skill evals: each case with vs without the plugin
-node evals/run-local.mjs --dir tests/e2e --no-baseline --no-plugin --runs 1   # live hook checks
+node evals/run-local.mjs --runs 2          # skill evals, with the plugin (--baseline adds runs without it)
+node evals/run-local.mjs --dir tests/e2e --no-plugin --runs 1   # live hook checks
 node experiments/validate-scorer.mjs /tmp/check
 node experiments/run.mjs --tasks remind --arms bare,kit --trials 5
 ```

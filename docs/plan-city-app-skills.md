@@ -86,7 +86,7 @@ experiments/                      existing research harness (rules:test reuses l
 | --- | --- |
 | `claude plugin validate` | No errors |
 | Naming | Every name registers exactly as listed (same method as the probe) |
-| `claude plugin eval` | Each skill has 2-3 cases and beats the no-plugin baseline, or it gets cut |
+| `claude plugin eval` | Each skill has 2-3 cases that pass, and each case's graders are proven to fail on a wrong outcome (`tests/grading.test.mjs`). A no-plugin baseline can only fail for a typed `/city-app:*` command, so it's opt-in |
 | `rules:test` | Reproduces a known result on the test app: the parseArgs rule goes from 0/5 to 5/5 |
 | `ui:check` | On a small Vite page: fails on a planted accessibility bug and a console error, passes when they're fixed |
 

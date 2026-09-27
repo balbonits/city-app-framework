@@ -2,7 +2,11 @@
 // official runner. Use it where the official runner's sandbox can't start (some containers):
 // the agent is confined by permission rules instead. Same case files, same grader rules.
 //
-//   node evals/run-local.mjs [--dir evals] [--cases a,b] [--runs 2] [--no-baseline] [--no-plugin]
+//   node evals/run-local.mjs [--dir evals] [--cases a,b] [--runs 2] [--baseline] [--no-plugin]
+//
+// --baseline also runs each case without the plugin. Off by default: for a /city-app:* command the
+// baseline can only fail (the command doesn't exist), and tests/grading.test.mjs already proves each
+// grader fails on a wrong outcome, for free.
 //
 // Supports regex, file_exists and tool_used graders; llm graders are skipped.
 import { mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -18,7 +22,7 @@ const { values: opt } = parseArgs({
     dir: { type: 'string', default: 'evals' },
     cases: { type: 'string' },
     runs: { type: 'string', default: '2' },
-    'no-baseline': { type: 'boolean', default: false },
+    baseline: { type: 'boolean', default: false },
     'no-plugin': { type: 'boolean', default: false },
     concurrency: { type: 'string', default: '4' },
   },
@@ -28,7 +32,7 @@ const repo = resolve(new URL('..', import.meta.url).pathname);
 const suite = resolve(repo, opt.dir);
 const wanted = opt.cases?.split(',');
 const cases = caseDirs(suite).map((d) => loadCase(d, suite)).filter((c) => !wanted || wanted.includes(c.name));
-const arms = opt['no-baseline'] ? ['with'] : ['with', 'without'];
+const arms = opt.baseline ? ['with', 'without'] : ['with'];
 
 async function runOnce(c, arm, n) {
   const workspace = mkdtempSync(join(tmpdir(), `local-eval-${c.name.replace(/\W/g, '-')}-`));
