@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-// PreToolUse guard. Blocks the few actions that need a human, whatever the prompt says:
-//   - adding a dependency (unless listed in .claude/approved-deps.txt, which only a human edits)
+// PreToolUse guard for the few actions that need a human, whatever the prompt says.
+// Asks the human (an Allow/Deny prompt; unattended runs get a no):
+//   - adding a dependency, unless it's listed in .claude/approved-deps.txt (only a human edits that)
+// Blocks:
 //   - force-pushing
 //   - deploying to production or publishing a package
 //   - deleting test files
 //   - anything matching a project rule in .claude/guard-rules.txt ("<regex> => <message>")
-// Prints a deny decision on stdout, or nothing to let the call through.
+// Prints an ask or deny decision on stdout, or nothing to let the call through.
 import { readFileSync, existsSync } from 'node:fs';
 import { join, isAbsolute, basename } from 'node:path';
 
@@ -15,12 +17,15 @@ const root = process.env.CLAUDE_PROJECT_DIR ?? payload.cwd ?? process.cwd();
 const APPROVALS = '.claude/approved-deps.txt';
 const RULES = '.claude/guard-rules.txt';
 
-function deny(reason) {
+function decide(permissionDecision, reason) {
   process.stdout.write(JSON.stringify({
-    hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny', permissionDecisionReason: reason },
+    hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision, permissionDecisionReason: reason },
   }));
   process.exit(0);
 }
+const deny = (reason) => decide('deny', reason);
+// Claude Code shows the human an Allow/Deny prompt, even in auto mode; with nobody to ask, it's a no.
+const ask = (reason) => decide('ask', reason);
 
 const approved = () => {
   const file = join(root, APPROVALS);
@@ -29,9 +34,8 @@ const approved = () => {
 };
 
 const depReason = (names) =>
-  `Blocked: adding ${names.join(', ')} needs the human's OK. Use what is already installed or built in. ` +
-  `If you really need it, finish without it and ask, saying which package and why. ` +
-  `(The human approves by adding the name to ${APPROVALS}.)`;
+  `New package: ${names.join(', ')}. Allow it? Say no to keep the agent on what's already installed. ` +
+  `To approve a package for good, add its name to ${APPROVALS}.`;
 
 const packageName = (spec) => spec.replace(/^(@[^/@]+\/[^@]+|[^@]+).*$/, '$1');
 
@@ -96,7 +100,7 @@ function checkBash(command) {
       const names = withoutRedirects(tokens.slice(2)).filter((t) => !t.startsWith('-'))
         .map((t) => packageName(t.replace(/^['"]|['"]$/g, '')));
       const missing = names.filter((n) => !approved().has(n));
-      if (missing.length) deny(depReason(missing));
+      if (missing.length) ask(depReason(missing));
     }
     if (cmd === 'git' && tokens.includes('push') && tokens.some((t) => t === '--force' || t === '-f' || /^\+/.test(t))) {
       deny('Blocked: force-pushing rewrites shared history. Ask the human first.');
@@ -153,7 +157,7 @@ function checkFileEdit() {
   const was = deps(before) ?? new Set();
   const now = deps(after);
   const added = now ? [...now].filter((n) => !was.has(n) && !approved().has(n)) : [];
-  if (added.length) deny(depReason(added));
+  if (added.length) ask(depReason(added));
 }
 
 if (tool === 'Bash') checkBash(input.command ?? '');

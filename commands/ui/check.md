@@ -10,7 +10,7 @@ Arguments: $ARGUMENTS
 
 ## 1. Make sure the tools are there
 
-The checks need `playwright` and `axe-core` as dev dependencies. If `package.json` doesn't list them, ask the human to approve adding them (the guard blocks new dependencies until they're in `.claude/approved-deps.txt`), then run `npm install --save-dev playwright axe-core`. If the browser is missing, run `npx playwright install chromium`.
+The checks need `playwright` and `axe-core` as dev dependencies. If `package.json` doesn't list them, say why they're needed and run `npm install --save-dev playwright axe-core`; the guard shows the human an Allow/Deny prompt for new packages. If the browser is missing, run `npx playwright install chromium`.
 
 ## 2. Pick the pages and the server
 

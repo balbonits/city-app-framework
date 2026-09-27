@@ -25,7 +25,7 @@ From the project root, run:
 node "${CLAUDE_PLUGIN_ROOT}/scripts/install.mjs" .
 ```
 
-It adds whatever is missing: `AGENTS.md`, `CLAUDE.md` (a single `@AGENTS.md` line, so Claude loads AGENTS.md), and two hooks in `.claude/` (a guard that blocks new dependencies, force-push, deploys and deleting tests; a gate that won't let an agent finish while `npm test` fails). It never overwrites a file; it merges its hooks into an existing `.claude/settings.json` and adds `@AGENTS.md` to an existing `CLAUDE.md`.
+It adds whatever is missing: `AGENTS.md`, `CLAUDE.md` (a single `@AGENTS.md` line, so Claude loads AGENTS.md), and two hooks in `.claude/` (a guard that asks the human before new dependencies and blocks force-push, deploys and deleting tests; a gate that won't let an agent finish while `npm test` fails). It never overwrites a file; it merges its hooks into an existing `.claude/settings.json` and adds `@AGENTS.md` to an existing `CLAUDE.md`.
 
 If the command fails (for example, the shell is unavailable or blocked), stop and tell the human what failed. Don't recreate the kit files by hand: a half-installed kit looks set up but isn't.
 

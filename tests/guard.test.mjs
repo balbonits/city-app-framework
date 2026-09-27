@@ -26,10 +26,10 @@ function hook(dir, tool_name, tool_input) {
 const decide = (dir, tool_name, tool_input) => hook(dir, tool_name, tool_input)?.permissionDecision ?? 'allow';
 const bash = (dir, command) => decide(dir, 'Bash', { command });
 
-test('blocks installing new packages in any package manager and form', () => {
+test('asks the human before installing new packages, in any package manager and form', () => {
   const dir = project();
   for (const cmd of ['npm install chalk', 'npm i -D vitest', 'pnpm add zod', 'yarn add --dev kleur', 'bun add hono', 'cd app && npm install @tanstack/react-query@5']) {
-    assert.equal(bash(dir, cmd), 'deny', cmd);
+    assert.equal(bash(dir, cmd), 'ask', cmd);
   }
 });
 
@@ -46,7 +46,7 @@ test('packages the human approved in .claude/approved-deps.txt go through', () =
   writeFileSync(join(dir, '.claude/approved-deps.txt'), '# approved\nzod\n@tanstack/react-query\n');
   assert.equal(bash(dir, 'npm install zod'), 'allow');
   assert.equal(bash(dir, 'npm install @tanstack/react-query@5'), 'allow');
-  assert.equal(bash(dir, 'npm install zod lodash'), 'deny');
+  assert.equal(bash(dir, 'npm install zod lodash'), 'ask');
 });
 
 test('the agent cannot edit the approval list itself, by tool or by shell', () => {
@@ -71,7 +71,7 @@ test('words inside a commit message never trigger a rule', () => {
 
 test('env assignments and npx do not hide a blocked command', () => {
   const dir = project();
-  assert.equal(bash(dir, 'CI=1 npm install chalk'), 'deny');
+  assert.equal(bash(dir, 'CI=1 npm install chalk'), 'ask');
   assert.equal(bash(dir, 'npx vercel --prod'), 'deny');
 });
 
@@ -110,25 +110,25 @@ test('quoted package specs are checked by name', () => {
   mkdirSync(join(dir, '.claude'));
   writeFileSync(join(dir, '.claude/approved-deps.txt'), 'zod\n');
   assert.equal(bash(dir, 'npm install "zod@^3.23"'), 'allow');
-  assert.equal(bash(dir, "npm install 'lodash'"), 'deny');
+  assert.equal(bash(dir, "npm install 'lodash'"), 'ask');
 });
 
 test('shell redirections are not read as package names', () => {
   const dir = project();
   const why = (command) => hook(dir, 'Bash', { command })?.permissionDecisionReason;
-  assert.match(why('npm install picocolors 2>&1 | tail -20'), /^Blocked: adding picocolors needs/);
-  assert.match(why('npm install zod >> install.log'), /^Blocked: adding zod needs/);
+  assert.match(why('npm install picocolors 2>&1 | tail -20'), /^New package: picocolors\. Allow it\?/);
+  assert.match(why('npm install zod >> install.log'), /^New package: zod\. Allow it\?/);
   for (const cmd of ['npm install 2>&1', 'npm install > install.log', 'npm install 2>/dev/null', 'npm i &> install.log']) {
     assert.equal(bash(dir, cmd), 'allow', cmd);
   }
 });
 
-test('blocks package.json edits that add a dependency, allows other edits', () => {
+test('asks before package.json edits that add a dependency, allows other edits', () => {
   const dir = project();
   const file = join(dir, 'package.json');
-  assert.equal(decide(dir, 'Edit', { file_path: file, old_string: '"react": "^19.0.0"', new_string: '"react": "^19.0.0",\n    "dayjs": "^1.11.0"' }), 'deny');
+  assert.equal(decide(dir, 'Edit', { file_path: file, old_string: '"react": "^19.0.0"', new_string: '"react": "^19.0.0",\n    "dayjs": "^1.11.0"' }), 'ask');
   assert.equal(decide(dir, 'Edit', { file_path: file, old_string: '"name": "x"', new_string: '"name": "y"' }), 'allow');
-  assert.equal(decide(dir, 'Write', { file_path: file, content: JSON.stringify({ name: 'x', dependencies: { react: '^19.0.0' }, devDependencies: { vitest: '^4' } }) }), 'deny');
+  assert.equal(decide(dir, 'Write', { file_path: file, content: JSON.stringify({ name: 'x', dependencies: { react: '^19.0.0' }, devDependencies: { vitest: '^4' } }) }), 'ask');
 });
 
 test('blocks force-push, production deploys, publishing, and deleting tests', () => {

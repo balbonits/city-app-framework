@@ -1,5 +1,5 @@
 ---
 type: regex
 target: trace
-pattern: "adding picocolors needs the human"
+pattern: "New package: picocolors"
 ---

@@ -122,6 +122,6 @@ console.log(`Installed the kit into ${target}\n\n${report.join('\n')}\n`);
 console.log([
   'Next:',
   '  1. Fill in the {{...}} placeholders in AGENTS.md (commands, layout, gotchas). Keep it short.',
-  '  2. To approve a dependency, add its name to .claude/approved-deps.txt yourself.',
+  '  2. New packages ask you first (Allow/Deny). To approve one for good, add its name to .claude/approved-deps.txt.',
   '  3. Commit the files so every session (local or cloud) gets them.',
 ].join('\n'));
