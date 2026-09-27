@@ -1,8 +1,4 @@
 {
-  "enabledPlugins": {
-    "frontend-design@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true
-  },
   "permissions": {
     "allow": [
       "Edit(/**)",
@@ -56,16 +52,36 @@
       {
         "matcher": "Bash|Edit|Write|MultiEdit",
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/kit/.claude/hooks/guard.mjs\"" }
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/kit/.claude/hooks/guard.mjs\""
+          }
         ]
       }
     ],
     "Stop": [
       {
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/kit/.claude/hooks/test-gate.mjs\"", "timeout": 330 }
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/kit/.claude/hooks/test-gate.mjs\"",
+            "timeout": 330
+          }
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "city-app@city-app-framework": true
+  },
+  "extraKnownMarketplaces": {
+    "city-app-framework": {
+      "source": {
+        "source": "github",
+        "repo": "balbonits/city-app-framework"
+      }
+    }
   }
 }
