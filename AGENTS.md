@@ -19,7 +19,6 @@ A small, tested kit for building apps with AI coding agents. `kit/` is what gets
 ## Gotchas
 
 - A rule belongs in `kit/AGENTS.md` only if an experiment shows it changes behavior, or it explains a hook. Anything the model already does unprompted is noise; leave it out.
-- Say the estimated cost before running more than ~20 experiment trials.
 - Never hand-edit `experiments/results/*/raw/`; those files are the evidence.
 - Hooks must stay dependency-free Node scripts so they work in any JS project.
 
@@ -33,3 +32,4 @@ A small, tested kit for building apps with AI coding agents. `kit/` is what gets
 6. If a test or requirement looks wrong or impossible, tell me. Never skip, weaken, or delete tests to get green.
 7. When I correct you in a way that should stick, run `/city-app:lesson` (see `skills/lesson/SKILL.md`).
 8. End with 1-3 sentences: what changed, and anything I need to decide.
+9. Before anything that will use a lot of my usage (test batches, many agents, long runs), stop and ask in plain words: "This is going to use a lot of your usage. Are you sure you're okay with it?" Never quote dollar prices.
