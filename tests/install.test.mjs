@@ -20,6 +20,29 @@ test('installs into a fresh folder, creating missing parent folders', () => {
   assert.equal(read(dir, 'CLAUDE.md').trim(), '@AGENTS.md');
 });
 
+test('--check reports what is missing and changes nothing', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'inst-'));
+  writeFileSync(join(dir, 'CLAUDE.md'), 'Read AGENTS.md first.\n');
+  const before = read(dir, 'CLAUDE.md');
+  const r = install(dir, '--check');
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /missing\s+AGENTS\.md exists/);
+  assert.match(r.stdout, /missing\s+CLAUDE\.md imports AGENTS\.md/);
+  assert.equal(read(dir, 'CLAUDE.md'), before);
+  assert.ok(!existsSync(join(dir, 'AGENTS.md')));
+});
+
+test('--check passes once the kit is installed and AGENTS.md is filled in', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'inst-'));
+  writeFileSync(join(dir, 'package.json'), JSON.stringify({ name: 'x', scripts: { test: 'node --test' } }));
+  install(dir);
+  assert.equal(install(dir, '--check').status, 1, 'placeholders still present');
+  writeFileSync(join(dir, 'AGENTS.md'), read(dir, 'AGENTS.md').replace(/\{\{[^}]*\}\}/g, 'filled'));
+  const r = install(dir, '--check');
+  assert.equal(r.status, 0, r.stdout);
+  assert.doesNotMatch(r.stdout, /missing|warning/);
+});
+
 test('uses the package.json name when no --name is given', () => {
   const dir = mkdtempSync(join(tmpdir(), 'inst-'));
   writeFileSync(join(dir, 'package.json'), JSON.stringify({ name: 'shop-web' }));

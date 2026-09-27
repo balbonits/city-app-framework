@@ -11,3 +11,4 @@ experiments/.work
 
 # claude plugin eval outputs (reports and per-run results)
 evals/results/
+tests/e2e/results/

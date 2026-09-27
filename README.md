@@ -64,10 +64,14 @@ Full numbers, methods and sources: [docs/findings-2026-09.md](docs/findings-2026
 The harness in [`experiments/`](experiments/) runs headless Claude Code against a tiny app and scores the results with fixed checks. Re-run it when models change; advice that helped last year can be dead weight now.
 
 ```sh
-npm test                                   # kit tests (hooks + installer)
+npm test                                   # hooks, installer, eval graders (free, offline)
+node evals/run-local.mjs --runs 2          # skill evals: each case with vs without the plugin
+node evals/run-local.mjs --dir tests/e2e --no-baseline --no-plugin --runs 1   # live hook checks
 node experiments/validate-scorer.mjs /tmp/check
 node experiments/run.mjs --tasks remind --arms bare,kit --trials 5
 ```
+
+Everything after `npm test` runs real Claude sessions and uses your plan's usage; each command prints how many sessions it ran.
 
 ## Layout
 
@@ -77,8 +81,8 @@ node experiments/run.mjs --tasks remind --arms bare,kit --trials 5
 | `skills/` | The plugin's skills (`/city-app:*`) |
 | `kit/` | The per-project files setup copies into a project |
 | `scripts/install.mjs` | The installer setup runs |
-| `tests/` | Tests for the hooks and installer (`npm test`) |
-| `evals/` | `claude plugin eval` cases: each skill run with vs without the plugin |
+| `tests/` | Tests for the hooks, installer and eval graders (`npm test`); `tests/e2e/` holds live hook checks |
+| `evals/` | Skill eval cases (`claude plugin eval` format) and `run-local.mjs`, which runs them where the official runner's sandbox can't start |
 | `experiments/` | The research harness, fixture app, and results |
 | `docs/` | Findings, plan, lessons and decision records |
 | `AGENTS.md`, `CLAUDE.md` | Instructions for agents working on this repo |

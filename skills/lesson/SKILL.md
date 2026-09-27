@@ -1,6 +1,6 @@
 ---
 description: Make a correction stick across sessions. Use when the human corrects a behavior they want fixed for good ("don't do X", "we always do Y", "you did Z again") or asks you to remember a project rule. Picks the strongest form - a test, a guard rule, or one AGENTS.md line - and logs it.
-argument-hint: "[the correction, if not already said]"
+argument-hint: "[--form=test|guard|rule] [the correction, if not already said]"
 ---
 
 # Make a correction stick
@@ -8,6 +8,8 @@ argument-hint: "[the correction, if not already said]"
 A lesson only helps if the next session runs into it. Tested: a lesson written in a journal nothing points to was applied 0 of 5 times; the same lesson as one AGENTS.md line or as a failing test was applied 5 of 5 times.
 
 The correction: $ARGUMENTS (if empty, use what the human just said).
+
+If the arguments include `--form=test`, `--form=guard` or `--form=rule`, use exactly that form (1, 2 or 3 below) and skip the choosing. If the forced form can't catch this mistake (for example a guard rule for something that isn't a command), say so and ask before using a different one.
 
 ## Pick the strongest form that fits
 

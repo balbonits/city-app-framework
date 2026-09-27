@@ -35,6 +35,10 @@ const depReason = (names) =>
 
 const packageName = (spec) => spec.replace(/^(@[^/@]+\/[^@]+|[^@]+).*$/, '$1');
 
+// Drops shell redirections (2>&1, > log.txt, 2>/dev/null) so they aren't read as package names.
+const withoutRedirects = (tokens) => tokens.filter((t, i) =>
+  !/^\d*(>|<|&>)/.test(t) && !/^\d*(>>?|<|&>>?)$/.test(tokens[i - 1] ?? ''));
+
 const ruleLines = (text) => text.split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#') && l.includes('=>'));
 
 // Project rules, usually added by /city-app:lesson. A pattern matches from the start of a
@@ -89,7 +93,7 @@ function checkBash(command) {
       if (rule.re.test(text)) deny(`Blocked by ${RULES}: ${rule.message}`);
     }
     if (['npm', 'pnpm', 'yarn', 'bun'].includes(cmd) && ['i', 'install', 'add'].includes(sub)) {
-      const names = tokens.slice(2).filter((t) => !t.startsWith('-'))
+      const names = withoutRedirects(tokens.slice(2)).filter((t) => !t.startsWith('-'))
         .map((t) => packageName(t.replace(/^['"]|['"]$/g, '')));
       const missing = names.filter((n) => !approved().has(n));
       if (missing.length) deny(depReason(missing));

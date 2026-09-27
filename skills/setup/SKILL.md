@@ -1,10 +1,21 @@
 ---
-description: Set up this project for AI coding agents. Installs AGENTS.md (with CLAUDE.md importing it) and the safety hooks, then fills AGENTS.md from what the repo shows. Safe to re-run; never overwrites existing files.
+description: Set up this project for AI coding agents. Installs AGENTS.md (with CLAUDE.md importing it) and the safety hooks, then fills AGENTS.md from what the repo shows. Safe to re-run; never overwrites existing files. Use --check to only report what's missing.
 disable-model-invocation: true
+argument-hint: "[--check]"
 allowed-tools: Bash(node *), Bash(npm test *), Read, Glob, Grep, Edit
 ---
 
 # Set up this project
+
+Arguments: $ARGUMENTS
+
+If the arguments include `--check`, only run this from the project root, show the human its output, and stop without changing anything:
+
+```sh
+node "${CLAUDE_PLUGIN_ROOT}/scripts/install.mjs" . --check
+```
+
+Otherwise, do the steps below.
 
 ## 1. Install the kit
 
@@ -15,6 +26,8 @@ node "${CLAUDE_PLUGIN_ROOT}/scripts/install.mjs" .
 ```
 
 It adds whatever is missing: `AGENTS.md`, `CLAUDE.md` (a single `@AGENTS.md` line, so Claude loads AGENTS.md), and two hooks in `.claude/` (a guard that blocks new dependencies, force-push, deploys and deleting tests; a gate that won't let an agent finish while `npm test` fails). It never overwrites a file; it merges its hooks into an existing `.claude/settings.json` and adds `@AGENTS.md` to an existing `CLAUDE.md`.
+
+If the command fails (for example, the shell is unavailable or blocked), stop and tell the human what failed. Don't recreate the kit files by hand: a half-installed kit looks set up but isn't.
 
 ## 2. Fill in AGENTS.md
 
@@ -29,8 +42,7 @@ Keep the file under about 40 lines. Don't restate what a linter or formatter alr
 
 ## 3. Check it works
 
-- `CLAUDE.md` contains the line `@AGENTS.md`.
-- `.claude/settings.json` lists the `guard.mjs` and `test-gate.mjs` hooks.
+- Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/install.mjs" . --check`. Every line should say `ok`; fix anything that says `missing`.
 - Run `npm test` once. If it fails now, tell the human: the gate will block every finish until tests pass.
 
 ## 4. Report

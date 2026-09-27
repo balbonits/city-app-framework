@@ -13,16 +13,17 @@ function project() {
   return dir;
 }
 
-function decide(dir, tool_name, tool_input) {
+function hook(dir, tool_name, tool_input) {
   const r = spawnSync('node', [GUARD], {
     input: JSON.stringify({ tool_name, tool_input, cwd: dir }),
     encoding: 'utf8',
     env: { ...process.env, CLAUDE_PROJECT_DIR: dir },
   });
   assert.equal(r.status, 0, r.stderr);
-  return r.stdout ? JSON.parse(r.stdout).hookSpecificOutput.permissionDecision : 'allow';
+  return r.stdout ? JSON.parse(r.stdout).hookSpecificOutput : null;
 }
 
+const decide = (dir, tool_name, tool_input) => hook(dir, tool_name, tool_input)?.permissionDecision ?? 'allow';
 const bash = (dir, command) => decide(dir, 'Bash', { command });
 
 test('blocks installing new packages in any package manager and form', () => {
@@ -110,6 +111,16 @@ test('quoted package specs are checked by name', () => {
   writeFileSync(join(dir, '.claude/approved-deps.txt'), 'zod\n');
   assert.equal(bash(dir, 'npm install "zod@^3.23"'), 'allow');
   assert.equal(bash(dir, "npm install 'lodash'"), 'deny');
+});
+
+test('shell redirections are not read as package names', () => {
+  const dir = project();
+  const why = (command) => hook(dir, 'Bash', { command })?.permissionDecisionReason;
+  assert.match(why('npm install picocolors 2>&1 | tail -20'), /^Blocked: adding picocolors needs/);
+  assert.match(why('npm install zod >> install.log'), /^Blocked: adding zod needs/);
+  for (const cmd of ['npm install 2>&1', 'npm install > install.log', 'npm install 2>/dev/null', 'npm i &> install.log']) {
+    assert.equal(bash(dir, cmd), 'allow', cmd);
+  }
 });
 
 test('blocks package.json edits that add a dependency, allows other edits', () => {

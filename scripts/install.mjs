@@ -2,6 +2,7 @@
 // Copies the kit into a project. Safe to re-run: never overwrites your files.
 //
 //   node scripts/install.mjs <project-dir> [--name "My App"]
+//   node scripts/install.mjs <project-dir> --check    (report only, change nothing)
 //
 // - Missing files are copied from kit/.
 // - An existing AGENTS.md is left alone (you get a hint to merge the working agreement).
@@ -14,16 +15,38 @@ import { parseArgs } from 'node:util';
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
-  options: { name: { type: 'string' }, help: { type: 'boolean', short: 'h' } },
+  options: { name: { type: 'string' }, check: { type: 'boolean' }, help: { type: 'boolean', short: 'h' } },
 });
 
 if (values.help || positionals.length !== 1) {
-  console.log('Usage: node scripts/install.mjs <project-dir> [--name "My App"]');
+  console.log('Usage: node scripts/install.mjs <project-dir> [--name "My App"] [--check]');
   process.exit(values.help ? 0 : 1);
 }
 
 const kit = resolve(dirname(new URL(import.meta.url).pathname), '..', 'kit');
 const target = resolve(positionals[0]);
+
+// --check: say what's missing or unfinished, change nothing, exit 1 if anything required fails.
+if (values.check) {
+  const read = (file) => (existsSync(join(target, file)) ? readFileSync(join(target, file), 'utf8') : null);
+  const agents = read('AGENTS.md');
+  const claude = read('CLAUDE.md');
+  const settings = read(join('.claude', 'settings.json')) ?? '';
+  let testScript = false;
+  try { testScript = Boolean(JSON.parse(read('package.json') ?? '{}').scripts?.test); } catch { /* not JSON */ }
+  const checks = [
+    ['AGENTS.md exists', agents !== null],
+    ['AGENTS.md has no {{...}} placeholders', agents !== null && !agents.includes('{{')],
+    ['CLAUDE.md imports AGENTS.md (@AGENTS.md)', claude !== null && /^@AGENTS\.md\s*$/m.test(claude)],
+    ['guard hook installed', existsSync(join(target, '.claude', 'hooks', 'guard.mjs'))],
+    ['test-gate hook installed', existsSync(join(target, '.claude', 'hooks', 'test-gate.mjs'))],
+    ['hooks wired in .claude/settings.json', settings.includes('guard.mjs') && settings.includes('test-gate.mjs')],
+  ];
+  for (const [label, ok] of checks) console.log(`  ${ok ? 'ok     ' : 'missing'}  ${label}`);
+  console.log(`  ${testScript ? 'ok     ' : 'warning'}  package.json has a test script (the finish gate runs it)`);
+  process.exit(checks.every(([, ok]) => ok) ? 0 : 1);
+}
+
 mkdirSync(target, { recursive: true });
 
 const projectName = () => {

@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: guard-rule-blocks-command
+context:
+  scaffold_script: fixture.sh
