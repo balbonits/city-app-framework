@@ -16,7 +16,6 @@ A tiny habit tracker in the browser: add habits, mark them done each day, see st
 ## Gotchas
 
 - Days are UTC: use `dayKey()` from `public/streak.js`, never local-date methods. `test/dates.test.js` enforces it.
-- Colors and spacing come from the tokens at the top of `public/styles.css` (`var(--...)`). Need a new color? Add a token; don't write a raw color.
 - Ask before changing how streaks are counted: it changes the numbers people see.
 
 ## Working agreement
