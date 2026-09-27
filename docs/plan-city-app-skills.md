@@ -1,6 +1,6 @@
 # Plan: the `/city-app:*` skill suite
 
-Status: approved. Phase 1 steps 1 and 2 are built and tested (`setup`, `lesson`, `rules:test`); step 3 (`ui:check`) is next.
+Status: Phase 1 is built and tested (`setup`, `lesson`, `rules:test`, `ui:check`), with `examples/habit-web` as its first real project. Phase 2 is optional.
 
 ## Goal
 

@@ -23,7 +23,7 @@ The checks need `playwright` and `axe-core` as dev dependencies. If `package.jso
 node "${CLAUDE_PLUGIN_ROOT}/scripts/ui-check.mjs" --start '<command>' --url <url> --pages <pages>
 ```
 
-Each ✗ line names the page, the problem and how to fix it; `[phone]` means it only happens at that size. Look at the screenshots it lists too: the checks catch broken things, not ugly ones.
+If the project already has `test/ui.test.js` (from `--add-test`), `npm test` runs the same checks. Each ✗ line names the page, the problem and how to fix it; `[phone]` means it only happens at that size. Look at the screenshots it lists too: the checks catch broken things, not ugly ones.
 
 Fix what it finds in the code, not in the check: don't silence errors, don't add `aria-hidden` to dodge a rule, don't remove content. Run it again until it passes. If a finding looks wrong, tell the human instead.
 
