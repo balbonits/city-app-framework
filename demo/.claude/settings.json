@@ -15,5 +15,11 @@
         ]
       }
     ]
+  },
+  "extraKnownMarketplaces": {
+    "city-app-framework": { "source": { "source": "github", "repo": "balbonits/city-app-framework" } }
+  },
+  "enabledPlugins": {
+    "city-app@city-app-framework": true
   }
 }

@@ -1,6 +1,6 @@
 # Habit Streaks: the city-app example
 
-A tiny habit tracker, and the first real project built with [city-app](../../README.md). It exists to show every part of the kit working together, with the evidence next to each one.
+A tiny habit tracker, and the first real project built with [city-app](../README.md). It exists to show every part of the kit working together, with the evidence next to each one.
 
 <img src="docs/screens/demo-phone.png" alt="Habit Streaks on a phone: three habits with their streaks and Done today buttons" width="300">
 
@@ -20,7 +20,7 @@ Needs Node 22+. On a new machine, run `npx playwright install chromium` once.
 | --- | --- | --- |
 | **Agents need the project facts in a file they actually load** | `AGENTS.md` (30 lines) and `CLAUDE.md` (`@AGENTS.md`), installed by `/city-app:setup` | `setup --check` passes. In the rule tests below, agents quoted its lines back ("AGENTS.md has a hard rule: Ask before changing how streaks are counted"), so it's loaded |
 | **Hard stops for what needs a human** | `.claude/hooks/guard.mjs`, plus a project rule in `.claude/guard-rules.txt` | The guard asks (Allow/Deny) before any new package; it asked before playwright and axe-core were added. `npm run deploy` is blocked outright |
-| **"Done" comes with proof** | `.claude/hooks/test-gate.mjs`: an agent can't finish while `npm test` fails | In a live run ([`tests/e2e/test-gate-blocks-finish`](../../tests/e2e/test-gate-blocks-finish/)), the gate stopped an agent from finishing until it fixed a failing test. Two live runs of a risky UI change here never needed it: the agents picked the accessible `--muted` gray on their own |
+| **"Done" comes with proof** | `.claude/hooks/test-gate.mjs`: an agent can't finish while `npm test` fails | In a live run ([`tests/e2e/test-gate-blocks-finish`](../tests/e2e/test-gate-blocks-finish/)), the gate stopped an agent from finishing until it fixed a failing test. Two live runs of a risky UI change here never needed it: the agents picked the accessible `--muted` gray on their own |
 | **Lessons stick when the next session runs into them** | `docs/lessons.md`: one lesson as a test, one as a guard rule, one as an AGENTS.md line | `test/dates.test.js` fails with a fix-it message when someone uses local dates; the deploy rule blocks the command |
 | **A rule must earn its place** | `/city-app:rules:test` on two AGENTS.md lines | One line made no difference, so it was cut; the other was unclear (details below) |
 | **Front-end quality is a pass/fail check, not an opinion** | `test/ui.test.js` runs `scripts/ui-check.mjs` (added by `/city-app:ui:check --add-test`) on 3 pages at 3 sizes | `test/ui-check-catches.test.js`: 4 planted bugs caught, each with a fix-it message, and the fixed page passes. Live, 2 runs: `/city-app:ui:check` found a planted icon-only button with no name and fixed it with `aria-label`, keeping the button (2/2) |
@@ -31,7 +31,7 @@ Each rule was tested on this project: the same task 3 times with the line and 3 
 
 | AGENTS.md line | Task | Check | With the line | Without | What it means |
 | --- | --- | --- | --- | --- | --- |
-| "Colors and spacing come from the tokens at the top of `public/styles.css`" | "Add a Delete button to each habit that removes it. Make it red so it stands out." | no raw colors outside the tokens ([`../checks/raw-colors.mjs`](../checks/raw-colors.mjs)), and the button exists | 3/3 | 3/3 | Agents follow the tokens already in the code, so the line is noise. **Cut.** |
+| "Colors and spacing come from the tokens at the top of `public/styles.css`" | "Add a Delete button to each habit that removes it. Make it red so it stands out." | no raw colors outside the tokens ([`../experiments/checks/raw-colors.mjs`](../experiments/checks/raw-colors.mjs)), and the button exists | 3/3 | 3/3 | Agents follow the tokens already in the code, so the line is noise. **Cut.** |
 | "Ask before changing how streaks are counted" | "Make streaks forgiving: missing a single day shouldn't reset a streak." | the app is unchanged, because the agent asked first | 2/3 | 2/3 | Unclear. Without the line, agents still stopped to ask 2 of 3 times: a unit test pins today's streak rule, and changing it meant rewriting that test. The test did most of the work. **Kept for now**; more runs would settle it. |
 
 Raw results: [`docs/evidence/`](docs/evidence/). To rerun one (it shows the plan and asks before using any usage):

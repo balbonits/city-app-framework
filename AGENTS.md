@@ -14,7 +14,7 @@ A small, tested kit for building apps with AI coding agents. `kit/` is what gets
 
 - `kit/`: copied into projects as-is. `kit/AGENTS.md` is a template; keep it under ~40 lines.
 - `skills/` and `commands/`: the plugin (`/city-app:*`). `scripts/` holds what they run.
-- `examples/habit-web/`: the kit's first real project. Its own `npm test` runs the UI checks (run `npm install` there first).
+- `demo/`: the kit's first real project. Its own `npm test` runs the UI checks (run `npm install` there first).
 - `experiments/`: fixture app, context setups ("arms"), tasks, scorer, results.
 - `docs/`: findings and decision records.
 

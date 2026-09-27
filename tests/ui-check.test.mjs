@@ -1,5 +1,5 @@
 // Tests for /city-app:ui:check (scripts/ui-check.mjs) that need no browser. The browser path is
-// tested in examples/habit-web, which has playwright and axe-core installed.
+// tested in demo/, which has playwright and axe-core installed.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, readFileSync, existsSync, writeFileSync } from 'node:fs';

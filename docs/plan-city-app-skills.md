@@ -1,6 +1,6 @@
 # Plan: the `/city-app:*` skill suite
 
-Status: Phase 1 is built and tested (`setup`, `lesson`, `rules:test`, `ui:check`), with `examples/habit-web` as its first real project. Phase 2 is optional.
+Status: Phase 1 is built and tested (`setup`, `lesson`, `rules:test`, `ui:check`), with `demo/` as its first real project. Phase 2 is optional.
 
 ## Goal
 
@@ -102,7 +102,7 @@ Before any batch of test runs: ask first, in plain words, with the number of tes
 ## Finish line
 
 1. **`/city-app:ui:check`**: a self-contained script (axe scan, console errors, page wider than the screen, screenshots at phone/tablet/desktop) plus the command. `--add-test` copies it into the project's `npm test`, so the finish gate enforces it.
-2. **`examples/habit-web`**: the kit's first real project, a small no-framework web app. It uses every part: setup, the guard (approved deps, a guard rule), the finish gate, lessons in all three forms, a rules:test result, and UI checks. Its README maps each idea to the file and the evidence.
+2. **`demo/`**: the kit's first real project, a small no-framework web app. It uses every part: setup, the guard (approved deps, a guard rule), the finish gate, lessons in all three forms, a rules:test result, and UI checks. Its README maps each idea to the file and the evidence.
 3. **Real runs, asked for first:** rules:test on the example, a ui:check eval, and one live run where the gate catches a UI bug.
 4. **Phase 2 stays optional**; the example shows which items would earn a place.
 
