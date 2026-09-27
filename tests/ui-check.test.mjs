@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { createServer } from 'node:http';
-import { axeProblems, consoleProblem, fillPort, freePort, groupBySize, overflowProblem, startServer, stopServer } from '../scripts/ui-check.mjs';
+import { axeProblems, baselineProblem, consoleProblem, fillPort, freePort, groupBySize, overflowProblem, startServer, stopServer } from '../scripts/ui-check.mjs';
 
 const SCRIPT = new URL('../scripts/ui-check.mjs', import.meta.url).pathname;
 const tmp = () => mkdtempSync(join(tmpdir(), 'ui-'));
@@ -19,6 +19,12 @@ test('fix-it messages name the page, the problem and what to do', () => {
   assert.equal(line, 'Accessibility on /: Buttons must have discernible text (button-name, critical) at #a, #b, #c and 2 more. How to fix: https://x/button-name');
   assert.match(consoleProblem('/about', 'x is undefined'), /^Console error on \/about: x is undefined\. .*don't silence it/);
   assert.match(overflowProblem('/', { width: 390, scroll: 608, culprits: ['div.banner'] }), /608px wide on a 390px screen.*Too wide: div\.banner/);
+});
+
+test('a page that looks different says how much changed, or how its size changed', () => {
+  assert.match(baselineProblem('/about', { changed: 54, total: 1000 }, '/tmp/d.png'),
+    /^Looks different on \/about: 5\.4% of the pixels changed since the approved screenshot \(diff: \/tmp\/d\.png\)\. If that was intended, approve the new look with \/city-app:ui:baseline/);
+  assert.match(baselineProblem('/', { was: [390, 844], now: [390, 1200] }), /the page is now 390x1200, it was 390x844 when approved/);
 });
 
 test('the same problem at several sizes is one line listing the sizes', () => {

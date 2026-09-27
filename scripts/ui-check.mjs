@@ -4,16 +4,19 @@
 //   - console errors, uncaught errors and files that fail to load
 //   - a page wider than the screen (it scrolls sideways)
 // at phone, tablet and desktop sizes, with a screenshot of each page at each size to look at.
+// With approved baselines (--approve saves them to .ui-baselines/), a page that looks different
+// from its approved screenshot fails too, with a diff image.
 // Used by /city-app:ui:check. Needs playwright and axe-core as dev dependencies of the project.
 // Self-contained (Node built-ins only), so --add-test can copy it into a project.
 //
 //   node ui-check.mjs [--url http://localhost:3000] [--start "npm run dev"] [--pages /,/about]
 //                     [--sizes phone,tablet,desktop] [--out <dir>] [--dir .]
+//   node ui-check.mjs --approve [same options]    save how the pages look now as the baseline
 //   node ui-check.mjs --add-test [same options]   copy this file into the project and add test/ui.test.js
 //
 // {port} in --start and --url becomes a free port, so parallel runs and a running dev server never clash.
 // Exits 1 with fix-it messages when a check fails, 0 when every page passes, 2 when it can't run.
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawn } from 'node:child_process';
@@ -39,6 +42,46 @@ export const consoleProblem = (page, text) =>
 export const overflowProblem = (page, { width, scroll, culprits }) =>
   `Layout on ${page}: the page is ${scroll}px wide on a ${width}px screen, so it scrolls sideways.` +
   `${culprits.length ? ` Too wide: ${culprits.join(', ')}.` : ''} Use max-width: 100%, flex-wrap, or a smaller fixed width.`;
+
+export const baselineProblem = (page, { changed, total, was, now }, diff) => (was
+  ? `Looks different on ${page}: the page is now ${now.join('x')}, it was ${was.join('x')} when approved.`
+  : `Looks different on ${page}: ${((changed / total) * 100).toFixed(1)}% of the pixels changed since the approved screenshot (diff: ${diff}).`)
+  + ' If that was intended, approve the new look with /city-app:ui:baseline; if not, find what changed it.';
+
+// Compares two PNGs inside the browser (no image library needed). Pixels that differ by more than
+// 16 of 255 on any channel count as changed; under 0.1% changed counts as the same.
+async function compareShots(browser, before, after) {
+  const page = await browser.newPage();
+  try {
+    return await page.evaluate(async ([a, b]) => {
+      const load = (src) => new Promise((ok, fail) => { const img = new Image(); img.onload = () => ok(img); img.onerror = fail; img.src = src; });
+      const [ia, ib] = await Promise.all([load(a), load(b)]);
+      if (ia.width !== ib.width || ia.height !== ib.height) return { was: [ia.width, ia.height], now: [ib.width, ib.height] };
+      const pixels = (img) => {
+        const c = document.createElement('canvas');
+        [c.width, c.height] = [img.width, img.height];
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        return ctx.getImageData(0, 0, img.width, img.height);
+      };
+      const [pa, pb] = [pixels(ia), pixels(ib)];
+      const out = new ImageData(ia.width, ia.height);
+      let changed = 0;
+      for (let i = 0; i < pa.data.length; i += 4) {
+        const d = Math.max(Math.abs(pa.data[i] - pb.data[i]), Math.abs(pa.data[i + 1] - pb.data[i + 1]), Math.abs(pa.data[i + 2] - pb.data[i + 2]));
+        if (d > 16) { changed++; out.data.set([255, 0, 0, 255], i); } else out.data.set([pb.data[i], pb.data[i + 1], pb.data[i + 2], 60], i);
+      }
+      const total = pa.data.length / 4;
+      if (changed / total < 0.001) return { changed: 0, total };
+      const c = document.createElement('canvas');
+      [c.width, c.height] = [ia.width, ia.height];
+      c.getContext('2d').putImageData(out, 0, 0);
+      return { changed, total, diff: c.toDataURL('image/png') };
+    }, [`data:image/png;base64,${before.toString('base64')}`, `data:image/png;base64,${after.toString('base64')}`]);
+  } finally {
+    await page.close();
+  }
+}
 
 // The same problem at several sizes becomes one line that lists the sizes.
 export function groupBySize(found) {
@@ -95,9 +138,10 @@ export const fillPort = (text, port) => text?.replaceAll('{port}', String(port))
 
 const slug = (page) => page.replace(/[^\w-]+/g, '-').replace(/^-+|-+$/g, '') || 'home';
 
-// Returns { failures: [fix-it messages], screenshots: [paths] }.
+// Returns { failures: [fix-it messages], screenshots: [paths], approved: [paths] }.
 export async function runUiCheck({
   dir = '.', url = 'http://localhost:3000', start, pages = ['/'], sizes = Object.keys(SIZES), out, timeoutMs,
+  baselines = '.ui-baselines', approve = false,
 } = {}) {
   const root = resolve(dir);
   const { chromium, axeSource } = await load(root);
@@ -107,6 +151,8 @@ export async function runUiCheck({
   }
   const shots = out ? resolve(out) : mkdtempSync(join(tmpdir(), 'ui-check-'));
   mkdirSync(shots, { recursive: true });
+  const baselineDir = resolve(root, baselines);
+  const approved = [];
   const server = start ? await startServer(start, url, root, timeoutMs) : null;
   const browser = await chromium.launch();
   const found = [];
@@ -139,17 +185,31 @@ export async function runUiCheck({
         await tab.evaluate(`${axeSource}\n;undefined`);
         const { violations } = await tab.evaluate(() => window.axe.run(document, { resultTypes: ['violations'] }));
         for (const problem of axeProblems(page, violations)) found.push({ problem, size });
-        const shot = join(shots, `${slug(page)}-${size}.png`);
-        await tab.screenshot({ path: shot, fullPage: true });
+        const name = `${slug(page)}-${size}.png`;
+        const shot = join(shots, name);
+        await tab.screenshot({ path: shot, fullPage: true, animations: 'disabled', caret: 'hide' });
         screenshots.push(shot);
         await context.close();
+        const baseline = join(baselineDir, name);
+        if (approve) {
+          mkdirSync(baselineDir, { recursive: true });
+          copyFileSync(shot, baseline);
+          approved.push(baseline);
+        } else if (existsSync(baseline)) {
+          const result = await compareShots(browser, readFileSync(baseline), readFileSync(shot));
+          if (result.was || result.changed) {
+            const diff = join(shots, name.replace(/\.png$/, '-diff.png'));
+            if (result.diff) writeFileSync(diff, Buffer.from(result.diff.split(',')[1], 'base64'));
+            found.push({ problem: baselineProblem(page, result, diff), size });
+          }
+        }
       }
     }
   } finally {
     await browser.close();
     stopServer(server);
   }
-  return { failures: groupBySize(found), screenshots };
+  return { failures: groupBySize(found), screenshots, approved };
 }
 
 const testFile = ({ url, start, pages }) => `// UI checks on every page: accessibility (axe), console errors, and nothing wider than the
@@ -191,6 +251,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       out: { type: 'string' },
       dir: { type: 'string', default: '.' },
       'add-test': { type: 'boolean', default: false },
+      approve: { type: 'boolean', default: false },
+      baselines: { type: 'string', default: '.ui-baselines' },
     },
   });
   const pages = opt.pages.split(',').map((p) => p.trim()).filter(Boolean);
@@ -210,11 +272,14 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     process.exit(0);
   }
   try {
-    const { failures, screenshots } = await runUiCheck({ dir: opt.dir, url: opt.url, start: opt.start, pages, sizes, out: opt.out });
+    const { failures, screenshots, approved } = await runUiCheck({
+      dir: opt.dir, url: opt.url, start: opt.start, pages, sizes, out: opt.out, baselines: opt.baselines, approve: opt.approve,
+    });
     const shown = sizes.map((s) => `${s} ${SIZES[s].width}x${SIZES[s].height}`).join(', ');
     console.log(`UI check: ${pages.length} page(s) at ${shown}`);
     for (const failure of failures) console.log(`✗ ${failure}`);
     console.log(`Screenshots: ${screenshots.length ? dirname(screenshots[0]) : 'none'}`);
+    if (approved.length) console.log(`Approved ${approved.length} screenshot(s) as the baseline in ${dirname(approved[0])}. Later checks fail when a page looks different.`);
     console.log(failures.length
       ? `${failures.length} problem(s). Fix them and run the check again.`
       : 'Every page passes: no accessibility problems, no console errors, nothing wider than the screen.');
