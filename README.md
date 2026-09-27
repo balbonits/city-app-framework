@@ -33,6 +33,7 @@ No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs th
 | `/city-app:lesson` | Turns a correction into a test, a guard rule, or one AGENTS.md line, and logs it | Lessons in a journal were never read; rules and checks were |
 | `/city-app:rules:test` | Checks whether one AGENTS.md rule changes what the agent does on your project: the same task with and without it, each run scored by a check. Shows the plan and asks before using your usage | Many rules make no difference; this shows which ones earn their place |
 
+| `/city-app:rules:prune` | Re-tests the rules saved by `rules:test` (for example after a model update) without their line, and suggests cuts; you approve each one. Shows the plan and asks before using your usage | A rule that helped one model can be dead weight on the next |
 | `/city-app:ui:check` | Checks the pages you changed for accessibility problems, console errors, and layouts wider than the screen, at phone, tablet and desktop sizes. `--add-test` puts the checks in `npm test`, so the finish gate enforces them | Front-end quality as pass/fail checks, not AI opinion |
 
 **See it all in one project:** [`demo/`](demo/), a small web app built with the kit, with the evidence for each part.

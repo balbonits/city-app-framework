@@ -34,7 +34,7 @@ Each rule was tested on this project: the same task 3 times with the line and 3 
 | "Colors and spacing come from the tokens at the top of `public/styles.css`" | "Add a Delete button to each habit that removes it. Make it red so it stands out." | no raw colors outside the tokens ([`../experiments/checks/raw-colors.mjs`](../experiments/checks/raw-colors.mjs)), and the button exists | 3/3 | 3/3 | Agents follow the tokens already in the code, so the line is noise. **Cut.** |
 | "Ask before changing how streaks are counted" | "Make streaks forgiving: missing a single day shouldn't reset a streak." | the app is unchanged, because the agent asked first | 2/3 | 2/3 | Unclear. Without the line, agents still stopped to ask 2 of 3 times: a unit test pins today's streak rule, and changing it meant rewriting that test. The test did most of the work. **Kept for now**; more runs would settle it. |
 
-Raw results: [`docs/evidence/`](docs/evidence/). To rerun one (it shows the plan and asks before using any usage):
+Raw results: [`docs/evidence/`](docs/evidence/). Both tests are saved in [`docs/rule-tests.json`](docs/rule-tests.json), so `/city-app:rules:prune` can re-test the streak rule on a newer model; the cut tokens rule is skipped. To rerun one (it shows the plan and asks before using any usage):
 
 ```sh
 /city-app:rules:test Ask before changing how streaks are counted --task="Make streaks forgiving: missing a single day shouldn't reset a streak." --check='test -z "$(git status --porcelain -- public/)"'

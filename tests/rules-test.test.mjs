@@ -2,26 +2,13 @@
 // real sessions, so nothing here uses the model.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, lstatSync, readlinkSync, chmodSync, readdirSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync, existsSync, lstatSync, readlinkSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { tmpdir } from 'node:os';
 import { spawnSync, execFileSync } from 'node:child_process';
 import { copyProject, matchingLines, runCheck, verdict, withRule, withoutRule } from '../scripts/lib/rules.mjs';
+import { AGENTS, gitProject, tmp, withFakeClaude } from './helpers/rules.mjs';
 
 const SCRIPT = new URL('../scripts/rules-test.mjs', import.meta.url).pathname;
-const tmp = (prefix) => mkdtempSync(join(tmpdir(), prefix));
-
-const AGENTS = `# app
-
-## Gotchas
-
-- Tests must point HABITS_FILE at a temp file.
-- Parse CLI flags with parseArgs from node:util.
-
-## Working agreement
-
-1. Do what was asked.
-`;
 
 test('a rule already in the file: "without" drops that line, "with" keeps the file as is', () => {
   assert.deepEqual(matchingLines(AGENTS, 'Parse CLI flags with parseArgs'), [6]);
@@ -54,22 +41,6 @@ test('verdicts: keep, cut, make it a check, or unclear', () => {
   assert.equal(verdict({ passed: 0, runs: 0 }, { passed: 0, runs: 3 }), 'No finished runs to compare.');
 });
 
-function gitProject() {
-  const dir = tmp('rt-src-');
-  mkdirSync(join(dir, 'src'));
-  mkdirSync(join(dir, 'node_modules/leftpad'), { recursive: true });
-  writeFileSync(join(dir, 'node_modules/leftpad/index.js'), 'module.exports = 1;\n');
-  writeFileSync(join(dir, '.gitignore'), 'node_modules/\n.env\n');
-  writeFileSync(join(dir, '.env'), 'SECRET=1\n');
-  writeFileSync(join(dir, 'src/cli.js'), 'const args = process.argv.slice(2);\n');
-  writeFileSync(join(dir, 'AGENTS.md'), AGENTS);
-  execFileSync('git', ['init', '-q'], { cwd: dir });
-  execFileSync('git', ['add', '-A'], { cwd: dir });
-  execFileSync('git', ['-c', 'user.email=t@t', '-c', 'user.name=t', 'commit', '-qm', 'init'], { cwd: dir });
-  writeFileSync(join(dir, 'NOTES.md'), 'untracked but not ignored\n');
-  return dir;
-}
-
 test('copies tracked and new files, leaves ignored ones out, links node_modules, commits a clean tree', () => {
   const src = gitProject();
   const dest = join(tmp('rt-copy-'), 'app');
@@ -99,31 +70,8 @@ test('a check passes on exit code 0, in the copy folder', () => {
   assert.equal(runCheck(dir, 'grep -q nope marker'), false);
 });
 
-// A stand-in for `claude -p`: follows the parseArgs rule only when AGENTS.md has it.
-function fakeClaude(mode = 'follow') {
-  const bin = tmp('rt-bin-');
-  writeFileSync(join(bin, 'claude'), `#!/usr/bin/env node
-const fs = require('node:fs');
-const args = process.argv.slice(2);
-fs.appendFileSync(process.env.FAKE_LOG, JSON.stringify({ cwd: process.cwd(), prompt: args[args.indexOf('-p') + 1], args }) + '\\n');
-if (${JSON.stringify(mode)} === 'crash') process.exit(1);
-const rules = fs.existsSync('AGENTS.md') ? fs.readFileSync('AGENTS.md', 'utf8') : '';
-fs.writeFileSync('src/cli.js', rules.includes('parseArgs') ? "import { parseArgs } from 'node:util';\\n" : 'const args = process.argv.slice(2);\\n');
-console.log(JSON.stringify({ type: 'result', subtype: 'success', is_error: false, result: 'done' }));
-`);
-  chmodSync(join(bin, 'claude'), 0o755);
-  return bin;
-}
-
-function rulesTest(project, extra, { mode, log = join(tmp('rt-log-'), 'calls.jsonl') } = {}) {
-  const r = spawnSync('node', [SCRIPT, '--dir', project, '--rule', 'Parse CLI flags with parseArgs', '--task', 'Add a --limit flag.',
-    '--check', 'grep -rqw parseArgs src', ...extra], {
-    encoding: 'utf8',
-    env: { ...process.env, PATH: `${fakeClaude(mode)}:${process.env.PATH}`, FAKE_LOG: log },
-  });
-  const calls = existsSync(log) ? readFileSync(log, 'utf8').trim().split('\n').map((l) => JSON.parse(l)) : [];
-  return { ...r, calls };
-}
+const rulesTest = (project, extra, options) => withFakeClaude(SCRIPT, ['--dir', project, '--rule', 'Parse CLI flags with parseArgs',
+  '--task', 'Add a --limit flag.', '--check', 'grep -rqw parseArgs src', ...extra], options);
 
 test('without --yes it starts no sessions and says how many a real run takes', () => {
   const r = rulesTest(gitProject(), ['--runs', '2']);

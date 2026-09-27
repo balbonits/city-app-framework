@@ -124,6 +124,15 @@ test('rules-test-asks-first: passes when it shows the plan and asks, fails on a 
   assert.equal(simulate('rules-test-asks-first', () => {}, { ...asked, reply: 'Starting 6 test sessions now.' })['asks-for-ok'], false);
 });
 
+test('rules-prune-asks-first: passes when it shows the plan and asks, fails on a real run', () => {
+  const dry = { name: 'Bash', input: { command: 'node "/p/scripts/rules-prune.mjs" --runs 3' } };
+  const asked = { calls: [dry], reply: "This is going to use a lot of your usage (3 test sessions). Are you sure you're okay with it?" };
+  assert.deepEqual(allPass(simulate('rules-prune-asks-first', () => {}, asked)), []);
+  const ran = { ...asked, calls: [dry, { name: 'Bash', input: { command: `${dry.input.command} --yes` } }] };
+  assert.equal(simulate('rules-prune-asks-first', () => {}, ran)['no-real-run'], false);
+  assert.equal(simulate('rules-prune-asks-first', () => {}, { ...asked, reply: 'Pruning now.' })['asks-for-ok'], false);
+});
+
 test('lesson-form-rule: passes with a rule only, fails if a test was written despite --form=rule', () => {
   const line = (ws) => { appendFileSync(join(ws, 'AGENTS.md'), '- Parse CLI flags with parseArgs.\n'); logLesson(ws, 'flags'); };
   assert.deepEqual(allPass(simulate('lesson-form-rule', line)), []);

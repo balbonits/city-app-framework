@@ -4,17 +4,19 @@
 // Used by /city-app:rules:test.
 //
 //   node scripts/rules-test.mjs --rule "<text>" --task "<prompt>" --check "<command>" [--check ...]
-//     [--runs 3] [--file AGENTS.md] [--model claude-sonnet-5] [--concurrency 3] [--dir .] [--work <dir>] [--keep] [--yes]
+//     [--runs 3] [--arms with,without] [--file AGENTS.md] [--model claude-sonnet-5] [--concurrency 3]
+//     [--dir .] [--work <dir>] [--registry docs/rule-tests.json] [--no-save] [--keep] [--yes]
 //
 // Without --yes it only prepares one copy per arm and runs the checks on the untouched code.
-// That starts no Claude sessions. With --yes it runs 2 x --runs sessions.
+// That starts no Claude sessions. With --yes it runs --runs sessions per arm, then saves the rule,
+// task, checks and results to the registry, so /city-app:rules:prune can re-test the rule later.
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { parseArgs } from 'node:util';
 import { runClaude } from '../experiments/lib/claude.mjs';
 import { killStray } from '../experiments/lib/score.mjs';
-import { copyProject, matchingLines, runCheck, verdict, withRule, withoutRule } from './lib/rules.mjs';
+import { copyProject, matchingLines, runCheck, saveRun, verdict, withRule, withoutRule } from './lib/rules.mjs';
 
 const { values: opt } = parseArgs({
   options: {
@@ -22,11 +24,14 @@ const { values: opt } = parseArgs({
     task: { type: 'string' },
     check: { type: 'string', multiple: true },
     runs: { type: 'string', default: '3' },
+    arms: { type: 'string', default: 'with,without' },
     file: { type: 'string' },
     model: { type: 'string', default: 'claude-sonnet-5' },
     concurrency: { type: 'string', default: '3' },
     dir: { type: 'string', default: '.' },
     work: { type: 'string' },
+    registry: { type: 'string', default: 'docs/rule-tests.json' },
+    'no-save': { type: 'boolean', default: false },
     keep: { type: 'boolean', default: false },
     yes: { type: 'boolean', default: false },
   },
@@ -44,6 +49,8 @@ if (!opt.rule?.trim()) fail('Missing --rule: the rule to test, for example --rul
 if (!opt.task?.trim()) fail('Missing --task: what to ask the agent. Pick a small task where the rule matters.');
 if (!checks.length) fail('Missing --check: a shell command that exits 0 when the agent got it right.');
 if (!Number.isInteger(runs) || runs < 1) fail('--runs must be a whole number, 1 or more.');
+const armKeys = opt.arms.split(',').map((a) => a.trim()).filter(Boolean);
+if (!armKeys.length || armKeys.some((a) => !['with', 'without'].includes(a))) fail('--arms takes with, without, or both: --arms with,without');
 
 const file = opt.file ?? (existsSync(join(project, 'AGENTS.md')) || !existsSync(join(project, 'CLAUDE.md')) ? 'AGENTS.md' : 'CLAUDE.md');
 const original = existsSync(join(project, file)) ? readFileSync(join(project, file), 'utf8') : '';
@@ -54,6 +61,7 @@ const arms = [
   { key: 'with', name: 'with rule', text: withRule(original, opt.rule) },
   { key: 'without', name: 'without rule', text: withoutRule(original, opt.rule) },
 ];
+const running = arms.filter((arm) => armKeys.includes(arm.key));
 const prepare = (arm) => (dir) => { if (arm.text !== original) writeFileSync(join(dir, file), arm.text); };
 
 // Runs share the project's node_modules, so they may not install or delete packages.
@@ -98,7 +106,8 @@ if (!opt.yes) {
     else if (on) note = " <- already passes. Fine for a \"don't do X\" rule; for a \"do Y\" rule it can't tell the two apart.";
     console.log(`  ${i + 1}. ${on === off ? (on ? 'passes' : 'fails') : `${on ? 'passes' : 'fails'} with the rule, ${off ? 'passes' : 'fails'} without`}${note}`);
   });
-  console.log(`\nReady: ${2 * runs} test sessions (${runs} with the rule, ${runs} without). Nothing has run yet; add --yes to start.`);
+  const plan = running.length === 2 ? `${runs} with the rule, ${runs} without` : `${runs} ${running[0].key} the rule`;
+  console.log(`\nReady: ${running.length * runs} test sessions (${plan}). Nothing has run yet; add --yes to start.`);
   if (!opt.work && !opt.keep) rmSync(work, { recursive: true, force: true });
   process.exit(0);
 }
@@ -130,7 +139,7 @@ async function runJob({ arm, n, slot }) {
 }
 
 // Alternate the arms so a run stopped halfway still compares like with like.
-const queue = Array.from({ length: runs }, (_, i) => arms.map((arm) => ({ arm, n: i + 1 }))).flat()
+const queue = Array.from({ length: runs }, (_, i) => running.map((arm) => ({ arm, n: i + 1 }))).flat()
   .map((job, i) => ({ ...job, slot: i + 1 }));
 console.log(`\nRunning ${queue.length} test sessions...`);
 const results = [];
@@ -143,7 +152,19 @@ const tally = (key) => {
   return { passed: done.filter((r) => r.pass).length, runs: done.length };
 };
 console.log(`\n${'Arm'.padEnd(14)} Passed`);
-for (const arm of arms) console.log(`${arm.name.padEnd(14)} ${tally(arm.key).passed}/${tally(arm.key).runs}`);
-console.log(`\n${verdict(tally('with'), tally('without'))}`);
+for (const arm of running) console.log(`${arm.name.padEnd(14)} ${tally(arm.key).passed}/${tally(arm.key).runs}`);
+const says = running.length === 2 ? verdict(tally('with'), tally('without')) : null;
+if (says) console.log(`\n${says}`);
 writeFileSync(join(work, 'results.json'), JSON.stringify({ rule: opt.rule, task: opt.task, checks, model: opt.model, file, results }, null, 2));
+if (!opt['no-save']) {
+  saveRun(join(project, opt.registry), { rule: opt.rule, file, task: opt.task, checks }, {
+    date: new Date().toISOString().slice(0, 10),
+    model: opt.model,
+    runs,
+    with: armKeys.includes('with') ? tally('with') : null,
+    without: armKeys.includes('without') ? tally('without') : null,
+    verdict: says,
+  });
+  console.log(`Saved to ${opt.registry}, so /city-app:rules:prune can re-test this rule later.`);
+}
 console.log(`${results.length} test session(s) run. Details: ${join(work, 'results.json')}`);

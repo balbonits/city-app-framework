@@ -41,4 +41,6 @@ After a yes, run the same command with `--yes` added. It takes a few minutes. Th
 - what to do, from the script's last lines: keep the rule, cut it, or make it a test instead (`/city-app:lesson`)
 - how many test sessions ran
 
+The script saves the rule, task, checks and results to `docs/rule-tests.json`, so `/city-app:rules:prune` can re-test it later (for example after a model update). Suggest committing that file.
+
 If a test, hook or guard rule also enforces this rule, the runs without the line still have that, so the result shows only what the AGENTS.md line adds.

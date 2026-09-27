@@ -1,6 +1,6 @@
-// Helpers for scripts/rules-test.mjs: placing a rule, copying a project, running checks, and
-// reading the results. No Claude calls here, so tests/rules-test.test.mjs covers them for free.
-import { cpSync, existsSync, mkdirSync, readdirSync, symlinkSync, appendFileSync } from 'node:fs';
+// Helpers for scripts/rules-test.mjs and rules-prune.mjs: placing a rule, copying a project, running
+// checks, saving results, and reading them. No Claude calls here, so tests cover them for free.
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, symlinkSync, appendFileSync, writeFileSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
 
@@ -85,4 +85,52 @@ export function verdict(withIt, withoutIt) {
   else says = 'Unclear. Try more runs (--runs 5) or a sharper check.';
   const fewest = Math.min(withIt.runs, withoutIt.runs);
   return fewest < 5 ? `${says} (Only ${fewest} run${fewest === 1 ? '' : 's'} each, so treat it as a hint.)` : says;
+}
+
+// The rules saved by rules-test, so rules-prune can re-test them later:
+// { rules: [{ rule, file, task, checks, history: [{ date, model, runs, with, without, verdict }], cut }] }
+export const loadRegistry = (path) => (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : { rules: [] });
+
+export function saveRegistry(path, registry) {
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, `${JSON.stringify(registry, null, 2)}\n`);
+}
+
+// Adds one run to the rule's history (creating the entry if needed). The latest task and checks win.
+export function saveRun(path, { rule, file, task, checks }, run) {
+  const registry = loadRegistry(path);
+  let entry = registry.rules.find((r) => r.file === file && plain(r.rule) === plain(rule));
+  if (!entry) {
+    entry = { rule, file, task, checks, history: [], cut: null };
+    registry.rules.push(entry);
+  }
+  Object.assign(entry, { task, checks });
+  entry.history.push(run);
+  saveRegistry(path, registry);
+  return entry;
+}
+
+// The list items under "## Gotchas": the project's own rules (the working agreement is the kit's).
+export function gotchaItems(text) {
+  const lines = text.split('\n');
+  const start = lines.findIndex((l) => /^##\s+Gotchas\b/i.test(l));
+  if (start === -1) return [];
+  const end = lines.findIndex((l, i) => i > start && /^##\s/.test(l));
+  return lines.slice(start + 1, end === -1 ? undefined : end)
+    .filter((l) => LIST_ITEM.test(l)).map((l) => l.replace(LIST_ITEM, '').trim());
+}
+
+// withoutNow: { passed, runs } for the task run WITHOUT the rule on today's model.
+// withLast: the latest { passed, runs } WITH the rule, if any.
+export function pruneVerdict(withoutNow, withLast) {
+  if (!withoutNow?.runs) return 'No finished runs.';
+  const p = withoutNow.passed / withoutNow.runs;
+  let says;
+  if (p >= 0.8) says = 'Cut: the agent gets it right without the line now.';
+  else if (p <= 0.2) {
+    says = withLast?.runs && withLast.passed / withLast.runs < 0.5
+      ? "Keep for now, but the line doesn't fix it either: make it a test (/city-app:lesson)."
+      : 'Keep: without the line the agent still gets it wrong.';
+  } else says = 'Unclear: re-test with more runs (--runs 5) or both ways (--full).';
+  return withoutNow.runs < 5 ? `${says} (${withoutNow.runs} run${withoutNow.runs === 1 ? '' : 's'}, so treat it as a hint.)` : says;
 }
