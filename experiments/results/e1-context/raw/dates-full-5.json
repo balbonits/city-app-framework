@@ -1,0 +1,40 @@
+{
+  "id": "dates-full-5",
+  "task": "dates",
+  "arm": "full",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 40665,
+  "reply": "All the parsing/date logic lives in `cli.js`, since `commands.js`'s `done(name, today)` already used its second argument purely to determine which day gets marked — no changes needed there. `habit done read yesterday` and `habit done read 2026-09-01` now parse the trailing date token and resolve it to a UTC day; a bare `habit done read` still uses today.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 1,
+  "srcFiles": [
+    "src/cli.js"
+  ],
+  "srcAdded": 14,
+  "srcRemoved": 1,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 58,
+  "costUsd": 0.167773,
+  "turns": 10,
+  "durationMs": 39417,
+  "stopReason": "success"
+}

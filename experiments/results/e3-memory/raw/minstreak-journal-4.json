@@ -1,0 +1,42 @@
+{
+  "id": "minstreak-journal-4",
+  "task": "minstreak",
+  "arm": "journal",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 36173,
+  "reply": "All tests pass.\n\nAdded `--min-streak <n>` to `habit list`: `src/commands.js` filters/reports by streak, `src/cli.js` parses the flag, and I added two tests. When there are no matches it prints `No habits with streak >= n` rather than an empty line — let me know if you'd prefer silent empty output instead.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": false,
+    "usesParseArgs": false,
+    "handRolled": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 14,
+  "srcRemoved": 5,
+  "testAdded": 15,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--min-streak'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": true,
+  "replyWords": 51,
+  "costUsd": 0.1107164,
+  "turns": 10,
+  "durationMs": 34972,
+  "stopReason": "success"
+}

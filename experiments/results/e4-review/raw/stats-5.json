@@ -1,0 +1,24 @@
+{
+  "id": "stats-5",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "costUsd": 0.21233199999999997
+  },
+  "review": {
+    "clean": true,
+    "findings": "Clean — only the staged diff remains, no leftover scratch files. All verifications pass: `npm test` (13/13), plus manual CLI runs matching the spec exactly (sorting by current streak desc then alphabetically, correct `current`/`longest`/`30d` values, and the `No habits yet.` message for both an empty habits array and a missing file).\n\nNO DEFECTS",
+    "costUsd": 0.4047104
+  },
+  "reviewed": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

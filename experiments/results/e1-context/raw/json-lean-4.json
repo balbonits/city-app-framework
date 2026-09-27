@@ -1,0 +1,41 @@
+{
+  "id": "json-lean-4",
+  "task": "json",
+  "arm": "lean",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 47264,
+  "reply": "All tests pass.\n\nAdded `--json` to `habit list`: `src/cli.js` parses the flag and `src/commands.js`'s `list()` now takes an options arg, returning `JSON.stringify([{name, streak}, ...])` (or `[]` when empty) instead of the padded text table. One decision I made without asking: the JSON only includes `name` and `streak`, not the raw `done` dates array — let me know if you want the completion history included too.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 10,
+  "srcRemoved": 3,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": true,
+  "replyWords": 65,
+  "costUsd": 0.11292220000000003,
+  "turns": 10,
+  "durationMs": 46064,
+  "stopReason": "success"
+}

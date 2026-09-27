@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-rule-2",
+  "task": "minstreak",
+  "arm": "rule",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 53473,
+  "reply": "Both flag forms (`--min-streak=1` and `--min-streak 5`) work correctly via `parseArgs`, and tests pass (8/8).\n\n`habit list --min-streak <n>` now filters to habits with a streak ≥ n (works with `--min-streak=1` or `--min-streak 1`, parsed via `parseArgs`); default remains 0 (shows everything). Added a test in `test/commands.test.js` covering the filtering. Nothing to decide — behavior was unambiguous.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 13,
+  "srcRemoved": 2,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 57,
+  "costUsd": 0.16403659999999998,
+  "turns": 13,
+  "durationMs": 52154,
+  "stopReason": "success"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "dates-bare-2",
+  "task": "dates",
+  "arm": "bare",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 90588,
+  "reply": "Manual CLI smoke test was blocked in this sandbox (no approval surface here), so I relied on the automated test suite, which passed. I'll skip further shell exploration attempts here.\n\n## Summary\n\n`habit done` now accepts an optional trailing date argument:\n\n- `src/streak.js`: added `resolveDate(when)` — accepts a `Date`, `'today'`, `'yesterday'`, or a `YYYY-MM-DD` string; throws on anything else.\n- `src/commands.js`: `done(name, when)` now resolves `when` via `resolveDate` and returns the error message if the date is invalid.\n- `src/cli.js`: pops a trailing date-shaped token (`today`/`yesterday`/`YYYY-MM-DD`) off the CLI args before joining the rest as the habit name, so `habit done read yesterday` and `habit done read 2026-09-01` work, while multi-word habit names without a trailing date are unaffected.\n- Added tests in `test/commands.test.js` for explicit dates, `yesterday`, and invalid input.\n\nAll 10 tests pass (`npm test`).",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 4,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 26,
+  "srcRemoved": 4,
+  "testAdded": 17,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 18,
+  "replyAsks": false,
+  "replyWords": 137,
+  "costUsd": 0.2223558,
+  "turns": 19,
+  "durationMs": 89238,
+  "stopReason": "success"
+}

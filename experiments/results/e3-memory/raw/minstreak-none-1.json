@@ -1,0 +1,42 @@
+{
+  "id": "minstreak-none-1",
+  "task": "minstreak",
+  "arm": "none",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 38360,
+  "reply": "All tests pass.\n\n`habit list --min-streak <n>` now filters to habits with streak ≥ n; `src/commands.js` `list()` gained an optional `minStreak` param, and `src/cli.js` parses the flag (invalid/missing number prints a usage message). Added tests covering the filtered and empty-result cases. One decision I made: when the filter matches nothing, it prints `No habits with streak >= N` rather than the generic \"no habits\" message — let me know if you'd prefer different wording.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": false,
+    "usesParseArgs": false,
+    "handRolled": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 13,
+  "srcRemoved": 5,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--min-streak'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": true,
+  "replyWords": 74,
+  "costUsd": 0.12476680000000001,
+  "turns": 11,
+  "durationMs": 36735,
+  "stopReason": "success"
+}

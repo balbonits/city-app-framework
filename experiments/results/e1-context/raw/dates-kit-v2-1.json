@@ -1,0 +1,43 @@
+{
+  "id": "dates-kit-v2-1",
+  "task": "dates",
+  "arm": "kit-v2",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 90551,
+  "reply": "I can't run any bash commands beyond the earlier `npm test` in this session — further shell invocations require approval and there's no approval surface available. The automated test run (which did succeed) is my verification.\n\n**What changed:** `habit done <name> [when]` now accepts an optional trailing date argument — `today`, `yesterday`, or an ISO date like `2026-09-01`. Parsing lives in `commands.js`/`streak.js` (new `parseDateArg` in `streak.js`), so `cli.js` needed no changes. Added 3 tests covering explicit ISO dates, `yesterday`, and multi-word habit names that don't end in a date; all 10 tests pass.\n\nOne decision worth flagging: a two-word habit name whose last word happens to look like a date (e.g. `habit done \"trip 2026-09-01\"` as a literal name) will be parsed as name `trip` + date `2026-09-01` rather than a literal name — this seemed like the right tradeoff since real dated entries are far more common than habit names ending in a date-shaped word, but let me know if you'd rather require a flag (e.g. `--on`) to disambiguate.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/commands.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 23,
+  "srcRemoved": 3,
+  "testAdded": 18,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 16,
+  "replyAsks": true,
+  "replyWords": 170,
+  "costUsd": 0.2409718,
+  "turns": 17,
+  "durationMs": 89225,
+  "stopReason": "success"
+}

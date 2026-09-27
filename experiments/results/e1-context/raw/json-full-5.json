@@ -1,0 +1,41 @@
+{
+  "id": "json-full-5",
+  "task": "json",
+  "arm": "full",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 38646,
+  "reply": "That cleanup was blocked by the sandbox (path outside the working directory) — harmless leftover scratch file at `/tmp/habit-json-check.json`, not part of the repo.\n\nDone: `habit list --json` now outputs `[{\"name\":\"read\",\"streak\":1}]`-style JSON; plain `habit list` is unchanged.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 9,
+  "srcRemoved": 4,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": false,
+  "replyWords": 37,
+  "costUsd": 0.161428,
+  "turns": 11,
+  "durationMs": 37479,
+  "stopReason": "success"
+}

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: setup-fresh-project
+description: /city-app:setup installs the kit into a small React project and fills AGENTS.md from what the repo shows.
+expected_outcome: CLAUDE.md imports AGENTS.md, AGENTS.md has no placeholders and lists the real commands, the guard and test-gate hooks are wired up.
+context:
+  scaffold_script: fixture.sh

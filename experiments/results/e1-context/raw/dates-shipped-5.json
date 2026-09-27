@@ -1,0 +1,41 @@
+{
+  "id": "dates-shipped-5",
+  "task": "dates",
+  "arm": "shipped",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 73740,
+  "reply": "Added optional date support to `habit done`:\n\n- `src/streak.js:8-13` — new `parseDateArg(token, now)` helper: recognizes `\"today\"`, `\"yesterday\"`, and `YYYY-MM-DD`, returns `null` otherwise.\n- `src/cli.js` — when `done` is invoked with more than one arg, the last arg is checked against `parseDateArg`; if it's a valid date token, it's split off as the date and the rest is joined as the habit name (`habit done read yesterday`, `habit done read 2026-09-01`). Otherwise all args are treated as the name, preserving multi-word habit names like `habit done deep work`.\n- `test/streak.test.js` — added tests for `parseDateArg`.\n\n`done()` in `commands.js` already accepted a `today`/date parameter, so no changes were needed there. All 9 tests pass.\n\nNote: I couldn't manually exercise the CLI binary in this session (shell command approval was denied with no prompt surface available), so verification relied on the automated test suite rather than a live run.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 14,
+  "srcRemoved": 1,
+  "testAdded": 12,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 18,
+  "replyAsks": false,
+  "replyWords": 146,
+  "costUsd": 0.207672,
+  "turns": 19,
+  "durationMs": 72283,
+  "stopReason": "success"
+}

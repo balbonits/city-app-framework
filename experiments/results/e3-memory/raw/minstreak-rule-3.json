@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-rule-3",
+  "task": "minstreak",
+  "arm": "rule",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 51704,
+  "reply": "`npm test` passes (9/9, including two new tests for `--min-streak`). Manual CLI smoke-testing was blocked by the sandbox (no approval surface for ad-hoc shell commands), so I relied on the unit tests, which exercise `list()`'s new filtering logic directly.\n\n**Changes:**\n- `src/cli.js`: `list` now parses `--min-streak <n>` via `parseArgs` and passes it through.\n- `src/commands.js`: `list(today, minStreak = 0)` filters habits by streak, returning `\"No habits match.\"` when nothing qualifies.\n- `test/commands.test.js`: added tests for filtering and the no-match case.\n\nNothing needs a decision — behavior is a straightforward numeric filter.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 15,
+  "srcRemoved": 5,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 13,
+  "replyAsks": false,
+  "replyWords": 91,
+  "costUsd": 0.17335460000000003,
+  "turns": 14,
+  "durationMs": 50545,
+  "stopReason": "success"
+}

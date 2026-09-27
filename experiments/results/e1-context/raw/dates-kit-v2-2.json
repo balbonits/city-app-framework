@@ -1,0 +1,43 @@
+{
+  "id": "dates-kit-v2-2",
+  "task": "dates",
+  "arm": "kit-v2",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 121122,
+  "reply": "That manual shell check got blocked by a sandbox restriction (unrelated to the code), but it's redundant anyway since `test/cli.test.js` already runs the CLI end-to-end via `execFileSync` and passed.\n\n## Summary\n\n`habit done <name> [today|yesterday|YYYY-MM-DD]` now works. Added `parseDaySpec` to `src/streak.js` (recognizes `today`/`yesterday`/ISO dates, returns `null` if the trailing word isn't date-shaped so it's treated as part of the name, or `{ok:false, error}` for a malformed date like `2026-13-40`). `src/cli.js` peels a trailing date word off `done`'s args and resolves it before calling `commands.done(name, date)` — no changes needed to `commands.js`. Added unit tests for `parseDaySpec` and end-to-end CLI tests (multi-word names, yesterday, ISO date, invalid date). All 15 tests pass.\n\nOne judgment call worth flagging: for multi-word habit names, the last word is treated as a date only if it looks like one (`today`/`yesterday`/`YYYY-MM-DD`) — so `habit done go for a run` still works, but a habit literally named `...yesterday` would have that word stripped as a date instead. This seemed like the right tradeoff for a niche edge case; let me know if you'd rather require an explicit flag (e.g. `--on`) instead.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 15,
+  "filesChanged": 4,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 25,
+  "srcRemoved": 2,
+  "testAdded": 69,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 3,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 17,
+  "replyAsks": true,
+  "replyWords": 184,
+  "costUsd": 0.26391480000000006,
+  "turns": 18,
+  "durationMs": 119326,
+  "stopReason": "success"
+}

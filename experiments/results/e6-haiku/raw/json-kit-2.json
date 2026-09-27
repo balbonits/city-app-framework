@@ -1,0 +1,44 @@
+{
+  "id": "json-kit-2",
+  "task": "json",
+  "arm": "kit",
+  "n": 2,
+  "model": "claude-haiku-4-5-20251001",
+  "wallMs": 43229,
+  "reply": "Done! I've added a `--json` flag to `habit list`. Here's what changed:\n\n**`cli.js`**: Now parses the `--json` flag from arguments and passes it to the list function.\n\n**`commands.js`**: The `list()` function now accepts a `json` parameter. When true, it returns habits as a JSON array with `name` and `streak` fields instead of the formatted string.\n\n**Tests**: Added a test case that verifies the JSON output includes habits with correct names and streak counts.\n\nAll 8 tests pass. Usage: `node src/cli.js list --json` will output an array like `[{\"name\":\"read\",\"streak\":2},{\"name\":\"run\",\"streak\":0}]`.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 12,
+  "codeAdded": 12,
+  "srcRemoved": 4,
+  "testAdded": 14,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 13,
+  "replyAsks": false,
+  "replyWords": 88,
+  "costUsd": 0.07454230000000002,
+  "turns": 14,
+  "durationMs": 40428,
+  "stopReason": "success"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "multi-7",
+  "n": 7,
+  "task": "multi",
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "costUsd": 0.2516582
+  },
+  "review": {
+    "clean": true,
+    "findings": "Working tree is clean aside from the reviewed staged diff (no leftover files from my testing). All requirements checked out.\n\nNO DEFECTS",
+    "costUsd": 0.1939708
+  },
+  "reviewed": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

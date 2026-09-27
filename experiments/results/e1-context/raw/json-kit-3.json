@@ -1,0 +1,44 @@
+{
+  "id": "json-kit-3",
+  "task": "json",
+  "arm": "kit",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 57815,
+  "reply": "Manual CLI smoke test was blocked by a permission restriction (command substitution in the shell), but the automated test suite already covers the new behavior and all 9 tests pass.\n\nAdded `--json` to `habit list`: it now prints `[{name, streak}, ...]` (empty array if no habits), leaving the plain-text output unchanged. `commands.js#list` takes an options param `{ json }`; `cli.js` sets it from `args.includes('--json')`. Added two tests covering the JSON output and the empty-list case.\n\nOne thing to decide: I picked `{name, streak}` per habit — matching exactly what the text view shows. If you'd rather also include the raw `done` date array (e.g. for scripting/export use), say so and I'll add it.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 5,
+  "codeAdded": 5,
+  "srcRemoved": 2,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": false,
+  "replyWords": 113,
+  "costUsd": 0.1297084,
+  "turns": 11,
+  "durationMs": 55351,
+  "stopReason": "success"
+}

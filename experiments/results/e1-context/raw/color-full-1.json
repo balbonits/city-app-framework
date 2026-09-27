@@ -1,0 +1,38 @@
+{
+  "id": "color-full-1",
+  "task": "color",
+  "arm": "full",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 23636,
+  "reply": "All tests pass. Habits with a streak of 3+ now render in green ANSI color in `list()` (`src/commands.js`); no dependency added, still returns a plain string, `cli.js` prints unchanged.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 1,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 6,
+  "replyAsks": false,
+  "replyWords": 29,
+  "costUsd": 0.0965682,
+  "turns": 7,
+  "durationMs": 22303,
+  "stopReason": "success"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-check-2",
+  "task": "minstreak",
+  "arm": "check",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 56261,
+  "reply": "I tried a manual CLI smoke test but it was blocked by the sandbox (command substitution isn't permitted this session). That's fine — `npm test` passes (10/10), including the repo's convention check requiring `node:util`'s `parseArgs` for flags.\n\n**Summary:** `habit list` now accepts `--min-streak <n>` (and `--min-streak=<n>`), filtering to habits with a streak ≥ n; flags are parsed via `parseArgs` per this repo's convention test. Added tests in `test/commands.test.js` for the filtered and no-match cases. One small call I made: when the filter matches nothing, it prints `No habits match.` rather than an empty line — let me know if you'd prefer different wording or behavior.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 19,
+  "srcRemoved": 6,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 14,
+  "replyAsks": true,
+  "replyWords": 105,
+  "costUsd": 0.19318480000000002,
+  "turns": 15,
+  "durationMs": 54859,
+  "stopReason": "success"
+}

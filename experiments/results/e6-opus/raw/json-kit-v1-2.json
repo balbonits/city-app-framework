@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v1-2",
+  "task": "json",
+  "arm": "kit-v1",
+  "n": 2,
+  "model": "claude-opus-5-5",
+  "wallMs": 33497,
+  "reply": "`habit list --json` now prints the habits as a JSON array, for example `[{ \"name\": \"run\", \"streak\": 2, \"done\": [\"2026-03-01\", \"2026-03-02\"] }]`. With no habits it prints `[]` instead of the \"No habits yet\" message.\n\n- **Code:** `list()` in `src/commands.js` takes a `{ json }` option, `src/cli.js` passes it when `--json` is in the arguments, and the usage line now mentions the flag.\n- **Tests:** I added one test for the empty case and one for a habit with a streak, and all 8 tests pass.\n- **Not run:** I couldn't try the CLI by hand, because the command to run it against a temporary habits file needed approval and none was available in this session. So the flag handling in `cli.js` hasn't been run directly; the tests only cover `commands.js`.\n\n**Decision for you:** what goes in each JSON entry. I picked `name`, `streak` and the raw `done` dates, so scripts get the same numbers the normal list shows plus the history. Options:\n1. Keep all three (my pick).\n2. Drop `done` to match exactly what the text list shows.\n3. Also add a `doneToday` true/false field.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 3,
+  "testAdded": 10,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": true,
+  "replyWords": 187,
+  "costUsd": 0.1870108,
+  "turns": 11,
+  "durationMs": 32245,
+  "stopReason": "success"
+}

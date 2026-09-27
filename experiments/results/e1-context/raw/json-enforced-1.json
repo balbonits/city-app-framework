@@ -1,0 +1,41 @@
+{
+  "id": "json-enforced-1",
+  "task": "json",
+  "arm": "enforced",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 31894,
+  "reply": "All 9 tests pass.\n\nAdded `--json` to `habit list`: `src/commands.js` now accepts an options param and returns `JSON.stringify([{name, streak}, ...])` when `json: true`; `src/cli.js` sets that flag when `--json` is in argv. Added two tests covering populated and empty output. Nothing to decide — output is `[{name, streak}]` per habit, matching the fields already shown in the plain-text list.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": false,
+  "replyWords": 59,
+  "costUsd": 0.10695120000000002,
+  "turns": 11,
+  "durationMs": 30591,
+  "stopReason": "success"
+}

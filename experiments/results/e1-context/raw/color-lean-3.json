@@ -1,0 +1,38 @@
+{
+  "id": "color-lean-3",
+  "task": "color",
+  "arm": "lean",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 36082,
+  "reply": "All tests pass.\n\n`habit list` now wraps each line with a habit at a 3+ day streak in ANSI green (`src/commands.js`), with tests covering both colored and uncolored cases. One thing to decide: color is applied unconditionally, even when output is piped or `NO_COLOR` is set — let me know if you'd like it to skip coloring for non-TTY output or respect `NO_COLOR`.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": true,
+  "replyWords": 63,
+  "costUsd": 0.11387019999999999,
+  "turns": 10,
+  "durationMs": 34893,
+  "stopReason": "success"
+}

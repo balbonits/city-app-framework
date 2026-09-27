@@ -1,0 +1,37 @@
+{
+  "id": "remind-lean-5",
+  "task": "remind",
+  "arm": "lean",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 34815,
+  "reply": "All tests pass.\n\n`habit list` now marks any habit not yet done today with `(not done today)`, so running it surfaces reminders without a new flag or command. Added a test in `test/commands.test.js`.\n\n\"Reminders\" could mean more than this — I built the smallest uncontroversial piece (a visual flag in existing output) rather than guess at delivery/timing. If you want more, options:\n1. Add a `habit due` command that lists only undone habits (quick filtered view).\n2. Wire up a cron/OS notification to run `habit list` and alert on undone habits at a set time.\n3. Add a `--json` output flag for scripting reminders into another tool.\n\nI'd recommend option 1 next if you want something actionable beyond `list`.",
+  "acceptance": {
+    "pass": null,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 5,
+  "srcRemoved": 1,
+  "testAdded": 9,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": true,
+  "replyWords": 119,
+  "costUsd": 0.11817680000000001,
+  "turns": 11,
+  "durationMs": 33670,
+  "stopReason": "success"
+}

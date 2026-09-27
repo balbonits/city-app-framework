@@ -1,0 +1,45 @@
+{
+  "id": "json-bare-2",
+  "task": "json",
+  "arm": "bare",
+  "n": 2,
+  "model": "claude-opus-5-5",
+  "wallMs": 34609,
+  "reply": "`habit list --json` now prints your habits as a JSON array instead of the text table. All 8 tests pass, including a new one for this, but I couldn't run the real command by hand; details at the end.\n\nExample output:\n```json\n[\n  {\n    \"name\": \"run\",\n    \"streak\": 2,\n    \"done\": [\"2026-03-01\", \"2026-03-02\"]\n  }\n]\n```\n\n- **Fields:** each habit has its name, current streak and the dates it was done. I chose these fields, so change them if you want something different.\n- **No habits:** it prints `[]` rather than the \"No habits yet…\" message, so scripts always get valid JSON.\n- **Changes:** the logic is an optional `{ json }` argument on `list()` in `src/commands.js`, and `src/cli.js` passes it when you add `--json`. Existing callers work as before.\n- **Also updated:** the usage line, the README example, and a new test covering both the empty list and a habit with a 2-day streak.\n\nThe session's permission settings blocked the manual run. My first attempt was blocked because it used command substitution. The second failed because it tried to delete a temporary data file outside the project folder. To try it yourself, run `node src/cli.js list --json`. To keep it away from your real data, point `HABITS_FILE` at a throwaway file first.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 4,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 3,
+  "testAdded": 10,
+  "processFilesChanged": [],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": false,
+  "replyWords": 211,
+  "costUsd": 0.2809652,
+  "turns": 11,
+  "durationMs": 32959,
+  "stopReason": "success"
+}

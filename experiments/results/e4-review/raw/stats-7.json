@@ -1,0 +1,24 @@
+{
+  "id": "stats-7",
+  "n": 7,
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "costUsd": 0.2013992
+  },
+  "review": {
+    "clean": true,
+    "findings": "Repo is clean (scratch files removed, no other files touched).\n\nVerified every requirement against the code and by running the CLI against seeded temp data (multi-habit sorting/ties, empty store, month-crossing streaks, duplicate/unsorted `done` entries): output format, current/longest/30d values, descending-by-current sort with alphabetical tiebreak, and the \"No habits yet.\" case all matched expected results in every case I tried, and all 13 unit tests pass.\n\nNO DEFECTS",
+    "costUsd": 0.2960554000000001
+  },
+  "reviewed": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

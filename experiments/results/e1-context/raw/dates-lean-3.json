@@ -1,0 +1,41 @@
+{
+  "id": "dates-lean-3",
+  "task": "dates",
+  "arm": "lean",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 92246,
+  "reply": "Manual CLI smoke-testing is blocked in this sandbox (no approval surface), but `npm test` passes with 9/9 tests including new coverage for `resolveDate`, and the existing `done()` test already exercises the date-marking path that the CLI now feeds into.\n\n`habit done <name> [yesterday|today|YYYY-MM-DD]` now works — the CLI checks if the trailing arg parses as a date/keyword and, if so, splits it off before calling `done()`; otherwise the whole thing is treated as the habit name as before (so multi-word names are unaffected). Unparseable dates (bad format, invalid day/month) fall back to treating the full string as the name rather than erroring. Added `resolveDate` to `streak.js` and tests for it; `npm test` passes (9/9).\n\nOptions if you want to refine behavior: (1) make an invalid-looking date (e.g. `2026-13-40`) return an error instead of silently becoming part of the name, or (2) support future dates explicitly disallowed/allowed — currently any valid date, past or future, is accepted.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 18,
+  "srcRemoved": 1,
+  "testAdded": 13,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 15,
+  "replyAsks": false,
+  "replyWords": 156,
+  "costUsd": 0.22586320000000004,
+  "turns": 16,
+  "durationMs": 90936,
+  "stopReason": "success"
+}

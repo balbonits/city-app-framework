@@ -1,0 +1,11 @@
+{
+  "name": "city-app-framework",
+  "private": true,
+  "type": "module",
+  "description": "A small, tested kit for building apps with AI coding agents.",
+  "scripts": {
+    "test": "node --test \"tests/*.test.mjs\"",
+    "install-kit": "node scripts/install.mjs"
+  },
+  "engines": { "node": ">=22" }
+}

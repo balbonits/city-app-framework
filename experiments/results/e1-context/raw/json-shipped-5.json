@@ -1,0 +1,41 @@
+{
+  "id": "json-shipped-5",
+  "task": "json",
+  "arm": "shipped",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 66112,
+  "reply": "Manual CLI verification was blocked by the sandbox's approval requirements (no approval surface available for multi-part/command-substitution commands), but the unit tests already exercise the same code paths (`list` with `{ json: true }`, both populated and empty), and `npm test` passed all 9 tests.\n\nSummary of changes:\n- `src/commands.js`: `list()` now accepts an options object `{ json }`; when `json` is true it returns `JSON.stringify` of `[{ name, streak }, ...]` (empty array `[]` when there are no habits), otherwise unchanged formatted text.\n- `src/cli.js`: parses `--json` out of the args and passes it through to `list()`.\n- `test/commands.test.js`: added tests for JSON output with and without habits.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 10,
+  "srcRemoved": 3,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 108,
+  "costUsd": 0.14535320000000002,
+  "turns": 13,
+  "durationMs": 64657,
+  "stopReason": "success"
+}

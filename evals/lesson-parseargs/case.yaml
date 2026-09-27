@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: lesson-parseargs
+description: /city-app:lesson turns a repeated correction into a durable check and rule, and logs it.
+expected_outcome: src/cli.js uses parseArgs, AGENTS.md carries a one-line rule, a test or guard rule enforces it, and docs/lessons.md records it.
+context:
+  scaffold_script: fixture.sh

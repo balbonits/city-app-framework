@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v1-3",
+  "task": "json",
+  "arm": "kit-v1",
+  "n": 3,
+  "model": "claude-opus-5-5",
+  "wallMs": 36390,
+  "reply": "I added `--json` to `habit list`. It prints an array like `[{ \"name\": \"run\", \"streak\": 2, \"done\": [\"2026-03-01\", \"2026-03-02\"] }]`, and `[]` when there are no habits. All 8 tests pass, including a new one for the JSON output (`test/commands.test.js`). The changes are in `src/commands.js` and `src/cli.js`, and the usage line now mentions `[--json]`.\n\nI haven't run the real CLI to check it. Commands that set `HABITS_FILE` needed approval, and this session can't grant it. `node src/cli.js list --json` with a temp `HABITS_FILE` would confirm the flag is wired up.\n\n**Decision for you:** I made the JSON fields `name`, `streak` and `done`. The options:\n- **(a)** Keep it as is. It includes the raw done dates so scripts can do their own date math. This is my pick.\n- **(b)** Drop `done` and keep only what the text output shows (`name`, `streak`), for a smaller output.\n- **(c)** Print the stored `habits.json` data unchanged, without computed streaks.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 3,
+  "testAdded": 10,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": true,
+  "replyWords": 157,
+  "costUsd": 0.21566339999999998,
+  "turns": 13,
+  "durationMs": 34668,
+  "stopReason": "success"
+}

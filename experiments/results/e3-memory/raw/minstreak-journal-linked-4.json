@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-journal-linked-4",
+  "task": "minstreak",
+  "arm": "journal-linked",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 45107,
+  "reply": "Manual CLI smoke test was blocked by this session's sandbox (no approval surface for shell substitution), so I couldn't exercise `node src/cli.js list --min-streak N` directly — but `npm test` covers the same logic via `list(today, { minStreak })`, and the flag wiring follows the exact `parseArgs` pattern the journal calls out for `--json`.\n\n**Summary:** `habit list --min-streak <n>` now filters to habits with streak ≥ n (parsed via `node:util.parseArgs`, consistent with the `--json` precedent in the journal), with a \"No habits match.\" message when nothing qualifies; added two tests covering filtering and the no-match case, all 9 tests pass.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 16,
+  "srcRemoved": 5,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 13,
+  "replyAsks": false,
+  "replyWords": 100,
+  "costUsd": 0.15700939999999997,
+  "turns": 14,
+  "durationMs": 43962,
+  "stopReason": "success"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "dates-kit-v2-4",
+  "task": "dates",
+  "arm": "kit-v2",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 122181,
+  "reply": "That manual smoke-test command was blocked (it used command substitution, which needs approval this session doesn't support) — no action was taken. It's not needed though: `test/cli.test.js` already exercises the exact same path (spawning `src/cli.js` with `HABITS_FILE` pointed at a temp file) and all 4 of those cases passed in the full suite above.\n\n**What changed:** `habit done <name> [date]` now accepts an optional trailing `yesterday`, `today`, or `YYYY-MM-DD` token — parsing lives in `src/cli.js` (`splitDoneArgs`), and date resolution/validation is in `src/streak.js` (`resolveDate`, UTC-safe, rejects invalid dates like `2026-02-30`). No changes to `commands.js`'s existing signature. Added 4 unit tests for `resolveDate` and 4 end-to-end CLI tests; all 15 tests pass.\n\nOne thing to be aware of: if a habit's name happens to be two+ words ending in `yesterday`/`today`/a `YYYY-MM-DD`-shaped word (e.g. `habit add \"workout yesterday\"`), `done` will misread that trailing word as a date instead of part of the name. This is a pre-existing ambiguity from `add`/`done` joining all args into one name — I didn't touch that behavior, just noting the edge case exists.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 15,
+  "filesChanged": 4,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 32,
+  "srcRemoved": 2,
+  "testAdded": 62,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 16,
+  "replyAsks": false,
+  "replyWords": 175,
+  "costUsd": 0.27726379999999995,
+  "turns": 17,
+  "durationMs": 120486,
+  "stopReason": "success"
+}

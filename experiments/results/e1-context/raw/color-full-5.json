@@ -1,0 +1,38 @@
+{
+  "id": "color-full-5",
+  "task": "color",
+  "arm": "full",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 22668,
+  "reply": "All tests pass. `list()` now wraps any habit line with a streak ≥ 3 in ANSI green (`\\x1b[32m...\\x1b[0m`); still returns a plain string per `commands.js` rules, only `cli.js` prints it.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 1,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 6,
+  "replyAsks": false,
+  "replyWords": 30,
+  "costUsd": 0.09890979999999999,
+  "turns": 7,
+  "durationMs": 21516,
+  "stopReason": "success"
+}

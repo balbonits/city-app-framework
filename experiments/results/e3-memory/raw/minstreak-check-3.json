@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-check-3",
+  "task": "minstreak",
+  "arm": "check",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 58790,
+  "reply": "Manual CLI smoke-testing is blocked in this sandbox (no permission surface for temp-dir commands outside the working directory), but the automated test suite already exercises the new logic directly, including the `parseArgs`-based flag parsing and the filtering behavior, and all 10 tests pass.\n\n`habit list --min-streak <n>` now filters to habits with streak ≥ n (parsed via `util.parseArgs` per project convention), with a \"No habits match.\" message when nothing qualifies; added two tests in `test/commands.test.js` covering the filter and the no-match case. One thing to decide: non-numeric or negative `--min-streak` values currently just yield an empty/full list rather than an error — let me know if you'd rather it reject invalid input explicitly.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 16,
+  "srcRemoved": 5,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": true,
+  "replyWords": 113,
+  "costUsd": 0.1695484,
+  "turns": 13,
+  "durationMs": 57645,
+  "stopReason": "success"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "dates-enforced-1",
+  "task": "dates",
+  "arm": "enforced",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 103881,
+  "reply": "Manual CLI runs aren't approved in this session, but `npm test` (which exercises the same logic through `commands.js`/`streak.js` directly, including the new `resolveDate` cases) ran and passed cleanly, so I'll rely on that plus the code review rather than retry the blocked manual check.\n\n**Summary:** `habit done <name> [yesterday|today|YYYY-MM-DD]` now works — `src/cli.js` splits an optional trailing date token off the args and resolves it via a new `resolveDate` helper in `src/streak.js`, then passes the resulting `Date` into the existing `done(name, date)` in `commands.js` (no signature change needed there). Malformed ISO dates (e.g. `2026-13-40`) return an `Invalid date \"...\"` message instead of crashing or silently mis-parsing. Added tests for `resolveDate` in `test/streak.test.js`; full suite passes (9/9).\n\nOne judgment call: if the date token doesn't parse as a recognized date, it's treated as part of the habit name (falls back to old behavior) rather than raising an error — this covers plain typos gracefully but means e.g. `habit done read tomorow` looks for a habit literally named \"read tomorow\". Let me know if you'd prefer stricter validation there.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 30,
+  "srcRemoved": 1,
+  "testAdded": 14,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 3,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 18,
+  "replyAsks": true,
+  "replyWords": 177,
+  "costUsd": 0.25972,
+  "turns": 19,
+  "durationMs": 102599,
+  "stopReason": "success"
+}

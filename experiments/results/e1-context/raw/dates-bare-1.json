@@ -1,0 +1,43 @@
+{
+  "id": "dates-bare-1",
+  "task": "dates",
+  "arm": "bare",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 82315,
+  "reply": "Manual CLI smoke testing is blocked in this sandbox (no approval surface for shell commands beyond a single simple invocation), but the automated test suite covers the new behavior and passes (9/9).\n\nSummary of changes:\n- `src/streak.js`: added `parseDateArg(str, today)` — recognizes `\"today\"`, `\"yesterday\"`, and `YYYY-MM-DD`, returning `null` otherwise.\n- `src/cli.js`: `habit done <name> [date]` now checks if the last CLI argument is a recognized date; if so, it's stripped from the name and used as the day to mark done, otherwise it defaults to today (unchanged behavior).\n- `test/streak.test.js`: added tests for `parseDateArg`.\n- `README.md`: documented the new optional date argument.\n\n`habit done read yesterday` and `habit done read 2026-09-01` now work as requested; plain `habit done read` is unaffected.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 4,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 17,
+  "srcRemoved": 1,
+  "testAdded": 13,
+  "processFilesChanged": [],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 18,
+  "replyAsks": false,
+  "replyWords": 121,
+  "costUsd": 0.21401299999999998,
+  "turns": 19,
+  "durationMs": 81025,
+  "stopReason": "success"
+}

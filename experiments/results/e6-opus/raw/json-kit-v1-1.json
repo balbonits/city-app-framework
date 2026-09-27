@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v1-1",
+  "task": "json",
+  "arm": "kit-v1",
+  "n": 1,
+  "model": "claude-opus-5-5",
+  "wallMs": 26261,
+  "reply": "I added `habit list --json`, which prints each habit as `{ name, streak, done }` and prints `[]` when there are no habits. All 8 tests pass, including one new test for the JSON output. I couldn't try the actual command in a terminal: running the CLI needed a permission approval that this session can't get. The flag handling in `src/cli.js` is one line and no test covers it.\n\nDecision for you: the shape of the JSON output. I went with (a), but it's easy to change:\n- **(a) `{ name, streak, done }`** (what I built): the most useful for scripts, since it includes the full history.\n- **(b) `{ name, streak }`**: matches exactly what the text `list` shows.\n- **(c) the raw stored `habits` array**: no computed streak, so it's a straight copy of `habits.json`.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 6,
+  "srcRemoved": 2,
+  "testAdded": 10,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 8,
+  "replyAsks": false,
+  "replyWords": 138,
+  "costUsd": 0.1497822,
+  "turns": 9,
+  "durationMs": 24902,
+  "stopReason": "success"
+}

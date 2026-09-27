@@ -1,0 +1,41 @@
+{
+  "id": "dates-enforced-4",
+  "task": "dates",
+  "arm": "enforced",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 171944,
+  "reply": "`habit done <name> [yesterday|YYYY-MM-DD]` now works: `src/streak.js` gained `parseDoneDate` (resolves `\"yesterday\"` or a validated ISO date, `undefined` if the text isn't date-shaped, `null` if it is but invalid), and `src/cli.js` uses it to decide whether the trailing argument is a date or part of the habit name — `src/commands.js` needed no changes since `done()` already accepted a `Date`. Manually verified `yesterday`, an explicit date, an invalid date (rejected), and no date (defaults to today); all 11 tests pass.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 23,
+  "srcRemoved": 2,
+  "testAdded": 18,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 2,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 27,
+  "replyAsks": false,
+  "replyWords": 78,
+  "costUsd": 0.43394660000000007,
+  "turns": 28,
+  "durationMs": 170506,
+  "stopReason": "success"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "json-kit-1",
+  "task": "json",
+  "arm": "kit",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 51267,
+  "reply": "Works as expected, and the temp file was cleaned up.\n\n**What changed:** `habit list --json` now prints each habit as `{\"name\", \"streak\"}` JSON (empty list → `[]`). `list()` in `src/commands.js` gained an optional `json` param; `src/cli.js` passes `--json` through. Added two tests in `test/commands.test.js`; full suite passes (9/9).\n\n**Decision for you:** the JSON shape mirrors the text output (name + computed streak). Two other reasonable shapes I didn't build: (a) raw stored data `{name, done: [...]}` so consumers compute their own streak, or (b) both combined `{name, done, streak}`. Let me know if you'd rather have one of those instead.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 5,
+  "codeAdded": 5,
+  "srcRemoved": 2,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": true,
+  "replyWords": 100,
+  "costUsd": 0.1598296,
+  "turns": 13,
+  "durationMs": 49222,
+  "stopReason": "success"
+}

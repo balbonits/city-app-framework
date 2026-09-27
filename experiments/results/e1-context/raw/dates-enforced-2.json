@@ -1,0 +1,42 @@
+{
+  "id": "dates-enforced-2",
+  "task": "dates",
+  "arm": "enforced",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 113208,
+  "reply": "Manual CLI runs are blocked in this session, but `npm test` (which exercises this exact logic through `commands.js`) ran fine and all 11 tests pass, so I'll rely on that.\n\n**Changes:**\n- `src/streak.js`: added `resolveDay(dateWord, today)` (handles `undefined` → today, `'yesterday'` → today−1, or passes an explicit `YYYY-MM-DD` through) and `isDateWord(word)` to classify a trailing CLI token.\n- `src/commands.js`: `done(name, dateWord, today)` now resolves the day via `resolveDay` instead of always using \"now\".\n- `src/cli.js`: splits a trailing `yesterday`/`YYYY-MM-DD` token off the `done` args as the date, leaving the rest as the habit name.\n- Updated/added tests in `test/commands.test.js` and `test/streak.test.js`.\n\nOne thing to decide: if a habit is literally named `yesterday` and you run `habit done yesterday` with no other words, it's ambiguous — I made it require at least 2 args before treating the last token as a date, so a single-word name is never misparsed, but `habit done \"yesterday\" yesterday` (name + date) would still work. No invalid-date validation was added (e.g. `2026-13-40` silently rolls over via `Date` normalization) — flag if you want that guarded.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 5,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 22,
+  "srcRemoved": 4,
+  "testAdded": 31,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 19,
+  "replyAsks": false,
+  "replyWords": 179,
+  "costUsd": 0.29161080000000006,
+  "turns": 20,
+  "durationMs": 111867,
+  "stopReason": "success"
+}

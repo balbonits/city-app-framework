@@ -1,0 +1,12 @@
+{
+  "name": "habit-cli",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "bin": { "habit": "src/cli.js" },
+  "scripts": {
+    "test": "node --test",
+    "start": "node src/cli.js"
+  },
+  "engines": { "node": ">=22" }
+}

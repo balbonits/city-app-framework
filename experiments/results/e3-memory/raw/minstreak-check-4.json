@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-check-4",
+  "task": "minstreak",
+  "arm": "check",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 63387,
+  "reply": "All tests pass, including the pre-existing convention test requiring `node:util`'s `parseArgs`.\n\nAdded `--min-streak <n>` (also accepts `--min-streak=<n>`) to `habit list`, filtering out habits below the given streak, via `parseArgs` in `src/cli.js:5-13` and a new `minStreak` filter in `commands.list` (`src/commands.js:22-29`). Added a test in `test/commands.test.js` covering the filtering behavior. Nothing for you to decide — implementation matches the request exactly.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 16,
+  "srcRemoved": 4,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 13,
+  "replyAsks": false,
+  "replyWords": 59,
+  "costUsd": 0.1761002,
+  "turns": 14,
+  "durationMs": 61963,
+  "stopReason": "success"
+}

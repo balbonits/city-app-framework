@@ -1,0 +1,41 @@
+{
+  "id": "dates-shipped-2",
+  "task": "dates",
+  "arm": "shipped",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 83835,
+  "reply": "Done. `habit done` now accepts an optional trailing date argument:\n\n- `src/streak.js` — added `parseDate(str, now)`, resolving `\"today\"`, `\"yesterday\"`, or an `\"YYYY-MM-DD\"` string to a `Date` (returns `null` for anything unrecognized/invalid, e.g. `2026-99-99`).\n- `src/cli.js` — `done` now peels off the last arg as a date only if there are 2+ args and it parses successfully; otherwise the whole thing is treated as the habit name (so multi-word names still work) and falls back to today.\n- `test/streak.test.js` — added tests for `parseDate` (today/yesterday/ISO date/invalid input).\n\nAll 10 tests pass (`npm test`). Note: I couldn't manually exercise the CLI end-to-end here — this sandbox's approval surface blocks all Bash commands beyond `npm test` (even simple ones), so verification is via the test suite and manual trace-through of the arg-parsing logic.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 20,
+  "srcRemoved": 2,
+  "testAdded": 17,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 19,
+  "replyAsks": false,
+  "replyWords": 130,
+  "costUsd": 0.2560978,
+  "turns": 20,
+  "durationMs": 82571,
+  "stopReason": "success"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "multi-5",
+  "n": 5,
+  "task": "multi",
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "costUsd": 0.2246834
+  },
+  "review": {
+    "clean": true,
+    "findings": "`undo` correctly removes only today's mark (2026-09-27), leaving prior days (25th, 26th) intact — matches \"removes today's mark\" exactly. Every requirement checks out against the actual code and CLI behavior.\n\nNO DEFECTS",
+    "costUsd": 0.26265900000000003
+  },
+  "reviewed": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

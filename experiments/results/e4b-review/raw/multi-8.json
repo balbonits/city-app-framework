@@ -1,0 +1,33 @@
+{
+  "id": "multi-8",
+  "n": 8,
+  "task": "multi",
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "costUsd": 0.20705840000000003
+  },
+  "review": {
+    "clean": true,
+    "findings": "Clean — only the staged changes remain, no leftover test artifacts.\n\nAll requirements check out against both the code and live CLI runs:\n\n- `rename <old> --to <new>`, `delete <name> --yes`, `undo <name>` all implemented and wired into `cli.js`/`commands.js`.\n- Unknown-habit message is identical across `done`, `rename`, `remove`, and `undo`: `No habit named \"X\"` in all four cases (verified via direct CLI runs).\n- `delete` without `--yes` refuses (`Refusing to delete \"X\" without --yes`) and leaves `habits.json` byte-for-byte unchanged (verified).\n- None of the three new commands create `habits.json` when it doesn't exist yet, for the unknown-habit path (verified: file absent after `rename`/`delete`/`undo nope`).\n- Multi-word names, `--to`/`--yes` flag position (start, middle, end) all parse correctly.\n- `npm test` passes (18/18), including new tests for all three commands.\n\nNO DEFECTS",
+    "costUsd": 0.315823
+  },
+  "reviewed": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

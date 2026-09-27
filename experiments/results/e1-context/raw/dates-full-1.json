@@ -1,0 +1,40 @@
+{
+  "id": "dates-full-1",
+  "task": "dates",
+  "arm": "full",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 55019,
+  "reply": "Parsing behaves correctly: `read yesterday` and `read 2026-09-01` resolve to name `read` with the right date, while plain `read` and multi-word names like `drink water` are unaffected.\n\n`src/cli.js` now parses an optional trailing date arg (`today`, `yesterday`, or `YYYY-MM-DD`) for `habit done`; existing tests pass and multi-word habit names without a date keep working as before.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 1,
+  "srcFiles": [
+    "src/cli.js"
+  ],
+  "srcAdded": 13,
+  "srcRemoved": 1,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 56,
+  "costUsd": 0.18247439999999998,
+  "turns": 13,
+  "durationMs": 53765,
+  "stopReason": "success"
+}

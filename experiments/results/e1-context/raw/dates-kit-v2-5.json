@@ -1,0 +1,43 @@
+{
+  "id": "dates-kit-v2-5",
+  "task": "dates",
+  "arm": "kit-v2",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 117586,
+  "reply": "Clean — only the intended files changed, and all 11 tests pass.\n\n`habit done <name> [date]` now accepts `yesterday`, `today`, or a `YYYY-MM-DD` date as a trailing argument (e.g. `habit done read yesterday`); an unparseable date like `2026-13-40` returns an error instead of silently becoming part of the habit name. One thing to note: something like `2026-02-30` (a real-looking but nonexistent day) silently rolls over to March 2 rather than erroring — I didn't add full calendar validation for that edge case since it seemed disproportionate for a tiny CLI tool. Let me know if you want stricter validation there.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 26,
+  "srcRemoved": 1,
+  "testAdded": 24,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 20,
+  "replyAsks": true,
+  "replyWords": 100,
+  "costUsd": 0.31267480000000003,
+  "turns": 21,
+  "durationMs": 116312,
+  "stopReason": "success"
+}

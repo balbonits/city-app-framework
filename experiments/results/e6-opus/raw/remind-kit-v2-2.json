@@ -1,0 +1,42 @@
+{
+  "id": "remind-kit-v2-2",
+  "task": "remind",
+  "arm": "kit-v2",
+  "n": 2,
+  "model": "claude-opus-5-5",
+  "wallMs": 29356,
+  "reply": "I added a `habit remind` command that lists the habits you haven't marked done today (using UTC days, like the rest of the app). If everything is done, it prints \"All habits done today.\" `npm test` passes, 8 of 8, including a new test for this. I couldn't run the CLI by hand: that command needed approval, and nobody could approve it in this session. So far the command is only checked by the test.\n\nThe logic is in `src/commands.js`, `src/cli.js` knows about the new command, and the README has one extra line. For now it's a command you run yourself, because **how the reminder reaches you** is your call:\n\n1. **Shell startup (my pick):** add `habit remind` to `~/.bashrc` or `~/.zshrc` so it shows every time you open a terminal. No code changes and no new dependencies.\n2. **Scheduled desktop notification:** a cron job, e.g. at 8pm, pipes `habit remind` into `notify-send` or `osascript`. It works even when you're not in a terminal, but each OS needs its own setup, and cron needs a fixed path for `HABITS_FILE`.\n3. **Built-in nudge:** `list` and `done` print a one-line \"N habits left today\" footer. It's the least intrusive, but you only see it when you already use the tool.\n\nSeparately: reminders follow UTC days, so after about 5pm on the US west coast, \"today\" has already rolled over to tomorrow. If that matters, switching to local days would be its own decision.",
+  "acceptance": {
+    "pass": null,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 4,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 11,
+  "srcRemoved": 2,
+  "testAdded": 13,
+  "processFilesChanged": [],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": false,
+  "replyWords": 241,
+  "costUsd": 0.16082000000000002,
+  "turns": 12,
+  "durationMs": 28242,
+  "stopReason": "success"
+}

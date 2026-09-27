@@ -1,0 +1,43 @@
+{
+  "id": "dates-kit-3",
+  "task": "dates",
+  "arm": "kit",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 101916,
+  "reply": "All 11 tests pass.\n\n`habit done <name> [yesterday|YYYY-MM-DD]` now works — no date arg still defaults to today, `yesterday` marks the prior UTC day, and an explicit `YYYY-MM-DD` is validated (invalid calendar dates like `2026-02-30` are rejected instead of silently rolling over). One caveat: since the date token is detected as the *last* argument, a multi-word habit name that itself ends in \"yesterday\" or a date-like string (e.g. a habit called \"trip 2026-09-01\") would be misparsed — this only matters if such names are actually used.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/cli.js"
+  ],
+  "srcAdded": 22,
+  "codeAdded": 22,
+  "srcRemoved": 1,
+  "testAdded": 44,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": false,
+  "replyWords": 86,
+  "costUsd": 0.19876280000000002,
+  "turns": 12,
+  "durationMs": 100349,
+  "stopReason": "success"
+}

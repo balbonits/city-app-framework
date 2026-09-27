@@ -1,0 +1,41 @@
+{
+  "id": "json-full-1",
+  "task": "json",
+  "arm": "full",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 40676,
+  "reply": "That manual CLI smoke test was blocked by the permission surface, but the test suite (which covers the new behavior directly) already ran and passed.\n\nAdded `--json` support to `habit list`:\n- `src/commands.js`: `list()` now takes an options arg `{ json }`; when set, returns `JSON.stringify` of `[{ name, streak }]`.\n- `src/cli.js`: `list` command passes `{ json: args.includes('--json') }`.\n- `test/commands.test.js`: added a test covering the JSON output.\n\nAll 8 tests pass.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 8,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 73,
+  "costUsd": 0.13712660000000002,
+  "turns": 10,
+  "durationMs": 39555,
+  "stopReason": "success"
+}

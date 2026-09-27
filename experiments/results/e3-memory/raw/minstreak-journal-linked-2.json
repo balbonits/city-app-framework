@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-journal-linked-2",
+  "task": "minstreak",
+  "arm": "journal-linked",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 65425,
+  "reply": "All tests pass.\n\nAdded `--min-streak <n>` to `habit list` (parsed via `node:util`'s `parseArgs`, per the journal's flag-parsing lesson): it filters output to habits with streak ≥ n, and prints `No habits with streak >= n` when nothing matches. Updated `commands.js`'s `list()` signature to `list(today, { minStreak })` and added two tests in `test/commands.test.js`.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 16,
+  "srcRemoved": 5,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 53,
+  "costUsd": 0.18082660000000003,
+  "turns": 13,
+  "durationMs": 63709,
+  "stopReason": "success"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "remind-shipped-3",
+  "task": "remind",
+  "arm": "shipped",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 56241,
+  "reply": "Added a `remind` command: `node src/cli.js remind` lists any habits not yet marked done today (or \"All habits done for today. Nice work!\" if none are pending). Wired into `cli.js`, implemented in `commands.js`, tests added in `test/commands.test.js`, and `AGENTS.md`'s usage line updated. All 10 tests pass.",
+  "acceptance": {
+    "pass": null,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 4,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 12,
+  "srcRemoved": 2,
+  "testAdded": 21,
+  "processFilesChanged": [
+    "AGENTS.md"
+  ],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 14,
+  "replyAsks": false,
+  "replyWords": 46,
+  "costUsd": 0.163516,
+  "turns": 15,
+  "durationMs": 55152,
+  "stopReason": "success"
+}

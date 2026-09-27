@@ -1,7 +1,14 @@
 .DS_Store
 node_modules
 
-# Claude Code — keep settings.json (project-shared), ignore local overrides and runtime locks
+# Experiment scratch dirs (transcripts and trial copies are large; scores live in experiments/results)
+experiments/.work
+
+# Claude Code: keep settings.json (project-shared), ignore local overrides and runtime locks
 .claude/settings.local.json
 .claude/*.lock
 .claude/scheduled_tasks.lock
+
+# claude plugin eval outputs (reports and per-run results)
+evals/results/
+tests/e2e/results/

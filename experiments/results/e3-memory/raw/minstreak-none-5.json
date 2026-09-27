@@ -1,0 +1,42 @@
+{
+  "id": "minstreak-none-5",
+  "task": "minstreak",
+  "arm": "none",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 35369,
+  "reply": "Manual CLI smoke test was blocked by the sandbox (permission denied for the shell substitution), but `npm test` passes with full coverage of the new filtering logic.\n\n`habit list` now accepts `--min-streak <n>` to only show habits with a streak at or above that threshold, printing a \"No habits with streak >= n\" message when nothing qualifies; added tests cover the filtering and the empty-result message.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": false,
+    "usesParseArgs": false,
+    "handRolled": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 17,
+  "srcRemoved": 5,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--min-streak'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": false,
+  "replyWords": 66,
+  "costUsd": 0.1321826,
+  "turns": 12,
+  "durationMs": 34114,
+  "stopReason": "success"
+}

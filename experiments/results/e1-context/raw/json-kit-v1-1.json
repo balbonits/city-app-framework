@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v1-1",
+  "task": "json",
+  "arm": "kit-v1",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 125745,
+  "reply": "Reviewer confirmed no defects, including a live CLI check I couldn't run myself.\n\nAdded `--json` to `habit list`: `commands.js`'s `list()` now takes an options object (`{ json }`) and returns `JSON.stringify([{name, streak}, ...])` when set; `cli.js` parses `--json` out of argv and strips it from add/done args. Plain-text output is unchanged. Tests added for both a populated and empty JSON list; all 9 tests pass.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 13,
+  "srcRemoved": 4,
+  "testAdded": 12,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": true,
+  "usedSubagent": true,
+  "hookDenies": 0,
+  "toolCalls": 36,
+  "replyAsks": false,
+  "replyWords": 65,
+  "costUsd": 0.3846296,
+  "turns": 2,
+  "durationMs": 4479,
+  "stopReason": "success"
+}

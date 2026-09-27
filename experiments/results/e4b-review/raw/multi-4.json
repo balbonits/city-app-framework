@@ -1,0 +1,33 @@
+{
+  "id": "multi-4",
+  "n": 4,
+  "task": "multi",
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "costUsd": 0.20233760000000003
+  },
+  "review": {
+    "clean": true,
+    "findings": "Clean — only the original staged changes remain, no leftover test artifacts.\n\nI verified each requirement against the code and by running the CLI live with a temp `HABITS_FILE` seeded with real habit data:\n\n- `rename <old> --to <new>`: correctly renames, refuses on name collision, and prints `No habit named \"ghost\"` for an unknown habit — matching `done`'s exact message.\n- `delete <name> --yes`: refuses and leaves data untouched without `--yes` (verified `list` output unchanged), deletes with `--yes`, and prints the same unknown-habit message.\n- `undo <name>`: removes today's mark (verified streak dropped 3→0), and prints the same unknown-habit message.\n- None of the three commands create `habits.json` when it doesn't exist and the habit is unknown (checked via `existsSync` after each call) — all three commands check for the habit and return early before ever calling `save()`.\n- `npm test` passes all 14 tests, including the 6 new tests covering these commands.\n\nNO DEFECTS",
+    "costUsd": 0.42837880000000006
+  },
+  "reviewed": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

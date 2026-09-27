@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v1-4",
+  "task": "json",
+  "arm": "kit-v1",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 171762,
+  "reply": "The reviewer confirmed no defects, and the manual CLI test I ran earlier already exercised the end-to-end path it couldn't test.\n\nAdded a `--json` flag to `habit list`: `src/commands.js`'s `list()` now takes an options object and, when `{ json: true }`, returns `JSON.stringify([{name, streak}, ...])`; `src/cli.js` parses `--json` off argv and passes it through. Tests added for both the populated and empty-list JSON cases; all 9 tests pass and a manual run confirms `node src/cli.js list --json` outputs valid JSON.\n\nOne decision baked in: the JSON schema is `{name, streak}` per habit (matching what the text view already shows) rather than the full `done` date array — happy to add `done` too if you want the raw history in the JSON output.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 10,
+  "srcRemoved": 3,
+  "testAdded": 12,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": true,
+  "usedSubagent": true,
+  "hookDenies": 0,
+  "toolCalls": 36,
+  "replyAsks": false,
+  "replyWords": 122,
+  "costUsd": 0.42597349999999995,
+  "turns": 1,
+  "durationMs": 4251,
+  "stopReason": "success"
+}

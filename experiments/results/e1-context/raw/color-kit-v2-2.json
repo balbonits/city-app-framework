@@ -1,0 +1,40 @@
+{
+  "id": "color-kit-v2-2",
+  "task": "color",
+  "arm": "kit-v2",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 43300,
+  "reply": "All 9 tests pass.\n\n**What changed:** `list()` in `src/commands.js` now wraps habit lines in green ANSI codes when their streak is 3+, gated on TTY output and respecting `NO_COLOR` (so piped/non-terminal output stays plain). Added two tests covering the colored and uncolored cases.\n\nNothing left to decide — this was a well-defined, small change following existing conventions (padEnd formatting stays in commands.js, same as before).",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": false,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 9,
+  "srcRemoved": 1,
+  "testAdded": 28,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 65,
+  "costUsd": 0.1320458,
+  "turns": 10,
+  "durationMs": 41961,
+  "stopReason": "success"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "json-kit-5",
+  "task": "json",
+  "arm": "kit",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 77815,
+  "reply": "Added a `--json` flag to `habit list`: `src/commands.js`'s `list()` now takes an options object and returns `JSON.stringify([{name, done, streak}, ...])` when `json: true`; `src/cli.js` detects `--json` in argv and passes it through. Added a test and verified both plain and `--json` output manually — all 8 tests pass.\n\nOne decision I made without asking: the JSON shape includes `name`, `done` (raw done-day array), and computed `streak` per habit, rather than just `name`/`streak` (matching the plain-text view) or the raw habit object alone. Let me know if you'd prefer a leaner shape.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "codeAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 7,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 20,
+  "replyAsks": true,
+  "replyWords": 91,
+  "costUsd": 0.2316162,
+  "turns": 21,
+  "durationMs": 75097,
+  "stopReason": "success"
+}

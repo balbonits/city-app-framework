@@ -1,0 +1,40 @@
+{
+  "id": "dates-full-2",
+  "task": "dates",
+  "arm": "full",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 177822,
+  "reply": "All existing tests pass. Manual CLI exercise with env-var export was blocked by sandbox approval, but the logic is straightforward: `parseDateArg` checks the last token for `today`/`yesterday`/`YYYY-MM-DD` and strips it from the name before calling `done`.\n\n`src/cli.js` now supports `habit done read yesterday` and `habit done read 2026-09-01`, falling back to today when no date token is present.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 1,
+  "srcFiles": [
+    "src/cli.js"
+  ],
+  "srcAdded": 12,
+  "srcRemoved": 1,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 58,
+  "costUsd": 0.1503638,
+  "turns": 10,
+  "durationMs": 176477,
+  "stopReason": "success"
+}

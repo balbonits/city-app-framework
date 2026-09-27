@@ -1,0 +1,38 @@
+{
+  "id": "remind-lean-4",
+  "task": "remind",
+  "arm": "lean",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 39261,
+  "reply": "All tests pass.\n\nAdded a `habit remind` command: it lists any habits not yet marked done today (or \"All habits done for today!\" if none pending), following the same `commands.js`/`cli.js` split as the rest of the CLI. Tests added in `test/commands.test.js`.\n\nThis is an on-demand check, not a proactive push notification — \"reminders\" could mean several things, so I built the smallest uncontroversial piece. Options if you want it to nag you automatically:\n1. Cron job running `habit remind` on a schedule (no new deps, just a crontab entry outside this repo).\n2. OS desktop notifications (would need a new dependency or shell-out to `notify-send`/`osascript`).\n3. `done`/`list` could print the same reminder text automatically when habits are pending.\n\nRecommendation: option 1 (cron + this new command) — keeps the CLI dependency-free and lets you pick your own schedule.",
+  "acceptance": {
+    "pass": null,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 12,
+  "srcRemoved": 2,
+  "testAdded": 21,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": true,
+  "replyWords": 138,
+  "costUsd": 0.1387624,
+  "turns": 12,
+  "durationMs": 38157,
+  "stopReason": "success"
+}

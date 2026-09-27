@@ -1,0 +1,41 @@
+{
+  "id": "dates-shipped-3",
+  "task": "dates",
+  "arm": "shipped",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 83172,
+  "reply": "Manual CLI runs are blocked in this session (no approval surface), so I couldn't do a live smoke test beyond the automated suite. The `npm test` run above (which passed, 11/11) already exercises `parseDate` for `today`/`yesterday`/explicit dates/invalid input, and the existing `done(name, date)` behavior is unit-tested — so the change is verified at that level, just not via a manual CLI invocation.\n\n**Summary of changes:**\n- `src/streak.js`: added `parseDate(word, now)` — resolves `'today'`, `'yesterday'`, or a `YYYY-MM-DD` string to a `Date`, returning `null` for anything else (including invalid calendar dates).\n- `src/cli.js`: `done` now looks at the trailing argument; if it parses as a date, it's split off and used as the mark date, otherwise the whole argument list is treated as the habit name and today's date is used (unchanged behavior). Usage string updated to `habit <add|done|list> [name] [date]`.\n- `test/streak.test.js`: added tests for `parseDate`.\n\nNote: multi-word habit names whose last word happens to be `today`/`yesterday`/an ISO date will be misparsed as having a date argument — an inherent ambiguity given the CLI joins args into the name; not handled specially since it's a minor edge case for a small tool.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 21,
+  "srcRemoved": 2,
+  "testAdded": 20,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 14,
+  "replyAsks": false,
+  "replyWords": 192,
+  "costUsd": 0.222599,
+  "turns": 15,
+  "durationMs": 81931,
+  "stopReason": "success"
+}

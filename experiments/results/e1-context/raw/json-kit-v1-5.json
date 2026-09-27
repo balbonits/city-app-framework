@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v1-5",
+  "task": "json",
+  "arm": "kit-v1",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 47894,
+  "reply": "Done. Added a `--json` flag to `habit list`.\n\n- `src/commands.js`: `list()` now accepts an options object `{ json }`; when true it returns `JSON.stringify` of `[{ name, streak }, ...]` instead of the padded text table (empty list returns `[]` rather than the \"No habits yet\" message).\n- `src/cli.js`: parses `--json` out of argv and passes it through to `list()`.\n- Added two tests in `test/commands.test.js` covering JSON output with data and with an empty habit list. `npm test` passes (9/9).\n\nNote: I couldn't do a live CLI smoke test (`node src/cli.js list --json`) — this sandbox session has no approval surface, so all Bash calls beyond the pre-approved `npm test` were auto-denied. The behavior is covered by the new unit tests instead.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 11,
+  "srcRemoved": 4,
+  "testAdded": 12,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 13,
+  "replyAsks": false,
+  "replyWords": 123,
+  "costUsd": 0.16565180000000004,
+  "turns": 14,
+  "durationMs": 46614,
+  "stopReason": "success"
+}

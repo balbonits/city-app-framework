@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-rule-5",
+  "task": "minstreak",
+  "arm": "rule",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 47017,
+  "reply": "That manual CLI smoke test was blocked by the sandbox's permission system (no approval surface available). The automated test suite already covers this behavior and passed, so I'll rely on that.\n\nAdded `--min-streak <n>` to `habit list`: `src/cli.js` parses it with `parseArgs` and passes it to `list()` in `src/commands.js`, which now filters habits by streak and returns `\"No habits match.\"` when nothing qualifies. Added two tests covering filtering and the no-match case; `npm test` passes (9/9).",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 15,
+  "srcRemoved": 5,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 76,
+  "costUsd": 0.1488092,
+  "turns": 13,
+  "durationMs": 45821,
+  "stopReason": "success"
+}

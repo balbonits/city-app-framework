@@ -1,129 +1,102 @@
-# city-app-framework
+# City App Framework
 
-A personal development framework for building apps with AI coding agents (Claude, Grok, others). It exists to solve one specific problem: AI agents are stateless, so every project is "first prompt" forever. Without a baked-in answer to "how does John want code structured, named, tested, and reviewed," agents waste tokens making the same arbitrary choices over and over and drift from how I actually build.
+A small, tested kit for building apps with AI coding agents. Made for Claude Code; the AGENTS.md part also works with Codex, Cursor, Copilot and Grok.
 
-## What this is
+It gives an agent three things it can't get on its own:
 
-Two layers, by design:
+1. **Your project facts and working style**, in a file it actually loads.
+2. **Hard stops** for the few things that need you: new dependencies and deleting tests (it asks you), force-push, production deploys, finishing with failing tests.
+3. **A way to make corrections stick**, so the next session doesn't repeat the mistake.
 
-1. **Universal layer (this repo).** Rules and patterns that apply across all my projects — anti-overengineering, escalation triggers, decision patterns, communication norms.
-2. **Per-project layer (each project's own `AGENTS.md`).** Stack, commands, file layout, naming, and footguns specific to that project. See [`jdilig-me-v3`](https://github.com/balbonits/jdilig-me-v3/blob/main/AGENTS.md) for an example of what a project-level `AGENTS.md` looks like.
+Every piece was tested against a real model (Claude Sonnet 5, plus Opus 5.5 and Haiku 4.5 spot checks). Rules that made no difference were cut, and testing caught a bad rule in the kit's own first draft. See [what we found](docs/findings-2026-09.md).
 
-When an agent opens a project, it reads the project's `AGENTS.md` first; that file points back here for the universal rules.
+## Quick start
 
-```mermaid
-flowchart TB
-    classDef universal fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:2px
-    classDef item fill:#dbeafe,stroke:#1e40af,color:#0f172a,stroke-width:1px
-    classDef project fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
-    classDef projitem fill:#d1fae5,stroke:#065f46,color:#0f172a,stroke-width:1px
+Install the `city-app` plugin once:
 
-    subgraph U["fa:fa-landmark  Universal layer &mdash; city-app-framework"]
-        direction LR
-        UA["fa:fa-scroll  AGENTS.md<br/><i>universal rules</i>"]:::item
-        UC["fa:fa-balance-scale  conventions/<br/><i>operational norms</i>"]:::item
-        UD["fa:fa-code-branch  decision-patterns/<br/><i>recurring tradeoffs</i>"]:::item
-        UT["fa:fa-clipboard-list  templates/<br/><i>starter files</i>"]:::item
-    end
-    class U universal
-
-    subgraph P["fa:fa-city  Per-project layer"]
-        direction LR
-        PA["fa:fa-cube  Project A<br/>AGENTS.md"]:::projitem
-        PB["fa:fa-cube  Project B<br/>AGENTS.md"]:::projitem
-        PC["fa:fa-cube  Project C<br/>AGENTS.md"]:::projitem
-    end
-    class P project
-
-    PA -.->|fallback| UA
-    PB -.->|fallback| UA
-    PC -.->|fallback| UA
+```sh
+claude plugin marketplace add balbonits/city-app-framework
+claude plugin install city-app@city-app-framework
 ```
 
-## How we work
+Then, inside a project, run `/city-app:setup`. It installs the per-project files below and fills in `AGENTS.md` from what the repo shows. Commit the result so every session, local or cloud, gets it.
 
-You (the human) are the Sponsor. You set the vision, set the boundaries, and make the final calls. The AI agents — Claude, Grok, others — are autonomous within those boundaries: we execute, we escalate when human judgment is genuinely needed, and we propose improvements after significant work.
+No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs the same per-project files; fill in the `{{...}}` parts of `AGENTS.md` yourself. Needs Node 22+.
 
-This is a high-trust principal-agent relationship, not a democracy. Disagreement is welcome and useful. Final say is yours.
+## What you get
 
-```mermaid
-flowchart LR
-    classDef sponsor fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:3px
-    classDef agents fill:#1e40af,stroke:#1e3a8a,color:#ffffff,stroke-width:3px
-    classDef output fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:3px
+**Skills** (from the plugin):
 
-    Sponsor(["fa:fa-user-tie  Sponsor<br/><i>(you)</i>"]):::sponsor
-    Agents(["fa:fa-robot  AI Agents<br/><i>Claude &middot; Grok &middot; others</i>"]):::agents
-    Output[["fa:fa-rocket  Working software"]]:::output
+| Command | What it does | Why it's there |
+| --- | --- | --- |
+| `/city-app:setup` | Installs the per-project files and fills in AGENTS.md | v3's setup kept Claude from loading AGENTS.md at all |
+| `/city-app:lesson` | Turns a correction into a test, a guard rule, or one AGENTS.md line, and logs it | Lessons in a journal were never read; rules and checks were |
+| `/city-app:rules:test` | Checks whether one AGENTS.md rule changes what the agent does on your project: the same task with and without it, each run scored by a check. Shows the plan and asks before using your usage | Many rules make no difference; this shows which ones earn their place |
 
-    Sponsor ==>|vision and boundaries| Agents
-    Agents ==>|execute| Output
-    Agents -.->|escalate when uncertain| Sponsor
-    Agents -.->|propose improvements| Sponsor
+| `/city-app:ui:check` | Checks the pages you changed for accessibility problems, console errors, and layouts wider than the screen, at phone, tablet and desktop sizes. `--add-test` puts the checks in `npm test`, so the finish gate enforces them | Front-end quality as pass/fail checks, not AI opinion |
+
+**See it all in one project:** [examples/habit-web](examples/habit-web/), a small web app built with the kit, with the evidence for each part.
+
+**Per-project files** (installed by setup):
+
+| File | What it does | Why it's there |
+| --- | --- | --- |
+| `AGENTS.md` | Project facts plus an 8-line working agreement (28 lines total) | Short files that agents load beat long ones they skip |
+| `CLAUDE.md` | One line: `@AGENTS.md` | Without it, Claude doesn't load AGENTS.md when a CLAUDE.md exists |
+| `.claude/hooks/guard.mjs` | Asks you (Allow/Deny) before a new dependency or deleting a test; blocks force-push, prod deploys, publishing, and any rule in `.claude/guard-rules.txt` | Instructions are advice; hooks are guarantees |
+| `.claude/hooks/test-gate.mjs` | Agent can't finish while tests fail or newly skipped tests appear | "Done" should come with proof |
+
+When an agent adds a package, you get an Allow/Deny prompt, even in auto mode; unattended runs get a no. To approve a package for good, add its name to `.claude/approved-deps.txt` yourself. The agent can't edit that file. It can add rules to `.claude/guard-rules.txt`, but not remove them. Claude Code asks you before any write into `.claude/`, so adding a rule shows a one-click prompt (auto mode decides it for you).
+
+## What we found (Sept 2026)
+
+| Question | Answer |
+| --- | --- |
+| Did v3 reach the agent? | Mostly no. Its `CLAUDE.md` pointer blocks Claude's automatic AGENTS.md loading, and the universal rules sat behind a link no agent opened (0 of 25 runs). |
+| Do "don't overbuild" and "no new deps" rules still matter? | Barely. 0 of 285 runs added a dependency, with or without rules, even when asked for a web server. |
+| What does still change behavior? | A rule for vague asks: build the smallest part, then offer options. Bare agents never offered options (0/5); with the rule, 5/5 did. A "write a test" line took tests from 17/25 to 25/25. |
+| Did the v3 escalation table help? | It over-corrected: agents stopped to ask and built nothing in 3 of 5 runs. |
+| Do lessons carry over between sessions? | Only if the next session runs into them. Journal only: 0/5. One line in AGENTS.md: 5/5. A failing check: 5/5, even with no written rule. |
+| Does a second "reviewer" agent help? | Not on small, clear tasks: the solo agent was right 15 of 16 times, and the reviewer missed the one bug while costing more than the build. |
+| Is "describe it, get an app" still a dream? | No. A 4-sentence spec gave a working CLI in 4 of 4 runs (about 1 minute each), with no framework at all. |
+
+Full numbers, methods and sources: [docs/findings-2026-09.md](docs/findings-2026-09.md). Raw data: [experiments/results/](experiments/results/).
+
+## Re-test it yourself
+
+The harness in [`experiments/`](experiments/) runs headless Claude Code against a tiny app and scores the results with fixed checks. Re-run it when models change; advice that helped last year can be dead weight now.
+
+```sh
+npm test                                   # hooks, installer, eval graders (free, offline)
+node evals/run-local.mjs --runs 2          # skill evals, with the plugin (--baseline adds runs without it)
+node evals/run-local.mjs --dir tests/e2e --no-plugin --runs 1   # live hook checks
+node experiments/validate-scorer.mjs /tmp/check
+node experiments/run.mjs --tasks remind --arms bare,kit --trials 5
 ```
 
-The name comes from an earlier "City 2.0" design exercise that framed development as autonomous city governance: Sponsor sets policy, agents are the council that runs the city day-to-day, and conventions are the city's laws. The current framework is the slim, operational descendant of that idea — same metaphor, less ceremony. Full design preserved in [`docs/design-notes/`](./docs/design-notes/).
+Everything after `npm test` runs real Claude sessions and uses your plan's usage; each command prints how many sessions it ran.
 
 ## Layout
 
-| Path | Purpose |
-|---|---|
-| [`AGENTS.md`](./AGENTS.md) | The universal rules. Read first. |
-| [`CLAUDE.md`](./CLAUDE.md), [`GROK.md`](./GROK.md) | One-line pointers to `AGENTS.md`. |
-| [`conventions/`](./conventions/) | Operational rules with examples (anti-overengineering, escalation, etc.). |
-| [`decision-patterns/`](./decision-patterns/) | Recurring tradeoffs with guidance. |
-| [`templates/`](./templates/) | Starter `AGENTS.md` / `CLAUDE.md` / `GROK.md` / `README.md` for new projects. |
-| [`docs/design-notes/`](./docs/design-notes/) | Earlier "City 2.0" philosophical design. Not loaded by default. Useful for thinking; not for daily execution. |
-
-## How to use
-
-### Starting a new project
-
-1. Copy [`templates/project-AGENTS.md`](./templates/project-AGENTS.md) into the new repo as `AGENTS.md`. Fill in stack/commands/layout/naming.
-2. Copy [`templates/project-CLAUDE.md`](./templates/project-CLAUDE.md) and [`templates/project-GROK.md`](./templates/project-GROK.md). They're one-liners.
-3. The project's `AGENTS.md` already links to this repo's universal `AGENTS.md` — agents will follow it.
-
-### Working in an existing project
-
-- The project's own `AGENTS.md` is the source of truth for that project.
-- This repo's `AGENTS.md` is the default fallback for anything the project doesn't specify.
-
-### How an agent navigates a task
-
-```mermaid
-flowchart TD
-    classDef start fill:#1e293b,stroke:#0f172a,color:#ffffff,stroke-width:2px
-    classDef read fill:#dbeafe,stroke:#1e40af,color:#0f172a,stroke-width:1px
-    classDef decision fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:1px
-    classDef proceed fill:#065f46,stroke:#064e3b,color:#ffffff,stroke-width:2px
-    classDef ask fill:#7c2d12,stroke:#9a3412,color:#ffffff,stroke-width:2px
-
-    Start(["fa:fa-play  Agent picks up a task"]):::start
-    Read1["fa:fa-book-open  Read project's AGENTS.md"]:::read
-    Read2["fa:fa-book  Fall back to universal AGENTS.md"]:::read
-    Q1{"fa:fa-question  Project rule<br/>covers it?"}:::decision
-    Q2{"fa:fa-question  Universal rule<br/>covers it?"}:::decision
-    Q3{"fa:fa-exclamation-triangle  New dep, scope change,<br/>arch choice, or<br/>irreversible op?"}:::decision
-    Proceed(["fa:fa-check  Proceed autonomously"]):::proceed
-    Ask(["fa:fa-hand-paper  Escalate to Sponsor"]):::ask
-
-    Start --> Read1 --> Q1
-    Q1 -->|yes| Q3
-    Q1 -->|no| Read2 --> Q2
-    Q2 -->|yes| Q3
-    Q2 -->|no| Ask
-    Q3 -->|no| Proceed
-    Q3 -->|yes| Ask
-```
-
-## Status
-
-Early. Extracted from real `AGENTS.md` files in [`jdilig-me-v3`](https://github.com/balbonits/jdilig-me-v3), [`coding-interview-reviewer`](https://github.com/balbonits/coding-interview-reviewer), and [`ai-browser-game-demos`](https://github.com/balbonits/ai-browser-game-demos), plus operational rules from earlier framework iterations. Expected to evolve as patterns prove or fail in real use.
-
-**Demo / whitepaper site:** <https://website-pi-one-3ymijizbxt.vercel.app> (source at [`examples/website/`](./examples/website/)).
+| Path | What |
+| --- | --- |
+| `.claude-plugin/` | Plugin manifest (`city-app`) and this repo's marketplace entry |
+| `skills/` | The plugin's one-level skills (`/city-app:setup`, `/city-app:lesson`) |
+| `commands/` | Its two-level commands (`/city-app:rules:test`, `/city-app:ui:check`) |
+| `kit/` | The per-project files setup copies into a project |
+| `scripts/` | The installer setup runs, plus the `rules-test` and `ui-check` scripts the commands run |
+| `tests/` | Tests for the hooks, installer and eval graders (`npm test`); `tests/e2e/` holds live hook checks |
+| `evals/` | Skill eval cases (`claude plugin eval` format) and `run-local.mjs`, which runs them where the official runner's sandbox can't start |
+| `examples/` | `habit-web`, the kit's first real project; `checks/` holds rules:test checks kept out of its sight |
+| `experiments/` | The research harness, fixture app, and results |
+| `docs/` | Findings, plan, lessons and decision records |
+| `AGENTS.md`, `CLAUDE.md` | Instructions for agents working on this repo |
 
 ## History
 
-- **v1** (Sept 2025, commit [`de9a303`](https://github.com/balbonits/city-app-framework/commit/de9a303a86d596047a9f9310edebbdbd5751d5ac)) — "Mayor + Citizens" model, CLI MVP (`create-city-app`), concrete anti-overengineering rules. Active human role.
-- **v2** (April 2026) — "City 2.0" philosophy-first reset: Sponsor + AI Council, 8 Constitutional Principles, 22 docs. Reflected the bet that AI capability had crossed a threshold for autonomous execution. Preserved at [`docs/design-notes/`](./docs/design-notes/).
-- **Current (this commit)** — slim universal `AGENTS.md` + operational `conventions/` + recurring `decision-patterns/` + per-project templates. Working version designed to survive contact with real builds.
+- **v1** (Aug–Sep 2025): "Mayor + AI Citizens". A `create-city-app` CLI, specified but never built.
+- **v2** (Apr 2026): "City 2.0". The human as Sponsor and an autonomous AI Council of departments. Philosophy only.
+- **v3** (Apr–May 2026): a universal AGENTS.md, ~40 convention docs, decision patterns, templates, a journal, a demo site. Last version at [`739c334`](https://github.com/balbonits/city-app-framework/tree/739c334).
+- **v4** (Sep 2026, this): rebuilt from the evidence. Why: [docs/decisions/001-rebuild-as-tested-kit.md](docs/decisions/001-rebuild-as-tested-kit.md).
+
+The city idea survives in one form: laws (hooks) are enforced; customs (AGENTS.md) are advice. Put anything that must never happen in a law.

@@ -1,0 +1,33 @@
+{
+  "id": "multi-2",
+  "n": 2,
+  "task": "multi",
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "costUsd": 0.21410679999999999
+  },
+  "review": {
+    "clean": true,
+    "findings": "Scratch directory cleaned up, no leftover files, repo state matches the staged diff only.\n\nI checked all three requirements against the code and verified live with the CLI against a seeded temp `habits.json`:\n\n- `rename <old> --to <new>` renames correctly and persists.\n- `delete <name>` without `--yes` refuses and leaves the file byte-for-byte unchanged; with `--yes` it deletes.\n- `undo <name>` removes today's mark using the same `toDay` logic as `done`.\n- All three print exactly `No habit named \"<name>\"` for an unknown habit — identical to `done`'s message — verified for every combination (including `delete` with and without `--yes`).\n- None of them create `habits.json` when it doesn't exist yet, verified against a fresh directory with no file present.\n\nNO DEFECTS",
+    "costUsd": 0.3297118
+  },
+  "reviewed": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

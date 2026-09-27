@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v2-1",
+  "task": "json",
+  "arm": "kit-v2",
+  "n": 1,
+  "model": "claude-haiku-4-5-20251001",
+  "wallMs": 37644,
+  "reply": "Done! I've added a `--json` flag to the `habit list` command that outputs habits as JSON.\n\n**Changes made:**\n1. **commands.js**: Modified `list()` to accept a `json` parameter. When true, it returns a JSON array with habit objects containing `name` and `streak` properties (pretty-printed with 2-space indentation).\n2. **cli.js**: Updated to detect and parse the `--json` flag, passing it to the list function.\n3. **test/commands.test.js**: Added a test verifying the JSON output format and content.\n\n**Testing:**\n- All 8 tests pass ✓\n- `habit list` still works as before (formatted text output)\n- `habit list --json` outputs properly formatted JSON",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 14,
+  "srcRemoved": 2,
+  "testAdded": 14,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 14,
+  "replyAsks": false,
+  "replyWords": 99,
+  "costUsd": 0.0640588,
+  "turns": 15,
+  "durationMs": 35827,
+  "stopReason": "success"
+}

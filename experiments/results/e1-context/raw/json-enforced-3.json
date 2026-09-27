@@ -1,0 +1,41 @@
+{
+  "id": "json-enforced-3",
+  "task": "json",
+  "arm": "enforced",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 44443,
+  "reply": "All tests pass (8/8).\n\nAdded `--json` support to `habit list`: `list()` in `src/commands.js` takes an options arg and returns `JSON.stringify` of `[{name, streak}, ...]` when `{json: true}`; `src/cli.js` strips `--json` from argv and passes the flag through. Added a test covering it.\n\nOne decision I made without asking: the JSON shape is `{name, streak}` per habit (matching what the plain-text output already shows), rather than including raw `done` dates or other fields — let me know if you want the full `done` history included instead.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 11,
+  "srcRemoved": 4,
+  "testAdded": 7,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": true,
+  "replyWords": 85,
+  "costUsd": 0.1127436,
+  "turns": 10,
+  "durationMs": 43140,
+  "stopReason": "success"
+}

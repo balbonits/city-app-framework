@@ -1,0 +1,24 @@
+{
+  "id": "stats-8",
+  "n": 8,
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "costUsd": 0.227937
+  },
+  "review": {
+    "clean": true,
+    "findings": "Working tree is clean of my scratch files, and the staged diff is untouched.\n\nI checked every requirement from the spec against `stats()` in `src/commands.js` and the new helpers in `src/streak.js`, ran the 13-test suite (all passing), and manually exercised the CLI with seeded data covering ties, a habit whose longest streak lies in the past while its current streak is broken, and the empty-habits case. Output matched hand-computed expectations exactly in every case (format, sort order/tie-break, rounding, and the 30-day window including today).\n\nNO DEFECTS",
+    "costUsd": 0.2715724
+  },
+  "reviewed": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

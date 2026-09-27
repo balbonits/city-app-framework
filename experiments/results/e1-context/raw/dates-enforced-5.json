@@ -1,0 +1,40 @@
+{
+  "id": "dates-enforced-5",
+  "task": "dates",
+  "arm": "enforced",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 80269,
+  "reply": "All 10 tests pass, including the 3 new ones covering explicit dates, \"yesterday\", and invalid dates.\n\n`habit done` now accepts an optional trailing date argument — `habit done read yesterday` or `habit done read 2026-09-01` — parsed in `src/cli.js` (name/date splitting stays there since it's argv parsing; `commands.js`/`store.js` untouched). Invalid dates print `Invalid date: <input>` instead of crashing. One decision I made narrowly: I did **not** add a `today` keyword since only \"yesterday\" and an explicit `YYYY-MM-DD` were requested, and omitting the date already means \"today.\"",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/cli.js"
+  ],
+  "srcAdded": 18,
+  "srcRemoved": 1,
+  "testAdded": 40,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": false,
+  "replyWords": 86,
+  "costUsd": 0.17506120000000003,
+  "turns": 12,
+  "durationMs": 78567,
+  "stopReason": "success"
+}

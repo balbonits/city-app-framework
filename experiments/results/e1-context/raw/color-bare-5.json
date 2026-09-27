@@ -1,0 +1,38 @@
+{
+  "id": "color-bare-5",
+  "task": "color",
+  "arm": "bare",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 27761,
+  "reply": "All tests pass. `habit list` (`src/commands.js:22`) now colors each habit's line green with ANSI codes when its streak is 3+ days and output is going to a terminal (piped/non-TTY output stays plain).",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": false,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 1,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": false,
+  "replyWords": 32,
+  "costUsd": 0.0978004,
+  "turns": 11,
+  "durationMs": 26554,
+  "stopReason": "success"
+}

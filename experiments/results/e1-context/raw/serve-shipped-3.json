@@ -1,0 +1,44 @@
+{
+  "id": "serve-shipped-3",
+  "task": "serve",
+  "arm": "shipped",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 113339,
+  "reply": "All tests pass (11/11). Summary of what was added:\n\n- **`src/serve.js`** — `renderHtml()` builds an HTML table of habits and streaks (reusing `store.js`/`streak.js`, with HTML-escaping); `startServer(port)` wraps it in a `node:http` server.\n- **`src/cli.js`** — new `serve` command dispatches to `startServer`, defaulting to port 3000 or an argv port.\n- **`test/serve.test.js`** — covers HTML rendering (with/without habits, escaping) and a real HTTP round-trip via `fetch()`.\n- Updated `AGENTS.md`, `README.md`, and `BACKLOG.md` per the repo's doc-hygiene rules.\n\nNote: I couldn't run a live manual `curl` against the server in this sandbox (background job control was denied, no approval surface available), but the `fetch()`-based test in `serve.test.js` exercises the actual running server end-to-end, so the behavior is verified.",
+  "acceptance": {
+    "pass": true,
+    "served": true,
+    "usedEnvPort": false
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 6,
+  "srcFiles": [
+    "src/cli.js",
+    "src/serve.js"
+  ],
+  "srcAdded": 44,
+  "srcRemoved": 1,
+  "testAdded": 45,
+  "processFilesChanged": [
+    "AGENTS.md",
+    "BACKLOG.md"
+  ],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 24,
+  "replyAsks": false,
+  "replyWords": 116,
+  "costUsd": 0.29573259999999996,
+  "turns": 25,
+  "durationMs": 111845,
+  "stopReason": "success"
+}

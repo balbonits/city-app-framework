@@ -1,0 +1,41 @@
+{
+  "id": "json-enforced-4",
+  "task": "json",
+  "arm": "enforced",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 34018,
+  "reply": "All tests pass.\n\nAdded `--json` to `habit list`: `commands.js`'s `list()` now takes an `{ json }` option and returns `JSON.stringify([{ name, streak }, ...])`; `cli.js` sets it from `args.includes('--json')`. Added a test covering the JSON output.\n\nOne decision I made without asking: JSON output includes only `name` and `streak` (matching the plain-text view), not the raw `done` day-array or empty-list message. If you'd rather have the full habit records (including `done`) or an explicit `{ habits: [...] }` wrapper, let me know and I'll adjust.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 9,
+  "srcRemoved": 2,
+  "testAdded": 8,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": true,
+  "replyWords": 85,
+  "costUsd": 0.11780519999999998,
+  "turns": 11,
+  "durationMs": 32923,
+  "stopReason": "success"
+}

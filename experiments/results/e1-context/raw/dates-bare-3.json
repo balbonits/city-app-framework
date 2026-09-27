@@ -1,0 +1,43 @@
+{
+  "id": "dates-bare-3",
+  "task": "dates",
+  "arm": "bare",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 69522,
+  "reply": "All 8 tests pass.\n\n## Summary\n\n`habit done` now accepts an optional trailing date word:\n\n- `habit done read` — marks today (unchanged)\n- `habit done read yesterday` — marks yesterday\n- `habit done read 2026-09-01` — marks an explicit ISO date\n\nChanges:\n- `src/streak.js` — added `parseDateWord(word, today)` recognizing `today`, `yesterday`, and `YYYY-MM-DD`.\n- `src/commands.js` — `done(input, today)` now splits off a trailing date word if one is recognized; falls back to today's date otherwise. `cli.js` needed no changes since it already passes the joined args string.\n- `README.md` — documented the new usage.\n- `test/commands.test.js` — added a test covering `yesterday` and an explicit date.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 4,
+  "srcFiles": [
+    "src/commands.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 18,
+  "srcRemoved": 3,
+  "testAdded": 9,
+  "processFilesChanged": [],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 18,
+  "replyAsks": false,
+  "replyWords": 107,
+  "costUsd": 0.23033660000000003,
+  "turns": 19,
+  "durationMs": 68306,
+  "stopReason": "success"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "json-shipped-1",
+  "task": "json",
+  "arm": "shipped",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 41910,
+  "reply": "Manual shell-based CLI smoke testing is blocked in this session (no approval surface for these command forms), so I relied on the automated test suite instead — all 9 tests pass, including the two new ones covering `--json`.\n\nSummary of changes:\n- `src/commands.js`: `list()` now accepts an options object `{ json }`; when `json: true` it returns `JSON.stringify` of `[{ name, streak }, ...]` (still returns a string, per the \"commands don't print\" rule), including `[]` for no habits.\n- `src/cli.js`: detects `--json` in the `list` args and passes it through.\n- `test/commands.test.js`: added tests for JSON output with a habit and for the empty case.\n\nUsage: `node src/cli.js list --json`.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 111,
+  "costUsd": 0.147103,
+  "turns": 13,
+  "durationMs": 40340,
+  "stopReason": "success"
+}

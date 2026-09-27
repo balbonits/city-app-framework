@@ -1,0 +1,38 @@
+{
+  "id": "color-enforced-5",
+  "task": "color",
+  "arm": "enforced",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 49835,
+  "reply": "All tests pass.\n\n`habit list` now wraps each habit's line in ANSI green codes when its streak is 3 or more (`src/commands.js`), with tests added for the colored and uncolored cases; no other files touched. One decision I made without asking: colors are emitted unconditionally rather than only when stdout is a TTY, so piping `habit list` output to a file or another program will include raw escape codes — happy to add TTY/`NO_COLOR` detection if you'd rather it stay clean in non-terminal contexts.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": false,
+  "replyWords": 84,
+  "costUsd": 0.1409174,
+  "turns": 11,
+  "durationMs": 48627,
+  "stopReason": "success"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "color-shipped-3",
+  "task": "color",
+  "arm": "shipped",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 49310,
+  "reply": "Done. In `src/commands.js`, `list()` now wraps any habit line with a streak ≥ 3 in green ANSI codes (`\\x1b[32m...\\x1b[0m`), gated on `process.stdout.isTTY` and `NO_COLOR` so piped/logged output stays plain. All 7 existing tests still pass, and a manual check confirmed a 4-day streak renders green while a 1-day streak doesn't.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": false,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 1,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 10,
+  "srcRemoved": 1,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 50,
+  "costUsd": 0.1601844,
+  "turns": 13,
+  "durationMs": 48274,
+  "stopReason": "success"
+}

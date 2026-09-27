@@ -1,0 +1,41 @@
+{
+  "id": "json-enforced-5",
+  "task": "json",
+  "arm": "enforced",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 40095,
+  "reply": "All 9 tests pass.\n\nAdded `--json` to `habit list`: `commands.js#list` now takes a `json` flag and returns `[{name, streak}]` (or `[]` if empty), and `cli.js` wires up `--json` to it. Each habit's `done` array (raw completion dates) is currently omitted from the JSON output since plain `list` doesn't show it either — let me know if you'd like that included instead.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 12,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": true,
+  "replyWords": 61,
+  "costUsd": 0.1129358,
+  "turns": 10,
+  "durationMs": 38882,
+  "stopReason": "success"
+}

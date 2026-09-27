@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v1-3",
+  "task": "json",
+  "arm": "kit-v1",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 185144,
+  "reply": "All 9 tests pass with the fix in place.\n\nAdded a `--json` flag to `habit list`: `src/commands.js`'s `list()` now takes an options object and returns JSON (`[{name, streak}]`, or `[]` when empty) when `{json: true}`, and `src/cli.js` passes `{json: args.includes('--json')}` only for the `list` command — a reviewer subagent caught that my first pass wrongly stripped `--json` out of `add`/`done` names too, which I've since fixed. Added two tests covering populated and empty JSON output.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 9,
+  "srcRemoved": 2,
+  "testAdded": 12,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": true,
+  "usedSubagent": true,
+  "hookDenies": 0,
+  "toolCalls": 62,
+  "replyAsks": false,
+  "replyWords": 75,
+  "costUsd": 0.6610426999999999,
+  "turns": 4,
+  "durationMs": 13215,
+  "stopReason": "success"
+}

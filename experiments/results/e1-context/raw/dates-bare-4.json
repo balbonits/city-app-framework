@@ -1,0 +1,43 @@
+{
+  "id": "dates-bare-4",
+  "task": "dates",
+  "arm": "bare",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 70961,
+  "reply": "`habit done` now accepts an optional trailing date argument:\n\n- `src/commands.js` — added `parseDay(word, now)`, recognizing `today`, `yesterday`, or `YYYY-MM-DD`; returns `undefined` for anything else.\n- `src/cli.js` — the `done` command now checks whether the last CLI arg parses as a date; if so, it's stripped off and used as the completion day, otherwise it's treated as part of the (possibly multi-word) habit name, same as before.\n- `README.md` — documented the new usage examples.\n\n`node src/cli.js done read yesterday` and `node src/cli.js done read 2026-09-01` both work as requested, plain `habit done read` is unchanged, and all existing tests still pass.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 18,
+  "srcRemoved": 2,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 18,
+  "replyAsks": false,
+  "replyWords": 102,
+  "costUsd": 0.23559500000000003,
+  "turns": 19,
+  "durationMs": 69518,
+  "stopReason": "success"
+}

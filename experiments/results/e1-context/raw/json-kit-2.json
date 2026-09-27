@@ -1,0 +1,44 @@
+{
+  "id": "json-kit-2",
+  "task": "json",
+  "arm": "kit",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 46854,
+  "reply": "I couldn't run a manual CLI smoke test (the sandbox blocked the shell command due to syntax restrictions on env var exports/substitution), but the automated test suite covers the new behavior directly and all 9 tests pass, including the two new ones for `--json`.\n\n**What changed:** `habit list --json` now prints habits as a JSON array of `{name, streak}` objects (empty list → `[]`). `list()` in `commands.js` gained an options param `{ json }`; `cli.js` strips `--json` out of argv before passing remaining args to `add`/`done`.\n\n**Decision I made narrowly:** the JSON shape includes only `name` and `streak` (mirroring the plain-text output) rather than also including the raw `done` days array. If you want the completion history included too, let me know and I'll add it.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 10,
+  "codeAdded": 10,
+  "srcRemoved": 3,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": true,
+  "replyWords": 126,
+  "costUsd": 0.1410926,
+  "turns": 12,
+  "durationMs": 44416,
+  "stopReason": "success"
+}

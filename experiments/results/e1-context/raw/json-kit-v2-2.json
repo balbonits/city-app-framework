@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v2-2",
+  "task": "json",
+  "arm": "kit-v2",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 44520,
+  "reply": "Manual CLI smoke test was blocked by the sandbox (no approval surface for shell env-var/command substitution), but the automated test suite covers the new behavior end-to-end at the `commands.js` level, and the `cli.js` change is a one-line passthrough of `args.includes('--json')`.\n\nAdded a `--json` flag to `habit list`: `src/commands.js` list now accepts an options object and returns `JSON.stringify` of `{name, done, streak}` per habit (or `[]`), and `src/cli.js` wires `--json` through. Added two tests covering populated and empty output; all 9 tests pass.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 82,
+  "costUsd": 0.1491548,
+  "turns": 13,
+  "durationMs": 42532,
+  "stopReason": "success"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "remind-shipped-1",
+  "task": "remind",
+  "arm": "shipped",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 58588,
+  "reply": "Added a `remind` command to habit-cli:\n\n- `src/commands.js` — `remind(today)` returns a reminder line per habit not yet marked done today, or a friendly \"all done\" message.\n- `src/cli.js` — wired up `remind` in the command table and usage string.\n- `test/commands.test.js` — three new tests covering no-habits, pending habits, and all-done cases.\n- `README.md` / `BACKLOG.md` — updated docs and marked the item shipped.\n\nAll 10 tests pass (`npm test`). Not committed — let me know if you'd like that done.",
+  "acceptance": {
+    "pass": null,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 5,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 12,
+  "srcRemoved": 2,
+  "testAdded": 18,
+  "processFilesChanged": [
+    "BACKLOG.md"
+  ],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 17,
+  "replyAsks": true,
+  "replyWords": 82,
+  "costUsd": 0.17631420000000003,
+  "turns": 18,
+  "durationMs": 57425,
+  "stopReason": "success"
+}

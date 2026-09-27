@@ -1,0 +1,2 @@
+# Project rules for .claude/hooks/guard.mjs: <regex matched from the start of a command> => <message>
+npm run deploy => Deploys are the human's call. Say it's ready and stop.
