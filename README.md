@@ -5,7 +5,7 @@ A small, tested kit for building apps with AI coding agents. Made for Claude Cod
 It gives an agent three things it can't get on its own:
 
 1. **Your project facts and working style**, in a file it actually loads.
-2. **Hard stops** for the few things that need you: new dependencies (it asks you), force-push, production deploys, deleting tests, finishing with failing tests.
+2. **Hard stops** for the few things that need you: new dependencies and deleting tests (it asks you), force-push, production deploys, finishing with failing tests.
 3. **A way to make corrections stick**, so the next session doesn't repeat the mistake.
 
 Every piece was tested against a real model (Claude Sonnet 5, plus Opus 5.5 and Haiku 4.5 spot checks). Rules that made no difference were cut, and testing caught a bad rule in the kit's own first draft. See [what we found](docs/findings-2026-09.md).
@@ -43,7 +43,7 @@ No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs th
 | --- | --- | --- |
 | `AGENTS.md` | Project facts plus an 8-line working agreement (28 lines total) | Short files that agents load beat long ones they skip |
 | `CLAUDE.md` | One line: `@AGENTS.md` | Without it, Claude doesn't load AGENTS.md when a CLAUDE.md exists |
-| `.claude/hooks/guard.mjs` | Asks you (Allow/Deny) before a new dependency; blocks force-push, prod deploys, publishing, deleting tests, and any rule in `.claude/guard-rules.txt` | Instructions are advice; hooks are guarantees |
+| `.claude/hooks/guard.mjs` | Asks you (Allow/Deny) before a new dependency or deleting a test; blocks force-push, prod deploys, publishing, and any rule in `.claude/guard-rules.txt` | Instructions are advice; hooks are guarantees |
 | `.claude/hooks/test-gate.mjs` | Agent can't finish while tests fail or newly skipped tests appear | "Done" should come with proof |
 
 When an agent adds a package, you get an Allow/Deny prompt, even in auto mode; unattended runs get a no. To approve a package for good, add its name to `.claude/approved-deps.txt` yourself. The agent can't edit that file. It can add rules to `.claude/guard-rules.txt`, but not remove them. Claude Code asks you before any write into `.claude/`, so adding a rule shows a one-click prompt (auto mode decides it for you).

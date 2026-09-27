@@ -2,10 +2,10 @@
 // PreToolUse guard for the few actions that need a human, whatever the prompt says.
 // Asks the human (an Allow/Deny prompt; unattended runs get a no):
 //   - adding a dependency, unless it's listed in .claude/approved-deps.txt (only a human edits that)
+//   - deleting test files
 // Blocks:
 //   - force-pushing
 //   - deploying to production or publishing a package
-//   - deleting test files
 //   - anything matching a project rule in .claude/guard-rules.txt ("<regex> => <message>")
 // Prints an ask or deny decision on stdout, or nothing to let the call through.
 import { readFileSync, existsSync } from 'node:fs';
@@ -110,10 +110,9 @@ function checkBash(command) {
       || (cmd === 'firebase' && sub === 'deploy')) {
       deny('Blocked: production deploys and package publishes are the human\'s call. Say it is ready and stop.');
     }
-    if ((tokens[0] === 'rm' || (tokens[0] === 'git' && tokens[1] === 'rm'))
-      && tokens.some((t) => /(\.|_)(test|spec)\.[cm]?[jt]sx?$|(^|\/)(__tests__|tests?)(\/|$)/.test(t))) {
-      deny('Blocked: deleting tests needs the human\'s OK. If a test is wrong, explain why instead of removing it.');
-    }
+    const tests = (tokens[0] === 'rm' || (tokens[0] === 'git' && tokens[1] === 'rm'))
+      ? tokens.filter((t) => /(\.|_)(test|spec)\.[cm]?[jt]sx?$|(^|\/)(__tests__|tests?)(\/|$)/.test(t)) : [];
+    if (tests.length) ask(`Deleting tests: ${tests.join(', ')}. Allow it? Say no if a test is being removed just to get green.`);
   }
 }
 

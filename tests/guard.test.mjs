@@ -131,12 +131,20 @@ test('asks before package.json edits that add a dependency, allows other edits',
   assert.equal(decide(dir, 'Write', { file_path: file, content: JSON.stringify({ name: 'x', dependencies: { react: '^19.0.0' }, devDependencies: { vitest: '^4' } }) }), 'ask');
 });
 
-test('blocks force-push, production deploys, publishing, and deleting tests', () => {
+test('blocks force-push, production deploys and publishing', () => {
   const dir = project();
-  for (const cmd of ['git push --force origin main', 'git push -f', 'git -C . push -f', 'git push origin +main', 'vercel --prod', 'vercel deploy --prod --yes', 'npm publish', 'rm test/streak.test.js', 'git rm -r tests', 'rm src/__tests__/App.test.tsx']) {
+  for (const cmd of ['git push --force origin main', 'git push -f', 'git -C . push -f', 'git push origin +main', 'vercel --prod', 'vercel deploy --prod --yes', 'npm publish']) {
     assert.equal(bash(dir, cmd), 'deny', cmd);
   }
   for (const cmd of ['git push origin feature/x', 'git push --force-with-lease origin feature/x', 'vercel', 'rm dist/bundle.js']) {
     assert.equal(bash(dir, cmd), 'allow', cmd);
   }
+});
+
+test('asks the human before deleting tests, and names them', () => {
+  const dir = project();
+  for (const cmd of ['rm test/streak.test.js', 'git rm -r tests', 'rm src/__tests__/App.test.tsx']) {
+    assert.equal(bash(dir, cmd), 'ask', cmd);
+  }
+  assert.match(hook(dir, 'Bash', { command: 'rm test/streak.test.js' }).permissionDecisionReason, /^Deleting tests: test\/streak\.test\.js\. Allow it\?/);
 });
