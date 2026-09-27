@@ -1,178 +1,35 @@
-# AGENTS.md
+# city-app-framework
 
-Universal instructions for AI coding agents (Claude, Grok, others) working on John Dilig's projects.
+A small, tested kit for building apps with AI coding agents. `kit/` is what gets installed into a project. `experiments/` is the harness that tests whether the kit's rules actually change what agents do.
 
-This is the **universal layer**. Every project also has its own `AGENTS.md` with project-specific stack, commands, file layout, and naming. Read both. The project-level file overrides anything here.
+## Commands
 
----
+- `npm test`: tests for the kit's hooks and installer. Fast, offline.
+- `node scripts/install.mjs <dir>`: install the kit into a project.
+- `node experiments/validate-scorer.mjs /tmp/scorer-check`: check the experiment scorers before trusting results.
+- `node experiments/run.mjs ...`: run experiments. Costs real API money (see `experiments/README.md`).
+- `node experiments/report.mjs`: rebuild `experiments/results/SUMMARY.md`.
 
-## The job
+## Layout
 
-You are working on a personal codebase owned by one human. He has executive say. You execute autonomously within the rules below and escalate when uncertain.
+- `kit/`: copied into projects as-is. `kit/AGENTS.md` is a template; keep it under ~40 lines.
+- `experiments/`: fixture app, context setups ("arms"), tasks, scorer, results.
+- `docs/`: findings and decision records.
 
-Default mode: build exactly what was asked, with high quality, then stop.
+## Gotchas
 
----
+- A rule belongs in `kit/AGENTS.md` only if an experiment shows it changes behavior, or it explains a hook. Anything the model already does unprompted is noise; leave it out.
+- Say the estimated cost before running more than ~20 experiment trials.
+- Never hand-edit `experiments/results/*/raw/`; those files are the evidence.
+- Hooks must stay dependency-free Node scripts so they work in any JS project.
 
-## Hard rules — never violate
+## Working agreement
 
-1. **Build exactly what's asked for.** No bonus features. No "while I'm in here" cleanups. No speculative additions.
-2. **Stop at working.** Don't add error handling, validation, abstractions, or polish that wasn't requested.
-3. **Abstract only after 3+ identical patterns exist.** No premature generalization. Three repeated lines beats a wrong abstraction.
-4. **Ask before adding dependencies.** New libraries, new tools, new services — confirm first.
-5. **Ask before scope changes.** If the task grows beyond what was asked, surface it; don't silently expand.
-6. **One change per response.** Implement the request, then stop. No chained "and also" work.
-7. **Don't refactor working code unless asked.** "I noticed I could improve X" is not a green light to do it.
-8. **Suggest adjacent improvements; don't implement them.** If you notice a clear, low-risk improvement next to the requested task, mention it in your response — don't silently add it. Suggestion-as-text is encouraged; silent scope expansion is not.
-
-Detail and examples in [`conventions/anti-overengineering.md`](./conventions/anti-overengineering.md).
-
----
-
-## Ask vs proceed
-
-| Situation | Ask | Proceed |
-| --- | :---: | :---: |
-| New dependency (library, tool, service) | x | |
-| Scope change (task grew beyond request) | x | |
-| Architectural choice (state lib, routing, data model, auth provider) | x | |
-| Irreversible op (`rm -rf`, force push, drop table, delete branch) | x | |
-| Production deploy | x | |
-| Bug fix matching the report | | x |
-| Lint, typecheck, build, test commands | | x |
-| File moves, renames, dead-code removal | | x |
-| Doc edits | | x |
-| Pattern that already exists elsewhere in the repo | | x |
-| Adding a test for existing behavior | | x |
-
-When in doubt, ask. Cost of asking is one round-trip. Cost of guessing wrong is cleanup work.
-
-Full guidance in [`conventions/escalation.md`](./conventions/escalation.md).
-
----
-
-## How to escalate
-
-When asking, be specific. Don't ask "what should I do?" — propose options.
-
-```text
-Decision: [one sentence]
-Why now: [one or two sentences]
-Options:
-  A) [option] — pros / cons / risk
-  B) [option] — pros / cons / risk
-Recommend: [A or B] because [reason]
-Impact of delay: [what blocks if no answer]
-```
-
-If the choice has long-term consequences, log the resolution to `docs/decisions/NNN-short-title.md`.
-
----
-
-## Communication
-
-- **No recaps.** The diff is visible. Don't re-explain what you just did.
-- **One-sentence updates** when you change direction, find something significant, or hit a blocker. Brief is good. Silent is not.
-- **End-of-turn**: 1–2 sentences — what changed, what's next. Nothing else.
-- **Match weight to task.** A typo fix gets one line. A feature warrants more.
-- **No emojis** unless explicitly requested.
-- **No comments in code** unless the WHY is non-obvious. Identifiers should already say WHAT.
-- **Disagree if you think I'm wrong.** Iron on iron is welcome. Sass and condescension are not.
-- **Say "I don't know"** rather than guess.
-
----
-
-## Universal coding defaults
-
-Per-project `AGENTS.md` overrides these. If a project doesn't specify, use these:
-
-- **Language:** TypeScript, strict mode, no `any` without a comment justifying it.
-- **Style:** Functional React, hooks over classes, composition over inheritance.
-- **Imports:** `@/` path alias, no long relative paths.
-- **Naming:**
-  - Folders: `lowercase`
-  - Component files: `PascalCase.tsx`
-  - Hook files: `useFoo.ts`
-  - Data / config / utility modules: `lowercase.ts` or `camelCase.ts`
-  - Stylesheets: `lowercase.css`
-- **Tests:** Vitest for units, Playwright for E2E. Don't test trivial UI components.
-- **Commits:** Conventional Commits — `feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`.
-- **Branching:** `main` is shipping. Work on `feature/*` / `fix/*` branches; PR before merge.
-
----
-
-## Decision patterns
-
-Recurring tradeoffs you'll hit, with guidance on which way to lean:
-
-- [User perception vs technical simplicity](./decision-patterns/user-perception-vs-tech-simplicity.md) — local midnight vs UTC, "feel-good" jump arc vs perfect physics.
-- [Engine vs vanilla (games)](./decision-patterns/engine-vs-vanilla.md) — when to reach for Phaser/Godot vs hand-roll Canvas.
-- [Good enough vs perfect](./decision-patterns/good-enough-vs-perfect.md) — ship rough vs polish.
-- [Build vs buy](./decision-patterns/build-vs-buy.md) — when to use a library/service vs implement.
-- [Optimize now vs later](./decision-patterns/optimize-now-vs-later.md) — performance work timing.
-
----
-
-## Project layout — the patterns I use
-
-Every project should have:
-
-- `README.md` — for humans, what the project is.
-- `AGENTS.md` — for AI agents, project-specific stack and rules.
-- `CLAUDE.md` and `GROK.md` — one-liners pointing at `AGENTS.md`.
-- `BACKLOG.md` — live work queue. Update on every merge to `main`. See [`jdilig-me-v3`](https://github.com/balbonits/jdilig-me-v3) for the pattern.
-- `CHANGELOG.md` — visible deltas over time. See [`conventions/changelog.md`](./conventions/changelog.md).
-- `docs/decisions/` — ADRs, written when a non-obvious choice is made.
-
----
-
-## Delegating to sub-agents
-
-The principal-agent relationship recurses one level: when you (the main agent) dispatch a specialized sub-agent — Explore, Plan, code-reviewer, general-purpose — you become its principal. Same rules apply: scope it tightly, brief it well, don't let it silently expand. Use sub-agents for context-isolating work (large searches, independent review, parallel independent tasks); don't use them for one-grep lookups or anything where you need raw output in your own context.
-
-Full guidance in [`conventions/sub-agents.md`](./conventions/sub-agents.md).
-
----
-
-## Speed Run Mode
-
-When I say "I want this fast, don't overthink it" — see [`conventions/speed-run-mode.md`](./conventions/speed-run-mode.md). Specific rules for what to skip and what to keep.
-
----
-
-## Tone
-
-I'm a working developer, not a customer to delight. Skip the sales voice. Skip the "great question!" openings. Skip the closing "let me know if you need anything else." I'd rather have terse, accurate, opinionated work than warm, vague, agreeable work.
-
----
-
-## Improving this framework
-
-**Always journal.** After any session of substantive work — not just framework edits, but real builds, audits, debugging spikes, design conversations, anything where friction or learning surfaced — append a `docs/journal.md` entry (newest first). Don't skip when no concrete proposal emerges; the journal compounds, and missing entries can't be recovered.
-
-If the session also yielded an actionable proposal (a new convention, a softened rule, a changed default), surface that *separately* in `BACKLOG.md`. **Journaling is not contingent on having a proposal.**
-
-**Where it goes:**
-
-- **Narrative findings** ("here's what the build / session taught us") → [`docs/journal.md`](./docs/journal.md), newest first.
-- **Actionable proposals** ("add this doc," "soften that rule") → [`BACKLOG.md`](./BACKLOG.md) under "Up next."
-
-The journal is the diary. The BACKLOG is the to-do list. Don't conflate them.
-
-Don't do a full retrospective for every session — that's overhead theater. A short entry (what was done, what worked, what surfaced, optionally one meta-observation) is enough. Length isn't the point; consistency is.
-
----
-
-## Deeper references
-
-Don't load these unless relevant to the current task:
-
-- [`conventions/`](./conventions/) — operational rules with examples.
-- [`conventions/testing.md`](./conventions/testing.md), [`ci-cd.md`](./conventions/ci-cd.md), [`devops.md`](./conventions/devops.md), [`releases.md`](./conventions/releases.md) — testing, pipelines, operations, releases for AI-built code. Evidence-based with citations.
-- [`conventions/cross-platform-testing.md`](./conventions/cross-platform-testing.md) — automated testing across web, mobile, TV, console. Load when targeting non-web platforms.
-- [`conventions/visual-verification.md`](./conventions/visual-verification.md) — AI uses its own multimodal vision to verify UI output. Load after any UI edit.
-- [`conventions/claude-code/`](./conventions/claude-code/) — Claude Code-specific primitives (skills, custom subagents, MCP, hooks). Load when authoring any of those.
-- [`decision-patterns/`](./decision-patterns/) — recurring tradeoffs.
-- [`templates/`](./templates/) — starting templates for new projects.
-- [`scripts/`](./scripts/) — bootstrap scripts. `new-project.sh` to start a new project from the templates.
-- [`docs/design-notes/`](./docs/design-notes/) — the philosophical layer ("City 2.0" design exercise). Useful for thinking about the framework, not for daily execution.
+1. Do what was asked. Put extra ideas in your final message, not in the code.
+2. Leave unrelated code alone: no drive-by refactors, renames, or reformatting.
+3. New dependencies need my OK. Use what's installed or built in. If you really need a package, finish without it and ask.
+4. If the ask needs a product decision you can't infer (what it does, when, how it behaves), don't guess big: build only the smallest uncontroversial part, then list 2-3 options with your pick.
+5. Prove it works: run the tests and add one for new logic.
+6. If a test or requirement looks wrong or impossible, tell me. Never skip, weaken, or delete tests to get green.
+7. When I correct you in a way that should stick, turn it into a check or a one-line rule here (see `kit/.claude/skills/lesson/SKILL.md`).
+8. End with 1-3 sentences: what changed, and anything I need to decide.

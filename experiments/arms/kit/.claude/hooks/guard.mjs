@@ -36,23 +36,40 @@ const packageName = (spec) => spec.replace(/^(@[^/@]+\/[^@]+|[^@]+).*$/, '$1');
 // Shell commands, split on && || ; | so chained commands are checked too.
 const segments = (command) => command.split(/&&|\|\||;|\|/).map((part) => part.trim().split(/\s+/));
 
+// Only the program a segment starts with counts (after env assignments and sudo), so text
+// inside a commit message ("run npm install zod") never triggers a rule.
+const program = (tokens) => {
+  const rest = [...tokens];
+  while (rest.length && (/^\w+=/.test(rest[0]) || rest[0] === 'sudo')) rest.shift();
+  if (rest[0] === 'npx') rest.shift();
+  return rest;
+};
+
+const WRITERS = new Set(['tee', 'cp', 'mv', 'rm', 'truncate', 'ln', 'dd', 'node', 'python', 'python3', 'perl', 'ruby']);
+
 function checkBash(command) {
-  if (/approved-deps\.txt/.test(command) && /(>|\btee\b|\bsed\b.*\s-i|\bcp\b|\bmv\b|\brm\b|\btruncate\b|\bperl\b|\bnode\b|\bpython)/.test(command)) {
+  if (/>>?\s*['"]?[^\s'"]*approved-deps\.txt/.test(command)) {
     deny(`Blocked: ${APPROVALS} is the human's approval list. Ask them instead.`);
   }
-  for (const tokens of segments(command)) {
-    const at = tokens.findIndex((t) => ['npm', 'pnpm', 'yarn', 'bun'].includes(t));
-    if (at !== -1 && ['i', 'install', 'add'].includes(tokens[at + 1])) {
-      const names = tokens.slice(at + 2).filter((t) => !t.startsWith('-'))
+  for (const segment of segments(command)) {
+    const tokens = program(segment);
+    const [cmd, sub] = tokens;
+    const text = tokens.join(' ');
+    if (/approved-deps\.txt/.test(text) && (WRITERS.has(cmd) || (cmd === 'sed' && tokens.some((t) => /^(-i|--in-place)/.test(t))))) {
+      deny(`Blocked: ${APPROVALS} is the human's approval list. Ask them instead.`);
+    }
+    if (['npm', 'pnpm', 'yarn', 'bun'].includes(cmd) && ['i', 'install', 'add'].includes(sub)) {
+      const names = tokens.slice(2).filter((t) => !t.startsWith('-'))
         .map((t) => packageName(t.replace(/^['"]|['"]$/g, '')));
       const missing = names.filter((n) => !approved().has(n));
       if (missing.length) deny(depReason(missing));
     }
-    if (tokens[0] === 'git' && tokens.includes('push') && tokens.some((t) => t === '--force' || t === '-f' || /^\+/.test(t))) {
+    if (cmd === 'git' && tokens.includes('push') && tokens.some((t) => t === '--force' || t === '-f' || /^\+/.test(t))) {
       deny('Blocked: force-pushing rewrites shared history. Ask the human first.');
     }
-    const cmd = tokens.join(' ');
-    if (/\b(vercel\b.*--prod|netlify deploy\b.*--prod|npm publish|pnpm publish|yarn npm publish|firebase deploy)\b/.test(cmd)) {
+    if ((cmd === 'vercel' && tokens.includes('--prod')) || (cmd === 'netlify' && tokens.includes('--prod'))
+      || (['npm', 'pnpm'].includes(cmd) && sub === 'publish') || (cmd === 'yarn' && tokens.includes('publish'))
+      || (cmd === 'firebase' && sub === 'deploy')) {
       deny('Blocked: production deploys and package publishes are the human\'s call. Say it is ready and stop.');
     }
     if ((tokens[0] === 'rm' || (tokens[0] === 'git' && tokens[1] === 'rm'))
