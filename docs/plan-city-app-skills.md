@@ -61,7 +61,7 @@ Our own experiments already have working code for gaps 1 and 4.
 | `/city-app:rules:prune` | On a new model, re-tests every AGENTS.md line and proposes cuts (gap 2). **Built**: re-runs saved rule tests without their line (half the usage of a full A/B); `--cut` removes an approved rule |
 | `/city-app:rules:capture` | Turns this session's mistake into a test case for `rules:test` (gap 3). **Folded into `/city-app:lesson`**: a lesson written as an AGENTS.md line also saves how to test it (`rules-test --save-only`), so rules:test and prune can measure it. One command instead of two |
 | `/city-app:ui:baseline` | Approves screenshot baselines; a later visual change fails with the page name. **Built**: part of `ui-check.mjs` (`--approve`); compares in the browser, so no image library; baselines stay per machine |
-| `/city-app:ui:tokens` | Adds a test that fails on colors or spacing outside your design tokens |
+| `/city-app:ui:tokens` | Adds a test that fails on colors or spacing outside your design tokens. **Built** for colors (spacing values are too often legitimately raw); static and dependency-free |
 
 **Dropped:** a reviewer skill (tested: caught nothing on small tasks and cost more than the build), and spec-kit-style planning (heavy; a 4-sentence spec already worked).
 

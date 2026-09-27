@@ -36,6 +36,7 @@ No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs th
 
 | `/city-app:rules:prune` | Re-tests the rules saved by `rules:test` (for example after a model update) without their line, and suggests cuts; you approve each one. Shows the plan and asks before using your usage | A rule that helped one model can be dead weight on the next |
 | `/city-app:ui:baseline` | Approves how the pages look now; after that, a page that looks different fails the UI check with a diff image | Catches the CSS change that quietly broke another page |
+| `/city-app:ui:tokens` | Fails when a color is written out instead of coming from a design token (`var(--name)`), with file:line fix-its; `--add-test` puts it in `npm test` | One place for colors keeps themes and contrast fixes easy |
 | `/city-app:ui:check` | Checks the pages you changed for accessibility problems, console errors, and layouts wider than the screen, at phone, tablet and desktop sizes. `--add-test` puts the checks in `npm test`, so the finish gate enforces them | Front-end quality as pass/fail checks, not AI opinion |
 
 **See it in use:** [`demo/`](demo/) holds small projects built with the kit, one per use case. [`demo/habit-web`](demo/habit-web/) uses every part, with the evidence for each.
