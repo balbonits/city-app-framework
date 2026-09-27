@@ -43,7 +43,7 @@ More are planned: see [the plan](docs/plan-city-app-skills.md).
 | `.claude/hooks/guard.mjs` | Blocks new dependencies, force-push, prod deploys, publishing, deleting tests, and any rule in `.claude/guard-rules.txt` | Instructions are advice; hooks are guarantees |
 | `.claude/hooks/test-gate.mjs` | Agent can't finish while tests fail or newly skipped tests appear | "Done" should come with proof |
 
-To approve a dependency, add its name to `.claude/approved-deps.txt` yourself. The agent can't edit that file. It can add rules to `.claude/guard-rules.txt`, but not remove them.
+To approve a dependency, add its name to `.claude/approved-deps.txt` yourself. The agent can't edit that file. It can add rules to `.claude/guard-rules.txt`, but not remove them. Claude Code asks you before any write into `.claude/`, so adding a rule shows a one-click prompt (auto mode decides it for you).
 
 ## What we found (Sept 2026)
 
