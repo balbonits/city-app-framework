@@ -48,6 +48,13 @@ test('every case loads, and every grader has a known type and a valid pattern', 
   }
 });
 
+test('command graders (local runner only) pass on exit 0 in the workspace', () => {
+  const workspace = mkdtempSync(join(tmpdir(), 'grade-'));
+  writeFileSync(join(workspace, 'marker'), '');
+  assert.equal(grade({ data: { type: 'command', run: 'test -f marker' } }, { workspace }).pass, true);
+  assert.equal(grade({ data: { type: 'command', run: 'test -f missing' } }, { workspace }).pass, false);
+});
+
 test('frontmatter reads flow maps and escaped patterns', () => {
   const { data } = frontmatter('---\ntarget: { source: file, path: .claude/settings.json }\npattern: "a\\\\.b"\nmax: 0\n---\n');
   assert.deepEqual(data, { target: { source: 'file', path: '.claude/settings.json' }, pattern: 'a\\.b', max: 0 });

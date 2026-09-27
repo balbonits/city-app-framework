@@ -33,7 +33,9 @@ No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs th
 | `/city-app:lesson` | Turns a correction into a test, a guard rule, or one AGENTS.md line, and logs it | Lessons in a journal were never read; rules and checks were |
 | `/city-app:rules:test` | Checks whether one AGENTS.md rule changes what the agent does on your project: the same task with and without it, each run scored by a check. Shows the plan and asks before using your usage | Many rules make no difference; this shows which ones earn their place |
 
-More are planned: see [the plan](docs/plan-city-app-skills.md).
+| `/city-app:ui:check` | Checks the pages you changed for accessibility problems, console errors, and layouts wider than the screen, at phone, tablet and desktop sizes. `--add-test` puts the checks in `npm test`, so the finish gate enforces them | Front-end quality as pass/fail checks, not AI opinion |
+
+**See it all in one project:** [examples/habit-web](examples/habit-web/), a small web app built with the kit, with the evidence for each part.
 
 **Per-project files** (installed by setup):
 
@@ -79,11 +81,13 @@ Everything after `npm test` runs real Claude sessions and uses your plan's usage
 | Path | What |
 | --- | --- |
 | `.claude-plugin/` | Plugin manifest (`city-app`) and this repo's marketplace entry |
-| `skills/` | The plugin's skills (`/city-app:*`) |
+| `skills/` | The plugin's one-level skills (`/city-app:setup`, `/city-app:lesson`) |
+| `commands/` | Its two-level commands (`/city-app:rules:test`, `/city-app:ui:check`) |
 | `kit/` | The per-project files setup copies into a project |
-| `scripts/install.mjs` | The installer setup runs |
+| `scripts/` | The installer setup runs, plus the `rules-test` and `ui-check` scripts the commands run |
 | `tests/` | Tests for the hooks, installer and eval graders (`npm test`); `tests/e2e/` holds live hook checks |
 | `evals/` | Skill eval cases (`claude plugin eval` format) and `run-local.mjs`, which runs them where the official runner's sandbox can't start |
+| `examples/` | `habit-web`, the kit's first real project; `checks/` holds rules:test checks kept out of its sight |
 | `experiments/` | The research harness, fixture app, and results |
 | `docs/` | Findings, plan, lessons and decision records |
 | `AGENTS.md`, `CLAUDE.md` | Instructions for agents working on this repo |

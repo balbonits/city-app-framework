@@ -2,6 +2,7 @@
 // Used by evals/run-local.mjs; covered by tests/grading.test.mjs.
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { spawnSync } from 'node:child_process';
 
 // The frontmatter subset the case files use: key: value, quoted strings, numbers, flow maps, lists.
 function parseValue(raw) {
@@ -65,6 +66,13 @@ export function grade(grader, run) {
   if (g.type === 'file_exists') {
     const hit = run.created.some((f) => globToRegex(g.path).test(f));
     return { pass: (g.exists ?? true) ? hit : !hit, why: hit ? 'created' : 'not created' };
+  }
+  // Local runner only (tests/e2e): run a shell command in the finished workspace; exit 0 passes.
+  if (g.type === 'command') {
+    const env = { ...process.env, CI: '1' };
+    delete env.NODE_TEST_CONTEXT;
+    const r = spawnSync('sh', ['-c', g.run], { cwd: run.workspace, env, encoding: 'utf8', timeout: 300_000 });
+    return { pass: r.status === 0, why: `exit ${r.status}` };
   }
   if (g.type === 'tool_used') {
     const re = g.input_match ? new RegExp(g.input_match) : null;
