@@ -14,6 +14,8 @@
       "WebFetch",
       "Bash(git *)",
       "Bash(git push origin main)",
+      "Bash(git push origin HEAD:main)",
+      "Bash(git push -u origin *)",
       "Bash(npm *)",
       "Bash(npx *)",
       "Bash(node *)",

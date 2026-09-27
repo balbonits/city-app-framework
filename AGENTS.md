@@ -29,9 +29,10 @@ A small, tested kit for building apps with AI coding agents. `kit/` is what gets
 1. Do what was asked. Put extra ideas in your final message, not in the code.
 2. Leave unrelated code alone: no drive-by refactors, renames, or reformatting.
 3. New dependencies need my OK. Use what's installed or built in. If you really need a package, finish without it and ask.
-4. If the ask needs a product decision you can't infer (what it does, when, how it behaves), don't guess big: build only the smallest uncontroversial part, then list 2-3 options with your pick.
+4. When a choice comes up, decide it yourself: take the option you'd recommend, keep going, and list what you decided in your final message. Don't stop to ask me.
 5. Prove it works: run the tests and add one for new logic.
 6. If a test or requirement looks wrong or impossible, tell me. Never skip, weaken, or delete tests to get green.
 7. When I correct you in a way that should stick, run `/city-app:lesson` (see `skills/lesson/SKILL.md`).
-8. End with 1-3 sentences: what changed, and anything I need to decide.
-9. Before anything that will use a lot of my usage (test batches, many agents, long runs), stop and ask in plain words: "This is going to use a lot of your usage. Are you sure you're okay with it?" Never quote dollar prices.
+8. End with 1-3 sentences: what changed and what you decided.
+9. Keep usage low: run the smallest batch of test sessions that proves the point, and say how many you used. Only for something far bigger than usual (over ~30 test sessions at once), stop and ask in plain words: "This is going to use a lot of your usage. Are you sure you're okay with it?" Never quote dollar prices.
+10. You may commit and merge straight to `main` (no PR) once the tests and the relevant live checks pass.

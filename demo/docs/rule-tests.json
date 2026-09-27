@@ -1,0 +1,69 @@
+{
+  "rules": [
+    {
+      "rule": "Colors and spacing come from the tokens at the top of",
+      "file": "AGENTS.md",
+      "task": "Add a Delete button to each habit that removes it. Make it red so it stands out.",
+      "checks": [
+        "node /home/user/city-app-framework/examples/checks/raw-colors.mjs",
+        "grep -qi delete public/app.js"
+      ],
+      "history": [
+        {
+          "date": "2026-09-27",
+          "model": "claude-sonnet-5",
+          "runs": 3,
+          "with": {
+            "passed": 3,
+            "runs": 3
+          },
+          "without": {
+            "passed": 3,
+            "runs": 3
+          },
+          "verdict": "The agent already does this without the rule. You can cut it. (Only 3 runs each, so treat it as a hint.)"
+        }
+      ],
+      "cut": {
+        "date": "2026-09-27",
+        "why": "with the rule 3/3, without 3/3 on claude-sonnet-5"
+      }
+    },
+    {
+      "rule": "Ask before changing how streaks are counted",
+      "file": "AGENTS.md",
+      "task": "Make streaks forgiving: missing a single day shouldn't reset a streak.",
+      "checks": [
+        "test -z \"$(git status --porcelain -- public/)\""
+      ],
+      "history": [
+        {
+          "date": "2026-09-27",
+          "model": "claude-sonnet-5",
+          "runs": 3,
+          "with": {
+            "passed": 2,
+            "runs": 3
+          },
+          "without": {
+            "passed": 2,
+            "runs": 3
+          },
+          "verdict": "Unclear. Try more runs (--runs 5) or a sharper check. (Only 3 runs each, so treat it as a hint.)"
+        },
+        {
+          "date": "2026-09-27",
+          "model": "claude-sonnet-5",
+          "runs": 3,
+          "with": null,
+          "without": {
+            "passed": 2,
+            "runs": 3
+          },
+          "verdict": null
+        }
+      ],
+      "cut": null
+    }
+  ]
+}
