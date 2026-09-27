@@ -11,12 +11,14 @@
 //                     [--sizes phone,tablet,desktop] [--out <dir>] [--dir .]
 //   node ui-check.mjs --add-test [same options]   copy this file into the project and add test/ui.test.js
 //
+// {port} in --start and --url becomes a free port, so parallel runs and a running dev server never clash.
 // Exits 1 with fix-it messages when a check fails, 0 when every page passes, 2 when it can't run.
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
+import { createServer } from 'node:net';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 
@@ -81,6 +83,16 @@ export async function startServer(command, url, dir, timeoutMs = 30_000) {
   throw new Error(`The app didn't answer at ${url} within ${timeoutMs / 1000}s of running "${command}". Check the command and the port.`);
 }
 
+export const freePort = () => new Promise((done, fail) => {
+  const probe = createServer().on('error', fail);
+  probe.listen(0, () => {
+    const { port } = probe.address();
+    probe.close(() => done(port));
+  });
+});
+
+export const fillPort = (text, port) => text?.replaceAll('{port}', String(port));
+
 const slug = (page) => page.replace(/^\/+|\/+$/g, '').replace(/[^\w-]+/g, '-') || 'home';
 
 // Returns { failures: [fix-it messages], screenshots: [paths] }.
@@ -89,6 +101,10 @@ export async function runUiCheck({
 } = {}) {
   const root = resolve(dir);
   const { chromium, axeSource } = await load(root);
+  if (`${start ?? ''} ${url}`.includes('{port}')) {
+    const port = await freePort();
+    [start, url] = [fillPort(start, port), fillPort(url, port)];
+  }
   const shots = out ? resolve(out) : mkdtempSync(join(tmpdir(), 'ui-check-'));
   mkdirSync(shots, { recursive: true });
   const server = start ? await startServer(start, url, root, timeoutMs) : null;

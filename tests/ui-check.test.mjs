@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { createServer } from 'node:http';
-import { axeProblems, consoleProblem, groupBySize, overflowProblem, startServer, stopServer } from '../scripts/ui-check.mjs';
+import { axeProblems, consoleProblem, fillPort, freePort, groupBySize, overflowProblem, startServer, stopServer } from '../scripts/ui-check.mjs';
 
 const SCRIPT = new URL('../scripts/ui-check.mjs', import.meta.url).pathname;
 const tmp = () => mkdtempSync(join(tmpdir(), 'ui-'));
@@ -66,6 +66,16 @@ test('starts the app and waits for it, and refuses a port that is already taken'
   await assert.rejects(startServer('true', url, tmp()), /already running at/);
   stopServer(child);
   await new Promise((r) => child.once('exit', r));
+});
+
+test('{port} becomes a free port in the start command and the url', async () => {
+  assert.equal(fillPort('PORT={port} npm start', 5123), 'PORT=5123 npm start');
+  assert.equal(fillPort('http://localhost:{port}/', 5123), 'http://localhost:5123/');
+  assert.equal(fillPort(undefined, 5123), undefined);
+  const port = await freePort();
+  const server = createServer().listen(port);
+  await new Promise((r) => server.once('listening', r));
+  server.close();
 });
 
 test('says so when the app never answers', async () => {

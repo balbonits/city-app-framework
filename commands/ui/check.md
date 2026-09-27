@@ -15,7 +15,7 @@ The checks need `playwright` and `axe-core` as dev dependencies. If `package.jso
 ## 2. Pick the pages and the server
 
 - **Pages:** the ones your change touched, from `git diff` (routes, HTML files, components a page uses). If the arguments list pages (`--pages=/,/about`), use those. If unsure, check `/`.
-- **Server:** the script that serves the app, from `package.json` (`dev`, `start` or `preview`), on a port nothing else uses, for example `--start 'npm run dev -- --port 4321' --url http://localhost:4321` for Vite, or `--start 'PORT=4321 npm start' --url http://localhost:4321`. If the human already has the app running, pass only `--url`.
+- **Server:** the script that serves the app, from `package.json` (`dev`, `start` or `preview`). Write `{port}` where the port goes and the script picks a free one: `--start 'npm run dev -- --port {port}' --url 'http://localhost:{port}'` for Vite, or `--start 'PORT={port} npm start' --url 'http://localhost:{port}'`. If the human already has the app running, pass only `--url`.
 
 ## 3. Run the checks
 
