@@ -1,7 +1,11 @@
 {
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true
+    "superpowers@claude-plugins-official": true,
+    "city-app@city-app-framework": true
+  },
+  "extraKnownMarketplaces": {
+    "city-app-framework": { "source": { "source": "github", "repo": "balbonits/city-app-framework" } }
   },
   "permissions": {
     "allow": [
