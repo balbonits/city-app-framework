@@ -96,8 +96,9 @@ export function saveRegistry(path, registry) {
   writeFileSync(path, `${JSON.stringify(registry, null, 2)}\n`);
 }
 
-// Adds one run to the rule's history (creating the entry if needed). The latest task and checks win.
-export function saveRun(path, { rule, file, task, checks }, run) {
+// Saves how to test a rule (creating the entry if needed), and adds a run to its history if given.
+// The latest task and checks win.
+export function saveRun(path, { rule, file, task, checks }, run = null) {
   const registry = loadRegistry(path);
   let entry = registry.rules.find((r) => r.file === file && plain(r.rule) === plain(rule));
   if (!entry) {
@@ -105,7 +106,7 @@ export function saveRun(path, { rule, file, task, checks }, run) {
     registry.rules.push(entry);
   }
   Object.assign(entry, { task, checks });
-  entry.history.push(run);
+  if (run) entry.history.push(run);
   saveRegistry(path, registry);
   return entry;
 }

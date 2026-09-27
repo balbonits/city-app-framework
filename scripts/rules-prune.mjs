@@ -75,7 +75,9 @@ if (!present.length) console.log('  none yet');
 present.forEach((r, i) => {
   const last = r.history.at(-1);
   console.log(`  ${i + 1}. ${r.rule}`);
-  console.log(`     last: with ${score(latest(r, 'with'))}, without ${score(latest(r, 'without'))}${last ? ` (${last.model}, ${last.date})` : ''}`);
+  console.log(last
+    ? `     last: with ${score(latest(r, 'with'))}, without ${score(latest(r, 'without'))} (${last.model}, ${last.date})`
+    : '     not measured yet');
 });
 if (untested.length) {
   console.log('\nIn AGENTS.md Gotchas but never tested (use /city-app:rules:test to add them):');

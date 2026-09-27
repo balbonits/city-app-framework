@@ -5,11 +5,12 @@
 //
 //   node scripts/rules-test.mjs --rule "<text>" --task "<prompt>" --check "<command>" [--check ...]
 //     [--runs 3] [--arms with,without] [--file AGENTS.md] [--model claude-sonnet-5] [--concurrency 3]
-//     [--dir .] [--work <dir>] [--registry docs/rule-tests.json] [--no-save] [--keep] [--yes]
+//     [--dir .] [--work <dir>] [--registry docs/rule-tests.json] [--no-save] [--save-only] [--keep] [--yes]
 //
 // Without --yes it only prepares one copy per arm and runs the checks on the untouched code.
 // That starts no Claude sessions. With --yes it runs --runs sessions per arm, then saves the rule,
 // task, checks and results to the registry, so /city-app:rules:prune can re-test the rule later.
+// --save-only just records how to test the rule (no copies, no sessions); /city-app:lesson uses it.
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -32,6 +33,7 @@ const { values: opt } = parseArgs({
     work: { type: 'string' },
     registry: { type: 'string', default: 'docs/rule-tests.json' },
     'no-save': { type: 'boolean', default: false },
+    'save-only': { type: 'boolean', default: false },
     keep: { type: 'boolean', default: false },
     yes: { type: 'boolean', default: false },
   },
@@ -56,6 +58,13 @@ const file = opt.file ?? (existsSync(join(project, 'AGENTS.md')) || !existsSync(
 const original = existsSync(join(project, file)) ? readFileSync(join(project, file), 'utf8') : '';
 const found = matchingLines(original, opt.rule);
 if (found.length > 1) fail(`The rule text matches ${found.length} lines in ${file} (lines ${found.join(', ')}). Use the whole line.`);
+
+if (opt['save-only']) {
+  saveRun(join(project, opt.registry), { rule: opt.rule, file, task: opt.task, checks });
+  if (!found.length) console.log(`Note: the rule isn't in ${file} yet.`);
+  console.log(`Saved how to test this rule to ${opt.registry}. Measure it with /city-app:rules:test, or later with /city-app:rules:prune.`);
+  process.exit(0);
+}
 
 const arms = [
   { key: 'with', name: 'with rule', text: withRule(original, opt.rule) },

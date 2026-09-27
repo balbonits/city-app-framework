@@ -57,6 +57,18 @@ test('rules-test --arms without runs one side and saves it for prune', () => {
   assert.equal(entry.history[0].with, null);
 });
 
+test('rules-test --save-only records how to test a rule and runs nothing; prune lists it as not measured', () => {
+  const dir = gitProject();
+  const r = withFakeClaude(RULES_TEST, ['--dir', dir, '--rule', RULE, '--task', spec.task, '--check', spec.checks[0], '--save-only']);
+  assert.equal(r.status, 0, r.stderr);
+  assert.equal(r.calls.length, 0);
+  assert.match(r.stdout, /Saved how to test this rule to docs\/rule-tests\.json/);
+  const [entry] = registryOf(dir).rules;
+  assert.deepEqual({ task: entry.task, checks: entry.checks, history: entry.history }, { task: spec.task, checks: spec.checks, history: [] });
+  const plan = withFakeClaude(PRUNE, ['--dir', dir]);
+  assert.match(plan.stdout, /1\. Parse CLI flags with parseArgs from node:util\.\n {5}not measured yet/);
+});
+
 test('without --yes prune only shows the plan: saved rules, untested lines, sessions needed', () => {
   const dir = withRegistry([
     { ...spec, history: [past], cut: null },
