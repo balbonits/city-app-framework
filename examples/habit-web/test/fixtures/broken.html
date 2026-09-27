@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Four planted bugs</title>
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <main>
+    <h1>Four planted bugs</h1>
+    <!-- 1. an icon button with no name  2. an image with no alt text -->
+    <button><svg width="16" height="16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor"/></svg></button>
+    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="40" height="40">
+    <!-- 3. a fixed width that's wider than a phone -->
+    <div style="width: 700px">This box is 700px wide.</div>
+    <!-- 4. a script error -->
+    <script>console.error('Cannot read properties of undefined (reading "days")');</script>
+  </main>
+</body>
+</html>

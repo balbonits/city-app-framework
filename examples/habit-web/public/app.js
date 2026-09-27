@@ -5,7 +5,17 @@ const form = document.querySelector('#add-form');
 const input = document.querySelector('#habit-name');
 const list = document.querySelector('#habits');
 const empty = document.querySelector('#empty');
-let habits = load();
+
+// ?demo shows sample habits and saves nothing: handy for screenshots and the UI checks.
+const demo = new URLSearchParams(location.search).has('demo');
+const daysAgo = (n) => dayKey(new Date(Date.now() - n * 86_400_000));
+const sample = () => [
+  { name: 'Read 10 pages', days: [daysAgo(2), daysAgo(1), daysAgo(0)] },
+  { name: 'Stretch', days: [daysAgo(5), daysAgo(4), daysAgo(3), daysAgo(2), daysAgo(1)] },
+  { name: 'Drink a glass of water first thing', days: [] },
+];
+let habits = demo ? sample() : load();
+const store = (next) => { if (!demo) save(next); };
 
 function habitItem(habit, index, today) {
   const item = document.createElement('li');
@@ -29,7 +39,7 @@ function habitItem(habit, index, today) {
   done.append('Done today', which);
   done.addEventListener('click', () => {
     habits[index] = { ...habit, days: toggleDay(habit.days, today) };
-    save(habits);
+    store(habits);
     render();
   });
 
@@ -48,7 +58,7 @@ form.addEventListener('submit', (event) => {
   const name = input.value.trim();
   if (!name) return;
   habits = [...habits, { name, days: [] }];
-  save(habits);
+  store(habits);
   input.value = '';
   render();
 });
