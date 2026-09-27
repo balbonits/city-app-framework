@@ -7,7 +7,7 @@ A small, tested kit for building apps with AI coding agents. `kit/` is what gets
 - `npm test`: tests for the kit's hooks and installer. Fast, offline.
 - `node scripts/install.mjs <dir>`: install the kit into a project.
 - `node experiments/validate-scorer.mjs /tmp/scorer-check`: check the experiment scorers before trusting results.
-- `node experiments/run.mjs ...`: run experiments. Costs real API money (see `experiments/README.md`).
+- `node experiments/run.mjs ...`: run experiments. Uses a lot of usage: ask first (rule 9).
 - `node experiments/report.mjs`: rebuild `experiments/results/SUMMARY.md`.
 
 ## Layout

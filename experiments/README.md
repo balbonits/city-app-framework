@@ -34,7 +34,7 @@ node report.mjs
 
 Useful flags: `--model` (default `claude-sonnet-5`), `--concurrency`, `--arms-dir arms-e3`. Finished trials are skipped, so a crashed batch can be resumed.
 
-Cost: a single run is about $0.10-0.35 with Sonnet 5; a review trial is about $0.50.
+Usage: each run is one Claude session, and a review trial is three (build, review, fix). Ask before running a big batch.
 
 ## How isolation works
 
@@ -48,4 +48,4 @@ Cost: a single run is about $0.10-0.35 with Sonnet 5; a review trial is about $0
 
 - One small app and one model family. The results say what this model does on this kind of task, nothing more.
 - 5 trials per cell. Only big effects show up; p-values (Fisher exact) are in the summary.
-- The sandbox denies shell commands with `$(...)`, which some setups used more for manual smoke tests. That adds turns and cost to those setups, so treat cost differences as rough.
+- The sandbox denies shell commands with `$(...)`, which some setups used more for manual smoke tests. That adds turns to those setups, so treat turn differences as rough.

@@ -7,7 +7,7 @@
 | Still true | Agents start every session knowing nothing about your project or how you like to work. |
 | No longer true | That you need dozens of rule docs. Today's models already avoid new dependencies and big overbuilds on their own: 0 of 285 scored runs added a dependency, with or without rules. |
 | Broken in v3 | Its setup kept Claude from loading AGENTS.md automatically, and its universal rules sat behind a link no agent opened (0 of 25). |
-| Obsolete | The v2 "AI Council" autonomy layer. "Describe it in a few sentences, get a working app" is now plain default behavior (4 of 4 runs, about $0.15 and 1 minute each, no framework at all). |
+| Obsolete | The v2 "AI Council" autonomy layer. "Describe it in a few sentences, get a working app" is now plain default behavior (4 of 4 runs, about 1 minute each, no framework at all). |
 | Worth keeping | Short, reachable project context; one rule for vague asks ("build the smallest part, then offer options"); lessons stored as checks or one-line rules; hooks for the few actions that need a human. |
 
 Everything below comes from web research (four parallel research agents, Sept 2026) and experiments run in this repo with headless Claude Code, scored by fixed checks (`experiments/`, raw data in `experiments/results/`).
@@ -24,7 +24,7 @@ Everything below comes from web research (four parallel research agents, Sept 20
 | create-next-app and Angular CLI generate AGENTS.md/CLAUDE.md | Sep 2025 – Feb 2026 | A scaffolder that writes context files (v1's `create-city-app`) is a commodity |
 | Claude Code `/goal`, agent teams, workflows, Projects; Factory Missions; Devin managing Devins; Steve Yegge's Gas Town (with a "Mayor" role) and Gas City | Jan – Sep 2026 | v2's "Sponsor states intent, the system builds it" ships in products |
 | Anthropic: agents split by role (planner/implementer/tester/reviewer) "spent more tokens on coordination than on actual work"; one skeptical standalone evaluator works better than self-critique on long jobs | Jan – Mar 2026 | Drop the department council |
-| Controlled studies of context files (e.g. Gloaguen et al., "Evaluating AGENTS.md", Feb 2026): little effect on task success, 20%+ more cost; human-written files a few points better than generated ones | 2026 | Keep context files short and specific |
+| Controlled studies of context files (e.g. Gloaguen et al., "Evaluating AGENTS.md", Feb 2026): little effect on task success, and more tokens used; human-written files a few points better than generated ones | 2026 | Keep context files short and specific |
 | "Harness engineering" (Hashimoto, OpenAI, Thoughtworks) and "compound engineering" (Every): when an agent makes a mistake, make it impossible with a check; write prose only when you can't | Feb – Apr 2026 | v3's journal-and-docs loop is the weak version of this |
 | Auto mode became Claude Code's default; its classifier blocks force-push and prod deploys but allows new dependency installs | 2026 | A dependency guard still adds something |
 | Agents cheat on impossible tests (edit or skip them); a plain "if a test looks wrong, say so" instruction cuts it sharply (ImpossibleBench) | Oct 2025 – Sep 2026 | Keep that rule, plus a hook against newly skipped tests |
@@ -79,22 +79,22 @@ So in practice, v3's core (anti-overengineering, escalation, communication rules
 
 Across all five tasks:
 
-| Arm | Works | Added a dependency | Wrote tests | Mean cost | Mean turns |
-| --- | --- | --- | --- | --- | --- |
-| bare | 20/20 | 0/25 | 17/25 | $0.163 | 15.2 |
-| shipped | 20/20 | 0/25 | 21/25 | $0.218 | 18.9 |
-| full | 20/20 | 0/25 | 11/25 | $0.163 | 11.7 |
-| lean | 20/20 | 0/25 | **25/25** (p=0.004) | $0.158 | 12.6 |
-| enforced | 20/20 | 0/25 | **25/25** (p=0.004) | $0.180 | 14.4 |
-| **kit (v4)** | 20/20 | 0/25 | **25/25** (p=0.004) | $0.194 | 15.7 |
+| Arm | Works | Added a dependency | Wrote tests | Mean turns |
+| --- | --- | --- | --- | --- |
+| bare | 20/20 | 0/25 | 17/25 | 15.2 |
+| shipped | 20/20 | 0/25 | 21/25 | 18.9 |
+| full | 20/20 | 0/25 | 11/25 | 11.7 |
+| lean | 20/20 | 0/25 | **25/25** (p=0.004) | 12.6 |
+| enforced | 20/20 | 0/25 | **25/25** (p=0.004) | 14.4 |
+| **kit (v4)** | 20/20 | 0/25 | **25/25** (p=0.004) | 15.7 |
 
 ("Works" excludes `remind`, which has no single right answer. p-values: Fisher exact vs `bare`.)
 
 - **The bare model already did the job.** Every setup, including `bare`, passed every hidden acceptance check, including the multi-word-name trap in `dates`. No run added a dependency, even for a web server or date parsing.
 - **v3's anti-overbuild and no-deps rules had no measurable effect**, because there was nothing left to fix on these tasks.
 - **Test writing did change:** a one-line "add a test for new logic" rule took it from 17/25 to 25/25. v3's full rules didn't help (11/25).
-- **v3 as shipped was the most expensive** setup (+34% cost, +24% turns vs bare), with no quality gain.
-- Cost differences are rough: the sandbox denies shell commands with `$(...)`, which some setups used more for manual smoke tests.
+- **v3 as shipped made agents work the most** (24% more turns than bare), with no quality gain.
+- Turn counts are rough: the sandbox denies shell commands with `$(...)`, which some setups used more for manual smoke tests.
 
 The vague ask (`remind`) is where rules mattered:
 
@@ -124,20 +124,20 @@ Setup: in a past session the human said "use `parseArgs` from `node:util` for CL
 | A failing test with a fix-it message (no written rule at all) | 5/5 (p=0.008) | 5/5 |
 
 - v3's learning loop had no way back into the next session: the journal was write-only.
-- A rule prevents the mistake if it's read. A check catches it anyway: in 4 of 5 check runs the agent made the mistake, the test failed with the fix-it message, and the agent corrected itself. Checks cost a bit more ($0.19 vs $0.16) because of that extra round.
+- A rule prevents the mistake if it's read. A check catches it anyway: in 4 of 5 check runs the agent made the mistake, the test failed with the fix-it message, and the agent corrected itself. Checks take a little more work because of that extra round.
 - Following the lesson also made the feature better: `--min-streak=2` worked only when parseArgs was used.
 
 ### 3.4 Does a second, reviewing agent help? (E4, E4b)
 
 Paired design: the same implementation is scored before and after a fresh-context reviewer checks it (and a fixer addresses any findings).
 
-| Task | Solo passed | After review | Reviewer false alarms | Cost: build / review |
-| --- | --- | --- | --- | --- |
-| `stats` (sorting, rounding, a 30-day window) | 8/8 | 8/8 | 0/8 | $0.20 / $0.30 |
-| `multi` (rename, delete with `--yes`, undo; six hidden checks) | 7/8 | 7/8 | 0/8 | $0.23 / $0.30 |
+| Task | Solo passed | After review | Reviewer false alarms |
+| --- | --- | --- | --- |
+| `stats` (sorting, rounding, a 30-day window) | 8/8 | 8/8 | 0/8 |
+| `multi` (rename, delete with `--yes`, undo; six hidden checks) | 7/8 | 7/8 | 0/8 |
 
 - On small, clearly specified tasks, today's model gets it right alone (15 of 16).
-- The reviewer never raised a false alarm, but it also never caught a bug, and reviewing cost more than building.
+- The reviewer never raised a false alarm, but it also never caught a bug, and reviewing took more work than building.
 - The one miss (`rename morning run --to evening run` failed) was an **unwritten** requirement: the app already allows names with spaces, but the task didn't say so. The reviewer checked only what the task spelled out, so it missed the same thing the builder missed.
 - The cheaper fix for unwritten requirements is a one-line "Gotchas" entry in AGENTS.md ("habit names can contain spaces"), not a second agent.
 - This matches outside evidence: reviewers pay off on long, complex work; on small tasks "chasing every finding leads to over-engineering" (Anthropic).
@@ -148,7 +148,7 @@ The kit went through the same harness three times:
 
 | Draft | What changed | What the harness showed |
 | --- | --- | --- |
-| `kit-v1` | Rule 5 said "for changes with several requirements, have the reviewer check your work" | Agents called the reviewer on a trivial `--json` flag in 3 of 5 runs; cost rose 2.5-4x for no gain. **Rule removed**; the reviewer is now on request only. |
+| `kit-v1` | Rule 5 said "for changes with several requirements, have the reviewer check your work" | Agents called the reviewer on a trivial `--json` flag in 3 of 5 runs; the extra reviewer runs made each task several times bigger for no gain. **Rule removed**; the reviewer is now on request only. |
 | `kit-v2` | Reviewer rule gone; my own wording for the vague-ask rule | At first looked like it offered options only 1 of 5 times. Reading the replies showed that was **my detector's fault**: it looked for "recommend" and missed "My pick". After fixing the detector: 5 of 5. |
 | `kit` (final) | Vague-ask rule uses the wording that tested best in `lean` | Works 20/20, tests 25/25, options on the vague ask 5/5, reviewer calls 0/25 |
 
@@ -167,10 +167,10 @@ No model added a dependency with or without the kit. The vague-ask rule works on
 
 v2's big promise was "state what you want; the system builds it." We gave an empty project a 4-sentence spec for a bookmark CLI (`bm add/list/rm`, newest first, tag filter, ids never reused, stored in a JSON file) and checked the result with hidden tests.
 
-| Setup | All hidden checks | Tests green | Added a dep | Cost | Time |
-| --- | --- | --- | --- | --- | --- |
-| bare | 4/4 | 4/4 | 0/4 | $0.15 | ~1 min |
-| kit | 4/4 | 4/4 | 0/4 | $0.15 | ~1.6 min |
+| Setup | All hidden checks | Tests green | Added a dep | Time |
+| --- | --- | --- | --- | --- |
+| bare | 4/4 | 4/4 | 0/4 | ~1 min |
+| kit | 4/4 | 4/4 | 0/4 | ~1.6 min |
 
 For small apps with a clear spec, the promise is simply how today's agents behave, with or without a framework. What a framework can still add is the part the spec leaves out: your preferences, your guardrails, and lessons from last time.
 
@@ -214,7 +214,7 @@ For small apps with a clear spec, the promise is simply how today's agents behav
 - Headless runs can't ask the human mid-task, which shapes how "asking" shows up.
 - The "offered options" metric reads the agent's final message. It needed one fix during the study and is now checked against labeled examples, but it's still a text heuristic.
 - Research papers from 2026 were often read as abstracts or secondary coverage, and are single, unreplicated studies.
-- Total API cost of the scored runs: about $57 (plus about $2 of pilot and probe runs).
+- Scored runs: 285 single sessions and 16 review trials, plus a few pilot and probe runs.
 
 ---
 

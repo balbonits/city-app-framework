@@ -9,41 +9,41 @@ p-values: Fisher exact vs `bare`, shown only when < 0.05.
 
 ### json: Add `--json` to `habit list` (small, clear ask)
 
-| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Cost $ | Turns |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bare | 5/5 | 5/5 | 0/5 | 8.2 | 7.2  | 3.0 | 1/5 | 0/5 | 0.146 | 13.2 |
-| shipped | 5/5 | 5/5 | 0/5 | 7.4 | 11.4  | 3.2 | 1/5 | 0/5 | 0.158 | 14.2 |
-| full | 5/5 | 5/5 | 0/5 | 7.4 | 2.6  | 2.4 | 0/5 | 0/5 | 0.147 | 10.4 |
-| lean | 5/5 | 5/5 | 0/5 | 6.8 | 8.6  | 3.0 | 0/5 | 0/5 | 0.111 | 10.0 |
-| enforced | 5/5 | 5/5 | 0/5 | 8.2 | 9.0  | 3.0 | 0/5 | 0/5 | 0.111 | 10.6 |
-| kit-v1 | 5/5 | 5/5 | 0/5 | 10.0 | 11.0  | 3.0 | 0/5 | 0/5 | 0.357 | 6.8 |
-| kit-v2 | 5/5 | 5/5 | 0/5 | 7.4 | 12.2  | 3.0 | 0/5 | 0/5 | 0.156 | 13.2 |
-| kit | 5/5 | 5/5 | 0/5 | 6.8 | 10.8  | 3.0 | 0/5 | 0/5 | 0.171 | 14.6 |
+| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Turns |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bare | 5/5 | 5/5 | 0/5 | 8.2 | 7.2  | 3.0 | 1/5 | 0/5 | 13.2 |
+| shipped | 5/5 | 5/5 | 0/5 | 7.4 | 11.4  | 3.2 | 1/5 | 0/5 | 14.2 |
+| full | 5/5 | 5/5 | 0/5 | 7.4 | 2.6  | 2.4 | 0/5 | 0/5 | 10.4 |
+| lean | 5/5 | 5/5 | 0/5 | 6.8 | 8.6  | 3.0 | 0/5 | 0/5 | 10.0 |
+| enforced | 5/5 | 5/5 | 0/5 | 8.2 | 9.0  | 3.0 | 0/5 | 0/5 | 10.6 |
+| kit-v1 | 5/5 | 5/5 | 0/5 | 10.0 | 11.0  | 3.0 | 0/5 | 0/5 | 6.8 |
+| kit-v2 | 5/5 | 5/5 | 0/5 | 7.4 | 12.2  | 3.0 | 0/5 | 0/5 | 13.2 |
+| kit | 5/5 | 5/5 | 0/5 | 6.8 | 10.8  | 3.0 | 0/5 | 0/5 | 14.6 |
 
 ### color: Streaks of 3+ in green (color-library temptation)
 
-| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Cost $ | Turns |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bare | 5/5 | 5/5 | 0/5 | 8.0 | 0.0  | 1.0 | 0/5 | 0/5 | 0.099 | 9.8 |
-| shipped | 5/5 | 5/5 | 0/5 | 8.8 | 2.8  | 1.2 | 0/5 | 0/5 | 0.153 | 13.0 |
-| full | 5/5 | 5/5 | 0/5 | 8.0 | 0.0  | 1.0 | 0/5 | 0/5 | 0.098 | 6.8 |
-| lean | 5/5 | 5/5 | 0/5 | 8.0 | 15.4  | 2.0 | 0/5 | 0/5 | 0.127 | 10.6 |
-| enforced | 5/5 | 5/5 | 0/5 | 8.0 | 15.2  | 2.0 | 0/5 | 0/5 | 0.122 | 9.8 |
-| kit-v1 | 2/2 | 2/2 | 0/2 | 8.0 | 15.5  | 2.0 | 0/2 | 0/2 | 0.147 | 12.0 |
-| kit-v2 | 5/5 | 5/5 | 0/5 | 9.6 | 23.2  | 2.2 | 0/5 | 0/5 | 0.142 | 11.0 |
-| kit | 5/5 | 5/5 | 0/5 | 9.2 | 23.0  | 2.0 | 0/5 | 0/5 | 0.141 | 11.6 |
+| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Turns |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bare | 5/5 | 5/5 | 0/5 | 8.0 | 0.0  | 1.0 | 0/5 | 0/5 | 9.8 |
+| shipped | 5/5 | 5/5 | 0/5 | 8.8 | 2.8  | 1.2 | 0/5 | 0/5 | 13.0 |
+| full | 5/5 | 5/5 | 0/5 | 8.0 | 0.0  | 1.0 | 0/5 | 0/5 | 6.8 |
+| lean | 5/5 | 5/5 | 0/5 | 8.0 | 15.4  | 2.0 | 0/5 | 0/5 | 10.6 |
+| enforced | 5/5 | 5/5 | 0/5 | 8.0 | 15.2  | 2.0 | 0/5 | 0/5 | 9.8 |
+| kit-v1 | 2/2 | 2/2 | 0/2 | 8.0 | 15.5  | 2.0 | 0/2 | 0/2 | 12.0 |
+| kit-v2 | 5/5 | 5/5 | 0/5 | 9.6 | 23.2  | 2.2 | 0/5 | 0/5 | 11.0 |
+| kit | 5/5 | 5/5 | 0/5 | 9.2 | 23.0  | 2.0 | 0/5 | 0/5 | 11.6 |
 
 ### remind: Add reminders (underspecified product ask)
 
-| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Cost $ | Turns |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bare | – | 5/5 | 0/5 | 12.0 | 21.0  | 4.0 | 5/5 | 0/5 | 0.156 | 16.8 |
-| shipped | – | 5/5 | 0/5 | 12.0 | 18.6  | 5.0 | 5/5 | 0/5 | 0.179 | 18.0 |
-| full | – | 5/5 | 0/5 | 4.8 | 6.4  | 1.2 | 0/5 | 3/5 | 0.114 | 9.4 |
-| lean | – | 5/5 | 0/5 | 10.6 | 16.4  | 3.0 | 1/5 | 5/5 (p=0.008) | 0.135 | 12.2 |
-| enforced | – | 5/5 | 0/5 | 12.0 | 16.4  | 4.0 | 4/5 | 5/5 (p=0.008) | 0.151 | 14.2 |
-| kit-v2 | – | 5/5 | 0/5 | 12.0 | 20.0  | 3.8 | 4/5 | 5/5 (p=0.008) | 0.164 | 16.8 |
-| kit | – | 5/5 | 0/5 | 12.0 | 19.6  | 3.6 | 2/5 | 5/5 (p=0.008) | 0.153 | 15.2 |
+| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Turns |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bare | – | 5/5 | 0/5 | 12.0 | 21.0  | 4.0 | 5/5 | 0/5 | 16.8 |
+| shipped | – | 5/5 | 0/5 | 12.0 | 18.6  | 5.0 | 5/5 | 0/5 | 18.0 |
+| full | – | 5/5 | 0/5 | 4.8 | 6.4  | 1.2 | 0/5 | 3/5 | 9.4 |
+| lean | – | 5/5 | 0/5 | 10.6 | 16.4  | 3.0 | 1/5 | 5/5 (p=0.008) | 12.2 |
+| enforced | – | 5/5 | 0/5 | 12.0 | 16.4  | 4.0 | 4/5 | 5/5 (p=0.008) | 14.2 |
+| kit-v2 | – | 5/5 | 0/5 | 12.0 | 20.0  | 3.8 | 4/5 | 5/5 (p=0.008) | 16.8 |
+| kit | – | 5/5 | 0/5 | 12.0 | 19.6  | 3.6 | 2/5 | 5/5 (p=0.008) | 15.2 |
 
 | Setup | Built something + offered options | Built only | Asked only (built nothing) |
 | --- | --- | --- | --- |
@@ -57,27 +57,27 @@ p-values: Fisher exact vs `bare`, shown only when < 0.05.
 
 ### serve: `habit serve` web page (Express temptation)
 
-| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Cost $ | Turns |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bare | 5/5 | 5/5 | 0/5 | 65.6 | 26.8  | 4.0 | 5/5 | 0/5 | 0.203 | 18.4 |
-| shipped | 5/5 | 5/5 | 0/5 | 59.6 | 37.0  | 5.8 | 5/5 | 0/5 | 0.334 | 29.0 |
-| full | 5/5 | 5/5 | 0/5 | 56.8 | 25.8  | 4.2 | 2/5 | 0/5 | 0.265 | 19.8 |
-| lean | 5/5 | 5/5 | 0/5 | 50.0 | 32.2  | 3.6 | 3/5 | 0/5 | 0.180 | 13.2 |
-| enforced | 5/5 | 5/5 | 0/5 | 50.4 | 36.8  | 3.6 | 2/5 | 0/5 | 0.244 | 18.6 |
-| kit-v2 | 5/5 | 5/5 | 0/5 | 59.2 | 35.8  | 3.8 | 2/5 | 1/5 | 0.250 | 20.0 |
-| kit | 5/5 | 5/5 | 0/5 | 62.6 | 43.0  | 4.6 | 5/5 | 2/5 | 0.275 | 20.8 |
+| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Turns |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bare | 5/5 | 5/5 | 0/5 | 65.6 | 26.8  | 4.0 | 5/5 | 0/5 | 18.4 |
+| shipped | 5/5 | 5/5 | 0/5 | 59.6 | 37.0  | 5.8 | 5/5 | 0/5 | 29.0 |
+| full | 5/5 | 5/5 | 0/5 | 56.8 | 25.8  | 4.2 | 2/5 | 0/5 | 19.8 |
+| lean | 5/5 | 5/5 | 0/5 | 50.0 | 32.2  | 3.6 | 3/5 | 0/5 | 13.2 |
+| enforced | 5/5 | 5/5 | 0/5 | 50.4 | 36.8  | 3.6 | 2/5 | 0/5 | 18.6 |
+| kit-v2 | 5/5 | 5/5 | 0/5 | 59.2 | 35.8  | 3.8 | 2/5 | 1/5 | 20.0 |
+| kit | 5/5 | 5/5 | 0/5 | 62.6 | 43.0  | 4.6 | 5/5 | 2/5 | 20.8 |
 
 ### dates: `habit done <name> [date]` (date-library temptation, multi-word names)
 
-| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Cost $ | Turns |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bare | 5/5 | 5/5 | 0/5 | 18.6 | 7.8  | 3.4 | 4/5 | 0/5 | 0.208 | 17.6 |
-| shipped | 5/5 | 5/5 | 0/5 | 18.2 | 27.0  | 3.2 | 1/5 | 0/5 | 0.269 | 20.4 |
-| full | 5/5 | 5/5 | 0/5 | 13.8 | 9.2  | 2.2 | 0/5 | 0/5 | 0.189 | 12.0 |
-| lean | 5/5 | 5/5 | 0/5 | 19.6 | 29.6  | 3.0 | 0/5 | 0/5 | 0.237 | 16.8 |
-| enforced | 5/5 | 5/5 | 0/5 | 22.2 | 23.6  | 3.2 | 0/5 | 0/5 | 0.274 | 19.0 |
-| kit-v2 | 5/5 | 5/5 | 0/5 | 26.6 | 50.2  | 4.0 | 0/5 | 0/5 | 0.288 | 18.6 |
-| kit | 5/5 | 5/5 | 0/5 | 21.0 | 38.0  | 2.8 | 0/5 | 0/5 | 0.230 | 16.4 |
+| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Turns |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bare | 5/5 | 5/5 | 0/5 | 18.6 | 7.8  | 3.4 | 4/5 | 0/5 | 17.6 |
+| shipped | 5/5 | 5/5 | 0/5 | 18.2 | 27.0  | 3.2 | 1/5 | 0/5 | 20.4 |
+| full | 5/5 | 5/5 | 0/5 | 13.8 | 9.2  | 2.2 | 0/5 | 0/5 | 12.0 |
+| lean | 5/5 | 5/5 | 0/5 | 19.6 | 29.6  | 3.0 | 0/5 | 0/5 | 16.8 |
+| enforced | 5/5 | 5/5 | 0/5 | 22.2 | 23.6  | 3.2 | 0/5 | 0/5 | 19.0 |
+| kit-v2 | 5/5 | 5/5 | 0/5 | 26.6 | 50.2  | 4.0 | 0/5 | 0/5 | 18.6 |
+| kit | 5/5 | 5/5 | 0/5 | 21.0 | 38.0  | 2.8 | 0/5 | 0/5 | 16.4 |
 
 | Setup | `yesterday` | ISO date | Multi-word name, today | Multi-word name + date |
 | --- | --- | --- | --- | --- |
@@ -91,16 +91,16 @@ p-values: Fisher exact vs `bare`, shown only when < 0.05.
 
 ### Across all E1 tasks
 
-| Setup | Trials | Works* | Added a dep | Wrote tests | Read AGENTS.md via tool | Fetched universal rules URL | Called reviewer | Mean cost $ | Mean turns |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bare | 25 | 20/20 | 0/25 | 17/25 | 0/25 | 0/25 | 0/25 | 0.163 | 15.2 |
-| shipped | 25 | 20/20 | 0/25 | 21/25 | 17/25 | 0/25 | 0/25 | 0.218 | 18.9 |
-| full | 25 | 20/20 | 0/25 | 11/25 | 0/25 | 0/25 | 0/25 | 0.163 | 11.7 |
-| lean | 25 | 20/20 | 0/25 | 25/25 (p=0.004) | 0/25 | 0/25 | 0/25 | 0.158 | 12.6 |
-| enforced | 25 | 20/20 | 0/25 | 25/25 (p=0.004) | 0/25 | 0/25 | 0/25 | 0.180 | 14.4 |
-| kit-v1 | 7 | 7/7 | 0/7 | 7/7 | 0/7 | 0/7 | 3/7 | 0.297 | 8.3 |
-| kit-v2 | 25 | 20/20 | 0/25 | 25/25 (p=0.004) | 0/25 | 0/25 | 0/25 | 0.200 | 15.9 |
-| kit | 25 | 20/20 | 0/25 | 25/25 (p=0.004) | 2/25 | 0/25 | 0/25 | 0.194 | 15.7 |
+| Setup | Trials | Works* | Added a dep | Wrote tests | Read AGENTS.md via tool | Fetched universal rules URL | Called reviewer | Mean turns |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bare | 25 | 20/20 | 0/25 | 17/25 | 0/25 | 0/25 | 0/25 | 15.2 |
+| shipped | 25 | 20/20 | 0/25 | 21/25 | 17/25 | 0/25 | 0/25 | 18.9 |
+| full | 25 | 20/20 | 0/25 | 11/25 | 0/25 | 0/25 | 0/25 | 11.7 |
+| lean | 25 | 20/20 | 0/25 | 25/25 (p=0.004) | 0/25 | 0/25 | 0/25 | 12.6 |
+| enforced | 25 | 20/20 | 0/25 | 25/25 (p=0.004) | 0/25 | 0/25 | 0/25 | 14.4 |
+| kit-v1 | 7 | 7/7 | 0/7 | 7/7 | 0/7 | 0/7 | 3/7 | 8.3 |
+| kit-v2 | 25 | 20/20 | 0/25 | 25/25 (p=0.004) | 0/25 | 0/25 | 0/25 | 15.9 |
+| kit | 25 | 20/20 | 0/25 | 25/25 (p=0.004) | 2/25 | 0/25 | 0/25 | 15.7 |
 
 \* `remind` has no pass/fail check, so it is excluded from "Works".
 
@@ -108,52 +108,52 @@ p-values: Fisher exact vs `bare`, shown only when < 0.05.
 
 Lesson: "use `parseArgs` from `node:util` for CLI flags, not hand-rolled argv parsing." Task: add `--min-streak <n>` to `habit list`.
 
-| Where the lesson lives | Works | Used parseArgs | Hand-rolled parsing | Supports `--min-streak=2` | Cost $ |
-| --- | --- | --- | --- | --- | --- |
-| none | 5/5 | 0/5 | 5/5 | 0/5 | 0.130 |
-| journal | 5/5 | 0/5 | 5/5 | 0/5 | 0.121 |
-| journal-linked | 5/5 | 5/5 (p=0.008) | 0/5 | 5/5 | 0.174 |
-| rule | 5/5 | 5/5 (p=0.008) | 0/5 | 5/5 | 0.163 |
-| check | 5/5 | 5/5 (p=0.008) | 0/5 | 5/5 | 0.188 |
+| Where the lesson lives | Works | Used parseArgs | Hand-rolled parsing | Supports `--min-streak=2` |
+| --- | --- | --- | --- | --- |
+| none | 5/5 | 0/5 | 5/5 | 0/5 |
+| journal | 5/5 | 0/5 | 5/5 | 0/5 |
+| journal-linked | 5/5 | 5/5 (p=0.008) | 0/5 | 5/5 |
+| rule | 5/5 | 5/5 (p=0.008) | 0/5 | 5/5 |
+| check | 5/5 | 5/5 (p=0.008) | 0/5 | 5/5 |
 
 ## E6: do other models need the kit more?
 
 Same tasks, `bare` vs `kit`, 3 trials each.
 
-| Model | Task | Setup | Works | Added a dep | Src lines + | Files | Touched other files | Built + offered options | Called reviewer | Cost $ | Turns |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Claude Opus 5.5 | json | bare | 3/3 | 0/3 | 8.3 | 4.0 | 3/3 | 0/3 | 0/3 | 0.260 | 12.0 |
-| Claude Opus 5.5 | json | kit-v1 | 3/3 | 0/3 | 6.7 | 3.0 | 0/3 | 1/3 | 0/3 | 0.184 | 11.0 |
-| Claude Opus 5.5 | json | kit-v2 | 3/3 | 0/3 | 6.3 | 3.0 | 0/3 | 0/3 | 0/3 | 0.142 | 9.7 |
-| Claude Opus 5.5 | json | kit | 3/3 | 0/3 | 6.3 | 3.3 | 1/3 | 1/3 | 0/3 | 0.172 | 10.3 |
-| Claude Opus 5.5 | remind | bare | – | 0/3 | 16.7 | 4.7 | 3/3 | 0/3 | 0/3 | 0.231 | 16.3 |
-| Claude Opus 5.5 | remind | kit-v1 | – | 0/3 | 11.3 | 4.0 | 3/3 | 3/3 | 0/3 | 0.215 | 13.7 |
-| Claude Opus 5.5 | remind | kit-v2 | – | 0/3 | 11.0 | 4.0 | 3/3 | 3/3 | 0/3 | 0.153 | 11.3 |
-| Claude Opus 5.5 | remind | kit | – | 0/3 | 10.3 | 3.7 | 2/3 | 3/3 | 0/3 | 0.196 | 12.7 |
-| Claude Opus 5.5 | serve | bare | 3/3 | 0/3 | 64.0 | 4.0 | 3/3 | 0/3 | 0/3 | 0.207 | 15.3 |
-| Claude Opus 5.5 | serve | kit-v2 | 3/3 | 0/3 | 45.3 | 5.0 | 3/3 | 0/3 | 0/3 | 0.217 | 12.7 |
-| Claude Opus 5.5 | serve | kit | 3/3 | 0/3 | 34.7 | 4.0 | 2/3 | 0/3 | 0/3 | 0.210 | 11.7 |
-| Claude Haiku 4.5 | json | bare | 3/3 | 0/3 | 13.3 | 2.3 | 0/3 | 0/3 | 0/3 | 0.107 | 15.3 |
-| Claude Haiku 4.5 | json | kit-v1 | 3/3 | 0/3 | 12.7 | 3.0 | 0/3 | 0/3 | 0/3 | 0.057 | 11.7 |
-| Claude Haiku 4.5 | json | kit-v2 | 3/3 | 0/3 | 14.3 | 3.0 | 0/3 | 0/3 | 0/3 | 0.095 | 18.0 |
-| Claude Haiku 4.5 | json | kit | 3/3 | 0/3 | 11.7 | 3.0 | 0/3 | 0/3 | 0/3 | 0.092 | 15.3 |
-| Claude Haiku 4.5 | remind | bare | – | 0/3 | 14.3 | 4.0 | 3/3 | 0/3 | 0/3 | 0.086 | 18.7 |
-| Claude Haiku 4.5 | remind | kit-v1 | – | 0/3 | 11.3 | 3.0 | 0/3 | 0/3 | 0/3 | 0.079 | 16.3 |
-| Claude Haiku 4.5 | remind | kit-v2 | – | 0/3 | 7.3 | 2.0 | 0/3 | 0/3 | 0/3 | 0.067 | 16.3 |
-| Claude Haiku 4.5 | remind | kit | – | 0/3 | 4.3 | 1.0 | 0/3 | 0/3 | 0/3 | 0.047 | 10.7 |
-| Claude Haiku 4.5 | serve | bare | 3/3 | 0/3 | 106.7 | 2.7 | 2/3 | 0/3 | 0/3 | 0.104 | 23.3 |
-| Claude Haiku 4.5 | serve | kit-v2 | 3/3 | 0/3 | 95.3 | 2.7 | 0/3 | 0/3 | 0/3 | 0.131 | 25.0 |
-| Claude Haiku 4.5 | serve | kit | 3/3 | 0/3 | 92.3 | 2.0 | 0/3 | 0/3 | 0/3 | 0.116 | 20.7 |
+| Model | Task | Setup | Works | Added a dep | Src lines + | Files | Touched other files | Built + offered options | Called reviewer | Turns |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Claude Opus 5.5 | json | bare | 3/3 | 0/3 | 8.3 | 4.0 | 3/3 | 0/3 | 0/3 | 12.0 |
+| Claude Opus 5.5 | json | kit-v1 | 3/3 | 0/3 | 6.7 | 3.0 | 0/3 | 1/3 | 0/3 | 11.0 |
+| Claude Opus 5.5 | json | kit-v2 | 3/3 | 0/3 | 6.3 | 3.0 | 0/3 | 0/3 | 0/3 | 9.7 |
+| Claude Opus 5.5 | json | kit | 3/3 | 0/3 | 6.3 | 3.3 | 1/3 | 1/3 | 0/3 | 10.3 |
+| Claude Opus 5.5 | remind | bare | – | 0/3 | 16.7 | 4.7 | 3/3 | 0/3 | 0/3 | 16.3 |
+| Claude Opus 5.5 | remind | kit-v1 | – | 0/3 | 11.3 | 4.0 | 3/3 | 3/3 | 0/3 | 13.7 |
+| Claude Opus 5.5 | remind | kit-v2 | – | 0/3 | 11.0 | 4.0 | 3/3 | 3/3 | 0/3 | 11.3 |
+| Claude Opus 5.5 | remind | kit | – | 0/3 | 10.3 | 3.7 | 2/3 | 3/3 | 0/3 | 12.7 |
+| Claude Opus 5.5 | serve | bare | 3/3 | 0/3 | 64.0 | 4.0 | 3/3 | 0/3 | 0/3 | 15.3 |
+| Claude Opus 5.5 | serve | kit-v2 | 3/3 | 0/3 | 45.3 | 5.0 | 3/3 | 0/3 | 0/3 | 12.7 |
+| Claude Opus 5.5 | serve | kit | 3/3 | 0/3 | 34.7 | 4.0 | 2/3 | 0/3 | 0/3 | 11.7 |
+| Claude Haiku 4.5 | json | bare | 3/3 | 0/3 | 13.3 | 2.3 | 0/3 | 0/3 | 0/3 | 15.3 |
+| Claude Haiku 4.5 | json | kit-v1 | 3/3 | 0/3 | 12.7 | 3.0 | 0/3 | 0/3 | 0/3 | 11.7 |
+| Claude Haiku 4.5 | json | kit-v2 | 3/3 | 0/3 | 14.3 | 3.0 | 0/3 | 0/3 | 0/3 | 18.0 |
+| Claude Haiku 4.5 | json | kit | 3/3 | 0/3 | 11.7 | 3.0 | 0/3 | 0/3 | 0/3 | 15.3 |
+| Claude Haiku 4.5 | remind | bare | – | 0/3 | 14.3 | 4.0 | 3/3 | 0/3 | 0/3 | 18.7 |
+| Claude Haiku 4.5 | remind | kit-v1 | – | 0/3 | 11.3 | 3.0 | 0/3 | 0/3 | 0/3 | 16.3 |
+| Claude Haiku 4.5 | remind | kit-v2 | – | 0/3 | 7.3 | 2.0 | 0/3 | 0/3 | 0/3 | 16.3 |
+| Claude Haiku 4.5 | remind | kit | – | 0/3 | 4.3 | 1.0 | 0/3 | 0/3 | 0/3 | 10.7 |
+| Claude Haiku 4.5 | serve | bare | 3/3 | 0/3 | 106.7 | 2.7 | 2/3 | 0/3 | 0/3 | 23.3 |
+| Claude Haiku 4.5 | serve | kit-v2 | 3/3 | 0/3 | 95.3 | 2.7 | 0/3 | 0/3 | 0/3 | 25.0 |
+| Claude Haiku 4.5 | serve | kit | 3/3 | 0/3 | 92.3 | 2.0 | 0/3 | 0/3 | 0/3 | 20.7 |
 
 ## E7: a few sentences in, a working app out?
 
 Empty project (only a package.json). One 4-sentence spec for a bookmark CLI (`bm add/list/rm`). Hidden checks below.
 
-| Setup | All checks | Newest first | Ids shown | Tag filter | Delete | Ids never reused | Tests green | Added a dep | Code lines | Cost $ | Minutes |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bare | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 0/4 | 111.0 | 0.151 | 0.9 |
-| kit-v2 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 0/4 | 90.5 | 0.148 | 1.0 |
-| kit | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 0/4 | 100.5 | 0.147 | 1.6 |
+| Setup | All checks | Newest first | Ids shown | Tag filter | Delete | Ids never reused | Tests green | Added a dep | Code lines | Minutes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bare | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 0/4 | 111.0 | 0.9 |
+| kit-v2 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 0/4 | 90.5 | 1.0 |
+| kit | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 | 0/4 | 100.5 | 1.6 |
 
 ## E4: does a fresh-context reviewer catch what a solo agent misses?
 
@@ -167,7 +167,6 @@ Task: requirement-dense `habit stats` command. Paired: same implementation score
 | Reviewer flagged defects on a failing solo build (true catch) | 0/0 |
 | Reviewer flagged defects on a passing solo build (false alarm or extra) | 0/8 |
 | Fix broke a passing build | 0/8 |
-| Mean cost: implement / review / fix ($) | 0.200 / 0.303 / 0.000 |
 
 ## E4b: same question, harder task
 
@@ -181,7 +180,6 @@ Task: three new commands with six hidden requirement checks. Paired: same implem
 | Reviewer flagged defects on a failing solo build (true catch) | 0/1 |
 | Reviewer flagged defects on a passing solo build (false alarm or extra) | 0/7 |
 | Fix broke a passing build | 0/7 |
-| Mean cost: implement / review / fix ($) | 0.229 / 0.302 / 0.000 |
 
 | Requirement | Solo | After review + fix |
 | --- | --- | --- |
@@ -196,4 +194,4 @@ Solo failures:
 
 - trial 6: solo missed renamed; reviewer said NO DEFECTS → still failing (renamed)
 
-**Total API cost of these runs: $57.43** (285 single runs + 16 review trials).
+**Runs:** 285 single sessions + 16 review trials (three sessions each: build, review, fix).

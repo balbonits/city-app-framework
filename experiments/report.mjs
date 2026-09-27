@@ -56,13 +56,13 @@ for (const task of Object.keys(TASK_NOTES)) {
   const rows = e1.filter((r) => r.task === task);
   if (!rows.length) continue;
   out.push(`### ${task}: ${TASK_NOTES[task]}`, '');
-  out.push('| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Cost $ | Turns |');
-  out.push('| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+  out.push('| Setup | Works | Tests green | Added a dep | Src lines + | Test lines + | Files | Touched other files | Offered options | Turns |');
+  out.push('| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
   for (const arm of ARMS) {
     const r = rows.filter((x) => x.arm === arm);
     if (!r.length) continue;
     const works = task === 'remind' ? '–' : rate(r, (x) => x.acceptance.pass) + vsBare(rows, arm, (x) => x.acceptance.pass);
-    out.push(`| ${arm} | ${works} | ${rate(r, (x) => x.testsPass)} | ${rate(r, (x) => x.depsAdded.length > 0)}${vsBare(rows, arm, (x) => x.depsAdded.length > 0)} | ${fmt(mean(r.map((x) => x.srcAdded)))} | ${fmt(mean(r.map((x) => x.testAdded)))}  | ${fmt(mean(r.map((x) => x.filesChanged)))} | ${rate(r, (x) => x.otherFilesChanged.length + x.processFilesChanged.length > 0)} | ${rate(r, (x) => offersOptions(x.reply))}${vsBare(rows, arm, (x) => offersOptions(x.reply))} | ${fmt(mean(r.map((x) => x.costUsd)), 3)} | ${fmt(mean(r.map((x) => x.turns)))} |`);
+    out.push(`| ${arm} | ${works} | ${rate(r, (x) => x.testsPass)} | ${rate(r, (x) => x.depsAdded.length > 0)}${vsBare(rows, arm, (x) => x.depsAdded.length > 0)} | ${fmt(mean(r.map((x) => x.srcAdded)))} | ${fmt(mean(r.map((x) => x.testAdded)))}  | ${fmt(mean(r.map((x) => x.filesChanged)))} | ${rate(r, (x) => x.otherFilesChanged.length + x.processFilesChanged.length > 0)} | ${rate(r, (x) => offersOptions(x.reply))}${vsBare(rows, arm, (x) => offersOptions(x.reply))} | ${fmt(mean(r.map((x) => x.turns)))} |`);
   }
   const depList = rows.filter((x) => x.depsAdded.length).map((x) => `${x.arm}: ${x.depsAdded.join('+')}`);
   if (depList.length) out.push('', `Deps added: ${depList.join('; ')}.`);
@@ -86,12 +86,12 @@ for (const task of Object.keys(TASK_NOTES)) {
 }
 
 if (e1.length) {
-  out.push('### Across all E1 tasks', '', '| Setup | Trials | Works* | Added a dep | Wrote tests | Read AGENTS.md via tool | Fetched universal rules URL | Called reviewer | Mean cost $ | Mean turns |', '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+  out.push('### Across all E1 tasks', '', '| Setup | Trials | Works* | Added a dep | Wrote tests | Read AGENTS.md via tool | Fetched universal rules URL | Called reviewer | Mean turns |', '| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
   for (const arm of ARMS) {
     const r = e1.filter((x) => x.arm === arm);
     if (!r.length) continue;
     const graded = r.filter((x) => x.acceptance.pass !== null);
-    out.push(`| ${arm} | ${r.length} | ${rate(graded, (x) => x.acceptance.pass)} | ${rate(r, (x) => x.depsAdded.length > 0)} | ${rate(r, (x) => x.testAdded > 0)}${vsBare(e1, arm, (x) => x.testAdded > 0)} | ${rate(r, (x) => x.readAgentsMd)} | ${rate(r, (x) => x.fetchedUniversal)} | ${rate(r, (x) => x.usedReviewer)} | ${fmt(mean(r.map((x) => x.costUsd)), 3)} | ${fmt(mean(r.map((x) => x.turns)))} |`);
+    out.push(`| ${arm} | ${r.length} | ${rate(graded, (x) => x.acceptance.pass)} | ${rate(r, (x) => x.depsAdded.length > 0)} | ${rate(r, (x) => x.testAdded > 0)}${vsBare(e1, arm, (x) => x.testAdded > 0)} | ${rate(r, (x) => x.readAgentsMd)} | ${rate(r, (x) => x.fetchedUniversal)} | ${rate(r, (x) => x.usedReviewer)} | ${fmt(mean(r.map((x) => x.turns)))} |`);
   }
   out.push('', '\\* `remind` has no pass/fail check, so it is excluded from "Works".', '');
 }
@@ -100,7 +100,7 @@ const e3 = load(join(here, 'results/e3-memory/raw'));
 if (e3.length) {
   out.push('## E3: does a lesson from a past session reach the next one?', '',
     'Lesson: "use `parseArgs` from `node:util` for CLI flags, not hand-rolled argv parsing." Task: add `--min-streak <n>` to `habit list`.', '',
-    '| Where the lesson lives | Works | Used parseArgs | Hand-rolled parsing | Supports `--min-streak=2` | Cost $ |', '| --- | --- | --- | --- | --- | --- |');
+    '| Where the lesson lives | Works | Used parseArgs | Hand-rolled parsing | Supports `--min-streak=2` |', '| --- | --- | --- | --- | --- |');
   for (const arm of ['none', 'journal', 'journal-linked', 'rule', 'check']) {
     const r = e3.filter((x) => x.arm === arm);
     if (!r.length) continue;
@@ -108,7 +108,7 @@ if (e3.length) {
     const k = r.filter((x) => x.acceptance.usesParseArgs && !x.acceptance.handRolled).length;
     const kb = base.filter((x) => x.acceptance.usesParseArgs && !x.acceptance.handRolled).length;
     const pv = arm === 'none' ? 1 : fisher(k, r.length - k, kb, base.length - kb);
-    out.push(`| ${arm} | ${rate(r, (x) => x.acceptance.pass)} | ${k}/${r.length}${pv < 0.05 ? ` (p=${pv.toFixed(3)})` : ''} | ${rate(r, (x) => x.acceptance.handRolled)} | ${rate(r, (x) => x.acceptance.equalsForm)} | ${fmt(mean(r.map((x) => x.costUsd)), 3)} |`);
+    out.push(`| ${arm} | ${rate(r, (x) => x.acceptance.pass)} | ${k}/${r.length}${pv < 0.05 ? ` (p=${pv.toFixed(3)})` : ''} | ${rate(r, (x) => x.acceptance.handRolled)} | ${rate(r, (x) => x.acceptance.equalsForm)} |`);
   }
   out.push('');
 }
@@ -117,8 +117,8 @@ const MODELS = [['e6-opus', 'Claude Opus 5.5'], ['e6-haiku', 'Claude Haiku 4.5']
 const e6 = MODELS.flatMap(([dir]) => load(join(here, 'results', dir, 'raw')));
 if (e6.length) {
   out.push('## E6: do other models need the kit more?', '', 'Same tasks, `bare` vs `kit`, 3 trials each.', '',
-    '| Model | Task | Setup | Works | Added a dep | Src lines + | Files | Touched other files | Built + offered options | Called reviewer | Cost $ | Turns |',
-    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+    '| Model | Task | Setup | Works | Added a dep | Src lines + | Files | Touched other files | Built + offered options | Called reviewer | Turns |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
   for (const [dir, label] of MODELS) {
     const rows = load(join(here, 'results', dir, 'raw'));
     for (const task of ['json', 'remind', 'serve']) {
@@ -126,7 +126,7 @@ if (e6.length) {
         const r = rows.filter((x) => x.task === task && x.arm === arm);
         if (!r.length) continue;
         const works = task === 'remind' ? '–' : rate(r, (x) => x.acceptance.pass);
-        out.push(`| ${label} | ${task} | ${arm} | ${works} | ${rate(r, (x) => x.depsAdded.length > 0)} | ${fmt(mean(r.map((x) => x.srcAdded)))} | ${fmt(mean(r.map((x) => x.filesChanged)))} | ${rate(r, (x) => x.otherFilesChanged.length + x.processFilesChanged.length > 0)} | ${rate(r, (x) => x.srcAdded > 0 && offersOptions(x.reply))} | ${rate(r, (x) => x.usedReviewer)} | ${fmt(mean(r.map((x) => x.costUsd)), 3)} | ${fmt(mean(r.map((x) => x.turns)))} |`);
+        out.push(`| ${label} | ${task} | ${arm} | ${works} | ${rate(r, (x) => x.depsAdded.length > 0)} | ${fmt(mean(r.map((x) => x.srcAdded)))} | ${fmt(mean(r.map((x) => x.filesChanged)))} | ${rate(r, (x) => x.otherFilesChanged.length + x.processFilesChanged.length > 0)} | ${rate(r, (x) => x.srcAdded > 0 && offersOptions(x.reply))} | ${rate(r, (x) => x.usedReviewer)} | ${fmt(mean(r.map((x) => x.turns)))} |`);
       }
     }
   }
@@ -138,12 +138,12 @@ if (e7.length) {
   const checks = ['newestFirst', 'idsShown', 'tagFilter', 'removed', 'noReuse'];
   out.push('## E7: a few sentences in, a working app out?', '',
     'Empty project (only a package.json). One 4-sentence spec for a bookmark CLI (`bm add/list/rm`). Hidden checks below.', '',
-    '| Setup | All checks | Newest first | Ids shown | Tag filter | Delete | Ids never reused | Tests green | Added a dep | Code lines | Cost $ | Minutes |',
-    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+    '| Setup | All checks | Newest first | Ids shown | Tag filter | Delete | Ids never reused | Tests green | Added a dep | Code lines | Minutes |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
   for (const arm of ['bare', 'kit-v2', 'kit']) {
     const r = e7.filter((x) => x.arm === arm);
     if (!r.length) continue;
-    out.push(`| ${arm} | ${rate(r, (x) => x.acceptance.pass)} | ${checks.map((c) => rate(r, (x) => x.acceptance[c])).join(' | ')} | ${rate(r, (x) => x.testsPass)} | ${rate(r, (x) => x.depsAdded.length > 0)} | ${fmt(mean(r.map((x) => x.codeAdded)))} | ${fmt(mean(r.map((x) => x.costUsd)), 3)} | ${fmt(mean(r.map((x) => x.wallMs / 60000)))} |`);
+    out.push(`| ${arm} | ${rate(r, (x) => x.acceptance.pass)} | ${checks.map((c) => rate(r, (x) => x.acceptance[c])).join(' | ')} | ${rate(r, (x) => x.testsPass)} | ${rate(r, (x) => x.depsAdded.length > 0)} | ${fmt(mean(r.map((x) => x.codeAdded)))} | ${fmt(mean(r.map((x) => x.wallMs / 60000)))} |`);
   }
   out.push('');
 }
@@ -164,7 +164,6 @@ const reviewSection = (rows, title, taskNote, checks = []) => {
     `| Reviewer flagged defects on a failing solo build (true catch) | ${rate(e4.filter((x) => !x.solo.pass), (x) => !x.review.clean)} |`,
     `| Reviewer flagged defects on a passing solo build (false alarm or extra) | ${rate(e4.filter((x) => x.solo.pass), (x) => !x.review.clean)} |`,
     `| Fix broke a passing build | ${rate(e4.filter((x) => x.solo.pass), (x) => !x.reviewed.pass)} |`,
-    `| Mean cost: implement / review / fix ($) | ${fmt(mean(e4.map((x) => x.solo.costUsd)), 3)} / ${fmt(mean(e4.map((x) => x.review.costUsd)), 3)} / ${fmt(mean(e4.map((x) => x.reviewed.fixCostUsd)), 3)} |`,
     '');
   if (checks.length) {
     out.push('| Requirement | Solo | After review + fix |', '| --- | --- | --- |');
@@ -182,9 +181,7 @@ reviewSection(e4, '## E4: does a fresh-context reviewer catch what a solo agent 
 reviewSection(e4b, '## E4b: same question, harder task', 'three new commands with six hidden requirement checks',
   ['renamed', 'deleteNeedsYes', 'deleted', 'undone', 'unknownMessage', 'noFileCreated']);
 
-const total = [...e1, ...e3, ...e6, ...e7].reduce((s, x) => s + (x.costUsd ?? 0), 0)
-  + [...e4, ...e4b].reduce((s, x) => s + x.solo.costUsd + x.review.costUsd + x.reviewed.fixCostUsd, 0);
-out.push(`**Total API cost of these runs: $${total.toFixed(2)}** (${e1.length + e3.length + e6.length + e7.length} single runs + ${e4.length + e4b.length} review trials).`, '');
+out.push(`**Runs:** ${e1.length + e3.length + e6.length + e7.length} single sessions + ${e4.length + e4b.length} review trials (three sessions each: build, review, fix).`, '');
 
 writeFileSync(join(here, 'results/SUMMARY.md'), out.join('\n'));
 console.log(out.join('\n'));
