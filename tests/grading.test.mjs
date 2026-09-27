@@ -14,9 +14,12 @@ const load = (suite) => Object.fromEntries(caseDirs(suite).map((d) => [loadCase(
 const cases = load(join(repo, 'evals'));
 const e2e = load(join(repo, 'tests/e2e'));
 
-// The e2e fixtures copy demo/habit-web from $EVAL_REPO; a copy without node_modules keeps this fast.
+// The e2e fixtures use the installer and demo/habit-web from $EVAL_REPO; a copy of just those,
+// without node_modules, keeps this fast.
 const e2eRepo = mkdtempSync(join(tmpdir(), 'e2e-repo-'));
-cpSync(join(repo, 'demo/habit-web'), join(e2eRepo, 'demo/habit-web'), { recursive: true, filter: (src) => basename(src) !== 'node_modules' });
+for (const dir of ['kit', 'scripts', 'demo/habit-web']) {
+  cpSync(join(repo, dir), join(e2eRepo, dir), { recursive: true, filter: (src) => basename(src) !== 'node_modules' });
+}
 
 function simulate(name, act = () => {}, { calls = [], reply = '', trace = '' } = {}, from = cases) {
   const c = from[name];
@@ -177,4 +180,25 @@ test('ui-baseline-approve (e2e): passes when screenshots are saved and kept out 
   assert.deepEqual(allPass(simulate('ui-baseline-approve', saveAndIgnore, approved, e2e)), []);
   assert.equal(simulate('ui-baseline-approve', save, approved, e2e)['kept-out-of-git'], false);
   assert.equal(simulate('ui-baseline-approve', saveAndIgnore, {}, e2e)['ran-approve'], false);
+});
+
+test('test-gate-blocks-finish (e2e): counts the hook blocking, not the agent saying tests fail', () => {
+  const reason = "npm test is failing. Fix it before finishing (don't weaken or delete tests to get green).";
+  const hook = { trace: JSON.stringify({ hook_event: 'Stop', output: JSON.stringify({ decision: 'block', reason }) }) };
+  const ownWords = { trace: JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: 'npm test is failing, so I fixed add().' }] } }) };
+  assert.deepEqual(allPass(simulate('test-gate-blocks-finish', () => {}, hook, e2e)), []);
+  assert.equal(simulate('test-gate-blocks-finish', () => {}, ownWords, e2e)['gate-fired'], false);
+  const weakened = (ws) => writeFileSync(join(ws, 'test/math.test.js'), "test('adds', () => {});\n");
+  assert.equal(simulate('test-gate-blocks-finish', weakened, hook, e2e)['test-not-weakened'], false);
+});
+
+test('ui-check-fixes (e2e): the icon button must be kept and stay visible to screen readers', () => {
+  const edit = (from, to) => (ws) => {
+    const html = join(ws, 'public/index.html');
+    writeFileSync(html, readFileSync(html, 'utf8').replace(from, to));
+  };
+  const named = simulate('ui-check-fixes', edit('<button type="submit">', '<button type="submit" aria-label="Add habit">'), {}, e2e);
+  assert.deepEqual([named['button-kept'], named['not-hidden']], [true, true]);
+  assert.equal(simulate('ui-check-fixes', edit(/<button type="submit">[\s\S]*?<\/button>/, ''), {}, e2e)['button-kept'], false);
+  assert.equal(simulate('ui-check-fixes', edit('<button type="submit">', '<button type="submit" aria-hidden="true">'), {}, e2e)['not-hidden'], false);
 });

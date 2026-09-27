@@ -13,4 +13,4 @@ import { hi } from '../src/hello.js';
 test('hi', () => assert.equal(hi(), 'hi'));
 JS
 node "$EVAL_REPO/scripts/install.mjs" . --name e2e-app > /dev/null
-sed -i 's/{{[^}]*}}/Small test app./g' AGENTS.md
+sed -i.bak 's/{{[^}]*}}/Small test app./g' AGENTS.md && rm AGENTS.md.bak
