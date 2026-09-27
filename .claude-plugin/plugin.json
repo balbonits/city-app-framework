@@ -1,6 +1,6 @@
 {
   "name": "city-app",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A small, tested suite for building apps with AI coding agents: project setup, lessons that stick, rule testing, and front-end checks.",
   "author": {
     "name": "John Dilig"

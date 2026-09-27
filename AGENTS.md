@@ -23,6 +23,7 @@ A small, tested kit for building apps with AI coding agents. `kit/` is what gets
 - A rule belongs in `kit/AGENTS.md` only if an experiment shows it changes behavior, or it explains a hook. Anything the model already does unprompted is noise; leave it out.
 - Never hand-edit `experiments/results/*/raw/`; those files are the evidence.
 - Hooks must stay dependency-free Node scripts so they work in any JS project.
+- Raise `version` in `.claude-plugin/plugin.json` when a plugin change ships to `main`: `claude plugin update` skips a version it already has, so existing installs never get the change.
 
 ## Working agreement
 
