@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // rules:test check for the demo's tokens rule: exits 1 if a color is written out anywhere but
 // the :root token blocks of public/*.css (hex, rgb(), hsl(), or a color name), including inline
-// styles in HTML and JS. Lives outside demo/ so the agents being tested can't see it.
+// styles in HTML and JS. Lives outside demo/habit-web so the agents being tested can't see it.
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 

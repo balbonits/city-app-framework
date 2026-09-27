@@ -1,11 +1,11 @@
-// Keeps demo/ honest: still fully set up, and its app tests still pass.
+// Keeps demo/habit-web honest: still fully set up, and its app tests still pass.
 // (Its UI checks need playwright and axe-core installed there; they run with its own npm test.)
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 
 const repo = new URL('..', import.meta.url).pathname;
-const example = new URL('../demo/', import.meta.url).pathname;
+const example = new URL('../demo/habit-web/', import.meta.url).pathname;
 
 test('the example passes setup --check', () => {
   const r = spawnSync('node', ['scripts/install.mjs', example, '--check'], { cwd: repo, encoding: 'utf8' });
