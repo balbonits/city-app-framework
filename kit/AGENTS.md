@@ -24,5 +24,5 @@
 4. If the ask needs a product decision you can't infer (what it does, when, how it behaves), don't guess big: build only the smallest uncontroversial part, then list 2-3 options with your pick.
 5. Prove it works: run the tests and add one for new logic.
 6. If a test or requirement looks wrong or impossible, tell me. Never skip, weaken, or delete tests to get green.
-7. When I correct you in a way that should stick, use the `lesson` skill.
+7. When I correct you in a way that should stick, run `/city-app:lesson` (or add a test or a one-line rule here yourself).
 8. End with 1-3 sentences: what changed, and anything I need to decide.

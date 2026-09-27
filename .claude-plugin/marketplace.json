@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "city-app-framework",
+  "description": "A tested skill suite for building apps with AI coding agents.",
+  "owner": {
+    "name": "John Dilig"
+  },
+  "plugins": [
+    {
+      "name": "city-app",
+      "description": "Project setup, lessons that stick, rule testing, and front-end checks for AI coding agents.",
+      "source": "./",
+      "category": "development"
+    }
+  ]
+}

@@ -4,6 +4,7 @@
 //   - force-pushing
 //   - deploying to production or publishing a package
 //   - deleting test files
+//   - anything matching a project rule in .claude/guard-rules.txt ("<regex> => <message>")
 // Prints a deny decision on stdout, or nothing to let the call through.
 import { readFileSync, existsSync } from 'node:fs';
 import { join, isAbsolute, basename } from 'node:path';
@@ -12,6 +13,7 @@ const payload = JSON.parse(readFileSync(0, 'utf8'));
 const { tool_name: tool, tool_input: input = {} } = payload;
 const root = process.env.CLAUDE_PROJECT_DIR ?? payload.cwd ?? process.cwd();
 const APPROVALS = '.claude/approved-deps.txt';
+const RULES = '.claude/guard-rules.txt';
 
 function deny(reason) {
   process.stdout.write(JSON.stringify({
@@ -33,6 +35,23 @@ const depReason = (names) =>
 
 const packageName = (spec) => spec.replace(/^(@[^/@]+\/[^@]+|[^@]+).*$/, '$1');
 
+const ruleLines = (text) => text.split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#') && l.includes('=>'));
+
+// Project rules, usually added by /city-app:lesson. A pattern matches from the start of a
+// command (after env vars, sudo, npx); begin it with .* to match anywhere. Bad patterns are skipped.
+const customRules = () => {
+  const file = join(root, RULES);
+  if (!existsSync(file)) return [];
+  return ruleLines(readFileSync(file, 'utf8')).flatMap((line) => {
+    const [pattern, ...message] = line.split('=>');
+    try {
+      return [{ re: new RegExp(`^(?:${pattern.trim()})`), message: message.join('=>').trim() }];
+    } catch {
+      return [];
+    }
+  });
+};
+
 // Shell commands, split on && || ; | so chained commands are checked too.
 const segments = (command) => command.split(/&&|\|\||;|\|/).map((part) => part.trim().split(/\s+/));
 
@@ -51,12 +70,23 @@ function checkBash(command) {
   if (/>>?\s*['"]?[^\s'"]*approved-deps\.txt/.test(command)) {
     deny(`Blocked: ${APPROVALS} is the human's approval list. Ask them instead.`);
   }
+  if (/>>?\s*['"]?[^\s'"]*guard-rules\.txt/.test(command)) {
+    deny(`Blocked: edit ${RULES} with the file editor, not the shell, so rule changes can be checked.`);
+  }
+  const rules = customRules();
   for (const segment of segments(command)) {
     const tokens = program(segment);
     const [cmd, sub] = tokens;
     const text = tokens.join(' ');
-    if (/approved-deps\.txt/.test(text) && (WRITERS.has(cmd) || (cmd === 'sed' && tokens.some((t) => /^(-i|--in-place)/.test(t))))) {
+    const writes = WRITERS.has(cmd) || (cmd === 'sed' && tokens.some((t) => /^(-i|--in-place)/.test(t)));
+    if (writes && /approved-deps\.txt/.test(text)) {
       deny(`Blocked: ${APPROVALS} is the human's approval list. Ask them instead.`);
+    }
+    if (writes && /guard-rules\.txt/.test(text)) {
+      deny(`Blocked: edit ${RULES} with the file editor, not the shell, so rule changes can be checked.`);
+    }
+    for (const rule of rules) {
+      if (rule.re.test(text)) deny(`Blocked by ${RULES}: ${rule.message}`);
     }
     if (['npm', 'pnpm', 'yarn', 'bun'].includes(cmd) && ['i', 'install', 'add'].includes(sub)) {
       const names = tokens.slice(2).filter((t) => !t.startsWith('-'))
@@ -89,12 +119,8 @@ function deps(text) {
   }
 }
 
-function checkFileEdit() {
-  const path = input.file_path ?? '';
-  if (path.endsWith(APPROVALS)) deny(`Blocked: ${APPROVALS} is the human's approval list. Ask them instead.`);
-  if (basename(path) !== 'package.json' || path.includes('node_modules')) return;
-  const abs = isAbsolute(path) ? path : join(root, path);
-  const before = existsSync(abs) ? readFileSync(abs, 'utf8') : '{}';
+function contentAfterEdit(abs, fallback) {
+  const before = existsSync(abs) ? readFileSync(abs, 'utf8') : fallback;
   let after = before;
   if (tool === 'Write') after = input.content ?? '';
   if (tool === 'Edit') {
@@ -103,6 +129,23 @@ function checkFileEdit() {
       : before.replace(input.old_string, input.new_string);
   }
   if (tool === 'MultiEdit') for (const e of input.edits ?? []) after = after.replace(e.old_string, e.new_string);
+  return { before, after };
+}
+
+function checkFileEdit() {
+  const path = input.file_path ?? '';
+  const abs = isAbsolute(path) ? path : join(root, path);
+  if (path.endsWith(APPROVALS)) deny(`Blocked: ${APPROVALS} is the human's approval list. Ask them instead.`);
+  if (path.endsWith(RULES)) {
+    const { before, after } = contentAfterEdit(abs, '');
+    const kept = new Set(ruleLines(after));
+    if (ruleLines(before).some((line) => !kept.has(line))) {
+      deny(`Blocked: removing or changing a rule in ${RULES} needs the human's OK. Adding rules is fine.`);
+    }
+    return;
+  }
+  if (basename(path) !== 'package.json' || path.includes('node_modules')) return;
+  const { before, after } = contentAfterEdit(abs, '{}');
   const was = deps(before) ?? new Set();
   const now = deps(after);
   const added = now ? [...now].filter((n) => !was.has(n) && !approved().has(n)) : [];

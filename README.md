@@ -12,25 +12,38 @@ Every piece was tested against a real model (Claude Sonnet 5, plus Opus 5.5 and 
 
 ## Quick start
 
+Install the `city-app` plugin once:
+
 ```sh
-git clone https://github.com/balbonits/city-app-framework
-node city-app-framework/scripts/install.mjs ~/Projects/my-app
+claude plugin marketplace add balbonits/city-app-framework
+claude plugin install city-app@city-app-framework
 ```
 
-Then fill in the `{{...}}` parts of `AGENTS.md` (commands, layout, gotchas) and commit. The installer never overwrites your files; re-running it is safe. It needs Node 22+.
+Then, inside a project, run `/city-app:setup`. It installs the per-project files below and fills in `AGENTS.md` from what the repo shows. Commit the result so every session, local or cloud, gets it.
+
+No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs the same per-project files; fill in the `{{...}}` parts of `AGENTS.md` yourself. Needs Node 22+.
 
 ## What you get
+
+**Skills** (from the plugin):
+
+| Command | What it does | Why it's there |
+| --- | --- | --- |
+| `/city-app:setup` | Installs the per-project files and fills in AGENTS.md | v3's setup kept Claude from loading AGENTS.md at all |
+| `/city-app:lesson` | Turns a correction into a test, a guard rule, or one AGENTS.md line, and logs it | Lessons in a journal were never read; rules and checks were |
+
+More are planned: see [the plan](docs/plan-city-app-skills.md).
+
+**Per-project files** (installed by setup):
 
 | File | What it does | Why it's there |
 | --- | --- | --- |
 | `AGENTS.md` | Project facts plus an 8-line working agreement (28 lines total) | Short files that agents load beat long ones they skip |
 | `CLAUDE.md` | One line: `@AGENTS.md` | Without it, Claude doesn't load AGENTS.md when a CLAUDE.md exists |
-| `.claude/hooks/guard.mjs` | Blocks new dependencies, force-push, prod deploys, publishing, deleting tests | Instructions are advice; hooks are guarantees |
+| `.claude/hooks/guard.mjs` | Blocks new dependencies, force-push, prod deploys, publishing, deleting tests, and any rule in `.claude/guard-rules.txt` | Instructions are advice; hooks are guarantees |
 | `.claude/hooks/test-gate.mjs` | Agent can't finish while tests fail or newly skipped tests appear | "Done" should come with proof |
-| `.claude/agents/reviewer.md` | A fresh-eyes reviewer; say "use the reviewer" when you want one | On request only: on small tasks it cost more than the build and caught nothing |
-| `.claude/skills/lesson/SKILL.md` | Turns your correction into a test or a one-line rule | Lessons in a journal were never read; rules and checks were |
 
-To approve a dependency, add its name to `.claude/approved-deps.txt` yourself. The agent can't edit that file.
+To approve a dependency, add its name to `.claude/approved-deps.txt` yourself. The agent can't edit that file. It can add rules to `.claude/guard-rules.txt`, but not remove them.
 
 ## What we found (Sept 2026)
 
@@ -60,11 +73,14 @@ node experiments/run.mjs --tasks remind --arms bare,kit --trials 5
 
 | Path | What |
 | --- | --- |
-| `kit/` | The files the installer copies into a project |
-| `scripts/install.mjs` | The installer |
-| `tests/` | Tests for the hooks and installer |
-| `experiments/` | The test harness, fixture app, and results |
-| `docs/` | Findings and decision records |
+| `.claude-plugin/` | Plugin manifest (`city-app`) and this repo's marketplace entry |
+| `skills/` | The plugin's skills (`/city-app:*`) |
+| `kit/` | The per-project files setup copies into a project |
+| `scripts/install.mjs` | The installer setup runs |
+| `tests/` | Tests for the hooks and installer (`npm test`) |
+| `evals/` | `claude plugin eval` cases: each skill run with vs without the plugin |
+| `experiments/` | The research harness, fixture app, and results |
+| `docs/` | Findings, plan, lessons and decision records |
 | `AGENTS.md`, `CLAUDE.md` | Instructions for agents working on this repo |
 
 ## History

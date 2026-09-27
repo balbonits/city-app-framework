@@ -13,7 +13,7 @@ test('installs into a fresh folder, creating missing parent folders', () => {
   const dir = join(mkdtempSync(join(tmpdir(), 'inst-')), 'does', 'not', 'exist');
   const r = install(dir, '--name', 'Habit App');
   assert.equal(r.status, 0, r.stderr);
-  for (const f of ['AGENTS.md', 'CLAUDE.md', '.claude/settings.json', '.claude/hooks/guard.mjs', '.claude/hooks/test-gate.mjs', '.claude/agents/reviewer.md', '.claude/skills/lesson/SKILL.md']) {
+  for (const f of ['AGENTS.md', 'CLAUDE.md', '.claude/settings.json', '.claude/hooks/guard.mjs', '.claude/hooks/test-gate.mjs']) {
     assert.ok(existsSync(join(dir, f)), f);
   }
   assert.match(read(dir, 'AGENTS.md'), /^# Habit App/);

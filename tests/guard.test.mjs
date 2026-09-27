@@ -74,6 +74,36 @@ test('env assignments and npx do not hide a blocked command', () => {
   assert.equal(bash(dir, 'npx vercel --prod'), 'deny');
 });
 
+test('project rules in .claude/guard-rules.txt block matching commands only', () => {
+  const dir = project();
+  mkdirSync(join(dir, '.claude'));
+  writeFileSync(join(dir, '.claude/guard-rules.txt'),
+    "# project rules\nnpm run deploy => Deploys are the human's call.\n([ => this bad pattern is skipped\n");
+  assert.equal(bash(dir, 'npm run deploy:prod'), 'deny');
+  assert.equal(bash(dir, 'CI=1 npx npm run deploy'), 'deny');
+  assert.equal(bash(dir, 'npm run dev'), 'allow');
+  assert.equal(bash(dir, 'git commit -m "document npm run deploy"'), 'allow');
+});
+
+test('a guard rule starting with .* matches anywhere in the command', () => {
+  const dir = project();
+  mkdirSync(join(dir, '.claude'));
+  writeFileSync(join(dir, '.claude/guard-rules.txt'), '.*--no-verify => Hooks must run; fix the failure instead.\n');
+  assert.equal(bash(dir, 'git commit --no-verify -m wip'), 'deny');
+  assert.equal(bash(dir, 'git commit -m wip'), 'allow');
+});
+
+test('the agent can add guard rules but not remove or rewrite them', () => {
+  const dir = project();
+  mkdirSync(join(dir, '.claude'));
+  const file = join(dir, '.claude/guard-rules.txt');
+  writeFileSync(file, 'npm run deploy => ask first\n');
+  assert.equal(decide(dir, 'Edit', { file_path: file, old_string: 'ask first\n', new_string: 'ask first\nprisma migrate reset => never\n' }), 'allow');
+  assert.equal(decide(dir, 'Write', { file_path: file, content: 'prisma migrate reset => never\n' }), 'deny');
+  assert.equal(decide(dir, 'Write', { file_path: join(dir, '.claude/new-rules-elsewhere.txt'), content: 'x' }), 'allow');
+  assert.equal(bash(dir, 'echo "x => y" >> .claude/guard-rules.txt'), 'deny');
+});
+
 test('quoted package specs are checked by name', () => {
   const dir = project();
   mkdirSync(join(dir, '.claude'));
