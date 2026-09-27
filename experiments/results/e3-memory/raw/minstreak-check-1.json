@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-check-1",
+  "task": "minstreak",
+  "arm": "check",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 59548,
+  "reply": "Manual CLI smoke testing is blocked in this session (shell syntax/command substitution needs approval, and there's no approval surface here), but the automated test suite covers the new behavior and passes.\n\n`habit list` now accepts `--min-streak <n>` (parsed via `node:util`'s `parseArgs`, matching this repo's convention test) to only show habits with a streak `>= n`; when habits exist but none meet the threshold it prints \"No habits meet the streak threshold\". Added tests in `test/commands.test.js` for both the filtering and empty-result cases; `npm test` passes (10/10).",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 16,
+  "srcRemoved": 6,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 15,
+  "replyAsks": false,
+  "replyWords": 86,
+  "costUsd": 0.2088952,
+  "turns": 16,
+  "durationMs": 58142,
+  "stopReason": "success"
+}

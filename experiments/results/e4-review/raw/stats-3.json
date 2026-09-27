@@ -1,0 +1,24 @@
+{
+  "id": "stats-3",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "costUsd": 0.1794416
+  },
+  "review": {
+    "clean": true,
+    "findings": "All checks match spec (1/30 = 3.33% → 3%, correct rounding).\n\nI checked the CLI wiring, the sort/tie-break logic, the \"No habits yet.\" message, and the `longestStreak`/`last30Percent` math against the spec, plus verified with seeded temp data covering ties, past-vs-current longest streaks, and rounding boundaries — all matched expected output, and `npm test` passes.\n\nNO DEFECTS",
+    "costUsd": 0.1944556
+  },
+  "reviewed": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

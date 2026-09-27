@@ -1,0 +1,41 @@
+{
+  "id": "json-shipped-2",
+  "task": "json",
+  "arm": "shipped",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 26105,
+  "reply": "All tests pass. `habit list --json` now outputs `[{\"name\": \"...\", \"streak\": N}, ...]`, with an empty array when there are no habits.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 12,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 22,
+  "costUsd": 0.1078654,
+  "turns": 10,
+  "durationMs": 24917,
+  "stopReason": "success"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "dates-full-3",
+  "task": "dates",
+  "arm": "full",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 90240,
+  "reply": "The manual CLI smoke test was blocked by the sandbox (shell command with export/chaining needs approval I can't get in this session), but `npm test` already passed all 12 tests, which fully exercises the new date-parsing logic (`resolveDoneDay`, `done` with `dateArg`).\n\nSummary of changes:\n- `src/streak.js`: added `resolveDoneDay(dateArg, today)` — resolves `undefined` → today, `'yesterday'` → today−1 day, or a literal `YYYY-MM-DD` string.\n- `src/commands.js`: `done(name, dateArg, today)` now uses `resolveDoneDay` instead of always marking `today`.\n- `src/cli.js`: `done` command detects a trailing `yesterday` or `YYYY-MM-DD` token in argv and passes it through as `dateArg`; otherwise behaves as before.\n- Updated `test/commands.test.js` (existing calls now pass `today` as the 3rd arg, not 2nd) and added tests for `yesterday` and explicit-date cases in both `commands.test.js` and `streak.test.js`.\n\nOne adjacent note, not implemented: a literal `today` keyword (e.g. `habit done read today`) isn't special-cased — it'd currently be swallowed into the habit name unless you want that added too.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 12,
+  "filesChanged": 5,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 15,
+  "srcRemoved": 4,
+  "testAdded": 27,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 157,
+  "costUsd": 0.24796799999999997,
+  "turns": 13,
+  "durationMs": 88971,
+  "stopReason": "success"
+}

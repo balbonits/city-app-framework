@@ -1,0 +1,38 @@
+{
+  "id": "color-lean-5",
+  "task": "color",
+  "arm": "lean",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 33492,
+  "reply": "All 9 tests pass.\n\n`src/commands.js`'s `list` now wraps each habit line in ANSI green (`\\x1b[32m…\\x1b[0m`) when its streak is 3 or more days, so `habit list` output highlights hot streaks in any ANSI-capable terminal; added two tests covering the colored and uncolored cases. One thing to decide: this always emits color codes regardless of TTY, so piping `habit list` to a file or another program will include raw escape sequences — let me know if you'd rather gate it behind a TTY check (`process.stdout.isTTY`) or an env var like `NO_COLOR`.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 15,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 8,
+  "replyAsks": true,
+  "replyWords": 90,
+  "costUsd": 0.10542720000000003,
+  "turns": 9,
+  "durationMs": 32191,
+  "stopReason": "success"
+}

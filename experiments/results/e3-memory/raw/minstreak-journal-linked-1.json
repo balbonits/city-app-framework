@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-journal-linked-1",
+  "task": "minstreak",
+  "arm": "journal-linked",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 56479,
+  "reply": "Manual CLI smoke test was blocked by this session's sandbox (no approval surface for shell substitution/complex syntax), but `npm test` passes, including new tests covering the `minStreak` filtering logic.\n\n**Summary:** `habit list --min-streak <n>` now filters output to habits with a streak ≥ `n` (0 by default); `cli.js` was switched to `node:util`'s `parseArgs` for flag parsing, per the journal's lesson against hand-rolled `--flag` checks. Added two tests in `test/commands.test.js` covering the filter and the \"no matches\" case; all 9 tests pass.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 17,
+  "srcRemoved": 6,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 81,
+  "costUsd": 0.1682808,
+  "turns": 13,
+  "durationMs": 55232,
+  "stopReason": "success"
+}

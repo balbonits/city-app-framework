@@ -1,0 +1,41 @@
+{
+  "id": "json-shipped-4",
+  "task": "json",
+  "arm": "shipped",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 46545,
+  "reply": "Manual CLI verification is blocked by sandbox approval (no approval surface available in this session), so I'll rely on the automated test suite, which already covers the new behavior and passes.\n\nThe `npm test` run (9/9 passing) confirms it. Summary of changes:\n\n- `src/commands.js`: `list()` now takes an options arg `{ json }`; when true, returns `JSON.stringify` of `[{ name, streak }, ...]`.\n- `src/cli.js`: passes `{ json: args.includes('--json') }` to `list()`, updated usage string.\n- `test/commands.test.js`: added tests for `--json` output (with and without habits).\n\nNote: I couldn't manually run the CLI to eyeball the output since this session has no approval surface for Bash commands — the automated tests are the verification here.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 3,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 15,
+  "replyAsks": false,
+  "replyWords": 115,
+  "costUsd": 0.1797134,
+  "turns": 16,
+  "durationMs": 44926,
+  "stopReason": "success"
+}

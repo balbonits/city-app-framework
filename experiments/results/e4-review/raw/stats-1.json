@@ -1,0 +1,24 @@
+{
+  "id": "stats-1",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "costUsd": 0.2048136
+  },
+  "review": {
+    "clean": true,
+    "findings": "Cleaned up the scratch test directory; repo is back to the original staged diff only.\n\nI checked the implementation against every requirement (output format, current/longest/30% calculations, sort with tie-break, empty-habits message) and verified with seeded temp data covering a current/longest mismatch, a broken streak, a tie in current streak, and a percentage that requires rounding — all outputs matched hand-computed expected values, and `npm test` passes.\n\nNO DEFECTS",
+    "costUsd": 0.29311619999999994
+  },
+  "reviewed": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

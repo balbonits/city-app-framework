@@ -1,0 +1,38 @@
+{
+  "id": "color-lean-2",
+  "task": "color",
+  "arm": "lean",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 73778,
+  "reply": "All tests pass.\n\n`src/commands.js`'s `list()` now wraps each habit line in ANSI green (`\\x1b[32m…\\x1b[0m`) when its streak is 3+ days, applied after padding so alignment stays intact; added a test covering both the colored and plain cases.\n\nOne thing to decide: this colors unconditionally, even when output is piped/redirected (no TTY check, no `NO_COLOR` support). If you want it to auto-disable for non-terminal output, say so and I'll add an `isatty` check in `cli.js`.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 14,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 14,
+  "replyAsks": false,
+  "replyWords": 74,
+  "costUsd": 0.195443,
+  "turns": 15,
+  "durationMs": 72576,
+  "stopReason": "success"
+}

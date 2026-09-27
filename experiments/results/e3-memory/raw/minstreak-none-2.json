@@ -1,0 +1,42 @@
+{
+  "id": "minstreak-none-2",
+  "task": "minstreak",
+  "arm": "none",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 63275,
+  "reply": "All tests pass.\n\n`habit list --min-streak <n>` now filters output to habits with streak ≥ n (parsed in `cli.js`, filtering logic added to `list()` in `commands.js`), with a test covering both a matching and an empty-result case. One decision I made: when the filter matches nothing, it prints \"No habits match the filter.\" — let me know if you'd rather it print nothing or something else.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": false,
+    "usesParseArgs": false,
+    "handRolled": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 19,
+  "srcRemoved": 5,
+  "testAdded": 15,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--min-streak'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": true,
+  "replyWords": 66,
+  "costUsd": 0.14290319999999998,
+  "turns": 12,
+  "durationMs": 61794,
+  "stopReason": "success"
+}

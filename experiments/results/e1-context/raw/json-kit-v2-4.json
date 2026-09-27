@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v2-4",
+  "task": "json",
+  "arm": "kit-v2",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 72170,
+  "reply": "Manual CLI smoke test was blocked by sandboxing (no approval surface for shell commands outside the project dir), but the automated test suite already exercises `list(today, true)` with the same code path the CLI uses, so behavior is verified.\n\n**Summary:** Added a `--json` flag to `habit list`. `src/commands.js`'s `list()` now takes a second `json` param and returns `JSON.stringify` of `{name, done, streak}` per habit (empty array `[]` when there are no habits); `src/cli.js` passes `args.includes('--json')` through. Added two tests covering the JSON output and the empty case — full suite passes (9/9).",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 14,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": false,
+  "replyWords": 92,
+  "costUsd": 0.13768440000000004,
+  "turns": 12,
+  "durationMs": 69407,
+  "stopReason": "success"
+}

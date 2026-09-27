@@ -1,0 +1,41 @@
+{
+  "id": "dates-lean-2",
+  "task": "dates",
+  "arm": "lean",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 92606,
+  "reply": "Manual CLI smoke test was blocked by sandbox permissions (no approval surface available), but `npm test` ran cleanly and covers the new `parseDay` logic.\n\n`habit done <name> [yesterday|YYYY-MM-DD]` now accepts an optional trailing date arg: `parseDay` (added to `src/streak.js`) resolves `\"yesterday\"` or an explicit `YYYY-MM-DD` string, and `src/cli.js` uses it to split the date off the name before calling `done()`; an invalid explicit date (e.g. `2026-13-40`) now returns an `Invalid date \"...\"` message instead of silently corrupting `habits.json`. Nothing needed deciding — behavior matches exactly what was asked.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 19,
+  "srcRemoved": 1,
+  "testAdded": 18,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 16,
+  "replyAsks": false,
+  "replyWords": 88,
+  "costUsd": 0.23220179999999999,
+  "turns": 17,
+  "durationMs": 91354,
+  "stopReason": "success"
+}

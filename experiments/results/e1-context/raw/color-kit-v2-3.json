@@ -1,0 +1,40 @@
+{
+  "id": "color-kit-v2-3",
+  "task": "color",
+  "arm": "kit-v2",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 46928,
+  "reply": "All 8 tests pass, including the new one.\n\n**What changed:** `list()` in `src/commands.js` now wraps any habit line with a streak of 3+ in ANSI green (`\\x1b[32m...\\x1b[0m`); added a test verifying short streaks stay plain and streaks ≥3 get colored.\n\n**Anything to decide:** I applied color unconditionally. Two easy-to-change-later options I didn't build: (1) skip coloring when `NO_COLOR` env var is set, or (2) skip coloring when stdout isn't a TTY (e.g., piped output). Say the word if you want either.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 13,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 81,
+  "costUsd": 0.1280312,
+  "turns": 10,
+  "durationMs": 45753,
+  "stopReason": "success"
+}

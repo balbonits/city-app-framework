@@ -1,0 +1,38 @@
+{
+  "id": "color-shipped-1",
+  "task": "color",
+  "arm": "shipped",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 70375,
+  "reply": "Done. `habit list` now colors any habit with a streak of 3+ days in green (`src/commands.js`), verified via a manual script and confirmed all 7 existing tests still pass.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 1,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 13,
+  "replyAsks": false,
+  "replyWords": 29,
+  "costUsd": 0.16914220000000002,
+  "turns": 14,
+  "durationMs": 69148,
+  "stopReason": "success"
+}

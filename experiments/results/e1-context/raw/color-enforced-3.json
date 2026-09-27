@@ -1,0 +1,38 @@
+{
+  "id": "color-enforced-3",
+  "task": "color",
+  "arm": "enforced",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 44347,
+  "reply": "All 8 tests pass.\n\n`list()` in `src/commands.js` now wraps each habit's line in ANSI green codes when its streak is 3 or more days; added a test covering both the colored and plain cases. Not implemented (didn't seem asked): respecting `NO_COLOR`/non-TTY output — worth adding if `habit list` output is ever piped or logged to a file.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 13,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 57,
+  "costUsd": 0.12454019999999999,
+  "turns": 10,
+  "durationMs": 43028,
+  "stopReason": "success"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "json-kit-4",
+  "task": "json",
+  "arm": "kit",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 65940,
+  "reply": "Manual CLI smoke-testing is blocked in this sandbox (no approval surface for arbitrary `node` invocations), so I relied on the automated test suite, which passes and covers `listJson` directly.\n\n**What changed:** Added `habit list --json`, which prints `[{\"name\",\"streak\"}, ...]` instead of the human-readable table (empty list becomes `[]`, not the \"No habits yet\" message). `src/commands.js` gained a `listJson()` function; `src/cli.js` checks for `--json` in the `list` args and calls it. Added two tests covering populated and empty cases.\n\nOne decision I made without asking: JSON entries include only `name` and `streak` (matching what the plain `list` output already shows), not the raw `done` days array. If you'd rather have the full done-history per habit in the JSON, or a different shape, let me know and I'll adjust.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "codeAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 14,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 15,
+  "replyAsks": true,
+  "replyWords": 127,
+  "costUsd": 0.19335239999999998,
+  "turns": 16,
+  "durationMs": 63263,
+  "stopReason": "success"
+}

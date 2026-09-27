@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-rule-1",
+  "task": "minstreak",
+  "arm": "rule",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 43841,
+  "reply": "Manual CLI smoke test was blocked by the sandbox (no approval surface available), but the automated test suite passes and covers the new filtering logic, so I'll rely on that.\n\n`habit list --min-streak <n>` now only shows habits with a streak ≥ n (both `--min-streak 5` and `--min-streak=5` forms work via `parseArgs`); habits below the threshold are filtered out, and if none qualify it prints a \"No habits with streak >= n\" message. `npm test` passes, including a new test for the filter. One decision you may want to weigh in on: I made `list` with no matches print a message rather than an empty string — let me know if you'd prefer silent empty output instead.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 28,
+  "srcRemoved": 7,
+  "testAdded": 12,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": true,
+  "replyWords": 117,
+  "costUsd": 0.1430744,
+  "turns": 12,
+  "durationMs": 42541,
+  "stopReason": "success"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "dates-lean-5",
+  "task": "dates",
+  "arm": "lean",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 96510,
+  "reply": "Manual CLI smoke-testing is blocked in this sandbox (no approval surface for shell commands touching paths outside the working directory), but the automated test suite already covers the new logic directly, and it passes (11/11).\n\n`habit done <name> [date]` now accepts `yesterday` or an explicit `YYYY-MM-DD` as a trailing argument (parsed via new `parseDate` in `src/streak.js`); with no date it behaves as before. Added tests for `parseDate` (yesterday, explicit date, invalid word, invalid calendar date) and ran `npm test` — all 11 pass.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 16,
+  "srcRemoved": 1,
+  "testAdded": 19,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 19,
+  "replyAsks": false,
+  "replyWords": 83,
+  "costUsd": 0.271748,
+  "turns": 20,
+  "durationMs": 95262,
+  "stopReason": "success"
+}

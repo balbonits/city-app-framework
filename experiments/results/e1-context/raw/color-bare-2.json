@@ -1,0 +1,38 @@
+{
+  "id": "color-bare-2",
+  "task": "color",
+  "arm": "bare",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 58158,
+  "reply": "All 7 tests pass. Habits with a streak of 3+ days now print in green (only in a TTY, so piped output/tests are unaffected) — see `src/commands.js:22`.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": false,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 1,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 27,
+  "costUsd": 0.0982224,
+  "turns": 10,
+  "durationMs": 57047,
+  "stopReason": "success"
+}

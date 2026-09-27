@@ -1,0 +1,41 @@
+{
+  "id": "remind-shipped-4",
+  "task": "remind",
+  "arm": "shipped",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 50436,
+  "reply": "Manual CLI smoke-testing was blocked (no approval surface in this session), but the automated test suite covers the new behavior fully and all 10 tests pass.\n\n**Summary:** Added a `remind` command to the habit tracker: `remind(today)` in `src/commands.js` returns a reminder line for each habit not yet marked done today (or a \"no habits\"/\"all done\" message), wired into `src/cli.js` as `habit remind`, with tests in `test/commands.test.js`. Updated `AGENTS.md`'s command table and `BACKLOG.md`'s shipped section per repo convention.",
+  "acceptance": {
+    "pass": null,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 5,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 12,
+  "srcRemoved": 2,
+  "testAdded": 18,
+  "processFilesChanged": [
+    "AGENTS.md",
+    "BACKLOG.md"
+  ],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 17,
+  "replyAsks": false,
+  "replyWords": 77,
+  "costUsd": 0.17631559999999996,
+  "turns": 18,
+  "durationMs": 49208,
+  "stopReason": "success"
+}

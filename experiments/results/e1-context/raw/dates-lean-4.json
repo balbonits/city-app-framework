@@ -1,0 +1,41 @@
+{
+  "id": "dates-lean-4",
+  "task": "dates",
+  "arm": "lean",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 120829,
+  "reply": "All 12 tests pass.\n\n`habit done <name> yesterday` and `habit done <name> YYYY-MM-DD` now work: `src/cli.js` splits a trailing date token off the args and resolves it via a new `resolveDoneDate` helper in `src/streak.js` (handles `today`, `yesterday`, `YYYY-MM-DD`, else falls back to treating the token as part of the name, unchanged from before). Added tests in `test/streak.test.js` and a new `test/cli.test.js` for end-to-end CLI behavior.\n\nOne thing worth deciding: an invalid date like `2026-13-40` currently falls back silently to being treated as part of the habit name rather than erroring — let me know if you'd rather it print an error instead.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 12,
+  "filesChanged": 4,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 23,
+  "srcRemoved": 1,
+  "testAdded": 56,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 17,
+  "replyAsks": true,
+  "replyWords": 102,
+  "costUsd": 0.2722434,
+  "turns": 18,
+  "durationMs": 119151,
+  "stopReason": "success"
+}

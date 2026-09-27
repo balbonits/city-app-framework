@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v2-2",
+  "task": "json",
+  "arm": "kit-v2",
+  "n": 2,
+  "model": "claude-opus-5-5",
+  "wallMs": 29158,
+  "reply": "I added `habit list --json`. It prints an array like `[{ \"name\": \"run\", \"streak\": 2, \"done\": [\"2026-03-01\", \"2026-03-02\"] }]`, and `[]` when there are no habits. A new test covers both cases and all 8 tests pass. Running the CLI end to end against a temp file needed permission that this session couldn't get, so I haven't done that manual check.\n\nThe changes are in `src/commands.js`, where `list` now takes an option to return JSON, and in `src/cli.js`, which reads the flag and adds `[--json]` to the usage line.\n\nDecision for you: what fields the JSON includes. I picked the third option; it's easy to change:\n1. Only `name` and `streak`, to match the plain-text list.\n2. The raw stored records (`name` and `done`).\n3. **All three**, since scripts probably want the streak without recalculating it and the full history as well.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 3,
+  "testAdded": 10,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": false,
+  "replyWords": 142,
+  "costUsd": 0.1749826,
+  "turns": 12,
+  "durationMs": 27175,
+  "stopReason": "success"
+}

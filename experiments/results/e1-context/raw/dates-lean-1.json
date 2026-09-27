@@ -1,0 +1,40 @@
+{
+  "id": "dates-lean-1",
+  "task": "dates",
+  "arm": "lean",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 88330,
+  "reply": "All tests pass.\n\n`habit done <name> [yesterday|YYYY-MM-DD]` now works — `src/cli.js` pops a trailing \"yesterday\" or ISO date (`YYYY-MM-DD`) off the args and passes it as the date to `done()`; with no date word it still defaults to today. Added `test/cli.test.js` covering all three cases.\n\nOne thing to decide: invalid-looking dates that don't match `yesterday` or `YYYY-MM-DD` (e.g. `sept 1`, `tomorrow`) are currently just treated as part of the habit name rather than erroring — let me know if you'd want those rejected with an error instead.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/cli.js"
+  ],
+  "srcAdded": 22,
+  "srcRemoved": 1,
+  "testAdded": 42,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": true,
+  "replyWords": 87,
+  "costUsd": 0.18439879999999997,
+  "turns": 13,
+  "durationMs": 86812,
+  "stopReason": "success"
+}

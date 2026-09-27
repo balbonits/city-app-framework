@@ -1,0 +1,42 @@
+{
+  "id": "minstreak-none-3",
+  "task": "minstreak",
+  "arm": "none",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 44239,
+  "reply": "No matter — `npm test` already passed and covers the new logic, so the manual CLI smoke test isn't necessary to confirm correctness.\n\nAdded `--min-streak <n>` to `habit list`, filtering output to habits whose current streak is at or above `n` (and reporting when none qualify); added a test covering the filter. `npm test` passes (8/8).",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": false,
+    "usesParseArgs": false,
+    "handRolled": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 15,
+  "srcRemoved": 5,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--min-streak'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": false,
+  "replyWords": 56,
+  "costUsd": 0.1401038,
+  "turns": 12,
+  "durationMs": 42481,
+  "stopReason": "success"
+}

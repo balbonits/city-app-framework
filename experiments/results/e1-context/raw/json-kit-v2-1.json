@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v2-1",
+  "task": "json",
+  "arm": "kit-v2",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 44076,
+  "reply": "Code looks correct. Summary:\n\nAdded `list(today, { json })` support in `src/commands.js`: with `json: true`, it returns `JSON.stringify` of `[{ name, streak }, ...]` (empty array if no habits), bypassing the human-readable formatting. Wired `--json` in `src/cli.js` so `habit list --json` triggers it. Added two tests covering populated and empty cases; `npm test` passes (9/9).\n\nOne thing worth deciding: the JSON output only includes `name` and `streak`, not raw `done` dates — let me know if you want the full history included instead/as well.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 12,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 13,
+  "replyAsks": true,
+  "replyWords": 84,
+  "costUsd": 0.16339340000000002,
+  "turns": 14,
+  "durationMs": 41791,
+  "stopReason": "success"
+}

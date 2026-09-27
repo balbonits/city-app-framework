@@ -1,0 +1,40 @@
+{
+  "id": "color-kit-v2-1",
+  "task": "color",
+  "arm": "kit-v2",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 61722,
+  "reply": "That manual spot-check was blocked by the sandbox (command substitution isn't permitted here), but it's not needed — the new tests already assert the exact ANSI escape sequences (`\\x1b[32m...\\x1b[0m`) appear around a 3+ day streak and are absent below that, and the full suite (9/9) passes.\n\n**What changed:** `habit list` now wraps lines for habits with a streak of 3+ days in green (ANSI `\\x1b[32m`/`\\x1b[0m`), only when stdout is a TTY and `NO_COLOR` isn't set — so piped/redirected output and tests stay plain text. Added two tests covering the colored and uncolored cases.\n\n**Nothing left to decide** — the TTY/`NO_COLOR` gating is a standard, easily-reversible default, not a product fork.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": false,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 13,
+  "srcRemoved": 1,
+  "testAdded": 32,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 110,
+  "costUsd": 0.14785140000000002,
+  "turns": 10,
+  "durationMs": 60497,
+  "stopReason": "success"
+}

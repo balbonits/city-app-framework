@@ -1,0 +1,38 @@
+{
+  "id": "color-enforced-1",
+  "task": "color",
+  "arm": "enforced",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 43715,
+  "reply": "All tests pass.\n\nChanged `list()` in `src/commands.js:22` so any habit with a streak of 3+ days is wrapped in ANSI green, and added tests in `test/commands.test.js`. One thing to decide: colors are applied unconditionally (no TTY check), so piping `habit list` output will include raw ANSI codes — let me know if you'd rather I gate that on `process.stdout.isTTY` in `cli.js`.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 8,
+  "replyAsks": true,
+  "replyWords": 61,
+  "costUsd": 0.10307100000000001,
+  "turns": 9,
+  "durationMs": 42442,
+  "stopReason": "success"
+}

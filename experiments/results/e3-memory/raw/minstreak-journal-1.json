@@ -1,0 +1,42 @@
+{
+  "id": "minstreak-journal-1",
+  "task": "minstreak",
+  "arm": "journal",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 38017,
+  "reply": "All tests pass (8/8).\n\n`habit list --min-streak <n>` now filters output to habits with streak ≥ n; `list()` in `commands.js` gained a `minStreak` param, and `cli.js` parses the flag. Added a test covering the filter and the \"no matches\" message. Nothing to decide — behavior is straightforward.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": false,
+    "usesParseArgs": false,
+    "handRolled": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 11,
+  "srcRemoved": 5,
+  "testAdded": 12,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--min-streak'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": false,
+  "replyWords": 47,
+  "costUsd": 0.1303786,
+  "turns": 12,
+  "durationMs": 36695,
+  "stopReason": "success"
+}

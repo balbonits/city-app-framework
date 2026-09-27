@@ -1,0 +1,41 @@
+{
+  "id": "json-lean-3",
+  "task": "json",
+  "arm": "lean",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 32397,
+  "reply": "All tests pass.\n\n`habit list --json` now prints each habit as `{name, streak}` in a JSON array (`[]` when there are none). Changed `src/cli.js` to parse the flag and `src/commands.js`'s `list()` to accept a `{ json }` option, plus added two tests.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 11,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 42,
+  "costUsd": 0.1121302,
+  "turns": 10,
+  "durationMs": 31095,
+  "stopReason": "success"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "dates-shipped-4",
+  "task": "dates",
+  "arm": "shipped",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 104583,
+  "reply": "That example still works unchanged, no doc update needed. The implementation is complete and tested.\n\n**Summary:** `habit done <name> [date]` now accepts an optional trailing `today`, `yesterday`, or `YYYY-MM-DD` argument (`src/commands.js`). If the last word isn't a recognized date, the whole input is treated as the habit name (so multi-word names like `drink water` still work). Invalid ISO dates return an `Invalid date \"...\"` message. Added 5 tests in `test/commands.test.js`; all 12 tests pass, and I manually verified the CLI end-to-end.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 12,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 23,
+  "srcRemoved": 2,
+  "testAdded": 28,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 1,
+  "newFlags": [],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 23,
+  "replyAsks": false,
+  "replyWords": 81,
+  "costUsd": 0.33357439999999994,
+  "turns": 24,
+  "durationMs": 103196,
+  "stopReason": "success"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "json-lean-2",
+  "task": "json",
+  "arm": "lean",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 32239,
+  "reply": "All tests pass.\n\n`habit list --json` now prints each habit as `{name, done, streak}` in a JSON array; text output is unchanged. Added a test in `test/commands.test.js` covering it. Nothing for you to decide — the JSON shape follows the existing text output's fields (name, done dates, streak).",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 7,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 48,
+  "costUsd": 0.1083684,
+  "turns": 10,
+  "durationMs": 31057,
+  "stopReason": "success"
+}

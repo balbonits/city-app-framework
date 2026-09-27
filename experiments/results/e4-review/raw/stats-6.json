@@ -1,0 +1,24 @@
+{
+  "id": "stats-6",
+  "n": 6,
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "costUsd": 0.1976058
+  },
+  "review": {
+    "clean": true,
+    "findings": "That cleanup was blocked (those `/tmp` scratch files are outside the working directory), but they're harmless leftover test files, not part of the repo. The repo itself is clean (`git status` shows only the 5 diffed files, and I removed the stray gitignored `habits.json`).\n\nI verified the `stats` implementation against every requirement using hand-seeded data (via temp files, since it reads/writes through `HABITS_FILE`) and the existing test suite (12/12 passing):\n\n- Output format `<name>: current <c>, longest <l>, 30d <p>%` — matches exactly.\n- `current`/`longest`/30-day-percent computed correctly, including gaps, duplicate dates, and unsorted date arrays.\n- Sort by current streak descending, ties broken alphabetically — verified with `run`/`zen` (tied at 1) sorting before `nap` (0), and `alpha`/`gamma` (tied at 0) sorting alphabetically.\n- Empty habit list prints exactly `No habits yet.`\n- Rounding behaves correctly (e.g. 2/30 → 7%, 10/30 → 33%).\n\nNO DEFECTS",
+    "costUsd": 0.3014188
+  },
+  "reviewed": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

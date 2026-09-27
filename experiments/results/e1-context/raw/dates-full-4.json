@@ -1,0 +1,41 @@
+{
+  "id": "dates-full-4",
+  "task": "dates",
+  "arm": "full",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 60065,
+  "reply": "Manual CLI smoke testing is blocked here (no approval surface for shell commands with substitutions/chaining), but `npm test` passed all 11 tests, including new coverage for `parseDateArg` (`today`, `yesterday`, ISO dates, and non-date fallback).\n\nSummary of changes:\n- `src/streak.js`: added `parseDateArg(arg, now)` — resolves `\"today\"`, `\"yesterday\"`, or a `YYYY-MM-DD` string to a `Date`; returns `undefined` otherwise.\n- `src/cli.js`: `done` now checks if the last arg is a parseable date; if so, it's stripped from the name and passed as the target date to `commands.done`.\n- `test/streak.test.js`: added tests for `parseDateArg`.\n\nThis means `habit done read yesterday` and `habit done read 2026-09-01` both work now, while `habit done read` still defaults to today.\n\nNote: this doesn't handle habit names that happen to end in \"today\"/\"yesterday\" or a date-shaped word — those would be misparsed as a date arg. That's an edge case I didn't handle since it wasn't part of the ask; flag if you want it addressed.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 15,
+  "srcRemoved": 1,
+  "testAdded": 19,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 13,
+  "replyAsks": false,
+  "replyWords": 157,
+  "costUsd": 0.19855640000000002,
+  "turns": 14,
+  "durationMs": 58520,
+  "stopReason": "success"
+}

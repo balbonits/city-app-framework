@@ -1,0 +1,44 @@
+{
+  "id": "json-kit-1",
+  "task": "json",
+  "arm": "kit",
+  "n": 1,
+  "model": "claude-opus-5-5",
+  "wallMs": 25665,
+  "reply": "`habit list --json` now prints your habits as a JSON array, like `[{ \"name\": \"run\", \"streak\": 1, \"done\": [\"2026-03-02\"] }]`. With no habits it prints `[]`. The formatting is in `list()` in `src/commands.js`, and `src/cli.js` passes the flag through. `npm test` passes, including a new test for the JSON output.\n\nI couldn't run the CLI end-to-end: running it against a temp file needed approval, and this session has no way to grant it. So the flag handling in `cli.js` has only been checked by reading it; try `HABITS_FILE=/tmp/h.json node src/cli.js list --json` to see it work.\n\nDecision for you: I picked the fields `name`, `streak` and `done`. If you'd rather keep it smaller, you could drop `done` and output only `name` and `streak`, matching the text view.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 6,
+  "codeAdded": 6,
+  "srcRemoved": 2,
+  "testAdded": 9,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 8,
+  "replyAsks": false,
+  "replyWords": 127,
+  "costUsd": 0.14972320000000003,
+  "turns": 9,
+  "durationMs": 23508,
+  "stopReason": "success"
+}

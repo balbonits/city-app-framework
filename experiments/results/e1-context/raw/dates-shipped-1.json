@@ -1,0 +1,43 @@
+{
+  "id": "dates-shipped-1",
+  "task": "dates",
+  "arm": "shipped",
+  "n": 1,
+  "model": "claude-sonnet-5",
+  "wallMs": 210271,
+  "reply": "This is good as is — the logic is small and clear. Final summary of the change:\n\n**`habit done` now accepts an optional trailing date** — `habit done read`, `habit done read yesterday`, or `habit done read 2026-09-01`.\n\n- `src/streak.js`: added `parseDay(token, now)`, returning a `Date` for `\"today\"`/`\"yesterday\"`/`YYYY-MM-DD`, or `null` if the token isn't a recognized date.\n- `src/cli.js`: when `done` gets more than one arg, it tries to parse the last one as a date; if it parses, that's the date and the rest is the habit name (so multi-word names like `morning run` still work), otherwise the whole thing is just the name and it defaults to today.\n- `commands.js`'s `done(name, today)` was untouched — it already accepted a `Date`.\n- Added tests: `parseDay` unit tests in `test/streak.test.js`, plus a new `test/cli.test.js` that spawns the real CLI to verify `yesterday`, an ISO date, no date, and multi-word names end-to-end.\n- Updated `README.md` with the new usage examples.\n\nAll 14 tests pass (`npm test`). Note: I couldn't run ad-hoc shell smoke tests directly in this session (no approval surface for Bash), so I verified behavior via the new `test/cli.test.js` integration tests instead, which spawn the actual CLI binary.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 14,
+  "filesChanged": 5,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 13,
+  "srcRemoved": 1,
+  "testAdded": 58,
+  "processFilesChanged": [],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 23,
+  "replyAsks": false,
+  "replyWords": 199,
+  "costUsd": 0.3231881999999999,
+  "turns": 24,
+  "durationMs": 208513,
+  "stopReason": "success"
+}

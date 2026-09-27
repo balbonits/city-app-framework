@@ -1,0 +1,24 @@
+{
+  "id": "stats-2",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "costUsd": 0.193813
+  },
+  "review": {
+    "clean": true,
+    "findings": "Scratch files cleaned up, working tree back to only the staged diff.\n\nI checked every requirement: output format, current/longest/30d calculations, sort by current streak descending with alphabetical tiebreak, and the \"No habits yet.\" empty case. Verified against hand-computed expected values using a seeded `habits.json` (gitignored, so safe to use as scratch data) with multiple habits covering ties, longer historical streaks, and zero-activity habits — all outputs matched exactly. `npm test` also passes (13/13).\n\nNO DEFECTS",
+    "costUsd": 0.4163252
+  },
+  "reviewed": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

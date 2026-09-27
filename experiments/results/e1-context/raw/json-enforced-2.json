@@ -1,0 +1,41 @@
+{
+  "id": "json-enforced-2",
+  "task": "json",
+  "arm": "enforced",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 58161,
+  "reply": "All tests pass.\n\nAdded `--json` to `habit list`: `commands.js`'s `list()` takes an options arg (`{ json }`) that returns a JSON array of `{name, streak}`, and `cli.js` sets it when `--json` is in argv. Added a test covering the JSON output.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 7,
+  "srcRemoved": 2,
+  "testAdded": 7,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": false,
+  "replyWords": 41,
+  "costUsd": 0.1049716,
+  "turns": 11,
+  "durationMs": 56960,
+  "stopReason": "success"
+}

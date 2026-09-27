@@ -1,0 +1,41 @@
+{
+  "id": "json-lean-5",
+  "task": "json",
+  "arm": "lean",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 35431,
+  "reply": "All tests pass (8/8).\n\nAdded `--json` to `habit list`: it prints an array of `{name, streak}` objects (empty array `[]` when there are no habits, instead of the friendly text). `src/commands.js` gained an options param on `list()`, and `src/cli.js` now checks for `--json` in the list args. Added a test covering the JSON output.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 5,
+  "srcRemoved": 2,
+  "testAdded": 7,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 54,
+  "costUsd": 0.1078786,
+  "turns": 10,
+  "durationMs": 34248,
+  "stopReason": "success"
+}

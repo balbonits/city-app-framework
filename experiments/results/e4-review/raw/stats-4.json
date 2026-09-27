@@ -1,0 +1,24 @@
+{
+  "id": "stats-4",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "costUsd": 0.18154299999999998
+  },
+  "review": {
+    "clean": true,
+    "findings": "Clean — only the staged diff remains, no leftover temp files. All spec requirements check out: format string, sort order (current streak desc, then alphabetical), `current`/`longest`/`30d` math (verified against manually seeded data including current-vs-longest divergence and rounding), and the empty-habits message, all matched expected output in both direct module calls and the actual CLI.\n\nNO DEFECTS",
+    "costUsd": 0.24704580000000007
+  },
+  "reviewed": {
+    "pass": true,
+    "correctLines": 5,
+    "firstMismatch": null,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

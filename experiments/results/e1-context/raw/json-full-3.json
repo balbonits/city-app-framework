@@ -1,0 +1,41 @@
+{
+  "id": "json-full-3",
+  "task": "json",
+  "arm": "full",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 44829,
+  "reply": "Done. `list()` now takes an options object (`{ json }`) — `--json` outputs `[{\"name\",\"streak\"}, ...]` instead of the padded text; `cli.js` parses the flag from argv. Verified via a scratch script (since sandboxed Bash here can't run outside the project dir) and the existing test suite still passes unchanged.\n\nOne thing worth flagging per the \"adjacent improvements\" rule: `commands.test.js` has no coverage for the new `--json` path — didn't add it since you didn't ask, but it'd be a natural follow-up if you want it locked in.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 5,
+  "srcRemoved": 2,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 87,
+  "costUsd": 0.1770862,
+  "turns": 13,
+  "durationMs": 43410,
+  "stopReason": "success"
+}

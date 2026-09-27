@@ -1,0 +1,43 @@
+{
+  "id": "json-kit-v2-1",
+  "task": "json",
+  "arm": "kit-v2",
+  "n": 1,
+  "model": "claude-opus-5-5",
+  "wallMs": 22029,
+  "reply": "I added `--json` to `habit list`: `habit list --json` now prints each habit as `{ name, streak, done }` in an indented JSON array. It prints `[]` when there are no habits, not the \"No habits yet\" message. `npm test` passes (8/8), including a new test for the JSON output. I couldn't run the real CLI end to end, because running it against a temp habits file needed approval and this session can't grant it. The CLI change is one line in `src/cli.js`, which passes `--json` through to `list()` in `src/commands.js`.\n\nDecision for you: what the JSON should contain.\n- **Current (my pick):** `name`, `streak` and the full `done` date list, so scripts get the computed streak and the raw history.\n- **Streak only:** `{ name, streak }`, matching what the plain-text list shows.\n- **Raw data:** the stored `habits.json` contents unchanged, with no streak calculated.",
+  "acceptance": {
+    "pass": true,
+    "includesStreak": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 6,
+  "srcRemoved": 2,
+  "testAdded": 10,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--json'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 8,
+  "replyAsks": false,
+  "replyWords": 146,
+  "costUsd": 0.1329962,
+  "turns": 9,
+  "durationMs": 20134,
+  "stopReason": "success"
+}

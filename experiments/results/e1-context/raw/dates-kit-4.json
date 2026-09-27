@@ -1,0 +1,43 @@
+{
+  "id": "dates-kit-4",
+  "task": "dates",
+  "arm": "kit",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 88147,
+  "reply": "All 11 tests pass, including the 4 new ones.\n\n**What changed:** `habit done <name> [date]` now accepts an optional trailing date word — `today`, `yesterday`, or `YYYY-MM-DD` — parsed in `cli.js`; `commands.js`/`streak.js` were untouched since `done()` already accepted a date argument. Added `test/cli.test.js` covering no-date, `yesterday`, explicit date, and multi-word names.\n\nOne thing to decide: if a habit's multi-word name happens to end in a token that looks like a date (e.g. `habit done trip yesterday` meaning a habit literally named \"trip yesterday\"), it'll be parsed as a date instead of part of the name — there's no way to fully disambiguate this from argv alone. I picked the \"last word wins as date if recognized\" heuristic since it matches your examples and is the least surprising default; an alternative would be a `--date=` flag to remove ambiguity entirely, but that felt like more than was asked for.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/cli.js"
+  ],
+  "srcAdded": 18,
+  "codeAdded": 18,
+  "srcRemoved": 1,
+  "testAdded": 54,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 12,
+  "replyAsks": false,
+  "replyWords": 148,
+  "costUsd": 0.1982386,
+  "turns": 13,
+  "durationMs": 86561,
+  "stopReason": "success"
+}

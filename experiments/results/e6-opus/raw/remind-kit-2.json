@@ -1,0 +1,43 @@
+{
+  "id": "remind-kit-2",
+  "task": "remind",
+  "arm": "kit",
+  "n": 2,
+  "model": "claude-opus-5-5",
+  "wallMs": 41170,
+  "reply": "I added a `habit remind` command. It lists the habits you haven't marked done today, and says `All habits done for today.` when there are none left. For now it only shows the list when you run it; it doesn't alert anyone on its own. All 8 tests pass, including a new one for `remind`.\n\nTwo things didn't run because they needed approval and this session can't give it. My first attempt to make all the edits in one shell script was blocked, so I made the same edits one file at a time instead. I also couldn't try the CLI by hand against a temp file, so `habit remind` has only been checked through the test, not run from the terminal.\n\nExample output:\n```\nNot done yet today (2026-03-02):\n- read\n```\n\nThe logic is in `src/commands.js`, the command is wired up in `src/cli.js` (and added to the usage line), and there's a new test in `test/commands.test.js` and a line in the README.\n\n**Decision for you: how should the reminder reach people?**\n1. **Scheduled job (my pick):** document a cron line like `0 20 * * * habit remind`, maybe with a `--quiet` flag so it prints nothing when everything is done. It needs no dependencies and people choose their own time.\n2. **Built-in notifications:** a `habit remind --notify` flag that pops up a desktop alert using the system's own notifier (`notify-send` on Linux, `osascript` on macOS). It's more automatic but behaves differently on each OS.\n3. **Nudge on every run:** `add`, `done` and `list` would also print a pending-habits note. It's zero setup, but it's noisy and only helps if people open the tool anyway.\n\nAlso, \"today\" means the UTC date, like the rest of the app, so a reminder late in the evening could be counting the wrong day for users outside UTC.",
+  "acceptance": {
+    "pass": null,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 4,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 10,
+  "codeAdded": 10,
+  "srcRemoved": 2,
+  "testAdded": 10,
+  "processFilesChanged": [],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 14,
+  "replyAsks": false,
+  "replyWords": 306,
+  "costUsd": 0.2263144,
+  "turns": 15,
+  "durationMs": 40086,
+  "stopReason": "success"
+}

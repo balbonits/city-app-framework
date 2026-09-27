@@ -1,0 +1,41 @@
+{
+  "id": "color-kit-3",
+  "task": "color",
+  "arm": "kit",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 59163,
+  "reply": "All tests pass (10/10).\n\n`list()` in `src/commands.js` now wraps each habit line in ANSI green when its streak is 3+, only when stdout is a TTY (so piped/redirected output stays plain). Added three tests covering the colored case, the uncolored case, and the non-TTY case. Nothing else changed.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": false,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "codeAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 39,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "usedReviewer": false,
+  "usedSubagent": false,
+  "hookDenies": 0,
+  "toolCalls": 10,
+  "replyAsks": false,
+  "replyWords": 48,
+  "costUsd": 0.1513102,
+  "turns": 11,
+  "durationMs": 58023,
+  "stopReason": "success"
+}

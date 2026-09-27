@@ -1,0 +1,43 @@
+{
+  "id": "serve-shipped-5",
+  "task": "serve",
+  "arm": "shipped",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 85354,
+  "reply": "Server stopped and the smoke-test data file cleaned up (habits.json is gitignored, so it never showed in git status anyway).\n\n## Summary\n\nAdded `habit serve`:\n- **`src/server.js`** — `renderPage()` builds an HTML page listing each habit and its current streak (via `store.js`/`streak.js`, HTML-escaped for safety); `startServer(port)` wraps it in a `node:http` server.\n- **`src/cli.js`** — dispatches `serve [port]` (default 3000), logs the URL once listening.\n- **`test/server.test.js`** — covers empty state, streak rendering, and HTML-escaping of habit names.\n- Updated `AGENTS.md` and `README.md` to document the new command/file.\n\nVerified with `npm test` (10/10 passing) and a manual run: `node src/cli.js serve 3987` served a page showing `read` with streak `1`.",
+  "acceptance": {
+    "pass": true,
+    "served": true,
+    "usedEnvPort": false
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 5,
+  "srcFiles": [
+    "src/cli.js",
+    "src/server.js"
+  ],
+  "srcAdded": 64,
+  "srcRemoved": 4,
+  "testAdded": 30,
+  "processFilesChanged": [
+    "AGENTS.md"
+  ],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 28,
+  "replyAsks": false,
+  "replyWords": 110,
+  "costUsd": 0.308007,
+  "turns": 29,
+  "durationMs": 83843,
+  "stopReason": "success"
+}

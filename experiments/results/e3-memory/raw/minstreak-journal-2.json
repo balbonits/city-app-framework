@@ -1,0 +1,42 @@
+{
+  "id": "minstreak-journal-2",
+  "task": "minstreak",
+  "arm": "journal",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 30911,
+  "reply": "All tests pass.\n\n`habit list --min-streak <n>` now only shows habits whose current streak is at least `n` (invalid/missing values behave as no filter). Added tests covering the filtering and the no-match case in `test/commands.test.js`.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": false,
+    "usesParseArgs": false,
+    "handRolled": true
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 13,
+  "srcRemoved": 5,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [
+    "'--min-streak'"
+  ],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": false,
+  "replyWords": 35,
+  "costUsd": 0.1105138,
+  "turns": 10,
+  "durationMs": 29729,
+  "stopReason": "success"
+}

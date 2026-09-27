@@ -1,0 +1,40 @@
+{
+  "id": "minstreak-journal-linked-5",
+  "task": "minstreak",
+  "arm": "journal-linked",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 95654,
+  "reply": "Manual CLI runs are blocked in this sandbox (no approval surface), so I relied on the test suite instead — it passed 9/9, including two new cases for `--min-streak`.\n\n**What changed:** `habit list --min-streak <n>` now filters output to habits with streak ≥ n (prints \"No habits match.\" if none qualify). Rewired `cli.js` to parse flags with `node:util`'s `parseArgs` instead of manual argv slicing, per the journal's lesson from the `--json` flag work. Added tests in `test/commands.test.js`.\n\nNo decisions needed — straightforward filter, no edge cases requiring a product call.",
+  "acceptance": {
+    "pass": true,
+    "equalsForm": true,
+    "usesParseArgs": true,
+    "handRolled": false
+  },
+  "testsPass": true,
+  "testCount": 9,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js"
+  ],
+  "srcAdded": 17,
+  "srcRemoved": 6,
+  "testAdded": 16,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 13,
+  "replyAsks": false,
+  "replyWords": 90,
+  "costUsd": 0.18045819999999999,
+  "turns": 14,
+  "durationMs": 94389,
+  "stopReason": "success"
+}

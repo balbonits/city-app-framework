@@ -1,0 +1,44 @@
+{
+  "id": "serve-shipped-4",
+  "task": "serve",
+  "arm": "shipped",
+  "n": 4,
+  "model": "claude-sonnet-5",
+  "wallMs": 127276,
+  "reply": "All tests pass and the working tree only contains the intended changes. I haven't committed anything — let me know if you'd like me to commit.\n\n## Summary\n\nAdded `habit serve` — a zero-dependency local web server (Node's built-in `http`) that renders an HTML page listing every habit and its current streak.\n\n- **`src/server.js`** (new): `renderPage()` builds the HTML (escapes habit names against injection), `createHabitServer()` returns an `http.Server` that serves it on every request.\n- **`src/commands.js`**: extracted `habitsWithStreaks()` so both `list` (CLI) and the server share the same streak-computation path.\n- **`src/cli.js`**: added a `serve [port]` command (default port 3000), printing the listening URL — kept printing in `cli.js` only, per repo convention.\n- **`test/server.test.js`** (new): covers page rendering (with/without habits, HTML-escaping) and an end-to-end HTTP fetch against a live server.\n- Updated `README.md` and `AGENTS.md` to document the new command and file.\n\nVerified manually: `node src/cli.js add read && node src/cli.js done read && node src/cli.js serve 4173`, then `curl localhost:4173/` returned the expected table row. Full suite: 11/11 passing.",
+  "acceptance": {
+    "pass": true,
+    "served": true,
+    "usedEnvPort": false
+  },
+  "testsPass": true,
+  "testCount": 11,
+  "filesChanged": 6,
+  "srcFiles": [
+    "src/cli.js",
+    "src/commands.js",
+    "src/server.js"
+  ],
+  "srcAdded": 69,
+  "srcRemoved": 12,
+  "testAdded": 45,
+  "processFilesChanged": [
+    "AGENTS.md"
+  ],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": true,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 32,
+  "replyAsks": false,
+  "replyWords": 171,
+  "costUsd": 0.4036885999999999,
+  "turns": 33,
+  "durationMs": 125675,
+  "stopReason": "success"
+}

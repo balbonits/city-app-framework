@@ -1,0 +1,38 @@
+{
+  "id": "color-enforced-2",
+  "task": "color",
+  "arm": "enforced",
+  "n": 2,
+  "model": "claude-sonnet-5",
+  "wallMs": 47324,
+  "reply": "All 8 tests pass.\n\nHabits with a streak of 3+ days now print in green in `habit list` (via ANSI codes in `src/commands.js`); shorter streaks are unchanged. One thing to note: color codes are always emitted, with no check for non-TTY output (e.g. piping to a file/`less`) — let me know if you'd rather I skip coloring when stdout isn't a terminal.",
+  "acceptance": {
+    "pass": true,
+    "colorWhenPiped": true,
+    "plainListIntact": true
+  },
+  "testsPass": true,
+  "testCount": 8,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/commands.js"
+  ],
+  "srcAdded": 8,
+  "srcRemoved": 1,
+  "testAdded": 14,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 9,
+  "replyAsks": true,
+  "replyWords": 62,
+  "costUsd": 0.1282114,
+  "turns": 10,
+  "durationMs": 46094,
+  "stopReason": "success"
+}

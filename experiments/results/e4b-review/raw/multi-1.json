@@ -1,0 +1,33 @@
+{
+  "id": "multi-1",
+  "n": 1,
+  "task": "multi",
+  "model": "claude-sonnet-5",
+  "solo": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "costUsd": 0.25904920000000003
+  },
+  "review": {
+    "clean": true,
+    "findings": "Only the reviewed changes remain staged; no stray files left behind. Everything checks out: rename/delete/undo all match `done`'s unknown-habit message exactly, delete without `--yes` refuses and changes nothing, none of them create `habits.json` for an unknown habit, and all argument parsing (including multi-word names) works correctly in manual CLI testing. Tests pass (17/17).\n\nNO DEFECTS",
+    "costUsd": 0.28682599999999997
+  },
+  "reviewed": {
+    "pass": true,
+    "renamed": true,
+    "deleteNeedsYes": true,
+    "deleted": true,
+    "undone": true,
+    "unknownMessage": true,
+    "noFileCreated": true,
+    "testsPass": true,
+    "fixCostUsd": 0
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "dates-bare-5",
+  "task": "dates",
+  "arm": "bare",
+  "n": 5,
+  "model": "claude-sonnet-5",
+  "wallMs": 45406,
+  "reply": "All existing tests still pass. Note: manual CLI smoke-testing with env vars was blocked by the sandbox (multi-operation Bash commands require approval that isn't available in this session), so I verified logic by reading the code instead.\n\n**Changes:**\n- `src/cli.js`: added `parseDoneArgs`, which strips a trailing `today`/`yesterday`/`YYYY-MM-DD` token from the args and converts it to a `Date`, falling back to today when no such token is present. `done` name can still contain spaces.\n- `README.md`: documented the new optional date argument.\n- `src/commands.js` / `src/streak.js` unchanged — `done(name, today)` already accepted a `Date`, so no API changes needed there.\n\n`node src/cli.js done read yesterday` and `node src/cli.js done read 2026-09-01` now work; `node src/cli.js done read` still defaults to today.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 7,
+  "filesChanged": 2,
+  "srcFiles": [
+    "src/cli.js"
+  ],
+  "srcAdded": 14,
+  "srcRemoved": 1,
+  "testAdded": 0,
+  "processFilesChanged": [],
+  "otherFilesChanged": [
+    "README.md"
+  ],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 11,
+  "replyAsks": false,
+  "replyWords": 120,
+  "costUsd": 0.138711,
+  "turns": 12,
+  "durationMs": 44147,
+  "stopReason": "success"
+}

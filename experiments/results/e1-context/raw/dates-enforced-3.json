@@ -1,0 +1,41 @@
+{
+  "id": "dates-enforced-3",
+  "task": "dates",
+  "arm": "enforced",
+  "n": 3,
+  "model": "claude-sonnet-5",
+  "wallMs": 82017,
+  "reply": "That manual smoke test got blocked (shell substitution syntax isn't auto-approved here), but the unit tests already exercise the actual date-parsing logic directly, and the CLI wiring is a thin pass-through, so I'm confident it's correct.\n\n**What changed:** `habit done <name> [yesterday|YYYY-MM-DD]` now accepts an optional trailing date — added `parseDate` to `src/streak.js` (handles `yesterday` and explicit `YYYY-MM-DD`, rejecting anything else including invalid calendar dates), and `src/cli.js` now splits that token off before calling `done`. Added tests in `test/streak.test.js`; `npm test` passes (10/10).\n\nOne decision I made without asking: if the last word isn't recognized as a date, it's folded into the habit name (existing behavior) — so a habit literally named `yesterday` or `2026-09-01` would be unreachable by that exact name via `done`. Worth flagging but not fixing unless you want it addressed.",
+  "acceptance": {
+    "pass": true,
+    "yesterday": true,
+    "isoDate": true,
+    "multiWordToday": true,
+    "multiWordYesterday": true
+  },
+  "testsPass": true,
+  "testCount": 10,
+  "filesChanged": 3,
+  "srcFiles": [
+    "src/cli.js",
+    "src/streak.js"
+  ],
+  "srcAdded": 18,
+  "srcRemoved": 1,
+  "testAdded": 15,
+  "processFilesChanged": [],
+  "otherFilesChanged": [],
+  "depsAdded": [],
+  "commentLines": 0,
+  "newFlags": [],
+  "readAgentsMd": false,
+  "fetchedUniversal": false,
+  "hookDenies": 0,
+  "toolCalls": 15,
+  "replyAsks": false,
+  "replyWords": 134,
+  "costUsd": 0.207518,
+  "turns": 16,
+  "durationMs": 80692,
+  "stopReason": "success"
+}
