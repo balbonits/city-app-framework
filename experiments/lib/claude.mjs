@@ -50,6 +50,7 @@ export function runClaude({
   budgetUsd = 2,
   transcriptPath,
   timeoutMs = 15 * 60 * 1000,
+  allowed = [],
   disallowed = [],
   extraArgs = [],
 }) {
@@ -62,7 +63,7 @@ export function runClaude({
     '--strict-mcp-config',
     '--permission-mode', 'acceptEdits',
     '--permission-prompts', 'none',
-    '--allowedTools', ALLOWED_TOOLS.join(','),
+    '--allowedTools', [...ALLOWED_TOOLS, ...allowed].join(','),
     '--disallowedTools', ['WebSearch', ...disallowed].join(','),
     '--max-budget-usd', String(budgetUsd),
     '--output-format', 'stream-json',
