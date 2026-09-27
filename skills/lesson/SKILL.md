@@ -17,7 +17,7 @@ If the arguments include `--form=test`, `--form=guard` or `--form=rule`, use exa
 2. **A guard rule.** If the mistake is a command that must never run (a deploy script, a destructive migration, `--no-verify`), add one line to `.claude/guard-rules.txt`:
    `<pattern> => <message>`
    The pattern is a regular expression matched from the start of the command (after env vars, `sudo`, `npx`); start it with `.*` to match anywhere. Example: `npm run deploy => Deploys are the human's call. Say it's ready and stop.` Use the file editor, not the shell. This needs the guard hook from `/city-app:setup`; if `.claude/hooks/guard.mjs` is missing, suggest running setup instead.
-3. **One line in AGENTS.md.** If neither can detect it, add one line under "Gotchas" or "Working agreement": the rule plus the reason, in one sentence. Then save how to test the line, so `/city-app:rules:test` can measure it now and `/city-app:rules:prune` can re-check it after a model update. No sessions run:
+3. **One line in AGENTS.md.** If neither can detect it, add one line under "Gotchas" or "Working agreement": the rule plus the reason, in one sentence. If a shell command could tell from the code whether the rule was followed (say, `grep -rqw parseArgs src`), also save how to test the line, so `/city-app:rules:test` can measure it now and `/city-app:rules:prune` can re-check it after a model update. No sessions run:
    `node "${CLAUDE_PLUGIN_ROOT}/scripts/rules-test.mjs" --rule '<the line>' --task '<a small ask where the mistake would happen again>' --check '<a shell command that exits 0 when it's done right>' --save-only`
 4. **Nothing.** If it was a one-off, or the code already makes it obvious, write nothing and say so.
 

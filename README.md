@@ -29,15 +29,14 @@ No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs th
 
 | Command | What it does | Why it's there |
 | --- | --- | --- |
-| `/city-app:setup` | Installs the per-project files and fills in AGENTS.md | v3's setup kept Claude from loading AGENTS.md at all |
+| `/city-app:setup` | Installs the per-project files and fills in AGENTS.md (`--check` only reports) | v3's setup kept Claude from loading AGENTS.md at all |
 | `/city-app:start` | Starts an app or feature from a short spec, tests first: writes the requirements to `docs/spec.md`, turns each into a failing acceptance test, then builds until they pass | Agents already build from a short spec; this adds the proof |
-| `/city-app:lesson` | Turns a correction into a test, a guard rule, or one AGENTS.md line, and logs it | Lessons in a journal were never read; rules and checks were |
+| `/city-app:lesson` | Turns a correction into a test, a guard rule, or one AGENTS.md line (saving how to test it), and logs it | Lessons in a journal were never read; rules and checks were |
 | `/city-app:rules:test` | Checks whether one AGENTS.md rule changes what the agent does on your project: the same task with and without it, each run scored by a check. Shows the plan and asks before using your usage | Many rules make no difference; this shows which ones earn their place |
-
-| `/city-app:rules:prune` | Re-tests the rules saved by `rules:test` (for example after a model update) without their line, and suggests cuts; you approve each one. Shows the plan and asks before using your usage | A rule that helped one model can be dead weight on the next |
+| `/city-app:rules:prune` | Re-tests the saved rules (for example after a model update) without their line, and suggests cuts; you approve each one. Shows the plan and asks before using your usage | A rule that helped one model can be dead weight on the next |
+| `/city-app:ui:check` | Checks the pages you changed for accessibility problems, console errors, and layouts wider than the screen, at phone, tablet and desktop sizes. `--add-test` puts the checks in `npm test`, so the finish gate enforces them | Front-end quality as pass/fail checks, not AI opinion |
 | `/city-app:ui:baseline` | Approves how the pages look now; after that, a page that looks different fails the UI check with a diff image | Catches the CSS change that quietly broke another page |
 | `/city-app:ui:tokens` | Fails when a color is written out instead of coming from a design token (`var(--name)`), with file:line fix-its; `--add-test` puts it in `npm test` | One place for colors keeps themes and contrast fixes easy |
-| `/city-app:ui:check` | Checks the pages you changed for accessibility problems, console errors, and layouts wider than the screen, at phone, tablet and desktop sizes. `--add-test` puts the checks in `npm test`, so the finish gate enforces them | Front-end quality as pass/fail checks, not AI opinion |
 
 **See it in use:** [`demo/`](demo/) holds small projects built with the kit, one per use case. [`demo/habit-web`](demo/habit-web/) uses every part, with the evidence for each.
 
@@ -73,7 +72,7 @@ The harness in [`experiments/`](experiments/) runs headless Claude Code against 
 ```sh
 npm test                                   # hooks, installer, eval graders (free, offline)
 node evals/run-local.mjs --runs 2          # skill evals, with the plugin (--baseline adds runs without it)
-node evals/run-local.mjs --dir tests/e2e --no-plugin --runs 1   # live hook checks
+node evals/run-local.mjs --dir tests/e2e --runs 1   # live checks of hooks and commands in real projects
 node experiments/validate-scorer.mjs /tmp/check
 node experiments/run.mjs --tasks remind --arms bare,kit --trials 5
 ```
@@ -85,14 +84,14 @@ Everything after `npm test` runs real Claude sessions and uses your plan's usage
 | Path | What |
 | --- | --- |
 | `.claude-plugin/` | Plugin manifest (`city-app`) and this repo's marketplace entry |
-| `skills/` | The plugin's one-level skills (`/city-app:setup`, `/city-app:lesson`) |
-| `commands/` | Its two-level commands (`/city-app:rules:test`, `/city-app:ui:check`) |
+| `skills/` | The plugin's one-level skills (`/city-app:setup`, `/city-app:start`, `/city-app:lesson`) |
+| `commands/` | Its two-level commands (`/city-app:rules:test`, `rules:prune`, `ui:check`, `ui:baseline`, `ui:tokens`) |
 | `kit/` | The per-project files setup copies into a project |
-| `scripts/` | The installer setup runs, plus the `rules-test` and `ui-check` scripts the commands run |
-| `tests/` | Tests for the hooks, installer and eval graders (`npm test`); `tests/e2e/` holds live hook checks |
+| `scripts/` | The installer setup runs, plus the scripts the commands run (`rules-test`, `rules-prune`, `ui-check`, `tokens-check`) |
+| `tests/` | Tests for the hooks, scripts, installer and eval graders (`npm test`); `tests/e2e/` holds live checks of the hooks and commands in real projects |
 | `evals/` | Skill eval cases (`claude plugin eval` format) and `run-local.mjs`, which runs them where the official runner's sandbox can't start |
 | `demo/` | Small projects built with the kit, one per use case, each with its own `npm test` |
-| `experiments/` | The research harness, fixture app, and results; `checks/` holds the demo's rules:test checks, kept out of its sight |
+| `experiments/` | The research harness, fixture app, and results; `checks/` holds hidden checks for live runs, kept out of the agents' sight |
 | `docs/` | Findings, plan, lessons and decision records |
 | `AGENTS.md`, `CLAUDE.md` | Instructions for agents working on this repo |
 

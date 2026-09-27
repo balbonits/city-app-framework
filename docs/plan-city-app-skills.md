@@ -1,6 +1,6 @@
 # Plan: the `/city-app:*` skill suite
 
-Status: Phase 1 is built and tested (`setup`, `lesson`, `rules:test`, `ui:check`), with `demo/habit-web` as its first real project. Phase 2 is optional.
+Status: Phase 1 and Phase 2 are built and tested (`setup`, `start`, `lesson`, `rules:test`, `rules:prune`, `ui:check`, `ui:baseline`, `ui:tokens`; `rules:capture` became part of `lesson`). The projects in `demo/` show them in use.
 
 ## Goal
 
@@ -53,7 +53,7 @@ Our own experiments already have working code for gaps 1 and 4.
 | `/city-app:rules:test` | A/B-tests one AGENTS.md rule on your repo: N headless runs with and without it, scored by fixed checks; shows the plan and asks before using your usage (hooks and skills later) | Gap 1. Reuses the experiment harness |
 | `/city-app:ui:check` | Runs fixed checks on the pages you changed: accessibility scan (axe), console errors, screenshots at phone/tablet/desktop sizes; fails with a fix-it message | Gap 5. Built for front-end work |
 
-**Phase 2: only after Phase 1 proves useful.**
+**Phase 2: built once Phase 1 proved useful.**
 
 | Name | What it does |
 | --- | --- |
@@ -71,12 +71,18 @@ Our own experiments already have working code for gaps 1 and 4.
 .claude-plugin/plugin.json        name: city-app
 .claude-plugin/marketplace.json   this repo is its own marketplace
 skills/setup/SKILL.md             /city-app:setup
+skills/start/SKILL.md             /city-app:start
 skills/lesson/SKILL.md            /city-app:lesson
 commands/rules/test.md            /city-app:rules:test
+commands/rules/prune.md           /city-app:rules:prune
 commands/ui/check.md              /city-app:ui:check
+commands/ui/baseline.md           /city-app:ui:baseline
+commands/ui/tokens.md             /city-app:ui:tokens
 scripts/                          shared Node scripts the commands run
 kit/                              files setup copies into a project
 evals/                            claude plugin eval cases for the suite
+tests/e2e/                        live checks of the hooks and commands in real projects
+demo/                             small projects built with the kit, one per use case
 experiments/                      existing research harness (rules:test reuses lib/)
 ```
 
@@ -95,16 +101,16 @@ experiments/                      existing research harness (rules:test reuses l
 1. Plugin skeleton + `setup` + `lesson` → validate + eval → **stop and show you**.
 2. `rules:test` → reproduce the parseArgs result → **stop**.
 3. `ui:check` → pass/fail on the planted bugs → **stop**.
-4. Phase 2 only if you approve it.
+4. Phase 2 → free tests plus one small live check per item → merge.
 
-Before any batch of test runs: ask first, in plain words, with the number of test sessions.
+Before any batch of test runs: keep it to the smallest batch that proves the point and report the number of test sessions; ask first only for a very large batch (AGENTS.md, rule 9).
 
 ## Finish line
 
 1. **`/city-app:ui:check`**: a self-contained script (axe scan, console errors, page wider than the screen, screenshots at phone/tablet/desktop) plus the command. `--add-test` copies it into the project's `npm test`, so the finish gate enforces it.
 2. **`demo/habit-web`**: the kit's first real project, a small no-framework web app. It uses every part: setup, the guard (approved deps, a guard rule), the finish gate, lessons in all three forms, a rules:test result, and UI checks. Its README maps each idea to the file and the evidence.
 3. **Real runs, asked for first:** rules:test on the example, a ui:check eval, and one live run where the gate catches a UI bug.
-4. **Phase 2 stays optional**; the example shows which items would earn a place.
+4. **Phase 2 is built**: `start` (shown in `demo/bookmarks-cli`), `rules:prune`, `ui:baseline` and `ui:tokens` (shown in `demo/habit-web`), with `rules:capture` folded into `lesson`.
 
 ## Decisions (made)
 

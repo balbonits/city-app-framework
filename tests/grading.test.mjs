@@ -3,20 +3,25 @@
 // uses no model.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, readFileSync, writeFileSync, mkdirSync, appendFileSync, existsSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { mkdtempSync, readFileSync, writeFileSync, mkdirSync, appendFileSync, existsSync, cpSync } from 'node:fs';
+import { basename, join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { caseDirs, frontmatter, grade, listFiles, loadCase } from '../evals/lib/grading.mjs';
 
 const repo = resolve(new URL('..', import.meta.url).pathname);
-const suite = join(repo, 'evals');
-const cases = Object.fromEntries(caseDirs(suite).map((d) => [loadCase(d, suite).name, loadCase(d, suite)]));
+const load = (suite) => Object.fromEntries(caseDirs(suite).map((d) => [loadCase(d, suite).name, loadCase(d, suite)]));
+const cases = load(join(repo, 'evals'));
+const e2e = load(join(repo, 'tests/e2e'));
 
-function simulate(name, act = () => {}, { calls = [], reply = '', trace = '' } = {}) {
-  const c = cases[name];
+// The e2e fixtures copy demo/habit-web from $EVAL_REPO; a copy without node_modules keeps this fast.
+const e2eRepo = mkdtempSync(join(tmpdir(), 'e2e-repo-'));
+cpSync(join(repo, 'demo/habit-web'), join(e2eRepo, 'demo/habit-web'), { recursive: true, filter: (src) => basename(src) !== 'node_modules' });
+
+function simulate(name, act = () => {}, { calls = [], reply = '', trace = '' } = {}, from = cases) {
+  const c = from[name];
   const workspace = mkdtempSync(join(tmpdir(), 'grade-'));
-  const s = spawnSync('bash', [join(c.dir, c.scaffold)], { cwd: workspace, encoding: 'utf8' });
+  const s = spawnSync('bash', [join(c.dir, c.scaffold)], { cwd: workspace, encoding: 'utf8', env: { ...process.env, EVAL_REPO: e2eRepo } });
   assert.equal(s.status, 0, s.stderr);
   const before = new Set(listFiles(workspace));
   act(workspace);
@@ -133,9 +138,43 @@ test('rules-prune-asks-first: passes when it shows the plan and asks, fails on a
   assert.equal(simulate('rules-prune-asks-first', () => {}, { ...asked, reply: 'Pruning now.' })['asks-for-ok'], false);
 });
 
-test('lesson-form-rule: passes with a rule only, fails if a test was written despite --form=rule', () => {
-  const line = (ws) => { appendFileSync(join(ws, 'AGENTS.md'), '- Parse CLI flags with parseArgs.\n'); logLesson(ws, 'flags'); };
+test('lesson-form-rule: passes with a rule and a saved test spec, fails if a test was written despite --form=rule', () => {
+  const lineOnly = (ws) => { appendFileSync(join(ws, 'AGENTS.md'), '- Parse CLI flags with parseArgs.\n'); logLesson(ws, 'flags'); };
+  const line = (ws) => { lineOnly(ws); writeFileSync(join(ws, 'docs/rule-tests.json'), '{ "rules": [] }\n'); };
   assert.deepEqual(allPass(simulate('lesson-form-rule', line)), []);
+  assert.equal(simulate('lesson-form-rule', lineOnly)['test-spec-saved'], false);
   const wrote = simulate('lesson-form-rule', line, { calls: [{ name: 'Write', input: { file_path: 'test/flags.test.js' } }] });
   assert.equal(wrote['no-test-written'], false);
+});
+
+test('e2e cases load, and every grader has a known type and a valid pattern', () => {
+  assert.ok(Object.keys(e2e).length >= 7);
+  for (const c of Object.values(e2e)) {
+    assert.ok(existsSync(join(c.dir, c.scaffold)), `${c.name} scaffold`);
+    for (const g of c.graders) {
+      assert.ok(['regex', 'file_exists', 'tool_used', 'command'].includes(g.data.type), `${c.name}/${g.name} type`);
+      if (g.data.pattern) new RegExp(g.data.pattern, g.data.flags);
+      if (g.data.input_match) new RegExp(g.data.input_match);
+    }
+  }
+});
+
+test('ui-tokens-fixes (e2e): passes when the planted color becomes a token, fails if it is deleted or left', () => {
+  const swap = (to) => (ws) => {
+    const css = join(ws, 'public/styles.css');
+    writeFileSync(css, readFileSync(css, 'utf8').replace('.empty { color: gray; }', to));
+  };
+  const checked = { calls: [{ name: 'Bash', input: { command: 'node "/p/scripts/tokens-check.mjs"' } }] };
+  assert.deepEqual(allPass(simulate('ui-tokens-fixes', swap('.empty { color: var(--muted); }'), checked, e2e)), []);
+  assert.equal(simulate('ui-tokens-fixes', swap(''), checked, e2e)['kept-style-with-token'], false);
+  assert.equal(simulate('ui-tokens-fixes', () => {}, checked, e2e).clean, false);
+});
+
+test('ui-baseline-approve (e2e): passes when screenshots are saved and kept out of git, fails otherwise', () => {
+  const approved = { calls: [{ name: 'Bash', input: { command: "node \"/p/scripts/ui-check.mjs\" --approve --start 'PORT={port} npm start'" } }] };
+  const save = (ws) => { mkdirSync(join(ws, '.ui-baselines')); writeFileSync(join(ws, '.ui-baselines/home-phone.png'), ''); };
+  const saveAndIgnore = (ws) => { save(ws); appendFileSync(join(ws, '.gitignore'), '.ui-baselines/\n'); };
+  assert.deepEqual(allPass(simulate('ui-baseline-approve', saveAndIgnore, approved, e2e)), []);
+  assert.equal(simulate('ui-baseline-approve', save, approved, e2e)['kept-out-of-git'], false);
+  assert.equal(simulate('ui-baseline-approve', saveAndIgnore, {}, e2e)['ran-approve'], false);
 });
