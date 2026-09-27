@@ -1,0 +1,34 @@
+{
+  "date": "2026-09-27",
+  "model": "claude-sonnet-5",
+  "prompt": "/city-app:start <the spec in docs/spec.md>",
+  "score": 1,
+  "graders": [
+    {
+      "grader": "hidden-checks",
+      "pass": true,
+      "why": "exit 0"
+    },
+    {
+      "grader": "spec-saved",
+      "pass": true,
+      "why": "created"
+    },
+    {
+      "grader": "tests-first",
+      "pass": true,
+      "why": "exit 0"
+    },
+    {
+      "grader": "tests-pass",
+      "pass": true,
+      "why": "exit 0"
+    }
+  ],
+  "filesWrittenInOrder": [
+    "Write docs/spec.md",
+    "Write test/acceptance.test.js",
+    "Write bm.js"
+  ],
+  "reply": "All 10 requirements plus a bonus edge case (deleting a nonexistent id) pass against `bm.js`, verified via `npm test` (11/11 green). Spec is at `docs/spec.md`, tests at `test/acceptance.test.js`.\n\nOne assumption worth confirming: the spec's `[tags]` in the list format could mean literal brackets (e.g. `[work, urgent]`) rather than plain space-separated tags — I went with the simpler space-separated reading (`3 https://x.com work urgent`), documented in the Assumptions section. Let me know if you'd prefer the bracketed form instead."
+}

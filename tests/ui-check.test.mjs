@@ -59,7 +59,7 @@ test('--add-test copies the script and adds a test, never overwriting', () => {
 });
 
 test('starts the app and waits for it, and refuses a port that is already taken', async () => {
-  const port = 40000 + Math.floor(Math.random() * 20000);
+  const port = await freePort(); // a random port could collide with ports the OS hands out
   const url = `http://localhost:${port}`;
   const child = await startServer(`node -e "require('http').createServer((q, s) => s.end('ok')).listen(${port})"`, url, tmp(), 10_000);
   assert.equal(await (await fetch(url)).text(), 'ok');

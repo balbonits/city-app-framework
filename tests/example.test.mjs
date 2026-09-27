@@ -13,6 +13,16 @@ test('the example passes setup --check', () => {
   assert.doesNotMatch(r.stdout, /missing|warning/);
 });
 
+test('demo/bookmarks-cli is set up, and its acceptance tests pass', () => {
+  const demo = new URL('../demo/bookmarks-cli/', import.meta.url).pathname;
+  const check = spawnSync('node', ['scripts/install.mjs', demo, '--check'], { cwd: repo, encoding: 'utf8' });
+  assert.equal(check.status, 0, check.stdout);
+  const env = { ...process.env };
+  delete env.NODE_TEST_CONTEXT;
+  const r = spawnSync('node', ['--test'], { cwd: demo, env, encoding: 'utf8' });
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+});
+
 test("the example's app and lesson tests pass", () => {
   const env = { ...process.env };
   delete env.NODE_TEST_CONTEXT;

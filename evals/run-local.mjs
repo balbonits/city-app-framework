@@ -29,6 +29,7 @@ const { values: opt } = parseArgs({
 });
 
 const repo = resolve(new URL('..', import.meta.url).pathname);
+process.env.EVAL_REPO = repo; // scaffolds and command graders can reach the repo's checks
 const suite = resolve(repo, opt.dir);
 const wanted = opt.cases?.split(',');
 const cases = caseDirs(suite).map((d) => loadCase(d, suite)).filter((c) => !wanted || wanted.includes(c.name));

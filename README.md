@@ -30,6 +30,7 @@ No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs th
 | Command | What it does | Why it's there |
 | --- | --- | --- |
 | `/city-app:setup` | Installs the per-project files and fills in AGENTS.md | v3's setup kept Claude from loading AGENTS.md at all |
+| `/city-app:start` | Starts an app or feature from a short spec, tests first: writes the requirements to `docs/spec.md`, turns each into a failing acceptance test, then builds until they pass | Agents already build from a short spec; this adds the proof |
 | `/city-app:lesson` | Turns a correction into a test, a guard rule, or one AGENTS.md line, and logs it | Lessons in a journal were never read; rules and checks were |
 | `/city-app:rules:test` | Checks whether one AGENTS.md rule changes what the agent does on your project: the same task with and without it, each run scored by a check. Shows the plan and asks before using your usage | Many rules make no difference; this shows which ones earn their place |
 

@@ -101,7 +101,7 @@ function isGreen(line) {
   return false;
 }
 
-const acceptance = {
+export const acceptance = {
   json(dir) {
     const file = seedHabits();
     const r = run(dir, ['list', '--json'], { HABITS_FILE: file });
