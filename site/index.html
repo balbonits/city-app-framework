@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laws and customs: which instructions change what AI coding agents do (City App Framework white paper)</title>
-  <meta name="description" content="A case study of City App Framework: 285 scored Claude Code sessions on which instructions change what AI coding agents do, and the small, tested kit that came out of it.">
+  <title>Structuring AI-assisted software development: a case study of City App Framework (white paper)</title>
+  <meta name="description" content="City App Framework gives AI-assisted software and web development a structure. This case study tests which parts of that structure change what AI coding agents do, across 285 scored Claude Code sessions, and describes the framework rebuilt from the evidence.">
   <meta name="author" content="John Dilig">
-  <meta property="og:title" content="Laws and customs: which instructions change what AI coding agents do">
-  <meta property="og:description" content="A case study of City App Framework, from v3 to v4: most rules changed nothing; a few specific rules, loaded context, hooks and checks did.">
+  <meta property="og:title" content="Structuring AI-assisted software development: a case study of City App Framework">
+  <meta property="og:description" content="Laws, customs and tests: what a framework should give an AI coding agent, and the evidence for each part.">
   <meta property="og:type" content="article">
   <meta name="theme-color" content="#00674a">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -21,32 +21,32 @@
   <header class="wrap">
     <div class="sign">
       <div class="sign-top">
-        <h1>Laws and customs: which instructions change what AI coding agents do</h1>
+        <h1>Structuring AI-assisted software development: a case study of City App Framework</h1>
         <p class="plate">v0.2.0</p>
       </div>
-      <p class="subtitle">A case study of City App Framework, from v3 to v4</p>
+      <p class="subtitle">Laws, customs and tests: what a framework should give an AI coding agent, and the evidence for each part</p>
       <nav aria-label="Jump to">
         <ul class="exits">
-          <li><a href="#abstract"><span>Abstract</span><svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v10h5l-7 8-7-8h5z"/></svg></a></li>
-          <li><a href="#results"><span>Results</span><svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v10h5l-7 8-7-8h5z"/></svg></a></li>
+          <li><a href="#framework"><span>The framework</span><svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v10h5l-7 8-7-8h5z"/></svg></a></li>
+          <li><a href="#results"><span>The evidence</span><svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v10h5l-7 8-7-8h5z"/></svg></a></li>
           <li><a href="#conclusion"><span>Conclusion</span><svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v10h5l-7 8-7-8h5z"/></svg></a></li>
         </ul>
       </nav>
     </div>
-    <p class="byline"><strong>John Dilig</strong>. White paper, September 2026. Code, raw data and the kit described here: <a href="https://github.com/balbonits/city-app-framework">github.com/balbonits/city-app-framework</a>.</p>
+    <p class="byline"><strong>John Dilig</strong>. White paper, September 2026. Code, raw data and the framework described here: <a href="https://github.com/balbonits/city-app-framework">github.com/balbonits/city-app-framework</a>.</p>
   </header>
 
   <main id="main" class="wrap">
     <article class="paper">
       <section class="abstract" id="abstract" aria-labelledby="abstract-title">
         <h2 id="abstract-title">Abstract</h2>
-        <p><strong>Background.</strong> AI coding agents start every session with no memory of the project or of the person they work for. Developers make up for it with instruction files, rule collections and journals, but rarely measure whether any of it changes what the agent does.</p>
-        <p><strong>Case.</strong> City App Framework v3 was such a collection: a universal AGENTS.md, about 40 convention documents, decision patterns and a journal of lessons.</p>
-        <p><strong>Method.</strong> We ran 285 fresh, headless Claude Code sessions and 16 paired review trials, mostly on a small Node.js app under six instruction setups, and scored every run with fixed checks the agent could not see.</p>
+        <p><strong>Background.</strong> AI coding agents can build working software from a few sentences, but they start every session without the project's facts, the preferences of the person they work for, or the lessons of earlier sessions. Giving that work a lasting structure is left to the developer, and the frameworks that try usually ship large rule sets that nobody tests.</p>
+        <p><strong>Case.</strong> City App Framework set out to give AI-assisted software and web development that structure: a project scaffolder (v1), a "city" of AI roles (v2), and a rulebook of about 40 convention documents on how to build (v3).</p>
+        <p><strong>Method.</strong> We tested which parts of that structure change what an agent does: 285 fresh, headless Claude Code sessions and 16 paired review trials, mostly on a small Node.js app under six setups, each scored by fixed checks the agent could not see. We then rebuilt the framework from the parts that worked and evaluated it on a web app and a command-line app.</p>
         <p><strong>Results.</strong> v3's universal rules never reached the agent: 0 of 25 runs fetched them. Rules against overbuilding and new dependencies had no measurable effect, because the model already behaved; 0 of 285 runs added a dependency. Two specific rules did change behavior: offering options on a vague request (0 of 5 runs without the rule, 5 of 5 with it) and writing tests (17 of 25 to 25 of 25). A broad "when in doubt, ask" table made agents stop without building in 3 of 5 runs. A lesson kept in a journal was applied 0 of 5 times; kept as one loaded line or as a failing test, 5 of 5.</p>
-        <p><strong>Intervention.</strong> We rebuilt the framework as v4: a short AGENTS.md the agent actually loads (customs), hooks that enforce the few must-nevers (laws), and the test harness itself, shipped as commands that measure a rule on the user's own project.</p>
-        <p><strong>Conclusion.</strong> With current models, most written rules for coding agents are redundant. What still pays off is making instructions reachable, keeping only the specific rules that measurably change behavior, turning must-nevers into enforced checks, and re-testing rules whenever the model changes.</p>
-        <p class="keywords"><strong>Keywords:</strong> AI coding agents, AGENTS.md, Claude Code, instruction files, hooks, evaluation</p>
+        <p><strong>The framework.</strong> Version 4 structures the work, not the code: a short project file the agent loads (customs), hooks for the few must-nevers (laws), a build loop that goes from a short spec to failing tests to code, front-end checks for accessibility, visual changes and design tokens, lessons stored as checks, and commands that re-test each rule on the user's own project.</p>
+        <p><strong>Conclusion.</strong> With current models, a framework for AI-assisted development adds the most by structuring the process and its guarantees (what the agent must know, must never do, and must prove) rather than by prescribing how code is written, which the models already handled well in our tests. Every part of it should be re-tested as the models change.</p>
+        <p class="keywords"><strong>Keywords:</strong> AI-assisted software development, AI coding agents, development frameworks, AGENTS.md, Claude Code, hooks, evaluation</p>
       </section>
 
       <nav class="toc" aria-labelledby="toc-title">
@@ -54,10 +54,10 @@
         <ol>
           <li><a href="#introduction">1 Introduction</a></li>
           <li><a href="#background">2 Background</a></li>
-          <li><a href="#method">3 Method</a></li>
-          <li><a href="#results">4 Results</a></li>
-          <li><a href="#intervention">5 The intervention: v4</a></li>
-          <li><a href="#evaluation">6 Evaluation of v4</a></li>
+          <li><a href="#framework">3 The framework</a></li>
+          <li><a href="#method">4 Method</a></li>
+          <li><a href="#results">5 Results: the evidence</a></li>
+          <li><a href="#evaluation">6 Evaluation on real projects</a></li>
           <li><a href="#discussion">7 Discussion</a></li>
           <li><a href="#limitations">8 Limitations</a></li>
           <li><a href="#conclusion">9 Conclusion</a></li>
@@ -68,17 +68,17 @@
 
       <section id="introduction" aria-labelledby="introduction-title">
         <h2 id="introduction-title">1 Introduction</h2>
-        <p>An AI coding agent begins each session knowing nothing about the project in front of it or how its user likes to work. The usual remedy is text: a context file such as AGENTS.md or CLAUDE.md, collections of rules, and logs of past mistakes. That text costs tokens and attention on every run, and controlled studies have found that context files change task success little while raising cost <a class="cite" href="#ref-10">[10]</a> <a class="cite" href="#ref-11">[11]</a>. Whether a particular rule changes behavior is an empirical question, and the answer can change with each model release.</p>
-        <p>City App Framework is a personal framework for building apps with coding agents, and it had grown by adding text. Version 1 (August 2025) specified a <code>create-city-app</code> scaffolder that was never built. Version 2 (April 2026) cast the human as a sponsor directing an autonomous council of AI departments. Version 3 (April to May 2026) shipped a universal AGENTS.md of 178 lines, about 40 convention documents, decision patterns, templates, a 55 KB journal and a demo site. By September 2026 the ecosystem had moved on: AGENTS.md had become a Linux Foundation standard read by most agents <a class="cite" href="#ref-1">[1]</a>, Claude Code loaded it natively <a class="cite" href="#ref-2">[2]</a>, scaffolders generated it <a class="cite" href="#ref-17">[17]</a>, and "state the goal, the system builds it" had shipped in several products <a class="cite" href="#ref-13">[13]</a>.</p>
-        <p>This case study asks five questions:</p>
+        <p>AI coding agents now build working software from a short description. What they lack is structure that lasts beyond one session: the facts of the project, the preferences and limits of the person they work for, and the lessons of earlier sessions. Developers supply that structure as text: context files such as AGENTS.md, collections of rules, and logs of past mistakes. That text costs tokens and attention on every run, and controlled studies have found that context files change task success little while raising cost <a class="cite" href="#ref-10">[10]</a> <a class="cite" href="#ref-11">[11]</a>.</p>
+        <p>City App Framework is an attempt to give AI-assisted software and web development a lasting structure. Its name is its metaphor: a city runs on laws, customs and shared infrastructure, and a project built by AI agents needs the same. Version 1 (August 2025) specified a <code>create-city-app</code> scaffolder that would lay out a new project, with the human as mayor and AI agents as citizens; it was never built. Version 2 (April 2026) cast the human as a sponsor directing an autonomous council of AI departments. Version 3 (April to May 2026) shipped a universal AGENTS.md of 178 lines, about 40 convention documents on how to structure code, components, tests, releases and interfaces, decision patterns, templates, a 55 KB journal and a demo site.</p>
+        <p>By September 2026 the ecosystem had moved on: AGENTS.md had become a Linux Foundation standard read by most agents <a class="cite" href="#ref-1">[1]</a>, Claude Code loaded it natively <a class="cite" href="#ref-2">[2]</a>, scaffolders generated it <a class="cite" href="#ref-17">[17]</a>, and "state the goal, the system builds it" had shipped in several products <a class="cite" href="#ref-13">[13]</a>. That raised the question this case study answers: what structure does a framework still need to give an AI coding agent, and which parts of City App's structure actually worked? We ask five questions:</p>
         <ol class="rq">
-          <li><strong>RQ1.</strong> Did v3's instructions reach the agent?</li>
-          <li><strong>RQ2.</strong> Which kinds of rules still change what a current model does?</li>
-          <li><strong>RQ3.</strong> In what form does a lesson from one session carry over to the next?</li>
-          <li><strong>RQ4.</strong> Does a second, reviewing agent improve small tasks?</li>
-          <li><strong>RQ5.</strong> Can the parts that survive be packaged so that users can verify them on their own projects?</li>
+          <li><strong>RQ1.</strong> Does a framework's structure reach the agent at all?</li>
+          <li><strong>RQ2.</strong> Which rules about how to build still change what a current model does, and which are redundant?</li>
+          <li><strong>RQ3.</strong> How should the lessons of one session reach the next?</li>
+          <li><strong>RQ4.</strong> Does splitting the work across agent roles, such as a separate reviewer, help on small tasks?</li>
+          <li><strong>RQ5.</strong> Can a framework rebuilt from these answers be verified on real web and command-line projects?</li>
         </ol>
-        <p>Section 4 answers RQ1 to RQ4 with controlled experiments. Section 5 describes the redesign that followed, and Section 6 evaluates it on real projects to answer RQ5.</p>
+        <p>Section 3 describes the resulting framework first, so the reader knows where the evidence leads. Sections 4 and 5 give the method and the evidence for RQ1 to RQ4, and Section 6 evaluates the framework on real projects to answer RQ5.</p>
       </section>
 
       <section id="background" aria-labelledby="background-title">
@@ -88,176 +88,36 @@
         <p><strong>Related findings.</strong> Practitioners describe "harness engineering" and "compound engineering": when an agent makes a mistake, add a check that makes the mistake impossible, and write prose only when a check can't <a class="cite" href="#ref-14">[14]</a> <a class="cite" href="#ref-15">[15]</a> <a class="cite" href="#ref-16">[16]</a>. ImpossibleBench found that agents edit or skip tests they cannot pass, and that a plain instruction to report such tests reduces this <a class="cite" href="#ref-12">[12]</a>. Anthropic reported that agents split by role spent more tokens on coordination than on the work itself <a class="cite" href="#ref-8">[8]</a>.</p>
       </section>
 
-      <section id="method" aria-labelledby="method-title">
-        <h2 id="method-title">3 Method</h2>
-        <h3>3.1 Subject app and harness</h3>
-        <p>The test app, <code>habit-cli</code>, is a zero-dependency Node.js 22 command-line habit tracker with 7 tests. One experiment (E7) started from an empty project instead. Each trial was one fresh, isolated, headless session of Claude Code 2.1.283 working in its own copy of the app. Sessions could edit their folder and run an allowlist of commands; nothing bypassed Claude Code's permission checks. Most runs used one Claude model; one larger and one smaller Claude model were used for spot checks. Exact model versions are recorded with the <a href="https://github.com/balbonits/city-app-framework/blob/main/experiments/results/SUMMARY.md">raw results</a>.</p>
+      <section id="framework" aria-labelledby="framework-title">
+        <h2 id="framework-title">3 The framework</h2>
+        <p>City App Framework v4 is a Claude Code plugin plus a few files installed in each project. It keeps the city metaphor in the one form the evidence supports: laws are enforced, customs are advice. Its design follows three principles, each traced to results in Section 5.</p>
 
-        <h3>3.2 Conditions</h3>
-        <table class="data">
-          <caption><b>Table 1.</b> The instruction setups ("arms").</caption>
-          <thead><tr><th scope="col">Setup</th><th scope="col">What the agent sees</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">bare</th><td>Nothing</td></tr>
-            <tr><th scope="row">shipped</th><td>v3 as a user installs it: a CLAUDE.md pointer and a filled-in project AGENTS.md that links to the universal rules on GitHub</td></tr>
-            <tr><th scope="row">full</th><td>v3 at full strength: the project and universal rules force-loaded with <code>@</code> imports</td></tr>
-            <tr><th scope="row">lean</th><td>A 25-line AGENTS.md: project facts and 6 rules</td></tr>
-            <tr><th scope="row">enforced</th><td><i>lean</i> plus two hooks: a dependency guard and a test gate</td></tr>
-            <tr><th scope="row">kit</th><td>The final v4 kit, installed with its installer (earlier drafts: kit-v1, kit-v2)</td></tr>
-          </tbody>
-        </table>
+        <h3>3.1 Principles</h3>
+        <ul class="points">
+          <li><strong>Structure the process, not the code.</strong> Agents already wrote working, dependency-free code without being told how, and v3's rules on scope and dependencies had no measurable effect (Section 5.2). So the framework does not prescribe code style or folder layout; it structures how work is specified, checked and remembered.</li>
+          <li><strong>Enforce what must never happen; advise the rest.</strong> The must-nevers are hooks the agent cannot talk its way past. Everything else is a short file the agent actually loads (Figure 2).</li>
+          <li><strong>Keep a rule only while a test shows it works.</strong> Every line of advice was measured, and the framework ships the measuring tool so users can re-test their own rules when models change.</li>
+        </ul>
 
-        <h3>3.3 Tasks</h3>
-        <table class="data">
-          <caption><b>Table 2.</b> Tasks, worded as a user would type them, and the failure each one tempts.</caption>
-          <thead><tr><th scope="col">Task</th><th scope="col">Request</th><th scope="col">Temptation</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">json</th><td>Add a <code>--json</code> flag to <code>habit list</code></td><td>Extra flags, drive-by changes</td></tr>
-            <tr><th scope="row">color</th><td>Show streaks of 3 or more days in green</td><td>A color library</td></tr>
-            <tr><th scope="row">remind</th><td>Add reminders so people don't forget their habits</td><td>Guessing big on a vague ask</td></tr>
-            <tr><th scope="row">serve</th><td><code>habit serve</code> starts a local web page</td><td>Express or another framework</td></tr>
-            <tr><th scope="row">dates</th><td><code>habit done &lt;name&gt; [yesterday | 2026-09-01]</code></td><td>A date library; names with spaces</td></tr>
-          </tbody>
-        </table>
-
-        <h3>3.4 Measures</h3>
-        <p>Every run was scored by fixed checks only: hidden acceptance tests for each task, diff size, files touched, dependencies added, whether tests were written and passed, number of turns and, for the vague request, whether the final message laid out options. Each scorer was first run against a correct and a deliberately broken reference solution. The options measure reads text, so it was also checked against labeled example replies; Section 4.5 describes a bug it had.</p>
-
-        <h3>3.5 Experiments and analysis</h3>
-        <table class="data">
-          <caption><b>Table 3.</b> Experiments. E5 ran inside E1 and E6, so its sessions are counted there.</caption>
-          <thead><tr><th scope="col">ID</th><th scope="col">Question</th><th scope="col">Design</th><th scope="col" class="num">Sessions</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">E1</th><td>Does the instruction setup change behavior?</td><td>5 tasks × 5 trials for each setup, plus two kit drafts</td><td class="num">182</td></tr>
-            <tr><th scope="row">E3</th><td>Does a lesson reach the next session?</td><td>One past lesson in 5 placements × 5 trials</td><td class="num">25</td></tr>
-            <tr><th scope="row">E4, E4b</th><td>Does a fresh reviewer catch what a solo agent misses?</td><td>Paired build, review and fix on two tasks × 8 trials</td><td class="num">16 trials</td></tr>
-            <tr><th scope="row">E5</th><td>Does the kit hold up under the same tests?</td><td>Kit drafts run through E1 and E6</td><td class="num">–</td></tr>
-            <tr><th scope="row">E6</th><td>Do other models respond the same way?</td><td>Two other models, 3 tasks, bare against kit drafts, 3 trials</td><td class="num">66</td></tr>
-            <tr><th scope="row">E7</th><td>Does a short spec give a working app?</td><td>Empty project, one 4-sentence spec, 3 setups × 4 trials</td><td class="num">12</td></tr>
-          </tbody>
-        </table>
-        <p>That is 285 single sessions, plus 16 review trials of three sessions each. We report counts. Where a setup is compared with <i>bare</i>, we use a two-sided Fisher's exact test and give <i>p</i> when it is below 0.05. With 3 to 8 trials per cell only large effects are detectable, so the absence of a difference is weak evidence.</p>
-      </section>
-
-      <section id="results" aria-labelledby="results-title">
-        <h2 id="results-title">4 Results</h2>
-
-        <h3>4.1 RQ1: did v3's instructions reach the agent?</h3>
-        <table class="data">
-          <caption><b>Table 4.</b> How instructions reached the agent.</caption>
-          <thead><tr><th scope="col">Setup or measure</th><th scope="col">Result</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">A folder with only AGENTS.md</th><td>Loaded automatically</td></tr>
-            <tr><th scope="row">v3's setup: a CLAUDE.md saying "Read AGENTS.md", plus AGENTS.md</th><td>Not loaded; the agent had to choose to open it</td></tr>
-            <tr><th scope="row">A CLAUDE.md containing <code>@AGENTS.md</code></th><td>Loaded</td></tr>
-            <tr><th scope="row"><i>shipped</i> runs that opened AGENTS.md with a tool</th><td class="num">17 of 25</td></tr>
-            <tr><th scope="row"><i>shipped</i> runs that fetched the universal rules</th><td class="num">0 of 25</td></tr>
-          </tbody>
-        </table>
-        <p>In practice, v3's core (its rules on overbuilding, escalation and communication) sat behind a link and never reached the agent. Inspecting v3 found more defects of the same kind: its GROK.md was read by nothing, because Grok Build reads AGENTS.md; its project script could write a new project into the filesystem root when the parent folder was missing; and its 55 KB journal was never opened in any run.</p>
-
-        <h3>4.2 RQ2: which rules change behavior?</h3>
-        <table class="data">
-          <caption><b>Table 5.</b> E1 across all five tasks, 25 runs per setup. "Works" excludes <i>remind</i>, which has no single right answer. An asterisk marks a difference from <i>bare</i> with <i>p</i> = 0.004 (two-sided Fisher's exact test).</caption>
-          <thead><tr><th scope="col">Setup</th><th scope="col">Works</th><th scope="col">Added a dependency</th><th scope="col">Wrote tests</th><th scope="col">Mean turns</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">bare</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">17/25</td><td class="num">15.2</td></tr>
-            <tr><th scope="row">shipped</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">21/25</td><td class="num">18.9</td></tr>
-            <tr><th scope="row">full</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">11/25</td><td class="num">11.7</td></tr>
-            <tr><th scope="row">lean</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">25/25<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.004)</span></td><td class="num">12.6</td></tr>
-            <tr><th scope="row">enforced</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">25/25<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.004)</span></td><td class="num">14.4</td></tr>
-            <tr><th scope="row">kit</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">25/25<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.004)</span></td><td class="num">15.7</td></tr>
-          </tbody>
-        </table>
-        <p>The bare model already did the job. Every setup, bare included, passed every hidden acceptance check, including the trap of habit names with spaces in <i>dates</i>, and no run added a dependency, even for a web server or date parsing. v3's rules against overbuilding and new dependencies therefore had nothing left to fix. Test writing did change: a one-line "add a test for new logic" rule raised it from 17 of 25 runs to 25 of 25, while v3's full rules lowered it to 11 of 25. v3 as shipped used 24% more turns than bare, with no gain in quality. Turn counts are rough, because the sandbox denied shell commands containing <code>$(...)</code>, which some setups used more often for manual checks.</p>
-
-        <table class="data">
-          <caption><b>Table 6.</b> The vague request (<i>remind</i>), 5 runs per setup. An asterisk marks a difference from <i>bare</i> with <i>p</i> = 0.008.</caption>
-          <thead><tr><th scope="col">Setup</th><th scope="col">Built the small part and offered options</th><th scope="col">Built only</th><th scope="col">Asked only, built nothing</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">bare</th><td class="num">0/5</td><td class="num">5/5</td><td class="num">0/5</td></tr>
-            <tr><th scope="row">shipped</th><td class="num">0/5</td><td class="num">5/5</td><td class="num">0/5</td></tr>
-            <tr><th scope="row">full</th><td class="num">0/5</td><td class="num">2/5</td><td class="num">3/5</td></tr>
-            <tr><th scope="row">lean</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">0/5</td><td class="num">0/5</td></tr>
-            <tr><th scope="row">enforced</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">0/5</td><td class="num">0/5</td></tr>
-            <tr><th scope="row">kit</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">0/5</td><td class="num">0/5</td></tr>
-          </tbody>
-        </table>
-        <p>The vague request is where rules mattered. Bare agents quietly picked one reading ("list today's unfinished habits") and never mentioned the larger options, such as notifications or scheduling. v3's escalation table ("when in doubt, ask") made agents stop and ask even when they judged the delay harmless; one wrote "Impact of delay: none blocking" and still built nothing. One specific rule, "build only the smallest uncontroversial part, then list 2 to 3 options with your pick", produced both progress and a surfaced decision every time.</p>
-
-        <h3>4.3 RQ3: does a lesson carry over?</h3>
-        <p>In a simulated past session, the user had said: use <code>parseArgs</code> from <code>node:util</code> for command-line flags, not hand-rolled parsing. The new session was asked to add a <code>--min-streak &lt;n&gt;</code> flag.</p>
-        <table class="data">
-          <caption><b>Table 7.</b> Where the lesson lived, 5 runs each (E3). An asterisk marks a difference from "Nowhere" with <i>p</i> = 0.008.</caption>
-          <thead><tr><th scope="col">Where the lesson lived</th><th scope="col">Used parseArgs</th><th scope="col">Supported <code>--min-streak=2</code></th></tr></thead>
-          <tbody>
-            <tr><th scope="row">Nowhere</th><td class="num">0/5</td><td class="num">0/5</td></tr>
-            <tr><th scope="row">A journal file, as in v3</th><td class="num">0/5, never opened</td><td class="num">0/5</td></tr>
-            <tr><th scope="row">The journal, plus a line in AGENTS.md saying to read it</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">5/5</td></tr>
-            <tr><th scope="row">One line in AGENTS.md</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">5/5</td></tr>
-            <tr><th scope="row">A failing test with a fix-it message, and no written rule</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">5/5</td></tr>
-          </tbody>
-        </table>
-        <figure class="ab" aria-labelledby="figure-1">
-          <p class="ab-rule">One line in AGENTS.md: <q>Parse CLI flags with parseArgs.</q></p>
-          <table>
-            <tr>
-              <th scope="row">With it</th>
-              <td><span class="runs" aria-hidden="true"><span class="run run-hit"></span><span class="run run-hit"></span><span class="run run-hit"></span><span class="run run-hit"></span><span class="run run-hit"></span></span><span class="count">5 of 5 runs</span></td>
-            </tr>
-            <tr>
-              <th scope="row">Without it</th>
-              <td><span class="runs" aria-hidden="true"><span class="run"></span><span class="run"></span><span class="run"></span><span class="run"></span><span class="run"></span></span><span class="count">0 of 5 runs</span></td>
-            </tr>
-          </table>
-          <figcaption id="figure-1"><span class="figure-label">Figure 1.</span> Runs that used parseArgs, with and without one line in AGENTS.md: same task, same model, five fresh sessions each. The kit's <code>/city-app:rules:test</code> command reproduced this result on the same app (Section 6).</figcaption>
+        <h3>3.2 How work flows</h3>
+        <p>Figure 1 shows the development loop the framework gives a project. Each stop leaves something checkable behind, so the next session starts from evidence rather than from memory.</p>
+        <figure class="figure" aria-labelledby="figure-1">
+          <ol class="route">
+            <li><b>Set up</b> <code>/city-app:setup</code> installs AGENTS.md with the project's facts, a one-line CLAUDE.md that loads it, and the two hooks.</li>
+            <li><b>Specify</b> <code>/city-app:start</code> writes the requirements to <code>docs/spec.md</code> and turns each one into a failing acceptance test before any code exists.</li>
+            <li><b>Build</b> The agent writes code until the tests pass. The test gate won't let it finish while tests fail, and the guard asks the human before a new package or a deleted test.</li>
+            <li><b>Check the front end</b> <code>/city-app:ui:check</code>, <code>/city-app:ui:baseline</code> and <code>/city-app:ui:tokens</code> put accessibility, unintended visual changes and design tokens under test at phone, tablet and desktop sizes.</li>
+            <li><b>Learn</b> <code>/city-app:lesson</code> turns each correction into the strongest form that fits: a test, a blocked command, or one AGENTS.md line.</li>
+            <li><b>Re-test</b> <code>/city-app:rules:test</code> and <code>/city-app:rules:prune</code> measure each rule with and without it, and cut the ones that stop making a difference.</li>
+          </ol>
+          <figcaption id="figure-1"><span class="figure-label">Figure 1.</span> The City App development loop. After the last stop, the next feature starts again at Specify, with the lessons and rules already in place.</figcaption>
         </figure>
-        <p>v3's learning loop had no path back into the next session: its journal was write-only. A rule prevents the mistake if it is read. A check catches it even when nothing is read: in 4 of the 5 check runs the agent first made the mistake, the test failed with its fix-it message, and the agent corrected itself. Following the lesson also improved the feature, since <code>--min-streak=2</code> worked only when parseArgs was used.</p>
 
-        <h3>4.4 RQ4: does a reviewer help?</h3>
-        <table class="data">
-          <caption><b>Table 8.</b> Paired review trials (E4, E4b): the same implementation scored before and after a fresh-context reviewer checked it and a fixer addressed its findings.</caption>
-          <thead><tr><th scope="col">Task</th><th scope="col">Solo passed</th><th scope="col">After review</th><th scope="col">Reviewer false alarms</th></tr></thead>
-          <tbody>
-            <tr><th scope="row"><i>stats</i>: sorting, rounding, a 30-day window</th><td class="num">8/8</td><td class="num">8/8</td><td class="num">0/8</td></tr>
-            <tr><th scope="row"><i>multi</i>: rename, delete with <code>--yes</code>, undo; six hidden checks</th><td class="num">7/8</td><td class="num">7/8</td><td class="num">0/8</td></tr>
-          </tbody>
-        </table>
-        <p>On small, clearly specified tasks the model was right alone 15 times out of 16. The reviewer never raised a false alarm, but it never caught a bug either, and reviewing took more work than building. The one miss was an unwritten requirement: the app already allowed habit names with spaces, but the task didn't say so, and the reviewer checked only what the task spelled out. One line in AGENTS.md ("habit names can contain spaces") is a cheaper fix than a second agent. This agrees with reports that reviewers and evaluators pay off on long, complex work rather than small tasks <a class="cite" href="#ref-6">[6]</a> <a class="cite" href="#ref-7">[7]</a>.</p>
-
-        <h3>4.5 The kit under the same tests (E5)</h3>
-        <table class="data">
-          <caption><b>Table 9.</b> The v4 kit's drafts, run through the same harness.</caption>
-          <thead><tr><th scope="col">Draft</th><th scope="col">What changed</th><th scope="col">What the harness showed</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">kit-v1</th><td>A rule to have the reviewer check changes with several requirements</td><td>Agents called the reviewer on a trivial <code>--json</code> flag in 3 of 5 runs, multiplying the work for no gain. The rule was removed; the reviewer is now used only on request.</td></tr>
-            <tr><th scope="row">kit-v2</th><td>Our own wording for the vague-request rule</td><td>Appeared to offer options in only 1 of 5 runs. Reading the replies showed a detector bug: it looked for "recommend" and missed "My pick". After the fix: 5 of 5.</td></tr>
-            <tr><th scope="row">kit</th><td>The vague-request rule in the wording that tested best</td><td>Works 20/20, tests 25/25, options 5/5, reviewer calls 0/25</td></tr>
-          </tbody>
-        </table>
-
-        <h3>4.6 Other models (E6)</h3>
-        <p>With the larger model, the kit produced the small part plus options on the vague request in 3 of 3 runs (bare: 0 of 3) and smaller changes (<i>serve</i>: 35 added source lines against 64). The smaller model followed the vague-request rule poorly: it asked without building in 2 of 3 runs and built without offering options in the third (bare: built only, 3 of 3). No model added a dependency, with or without the kit. The vague-request rule helps mid-sized and larger models; smaller models may over-ask.</p>
-
-        <h3>4.7 A short spec, a working app (E7)</h3>
-        <table class="data">
-          <caption><b>Table 10.</b> An empty project and a 4-sentence spec for a bookmark manager, checked by hidden tests, 4 runs each.</caption>
-          <thead><tr><th scope="col">Setup</th><th scope="col">All hidden checks</th><th scope="col">Tests green</th><th scope="col">Added a dependency</th><th scope="col">Time</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">bare</th><td class="num">4/4</td><td class="num">4/4</td><td class="num">0/4</td><td class="num">about 1 min</td></tr>
-            <tr><th scope="row">kit</th><td class="num">4/4</td><td class="num">4/4</td><td class="num">0/4</td><td class="num">about 1.6 min</td></tr>
-          </tbody>
-        </table>
-        <p>For a small app with a clear spec, "state what you want and get it" is now default behavior, with or without a framework. What a framework can still add is what the spec leaves out: the user's preferences, guardrails, and lessons from earlier sessions.</p>
-      </section>
-
-      <section id="intervention" aria-labelledby="intervention-title">
-        <h2 id="intervention-title">5 The intervention: v4</h2>
-        <p>We rebuilt the framework around one distinction kept from its city metaphor: laws are enforced, customs are advice. Anything that must never happen without a human became a hook. Everything else stayed as a short file the agent actually loads, and only if a test showed that it changes behavior.</p>
+        <h3>3.3 Laws and customs</h3>
         <figure class="figure" aria-labelledby="figure-2">
           <div class="pair">
             <div class="kind">
-              <h3><svg class="marker" viewBox="0 0 40 40" aria-hidden="true"><polygon class="stop-face" points="11.7,1 28.3,1 39,11.7 39,28.3 28.3,39 11.7,39 1,28.3 1,11.7"/><polygon class="sign-rim" points="12.9,4 27.1,4 36,12.9 36,27.1 27.1,36 12.9,36 4,27.1 4,12.9"/></svg>Laws: two hooks</h3>
+              <h4><svg class="marker" viewBox="0 0 40 40" aria-hidden="true"><polygon class="stop-face" points="11.7,1 28.3,1 39,11.7 39,28.3 28.3,39 11.7,39 1,28.3 1,11.7"/><polygon class="sign-rim" points="12.9,4 27.1,4 36,12.9 36,27.1 27.1,36 12.9,36 4,27.1 4,12.9"/></svg>Laws: two hooks</h4>
               <p>Scripts that Claude Code runs around every action. The agent can't talk its way past them.</p>
               <ul class="points">
                 <li>Ask the user before a new package or deleting a test, even in auto mode; unattended runs get a no</li>
@@ -266,7 +126,7 @@
               </ul>
             </div>
             <div class="kind">
-              <h3><svg class="marker" viewBox="0 0 40 40" aria-hidden="true"><rect class="guide-face" x="0" y="6" width="40" height="28" rx="5"/><rect class="sign-rim" x="3" y="9" width="34" height="22" rx="3"/></svg>Customs: one short file</h3>
+              <h4><svg class="marker" viewBox="0 0 40 40" aria-hidden="true"><rect class="guide-face" x="0" y="6" width="40" height="28" rx="5"/><rect class="sign-rim" x="3" y="9" width="34" height="22" rx="3"/></svg>Customs: one short file</h4>
               <p>A 28-line AGENTS.md, loaded through a one-line CLAUDE.md (<code>@AGENTS.md</code>).</p>
               <ul class="points">
                 <li>Project facts: what it is, its commands, layout and gotchas</li>
@@ -275,26 +135,13 @@
               </ul>
             </div>
           </div>
-          <figcaption id="figure-2"><span class="figure-label">Figure 2.</span> The v4 design. Laws hold whatever the model reads or decides; customs help only when they are loaded and change behavior.</figcaption>
+          <figcaption id="figure-2"><span class="figure-label">Figure 2.</span> Laws hold whatever the model reads or decides; customs help only when they are loaded and change behavior.</figcaption>
         </figure>
 
+        <h3>3.4 The commands</h3>
+        <p>The plugin's eight commands (Table 1) carry out the loop in Figure 1. The ones that run test sessions show their plan and ask before using the user's usage.</p>
         <table class="data">
-          <caption><b>Table 11.</b> What v4 kept, dropped and added, and the evidence for each change.</caption>
-          <thead><tr><th scope="col">v3</th><th scope="col">v4</th><th scope="col">Evidence</th></tr></thead>
-          <tbody>
-            <tr><td>A universal AGENTS.md of 178 lines, behind a link</td><td>A 28-line AGENTS.md in each project, imported by CLAUDE.md</td><td>0 of 25 fetched; only reachable, specific rules had effects</td></tr>
-            <tr><td>A "when in doubt, ask" table</td><td>"Build the smallest part, then offer options"</td><td>3 of 5 built nothing; the new rule 5 of 5</td></tr>
-            <tr><td>About 40 convention documents and decision patterns</td><td>Removed, kept in git history</td><td>Unreachable, and mostly default behavior now</td></tr>
-            <tr><td>A journal of lessons</td><td>A command that turns a correction into a test, a blocked command or one loaded line</td><td>0 of 5 against 5 of 5</td></tr>
-            <tr><td>A council of AI departments</td><td>One reviewer, on request only</td><td>Caught nothing on small tasks</td></tr>
-            <tr><td>Nothing</td><td>The two hooks in Figure 2</td><td>Auto mode allows installs; a hook is a guarantee</td></tr>
-            <tr><td>Nothing</td><td>The test harness, as commands for users</td><td>It caught two problems in the kit itself (Table 9)</td></tr>
-          </tbody>
-        </table>
-
-        <p>The kit ships as a Claude Code plugin with eight commands (Table 12). The commands that run test sessions show their plan and ask before using the user's usage.</p>
-        <table class="data">
-          <caption><b>Table 12.</b> The plugin's commands.</caption>
+          <caption><b>Table 1.</b> The plugin's commands.</caption>
           <thead><tr><th scope="col">Command</th><th scope="col">What it does</th></tr></thead>
           <tbody>
             <tr><th scope="row"><code>/city-app:setup</code></th><td>Installs the project files and fills in AGENTS.md from what the repository shows; <code>--check</code> only reports</td></tr>
@@ -309,19 +156,206 @@
         </table>
       </section>
 
+      <section id="method" aria-labelledby="method-title">
+        <h2 id="method-title">4 Method</h2>
+        <p>The framework's design comes from a set of experiments on its predecessor, v3, and on drafts of v4. This section describes them; Section 5 gives the results.</p>
+        <h3>4.1 Subject app and harness</h3>
+        <p>The test app, <code>habit-cli</code>, is a zero-dependency Node.js 22 command-line habit tracker with 7 tests. One experiment (E7) started from an empty project instead. Each trial was one fresh, isolated, headless session of Claude Code 2.1.283 working in its own copy of the app. Sessions could edit their folder and run an allowlist of commands; nothing bypassed Claude Code's permission checks. Most runs used one Claude model; one larger and one smaller Claude model were used for spot checks. Exact model versions are recorded with the <a href="https://github.com/balbonits/city-app-framework/blob/main/experiments/results/SUMMARY.md">raw results</a>.</p>
+
+        <h3>4.2 Conditions</h3>
+        <table class="data">
+          <caption><b>Table 2.</b> The setups ("arms"): how much of a framework the agent sees.</caption>
+          <thead><tr><th scope="col">Setup</th><th scope="col">What the agent sees</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">bare</th><td>Nothing</td></tr>
+            <tr><th scope="row">shipped</th><td>v3 as a user installs it: a CLAUDE.md pointer and a filled-in project AGENTS.md that links to the universal rules on GitHub</td></tr>
+            <tr><th scope="row">full</th><td>v3 at full strength: the project and universal rules force-loaded with <code>@</code> imports</td></tr>
+            <tr><th scope="row">lean</th><td>A 25-line AGENTS.md: project facts and 6 rules</td></tr>
+            <tr><th scope="row">enforced</th><td><i>lean</i> plus two hooks: a dependency guard and a test gate</td></tr>
+            <tr><th scope="row">kit</th><td>The final v4 framework, installed with its installer (earlier drafts: kit-v1, kit-v2)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.3 Tasks</h3>
+        <table class="data">
+          <caption><b>Table 3.</b> Tasks, worded as a user would type them, and the failure each one tempts.</caption>
+          <thead><tr><th scope="col">Task</th><th scope="col">Request</th><th scope="col">Temptation</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">json</th><td>Add a <code>--json</code> flag to <code>habit list</code></td><td>Extra flags, drive-by changes</td></tr>
+            <tr><th scope="row">color</th><td>Show streaks of 3 or more days in green</td><td>A color library</td></tr>
+            <tr><th scope="row">remind</th><td>Add reminders so people don't forget their habits</td><td>Guessing big on a vague ask</td></tr>
+            <tr><th scope="row">serve</th><td><code>habit serve</code> starts a local web page</td><td>Express or another framework</td></tr>
+            <tr><th scope="row">dates</th><td><code>habit done &lt;name&gt; [yesterday | 2026-09-01]</code></td><td>A date library; names with spaces</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.4 Measures</h3>
+        <p>Every run was scored by fixed checks only: hidden acceptance tests for each task, diff size, files touched, dependencies added, whether tests were written and passed, number of turns and, for the vague request, whether the final message laid out options. Each scorer was first run against a correct and a deliberately broken reference solution. The options measure reads text, so it was also checked against labeled example replies; Section 5.5 describes a bug it had.</p>
+
+        <h3>4.5 Experiments and analysis</h3>
+        <table class="data">
+          <caption><b>Table 4.</b> Experiments. E5 ran inside E1 and E6, so its sessions are counted there.</caption>
+          <thead><tr><th scope="col">ID</th><th scope="col">Question</th><th scope="col">Design</th><th scope="col" class="num">Sessions</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">E1</th><td>Does the setup change how agents build?</td><td>5 tasks × 5 trials for each setup, plus two framework drafts</td><td class="num">182</td></tr>
+            <tr><th scope="row">E3</th><td>Does a lesson reach the next session?</td><td>One past lesson in 5 placements × 5 trials</td><td class="num">25</td></tr>
+            <tr><th scope="row">E4, E4b</th><td>Does a fresh reviewer catch what a solo agent misses?</td><td>Paired build, review and fix on two tasks × 8 trials</td><td class="num">16 trials</td></tr>
+            <tr><th scope="row">E5</th><td>Does the framework hold up under the same tests?</td><td>Framework drafts run through E1 and E6</td><td class="num">–</td></tr>
+            <tr><th scope="row">E6</th><td>Do other models respond the same way?</td><td>Two other models, 3 tasks, bare against the drafts, 3 trials</td><td class="num">66</td></tr>
+            <tr><th scope="row">E7</th><td>Does a short spec give a working app?</td><td>Empty project, one 4-sentence spec, 3 setups × 4 trials</td><td class="num">12</td></tr>
+          </tbody>
+        </table>
+        <p>That is 285 single sessions, plus 16 review trials of three sessions each. We report counts. Where a setup is compared with <i>bare</i>, we use a two-sided Fisher's exact test and give <i>p</i> when it is below 0.05. With 3 to 8 trials per cell only large effects are detectable, so the absence of a difference is weak evidence.</p>
+      </section>
+
+      <section id="results" aria-labelledby="results-title">
+        <h2 id="results-title">5 Results: the evidence</h2>
+        <p>Each subsection answers one research question and ends with the design decision it led to.</p>
+
+        <h3>5.1 RQ1: does the structure reach the agent?</h3>
+        <table class="data">
+          <caption><b>Table 5.</b> How instructions reached the agent.</caption>
+          <thead><tr><th scope="col">Setup or measure</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">A folder with only AGENTS.md</th><td>Loaded automatically</td></tr>
+            <tr><th scope="row">v3's setup: a CLAUDE.md saying "Read AGENTS.md", plus AGENTS.md</th><td>Not loaded; the agent had to choose to open it</td></tr>
+            <tr><th scope="row">A CLAUDE.md containing <code>@AGENTS.md</code></th><td>Loaded</td></tr>
+            <tr><th scope="row"><i>shipped</i> runs that opened AGENTS.md with a tool</th><td class="num">17 of 25</td></tr>
+            <tr><th scope="row"><i>shipped</i> runs that fetched the universal rules</th><td class="num">0 of 25</td></tr>
+          </tbody>
+        </table>
+        <p>In practice, v3's core structure (its rules on overbuilding, escalation and communication) sat behind a link and never reached the agent. Inspecting v3 found more defects of the same kind: its GROK.md was read by nothing, because Grok Build reads AGENTS.md; its project script could write a new project into the filesystem root when the parent folder was missing; and its 55 KB journal was never opened in any run.</p>
+        <p class="decision"><strong>In the framework:</strong> CLAUDE.md is one line that imports AGENTS.md, so the project's facts load in every session, and nothing important sits behind a link.</p>
+
+        <h3>5.2 RQ2: which rules change how agents build?</h3>
+        <table class="data">
+          <caption><b>Table 6.</b> E1 across all five tasks, 25 runs per setup. "Works" excludes <i>remind</i>, which has no single right answer. An asterisk marks a difference from <i>bare</i> with <i>p</i> = 0.004 (two-sided Fisher's exact test).</caption>
+          <thead><tr><th scope="col">Setup</th><th scope="col">Works</th><th scope="col">Added a dependency</th><th scope="col">Wrote tests</th><th scope="col">Mean turns</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">bare</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">17/25</td><td class="num">15.2</td></tr>
+            <tr><th scope="row">shipped</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">21/25</td><td class="num">18.9</td></tr>
+            <tr><th scope="row">full</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">11/25</td><td class="num">11.7</td></tr>
+            <tr><th scope="row">lean</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">25/25<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.004)</span></td><td class="num">12.6</td></tr>
+            <tr><th scope="row">enforced</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">25/25<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.004)</span></td><td class="num">14.4</td></tr>
+            <tr><th scope="row">kit</th><td class="num">20/20</td><td class="num">0/25</td><td class="num">25/25<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.004)</span></td><td class="num">15.7</td></tr>
+          </tbody>
+        </table>
+        <p>The bare model already did the job. Every setup, bare included, passed every hidden acceptance check, including the trap of habit names with spaces in <i>dates</i>, and no run added a dependency, even for a web server or date parsing. v3's rules on scope and dependencies therefore had nothing left to fix. Test writing did change: a one-line "add a test for new logic" rule raised it from 17 of 25 runs to 25 of 25, while v3's full rules lowered it to 11 of 25. v3 as shipped used 24% more turns than bare, with no gain in quality. Turn counts are rough, because the sandbox denied shell commands containing <code>$(...)</code>, which some setups used more often for manual checks.</p>
+
+        <table class="data">
+          <caption><b>Table 7.</b> The vague request (<i>remind</i>), 5 runs per setup. An asterisk marks a difference from <i>bare</i> with <i>p</i> = 0.008.</caption>
+          <thead><tr><th scope="col">Setup</th><th scope="col">Built the small part and offered options</th><th scope="col">Built only</th><th scope="col">Asked only, built nothing</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">bare</th><td class="num">0/5</td><td class="num">5/5</td><td class="num">0/5</td></tr>
+            <tr><th scope="row">shipped</th><td class="num">0/5</td><td class="num">5/5</td><td class="num">0/5</td></tr>
+            <tr><th scope="row">full</th><td class="num">0/5</td><td class="num">2/5</td><td class="num">3/5</td></tr>
+            <tr><th scope="row">lean</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">0/5</td><td class="num">0/5</td></tr>
+            <tr><th scope="row">enforced</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">0/5</td><td class="num">0/5</td></tr>
+            <tr><th scope="row">kit</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">0/5</td><td class="num">0/5</td></tr>
+          </tbody>
+        </table>
+        <p>The vague request is where rules mattered. Bare agents quietly picked one reading ("list today's unfinished habits") and never mentioned the larger options, such as notifications or scheduling. v3's escalation table ("when in doubt, ask") made agents stop and ask even when they judged the delay harmless; one wrote "Impact of delay: none blocking" and still built nothing. One specific rule, "build only the smallest uncontroversial part, then list 2 to 3 options with your pick", produced both progress and a surfaced decision every time.</p>
+        <p class="decision"><strong>In the framework:</strong> no rules on code style or layout. Overbuilding and new dependencies keep one short line each, with the dependency rule backed by a hook; the working agreement keeps the test rule and the vague-request rule, and the escalation table is gone.</p>
+
+        <h3>5.3 RQ3: how should lessons carry over?</h3>
+        <p>In a simulated past session, the user had said: use <code>parseArgs</code> from <code>node:util</code> for command-line flags, not hand-rolled parsing. The new session was asked to add a <code>--min-streak &lt;n&gt;</code> flag.</p>
+        <table class="data">
+          <caption><b>Table 8.</b> Where the lesson lived, 5 runs each (E3). An asterisk marks a difference from "Nowhere" with <i>p</i> = 0.008.</caption>
+          <thead><tr><th scope="col">Where the lesson lived</th><th scope="col">Used parseArgs</th><th scope="col">Supported <code>--min-streak=2</code></th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Nowhere</th><td class="num">0/5</td><td class="num">0/5</td></tr>
+            <tr><th scope="row">A journal file, as in v3</th><td class="num">0/5, never opened</td><td class="num">0/5</td></tr>
+            <tr><th scope="row">The journal, plus a line in AGENTS.md saying to read it</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">5/5</td></tr>
+            <tr><th scope="row">One line in AGENTS.md</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">5/5</td></tr>
+            <tr><th scope="row">A failing test with a fix-it message, and no written rule</th><td class="num">5/5<span aria-hidden="true">*</span><span class="visually-hidden"> (p = 0.008)</span></td><td class="num">5/5</td></tr>
+          </tbody>
+        </table>
+        <figure class="ab" aria-labelledby="figure-3">
+          <p class="ab-rule">One line in AGENTS.md: <q>Parse CLI flags with parseArgs.</q></p>
+          <table>
+            <tr>
+              <th scope="row">With it</th>
+              <td><span class="runs" aria-hidden="true"><span class="run run-hit"></span><span class="run run-hit"></span><span class="run run-hit"></span><span class="run run-hit"></span><span class="run run-hit"></span></span><span class="count">5 of 5 runs</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Without it</th>
+              <td><span class="runs" aria-hidden="true"><span class="run"></span><span class="run"></span><span class="run"></span><span class="run"></span><span class="run"></span></span><span class="count">0 of 5 runs</span></td>
+            </tr>
+          </table>
+          <figcaption id="figure-3"><span class="figure-label">Figure 3.</span> Runs that used parseArgs, with and without one line in AGENTS.md: same task, same model, five fresh sessions each. The framework's <code>/city-app:rules:test</code> command reproduced this result on the same app (Section 6).</figcaption>
+        </figure>
+        <p>v3's learning loop had no path back into the next session: its journal was write-only. A rule prevents the mistake if it is read. A check catches it even when nothing is read: in 4 of the 5 check runs the agent first made the mistake, the test failed with its fix-it message, and the agent corrected itself. Following the lesson also improved the feature, since <code>--min-streak=2</code> worked only when parseArgs was used.</p>
+        <p class="decision"><strong>In the framework:</strong> the journal is gone. <code>/city-app:lesson</code> turns each correction into a test, a blocked command or one AGENTS.md line, and logs it.</p>
+
+        <h3>5.4 RQ4: does a separate reviewer help?</h3>
+        <table class="data">
+          <caption><b>Table 9.</b> Paired review trials (E4, E4b): the same implementation scored before and after a fresh-context reviewer checked it and a fixer addressed its findings.</caption>
+          <thead><tr><th scope="col">Task</th><th scope="col">Solo passed</th><th scope="col">After review</th><th scope="col">Reviewer false alarms</th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><i>stats</i>: sorting, rounding, a 30-day window</th><td class="num">8/8</td><td class="num">8/8</td><td class="num">0/8</td></tr>
+            <tr><th scope="row"><i>multi</i>: rename, delete with <code>--yes</code>, undo; six hidden checks</th><td class="num">7/8</td><td class="num">7/8</td><td class="num">0/8</td></tr>
+          </tbody>
+        </table>
+        <p>On small, clearly specified tasks the model was right alone 15 times out of 16. The reviewer never raised a false alarm, but it never caught a bug either, and reviewing took more work than building. The one miss was an unwritten requirement: the app already allowed habit names with spaces, but the task didn't say so, and the reviewer checked only what the task spelled out. This agrees with reports that reviewers and evaluators pay off on long, complex work rather than small tasks <a class="cite" href="#ref-6">[6]</a> <a class="cite" href="#ref-7">[7]</a>.</p>
+        <p class="decision"><strong>In the framework:</strong> no council of roles. One reviewer is available on request, and unwritten requirements go into AGENTS.md as one-line gotchas ("habit names can contain spaces").</p>
+
+        <h3>5.5 The framework under the same tests (E5)</h3>
+        <table class="data">
+          <caption><b>Table 10.</b> Drafts of the v4 framework, run through the same harness.</caption>
+          <thead><tr><th scope="col">Draft</th><th scope="col">What changed</th><th scope="col">What the harness showed</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">kit-v1</th><td>A rule to have the reviewer check changes with several requirements</td><td>Agents called the reviewer on a trivial <code>--json</code> flag in 3 of 5 runs, multiplying the work for no gain. The rule was removed; the reviewer is now used only on request.</td></tr>
+            <tr><th scope="row">kit-v2</th><td>Our own wording for the vague-request rule</td><td>Appeared to offer options in only 1 of 5 runs. Reading the replies showed a detector bug: it looked for "recommend" and missed "My pick". After the fix: 5 of 5.</td></tr>
+            <tr><th scope="row">kit</th><td>The vague-request rule in the wording that tested best</td><td>Works 20/20, tests 25/25, options 5/5, reviewer calls 0/25</td></tr>
+          </tbody>
+        </table>
+        <p class="decision"><strong>In the framework:</strong> the test harness ships with it, as <code>/city-app:rules:test</code> and <code>/city-app:rules:prune</code>, because it caught two problems in the framework's own drafts.</p>
+
+        <h3>5.6 Other models (E6)</h3>
+        <p>With the larger model, the framework produced the small part plus options on the vague request in 3 of 3 runs (bare: 0 of 3) and smaller changes (<i>serve</i>: 35 added source lines against 64). The smaller model followed the vague-request rule poorly: it asked without building in 2 of 3 runs and built without offering options in the third (bare: built only, 3 of 3). No model added a dependency, with or without the framework. The vague-request rule helps mid-sized and larger models; smaller models may over-ask.</p>
+
+        <h3>5.7 A short spec, a working app (E7)</h3>
+        <table class="data">
+          <caption><b>Table 11.</b> An empty project and a 4-sentence spec for a bookmark manager, checked by hidden tests, 4 runs each.</caption>
+          <thead><tr><th scope="col">Setup</th><th scope="col">All hidden checks</th><th scope="col">Tests green</th><th scope="col">Added a dependency</th><th scope="col">Time</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">bare</th><td class="num">4/4</td><td class="num">4/4</td><td class="num">0/4</td><td class="num">about 1 min</td></tr>
+            <tr><th scope="row">kit</th><td class="num">4/4</td><td class="num">4/4</td><td class="num">0/4</td><td class="num">about 1.6 min</td></tr>
+          </tbody>
+        </table>
+        <p>For a small app with a clear spec, "state what you want and get it" is now default behavior, with or without a framework. What a framework can still add is what the spec leaves out: the user's preferences, guardrails, and lessons from earlier sessions.</p>
+        <p class="decision"><strong>In the framework:</strong> <code>/city-app:start</code> keeps the spec-first build and adds the proof: each requirement becomes a failing acceptance test before any code is written.</p>
+
+        <h3>5.8 From evidence to design</h3>
+        <table class="data">
+          <caption><b>Table 12.</b> What v4 kept, dropped and added, and the evidence for each change.</caption>
+          <thead><tr><th scope="col">v3</th><th scope="col">v4</th><th scope="col">Evidence</th></tr></thead>
+          <tbody>
+            <tr><td>A universal AGENTS.md of 178 lines, behind a link</td><td>A 28-line AGENTS.md in each project, imported by CLAUDE.md</td><td>0 of 25 fetched; only reachable, specific rules had effects</td></tr>
+            <tr><td>About 40 convention documents on how to structure code</td><td>Removed, kept in git history</td><td>Unreachable, and mostly default behavior now</td></tr>
+            <tr><td>A "when in doubt, ask" table</td><td>"Build the smallest part, then offer options"</td><td>3 of 5 built nothing; the new rule 5 of 5</td></tr>
+            <tr><td>A journal of lessons</td><td>A command that turns a correction into a test, a blocked command or one loaded line</td><td>0 of 5 against 5 of 5</td></tr>
+            <tr><td>A council of AI departments</td><td>One reviewer, on request only</td><td>Caught nothing on small tasks</td></tr>
+            <tr><td>Nothing</td><td>The two hooks in Figure 2</td><td>Auto mode allows installs; a hook is a guarantee</td></tr>
+            <tr><td>Nothing</td><td>A spec-first build with failing acceptance tests, and front-end checks</td><td>Specs already work (E7); checks carry lessons with no rule at all (E3)</td></tr>
+            <tr><td>Nothing</td><td>The test harness, as commands for users</td><td>It caught two problems in the framework itself (Table 10)</td></tr>
+          </tbody>
+        </table>
+      </section>
+
       <section id="evaluation" aria-labelledby="evaluation-title">
-        <h2 id="evaluation-title">6 Evaluation of v4</h2>
+        <h2 id="evaluation-title">6 Evaluation on real projects</h2>
         <h3>6.1 Live checks</h3>
         <p>Each command and hook was checked in real Claude Code sessions on small projects, scored by fixed checks in the same way as the experiments. Table 13 gives the latest results, including the ones that fell short.</p>
         <table class="data">
-          <caption><b>Table 13.</b> Live checks of the kit.</caption>
+          <caption><b>Table 13.</b> Live checks of the framework.</caption>
           <thead><tr><th scope="col">What was checked</th><th scope="col">Runs</th><th scope="col">Result</th></tr></thead>
           <tbody>
             <tr><td><code>setup</code> on a new project, an existing project, and report-only</td><td class="num">2 each</td><td>Every check passed in all 6 runs</td></tr>
             <tr><td><code>start</code> with the 4-sentence bookmark spec from E7</td><td class="num">1</td><td>Spec saved, tests written before code, hidden E7 checks passed</td></tr>
             <tr><td><code>lesson</code> as a test, as one line, and forced to a line</td><td class="num">2, 2, 3</td><td>Every check passed</td></tr>
             <tr><td><code>lesson</code> as a blocked command</td><td class="num">2</td><td>2 of 3 checks each. Claude Code asks a person before any write into <code>.claude/</code>, which a headless run can't answer; the check now grades the attempt and has not been re-run</td></tr>
-            <tr><td><code>rules:test</code> reproducing E3 on the test app</td><td class="num">10</td><td>With the line 5 of 5, without it 0 of 5 (Figure 1)</td></tr>
+            <tr><td><code>rules:test</code> reproducing E3 on the test app</td><td class="num">10</td><td>With the line 5 of 5, without it 0 of 5 (Figure 3)</td></tr>
             <tr><td><code>rules:test</code> and <code>rules:prune</code> asking before using usage</td><td class="num">2 each</td><td>3 of 4 runs passed every check; one passed 4 of 5, missing a wording check that was then loosened</td></tr>
             <tr><td><code>ui:check</code> on a planted icon-only button with no name</td><td class="num">2</td><td>Found and fixed with a label, keeping the button, 2 of 2</td></tr>
             <tr><td><code>ui:baseline</code> and <code>ui:tokens</code></td><td class="num">2 each</td><td>All passed; the first run of each used a setup that couldn't fail one check, which was fixed and re-run</td></tr>
@@ -329,8 +363,9 @@
           </tbody>
         </table>
 
-        <h3>6.2 Field projects</h3>
-        <p>Two small projects in the repository use the kit. <a href="https://github.com/balbonits/city-app-framework/tree/main/demo/habit-web">demo/habit-web</a>, a web app with no framework, uses every part of it; <a href="https://github.com/balbonits/city-app-framework/tree/main/demo/bookmarks-cli">demo/bookmarks-cli</a> is the app <code>start</code> built from the E7 spec. On habit-web, <code>rules:test</code> measured two AGENTS.md lines, 3 runs with and 3 without each. "Colors and spacing come from the tokens" made no difference (3 of 3 either way: agents followed the existing tokens anyway), so it was cut and replaced by a test that fails on raw colors. "Ask before changing how streaks are counted" was unclear (2 of 3 either way; a unit test that pinned the rule did most of the work), so it was kept, and a later <code>rules:prune</code> re-test gave 2 of 3 again.</p>
+        <h3>6.2 A web app and a command-line app</h3>
+        <p>Two small projects in the repository were built with the framework. <a href="https://github.com/balbonits/city-app-framework/tree/main/demo/habit-web">demo/habit-web</a> is a web app with no front-end framework that uses every part of it. Its <code>npm test</code> runs the front-end checks: accessibility, console errors and layout on 3 pages at 3 screen sizes, a comparison against approved screenshots, and a test that fails on colors typed outside the design tokens; its own tests show the UI check catching 4 planted bugs, each with a fix-it message. <a href="https://github.com/balbonits/city-app-framework/tree/main/demo/bookmarks-cli">demo/bookmarks-cli</a> is the command-line app that <code>start</code> built from the E7 spec, tests first.</p>
+        <p>On habit-web, <code>rules:test</code> measured two AGENTS.md lines, 3 runs with and 3 without each. "Colors and spacing come from the tokens" made no difference (3 of 3 either way: agents followed the existing tokens anyway), so it was cut and replaced by the token test. "Ask before changing how streaks are counted" was unclear (2 of 3 either way; a unit test that pinned the rule did most of the work), so it was kept, and a later <code>rules:prune</code> re-test gave 2 of 3 again.</p>
 
         <h3>6.3 Defects found while validating</h3>
         <p>Validation also surfaced five defects in the project's own process. Each is now covered by a test or a rule, and all are logged in the <a href="https://github.com/balbonits/city-app-framework/blob/main/docs/lessons.md">lessons log</a>.</p>
@@ -339,49 +374,50 @@
           <li>A release shipped without a version bump, so <code>claude plugin update</code> reported "already at the latest version" and existing installs kept the old commands.</li>
           <li>One merge reached the main branch with a flaky failing test. Merges now wait for the full test run.</li>
           <li>The previous white paper went on describing v3 after the rebuild. A test now fails when this paper's commands, version or links drift from the plugin.</li>
-          <li>The kit's own UI check found an accessibility defect in this page's first draft: a scrolling code block that keyboard users couldn't reach.</li>
+          <li>The framework's own UI check found an accessibility defect in this page's first draft: a scrolling code block that keyboard users couldn't reach.</li>
         </ul>
       </section>
 
       <section id="discussion" aria-labelledby="discussion-title">
         <h2 id="discussion-title">7 Discussion</h2>
-        <p><strong>Most rules restate default behavior.</strong> Current models already avoided new dependencies, stayed in scope and passed hidden checks without being told. Each extra rule still costs context, and a broad one can do harm: the escalation table stopped work that the agent itself judged safe. A rule should stay only while a test shows it changes behavior, and it should be re-tested when the model changes, which is why the kit ships <code>rules:prune</code>.</p>
-        <p><strong>Reachability comes before content.</strong> v3's best rules had no effect because they never loaded. Whether a file loads depends on tool details, such as a CLAUDE.md pointer against an import, that change between versions <a class="cite" href="#ref-2">[2]</a>. The first thing to verify about any instruction is that the agent sees it.</p>
+        <p><strong>What a framework should structure now.</strong> v3 tried to structure the code: naming, components, layouts, scope. In our tests that structure was either never read (the convention documents sat behind links no agent opened) or redundant (the rules we could measure, on scope and dependencies, changed nothing, because the agents already wrote working, dependency-free code). What they lacked was structure around the code: facts they could not infer, limits they must not cross, proof that the work is done, and memory of past corrections. v4 puts the framework's effort there, and each of its parts traces to a measured result (Table 12).</p>
+        <p><strong>Reachability comes before content.</strong> v3's best rules had no effect because they never loaded. Whether a file loads depends on tool details, such as a CLAUDE.md pointer against an import, that change between versions <a class="cite" href="#ref-2">[2]</a>. The first thing to verify about any part of a framework is that the agent sees it.</p>
         <p><strong>Enforce the must-nevers; let checks act as memory.</strong> Hooks hold whatever the model reads or decides. A failing test also teaches: in E3 it carried a lesson into the next session with no written rule at all, which matches the practice of turning each mistake into a check <a class="cite" href="#ref-14">[14]</a> <a class="cite" href="#ref-15">[15]</a>.</p>
+        <p><strong>Front-end quality needs checks, not advice.</strong> On the web demo, a rule asking agents to use the design tokens made no difference, because they copied the tokens already in the code; a test that fails on a raw color guards the same thing even when the code stops setting the example. The framework treats accessibility and unintended visual changes the same way: as checks in <code>npm test</code>, not as advice.</p>
         <p><strong>Specific beats general.</strong> The rules that worked name a concrete action: build the smallest part and list options, add a test for new logic. This fits advice drawn from thousands of AGENTS.md files to be short, concrete and specific <a class="cite" href="#ref-18">[18]</a>.</p>
-        <p><strong>Text metrics are fragile.</strong> A detector bug nearly led us to drop a rule that worked (Table 9). Before trusting a measure that reads an agent's words, read a sample of the raw replies.</p>
+        <p><strong>Text metrics are fragile.</strong> A detector bug nearly led us to drop a rule that worked (Table 10). Before trusting a measure that reads an agent's words, read a sample of the raw replies.</p>
         <p><strong>Specs are cheap now; context is not.</strong> A 4-sentence spec gave a working app with or without a framework, so for small builds, heavier spec-driven processes (still rated "assess" by the Thoughtworks Radar <a class="cite" href="#ref-19">[19]</a>) add little. What agents lack is what no spec contains: a user's standing preferences, limits and past corrections.</p>
       </section>
 
       <section id="limitations" aria-labelledby="limitations-title">
         <h2 id="limitations-title">8 Limitations</h2>
         <ul class="points">
-          <li>The experiments used one small Node.js command-line app and one empty project, and the evaluation two small demo projects. Larger or front-end codebases may behave differently.</li>
+          <li>The experiments used one small Node.js command-line app and one empty project, and the evaluation two small demo projects. Larger codebases, or web apps built on a front-end framework such as React, may need structure this study did not test.</li>
           <li>Most runs used one model and one version of Claude Code, with 3-trial spot checks on two other models. The results should be re-run as models change.</li>
-          <li>Cells had 3 to 8 trials, so only large effects are detectable. The v4 evaluation used 1 to 3 runs per check: enough to show that each part works, not to estimate how reliably.</li>
+          <li>Cells had 3 to 8 trials, so only large effects are detectable. The evaluation of v4 used 1 to 3 runs per check: enough to show that each part works, not to estimate how reliably.</li>
           <li>Headless runs can't ask a person mid-task, which shapes how "asking" shows up.</li>
           <li>The options measure is a text heuristic, checked against labeled examples but still a heuristic.</li>
           <li>Several 2026 studies were available only as abstracts or secondary coverage <a class="cite" href="#ref-10">[10]</a> <a class="cite" href="#ref-11">[11]</a> <a class="cite" href="#ref-12">[12]</a>, and each is a single, unreplicated study.</li>
-          <li>The same project built the kit, the checks and the graders. Three graders proved too loose during validation (Section 6.3), and others may be.</li>
+          <li>The same project built the framework, the checks and the graders. Three graders proved too loose during validation (Section 6.3), and others may be.</li>
         </ul>
       </section>
 
       <section id="conclusion" aria-labelledby="conclusion-title">
         <h2 id="conclusion-title">9 Conclusion</h2>
-        <p>For City App Framework, most of what had been written for agents did nothing: it never loaded, restated what the model already does, or over-corrected. What survived is small: one short file the agent actually loads, a few specific rules that measurably change behavior, hooks for the must-nevers, and checks that double as memory. The test harness shipped with the kit, because the evidence expires: a rule that helps one model can be dead weight on the next.</p>
+        <p>City App Framework set out to give AI-assisted software and web development a structure. Testing its rulebook showed that most of that structure did nothing with current models: it never loaded, restated what the models already do, or over-corrected. The structure that survived is different in kind. It tells the agent what it must know (a short project file it actually loads), what it must never do (hooks), and what it must prove (acceptance tests written from the spec before the code, and front-end checks), and it keeps lessons as checks rather than notes. That is the framework now. The test harness ships with it, because the evidence expires: a rule that helps one model can be dead weight on the next.</p>
       </section>
 
       <section id="availability" aria-labelledby="availability-title">
         <h2 id="availability-title">10 Availability</h2>
-        <p>The kit, the harness, the scorers, the raw per-run results and this paper are in the <a href="https://github.com/balbonits/city-app-framework">repository</a>; the <a href="https://github.com/balbonits/city-app-framework/blob/main/docs/findings-2026-09.md">findings report</a> has every number above, and the <a href="https://github.com/balbonits/city-app-framework/tree/main/experiments/results">results folder</a> holds the raw data. To install the kit in Claude Code:</p>
+        <p>The framework, the harness, the scorers, the raw per-run results and this paper are in the <a href="https://github.com/balbonits/city-app-framework">repository</a>; the <a href="https://github.com/balbonits/city-app-framework/blob/main/docs/findings-2026-09.md">findings report</a> has every number above, and the <a href="https://github.com/balbonits/city-app-framework/tree/main/experiments/results">results folder</a> holds the raw data. To install the framework in Claude Code:</p>
         <div class="code"><pre tabindex="0" role="region" aria-label="Install commands"><code>claude plugin marketplace add balbonits/city-app-framework
 claude plugin install city-app@city-app-framework</code></pre></div>
         <p>Then run <code>/city-app:setup</code> inside a project. To re-run the experiments, from a copy of the repository (each command prints how many sessions it ran):</p>
         <div class="code"><pre tabindex="0" role="region" aria-label="Commands to re-run the experiments"><code>node experiments/validate-scorer.mjs /tmp/check
 node experiments/run.mjs --tasks remind --arms bare,kit --trials 5
 node experiments/report.mjs</code></pre></div>
-        <p><strong>Acknowledgments.</strong> The experiments, the kit and this paper were produced with Claude Code, directed and reviewed by the author. Every number comes from scored runs stored in the repository.</p>
-        <p class="cite-as"><strong>Cite as:</strong> Dilig, J. (2026). <i>Laws and customs: which instructions change what AI coding agents do. A case study of City App Framework</i> (white paper, kit v0.2.0). https://github.com/balbonits/city-app-framework</p>
+        <p><strong>Acknowledgments.</strong> The experiments, the framework and this paper were produced with Claude Code, directed and reviewed by the author. Every number comes from scored runs stored in the repository.</p>
+        <p class="cite-as"><strong>Cite as:</strong> Dilig, J. (2026). <i>Structuring AI-assisted software development: a case study of City App Framework</i> (white paper, framework v0.2.0). https://github.com/balbonits/city-app-framework</p>
       </section>
 
       <section id="references" aria-labelledby="references-title">
@@ -413,7 +449,7 @@ node experiments/report.mjs</code></pre></div>
   </main>
 
   <footer class="footer wrap">
-    <p>City App Framework white paper, kit v0.2.0. This page is plain HTML and CSS with no build step, and it passes the kit's own <code>/city-app:ui:check</code> and <code>/city-app:ui:tokens</code>. Print it, or save it as a PDF, from your browser.</p>
+    <p>City App Framework white paper, framework v0.2.0. This page is plain HTML and CSS with no build step, and it passes the framework's own <code>/city-app:ui:check</code> and <code>/city-app:ui:tokens</code>. Print it, or save it as a PDF, from your browser.</p>
   </footer>
 
   <script>

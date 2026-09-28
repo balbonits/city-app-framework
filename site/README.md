@@ -1,6 +1,6 @@
 # The white paper
 
-*Laws and customs: which instructions change what AI coding agents do* is a scientific case study of City App Framework: abstract, research questions, method, results, the v4 redesign and its evaluation, discussion, limitations and references. It's one page of plain HTML and CSS with no build step, served as static files. Its numbers come from `docs/findings-2026-09.md` and `experiments/results/`; change them there first.
+*Structuring AI-assisted software development: a case study of City App Framework* is a scientific case study of City App as a framework for structuring AI-assisted software and web development, with the experiments as its evidence: abstract, research questions, the framework and its development loop, method, results, evaluation on a web app and a command-line app, discussion, limitations and references. It's one page of plain HTML and CSS with no build step, served as static files. Its numbers come from `docs/findings-2026-09.md` and `experiments/results/`; change them there first.
 
 | File | What |
 | --- | --- |

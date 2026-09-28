@@ -15,7 +15,7 @@ A small, tested kit for building apps with AI coding agents. `kit/` is what gets
 - `kit/`: copied into projects as-is. `kit/AGENTS.md` is a template; keep it under ~40 lines.
 - `skills/` and `commands/`: the plugin (`/city-app:*`). `scripts/` holds what they run.
 - `demo/`: small projects built with the kit, one per use case. Each has its own `npm test` (run `npm install` there first).
-- `site/`: the public white paper, written as a scientific case study (abstract, method, results, limitations, references), not a product page. Vercel project `website`; see `site/README.md`.
+- `site/`: the public white paper (Vercel project `website`); see `site/README.md`.
 - `experiments/`: fixture app, context setups ("arms"), tasks, scorer, results.
 - `docs/`: findings and decision records.
 
@@ -25,6 +25,7 @@ A small, tested kit for building apps with AI coding agents. `kit/` is what gets
 - Never hand-edit `experiments/results/*/raw/`; those files are the evidence.
 - Hooks must stay dependency-free Node scripts so they work in any JS project.
 - Raise `version` in `.claude-plugin/plugin.json` when a plugin change ships to `main`: `claude plugin update` skips a version it already has, so existing installs never get the change. Then update and redeploy `site/` so the white paper matches.
+- The white paper (`site/`) is a scientific case study (abstract, method, results, limitations, references) of City App as a framework for structuring AI-assisted software and web development. The experiments are its evidence, not its subject, and it is never a product page.
 
 ## Working agreement
 
