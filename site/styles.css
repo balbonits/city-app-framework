@@ -1,0 +1,557 @@
+/* City App Framework: the white paper page. Plain CSS, no build step.
+   Every color comes from the tokens in :root (checked by /city-app:ui:tokens). The palette borrows
+   road-sign meaning: green signs guide (advice, like AGENTS.md), red signs stop (laws, like the hooks). */
+
+@font-face {
+  font-family: 'Overpass';
+  src: url('fonts/overpass.woff2') format('woff2');
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Overpass Mono';
+  src: url('fonts/overpass-mono.woff2') format('woff2');
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light dark;
+  --paper: #ffffff;
+  --ink: #1e252b;
+  --muted: #56616b;
+  --concrete: #eef1f3;
+  --line: #ccd4da;
+  --link: #00674a;
+  --guide: #00674a;
+  --guide-ink: #ffffff;
+  --stop: #b3261e;
+  --caution: #f2b705;
+  --hit: #00674a;
+  --miss: #8a96a0;
+  --focus: var(--ink);
+
+  --sans: 'Overpass', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'Overpass Mono', ui-monospace, Menlo, Consolas, monospace;
+  --measure: 42rem;
+  --wide: 68rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --space: clamp(3.5rem, 8vw, 6rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1d2226;
+    --ink: #e7ecef;
+    --muted: #a5afb8;
+    --concrete: #262c31;
+    --line: #3a434b;
+    --link: #5fcb9a;
+    --hit: #5fcb9a;
+    --miss: #6b7680;
+    --focus: var(--caution);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 1.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+  letter-spacing: -0.01em;
+  margin-block-end: 1.25rem;
+}
+
+h3 {
+  font-size: 1.3125rem;
+  font-weight: 700;
+  margin-block-end: 0.5rem;
+}
+
+p,
+ul,
+ol,
+dl {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--link);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 0.16em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  background: var(--concrete);
+  border-radius: 0.3rem;
+  padding: 0.1em 0.35em;
+  overflow-wrap: anywhere;
+}
+
+.skip {
+  position: absolute;
+  left: var(--gutter);
+  top: -4rem;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--ink);
+  border-radius: 0.5rem;
+  z-index: 1;
+}
+
+.skip:focus {
+  top: 1rem;
+}
+
+.wrap {
+  max-width: var(--wide);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.prose {
+  max-width: var(--measure);
+}
+
+.section {
+  padding-block-start: var(--space);
+}
+
+/* The hero is a highway guide sign: green, rounded, with a white border set in from the edge. */
+.sign {
+  --focus: var(--caution);
+  margin-block-start: clamp(1rem, 4vw, 2.5rem);
+  padding: clamp(1.75rem, 5vw, 3.25rem);
+  border-radius: 1.25rem;
+  background: var(--guide);
+  color: var(--guide-ink);
+  box-shadow: inset 0 0 0 0.45rem var(--guide), inset 0 0 0 0.7rem var(--guide-ink);
+}
+
+.sign-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.sign h1 {
+  font-size: clamp(2.5rem, 1.25rem + 6vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  max-width: 12ch;
+}
+
+.plate {
+  margin: 0;
+  padding: 0.2rem 0.75rem 0.1rem;
+  border: 0.2rem solid var(--guide-ink);
+  border-radius: 0.6rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  white-space: nowrap;
+}
+
+.exits {
+  list-style: none;
+  margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;
+  padding: clamp(0.75rem, 2vw, 1.25rem) 0 0;
+  border-top: 0.2rem solid var(--guide-ink);
+}
+
+.exits a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.4rem;
+  color: var(--guide-ink);
+  font-size: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.exits a:hover span {
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
+.arrow {
+  flex: none;
+  width: 1.3em;
+  height: 1.3em;
+  fill: currentColor;
+}
+
+.lead {
+  max-width: 46rem;
+  margin-block: clamp(1.75rem, 4vw, 2.5rem) 1.5rem;
+  font-size: clamp(1.1875rem, 1rem + 0.8vw, 1.5rem);
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0.6rem 1.25rem 0.5rem;
+  border: 2px solid var(--guide);
+  border-radius: 0.5rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.button-primary {
+  background: var(--guide);
+  color: var(--guide-ink);
+}
+
+.button-secondary {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.button:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+}
+
+.points {
+  padding-inline-start: 1.25rem;
+}
+
+.points li + li {
+  margin-block-start: 0.5rem;
+}
+
+/* A rule's with/without result, drawn as runs. The squares repeat what the text says. */
+.ab {
+  margin: 2rem 0 2.5rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 2px solid var(--line);
+  border-radius: 0.75rem;
+  max-width: var(--measure);
+}
+
+.ab-rule {
+  font-weight: 700;
+  font-size: 1.1875rem;
+}
+
+.ab table {
+  border-collapse: collapse;
+  margin-block-end: 1rem;
+}
+
+.ab th,
+.ab td {
+  padding: 0.4rem 1rem 0.4rem 0;
+  text-align: left;
+  font-weight: 400;
+  vertical-align: middle;
+}
+
+.ab th,
+.count {
+  white-space: nowrap;
+}
+
+.runs {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-inline-end: 0.75rem;
+  vertical-align: middle;
+}
+
+.run {
+  width: clamp(1rem, 0.8rem + 1vw, 1.25rem);
+  height: clamp(1rem, 0.8rem + 1vw, 1.25rem);
+  border: 2px solid var(--miss);
+  border-radius: 0.2rem;
+}
+
+.run-hit {
+  border-color: var(--hit);
+  background: var(--hit);
+}
+
+.ab figcaption {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Question and answer rows: a list on phones, two columns on wider screens. */
+.rows {
+  border-top: 2px solid var(--line);
+}
+
+.row {
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.row dt {
+  font-weight: 700;
+  margin-block-end: 0.25rem;
+}
+
+.row dd {
+  margin: 0;
+}
+
+.row .tested {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-block-start: 0.35rem;
+}
+
+@media (min-width: 48rem) {
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: 2rem;
+  }
+
+  .row dt {
+    margin: 0;
+  }
+}
+
+.more {
+  margin-block-start: 1.5rem;
+}
+
+.pair {
+  display: grid;
+  gap: 2.5rem;
+  margin-block-start: 2rem;
+}
+
+@media (min-width: 48rem) {
+  .pair {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.kind h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.marker {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.stop-face {
+  fill: var(--stop);
+}
+
+.guide-face {
+  fill: var(--guide);
+}
+
+.sign-rim {
+  fill: none;
+  stroke: var(--guide-ink);
+  stroke-width: 2;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  counter-reset: step;
+}
+
+.steps > li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: 0 1rem;
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.steps > li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.5rem;
+  background: var(--guide);
+  color: var(--guide-ink);
+  font-weight: 800;
+  font-size: 1.375rem;
+  line-height: 1;
+  padding-block-start: 0.2rem;
+}
+
+.steps p:last-child {
+  margin-block-end: 0;
+}
+
+.code {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+  margin-block: 0.75rem 0;
+}
+
+.code pre {
+  margin: 0;
+  justify-self: stretch;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  background: var(--concrete);
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.code pre code {
+  background: none;
+  padding: 0;
+  font-size: 1em;
+  overflow-wrap: normal;
+}
+
+.copy {
+  min-height: 2.25rem;
+  padding: 0.3rem 0.8rem 0.15rem;
+  border: 2px solid var(--ink);
+  border-radius: 0.4rem;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.note {
+  margin-block-start: 1.5rem;
+  color: var(--muted);
+}
+
+.demos {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .demos {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  border-inline-start: 0.25rem solid var(--line);
+}
+
+.timeline li {
+  position: relative;
+  padding: 0 0 1.5rem 1.5rem;
+}
+
+.timeline li::before {
+  content: '';
+  position: absolute;
+  left: -0.625rem;
+  top: 0.35rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 0.25rem solid var(--line);
+}
+
+.timeline li:last-child::before {
+  border-color: var(--guide);
+  background: var(--guide);
+}
+
+.timeline h3 {
+  font-size: 1.125rem;
+  margin-block-end: 0.25rem;
+}
+
+.timeline p {
+  margin: 0;
+}
+
+.footer {
+  margin-block-start: var(--space);
+  padding-block: 2rem 3rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+  padding: 0;
+}
