@@ -26,4 +26,4 @@ ROOT=site PORT=3000 node demo/habit-web/server.mjs   # from the repo root, then 
 
 ## Deploy
 
-The page is the Vercel project `website`, deployed as static files with no build step. Deploy the `site/` folder to production after a plugin release, so the version and commands match.
+The page is the Vercel project `website`. `vercel.json` at the repo root tells Vercel to skip the install and build and serve `site/` as static files, so any deploy of the repo works. Deploy `main` to production after a plugin release, so the version and commands match.

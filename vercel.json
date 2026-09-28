@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "echo 'No install: the white paper is static files in site/'",
+  "buildCommand": "echo 'No build: the white paper is static files in site/'",
+  "outputDirectory": "site"
+}
