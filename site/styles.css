@@ -1,6 +1,22 @@
-/* City App Framework: the white paper page. Plain CSS, no build step.
+/* City App Framework white paper: a scientific case study set as a web page. Plain CSS, no build step.
    Every color comes from the tokens in :root (checked by /city-app:ui:tokens). The palette borrows
    road-sign meaning: green signs guide (advice, like AGENTS.md), red signs stop (laws, like the hooks). */
+
+@font-face {
+  font-family: 'Literata';
+  src: url('fonts/literata.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Literata';
+  src: url('fonts/literata-italic.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Overpass';
@@ -32,12 +48,12 @@
   --miss: #8a96a0;
   --focus: var(--ink);
 
+  --serif: 'Literata', Charter, Georgia, serif;
   --sans: 'Overpass', 'Helvetica Neue', Arial, sans-serif;
   --mono: 'Overpass Mono', ui-monospace, Menlo, Consolas, monospace;
-  --measure: 42rem;
+  --measure: 44rem;
   --wide: 68rem;
   --gutter: clamp(1rem, 4vw, 2.5rem);
-  --space: clamp(3.5rem, 8vw, 6rem);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -75,36 +91,36 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--sans);
+  font-family: var(--serif);
   font-size: 1.125rem;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 h1,
 h2,
 h3 {
   margin: 0;
+  font-family: var(--sans);
   font-weight: 800;
   line-height: 1.15;
 }
 
 h2 {
-  font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+  font-size: clamp(1.625rem, 1.3rem + 1.4vw, 2.125rem);
   letter-spacing: -0.01em;
-  margin-block-end: 1.25rem;
+  margin-block: 3.5rem 1rem;
 }
 
 h3 {
-  font-size: 1.3125rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-block-end: 0.5rem;
+  margin-block: 2.25rem 0.5rem;
 }
 
 p,
 ul,
-ol,
-dl {
-  margin: 0 0 1rem;
+ol {
+  margin: 0 0 1.1rem;
 }
 
 a {
@@ -124,11 +140,22 @@ a:hover {
 
 code {
   font-family: var(--mono);
-  font-size: 0.875em;
+  font-size: 0.85em;
   background: var(--concrete);
   border-radius: 0.3rem;
   padding: 0.1em 0.35em;
   overflow-wrap: anywhere;
+}
+
+/* Inline code and sans run-ins would otherwise stretch the serif lines around them. */
+p code,
+li code,
+td code,
+th code,
+.abstract p strong,
+.rq strong,
+.cite {
+  line-height: 1;
 }
 
 .skip {
@@ -137,6 +164,7 @@ code {
   top: -4rem;
   background: var(--paper);
   color: var(--ink);
+  font-family: var(--sans);
   padding: 0.5rem 1rem;
   border: 2px solid var(--ink);
   border-radius: 0.5rem;
@@ -153,15 +181,8 @@ code {
   padding-inline: var(--gutter);
 }
 
-.prose {
-  max-width: var(--measure);
-}
-
-.section {
-  padding-block-start: var(--space);
-}
-
-/* The hero is a highway guide sign: green, rounded, with a white border set in from the edge. */
+/* The title block is a highway guide sign: green, rounded, a white border set in from the edge,
+   and "exits" to the main parts of the paper. */
 .sign {
   --focus: var(--caution);
   margin-block-start: clamp(1rem, 4vw, 2.5rem);
@@ -169,6 +190,7 @@ code {
   border-radius: 1.25rem;
   background: var(--guide);
   color: var(--guide-ink);
+  font-family: var(--sans);
   box-shadow: inset 0 0 0 0.45rem var(--guide), inset 0 0 0 0.7rem var(--guide-ink);
 }
 
@@ -181,10 +203,10 @@ code {
 }
 
 .sign h1 {
-  font-size: clamp(2.5rem, 1.25rem + 6vw, 5rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  max-width: 12ch;
+  font-size: clamp(1.875rem, 1.2rem + 3vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  max-width: 21ch;
 }
 
 .plate {
@@ -197,9 +219,16 @@ code {
   white-space: nowrap;
 }
 
+.subtitle {
+  margin: 1rem 0 0;
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.4375rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
 .exits {
   list-style: none;
-  margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;
+  margin: clamp(1.5rem, 4vw, 2.25rem) 0 0;
   padding: clamp(0.75rem, 2vw, 1.25rem) 0 0;
   border-top: 0.2rem solid var(--guide-ink);
 }
@@ -209,9 +238,9 @@ code {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding-block: 0.4rem;
+  padding-block: 0.35rem;
   color: var(--guide-ink);
-  font-size: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
+  font-size: clamp(1.1875rem, 0.95rem + 1.1vw, 1.75rem);
   font-weight: 700;
   line-height: 1.2;
   text-decoration: none;
@@ -230,43 +259,68 @@ code {
   fill: currentColor;
 }
 
-.lead {
-  max-width: 46rem;
-  margin-block: clamp(1.75rem, 4vw, 2.5rem) 1.5rem;
-  font-size: clamp(1.1875rem, 1rem + 0.8vw, 1.5rem);
-  line-height: 1.5;
+.byline {
+  max-width: var(--measure);
+  margin-block: 1.5rem 0;
+  font-family: var(--sans);
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.button {
-  display: inline-flex;
-  align-items: center;
-  min-height: 3rem;
-  padding: 0.6rem 1.25rem 0.5rem;
-  border: 2px solid var(--guide);
-  border-radius: 0.5rem;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.button-primary {
-  background: var(--guide);
-  color: var(--guide-ink);
-}
-
-.button-secondary {
-  border-color: var(--ink);
+.byline strong {
   color: var(--ink);
 }
 
-.button:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 0.08em;
+.paper {
+  max-width: var(--measure);
+}
+
+.abstract h2 {
+  margin-block-start: 2.5rem;
+}
+
+.abstract p strong,
+.rq strong {
+  font-family: var(--sans);
+}
+
+.keywords {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.toc {
+  margin-block-start: 2.5rem;
+  padding-block: 1.25rem;
+  border-block: 1px solid var(--line);
+  font-family: var(--sans);
+}
+
+.toc h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2 14rem;
+  column-gap: 2rem;
+}
+
+.toc li {
+  padding-block: 0.15rem;
+}
+
+.rq {
+  list-style: none;
+  padding: 0;
+}
+
+.rq li + li {
+  margin-block-start: 0.4rem;
 }
 
 .points {
@@ -277,18 +331,96 @@ code {
   margin-block-start: 0.5rem;
 }
 
-/* A rule's with/without result, drawn as runs. The squares repeat what the text says. */
+/* Tables in the booktabs style: rules above and below, none between columns. */
+.data {
+  width: 100%;
+  margin-block: 1.75rem 2rem;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.data caption {
+  caption-side: top;
+  text-align: left;
+  padding-block-end: 0.6rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.data caption b,
+.figure-label {
+  font-weight: 800;
+}
+
+.data th,
+.data td {
+  padding: 0.5rem 0.9rem 0.5rem 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.data thead th {
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-weight: 700;
+}
+
+.data tbody th {
+  font-weight: 600;
+}
+
+.data tbody tr:last-child > * {
+  border-bottom: 2px solid var(--ink);
+}
+
+.data .num {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 30rem) {
+  .data {
+    font-size: 0.875rem;
+  }
+
+  .data th,
+  .data td {
+    padding-inline-end: 0.5rem;
+  }
+}
+
+@media (max-width: 22.5rem) {
+  .data {
+    font-size: 0.8125rem;
+  }
+
+  .data th,
+  .data td {
+    padding-inline-end: 0.375rem;
+  }
+}
+
+.data-note {
+  margin-block: -1.25rem 2rem;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+}
+
+/* Figure 1: a rule's with/without result, drawn as runs. The squares repeat what the text says. */
 .ab {
-  margin: 2rem 0 2.5rem;
+  margin: 2rem 0;
   padding: clamp(1.25rem, 3vw, 2rem);
   border: 2px solid var(--line);
   border-radius: 0.75rem;
-  max-width: var(--measure);
+  font-family: var(--sans);
 }
 
 .ab-rule {
   font-weight: 700;
-  font-size: 1.1875rem;
+  font-size: 1.125rem;
 }
 
 .ab table {
@@ -328,59 +460,30 @@ code {
   background: var(--hit);
 }
 
-.ab figcaption {
-  color: var(--muted);
+.ab figcaption,
+.figure figcaption {
+  font-family: var(--sans);
   font-size: 1rem;
+  line-height: 1.6;
 }
 
-/* Question and answer rows: a list on phones, two columns on wider screens. */
-.rows {
-  border-top: 2px solid var(--line);
-}
-
-.row {
-  padding-block: 1rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.row dt {
-  font-weight: 700;
-  margin-block-end: 0.25rem;
-}
-
-.row dd {
-  margin: 0;
-}
-
-.row .tested {
-  color: var(--muted);
-  font-size: 1rem;
-  margin-block-start: 0.35rem;
-}
-
-@media (min-width: 48rem) {
-  .row {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-    gap: 2rem;
-  }
-
-  .row dt {
-    margin: 0;
-  }
-}
-
-.more {
-  margin-block-start: 1.5rem;
+/* Figure 2: laws and customs, marked with the sign shapes they stand for. */
+.figure {
+  margin: 2rem 0;
 }
 
 .pair {
   display: grid;
-  gap: 2.5rem;
-  margin-block-start: 2rem;
+  gap: 1.5rem 2.5rem;
+  padding-block: 1.5rem;
+  border-block: 1px solid var(--line);
+  margin-block-end: 1rem;
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 40rem) {
   .pair {
     grid-template-columns: 1fr 1fr;
   }
@@ -390,6 +493,15 @@ code {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  margin-block-start: 0;
+}
+
+.kind p {
+  margin-block-end: 0.75rem;
+}
+
+.kind ul {
+  margin: 0;
 }
 
 .marker {
@@ -412,50 +524,16 @@ code {
   stroke-width: 2;
 }
 
-.steps {
-  list-style: none;
-  padding: 0;
-  counter-reset: step;
-}
-
-.steps > li {
-  counter-increment: step;
-  display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr);
-  gap: 0 1rem;
-  padding-block: 1.25rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.steps > li::before {
-  content: counter(step);
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 0.5rem;
-  background: var(--guide);
-  color: var(--guide-ink);
-  font-weight: 800;
-  font-size: 1.375rem;
-  line-height: 1;
-  padding-block-start: 0.2rem;
-}
-
-.steps p:last-child {
-  margin-block-end: 0;
-}
-
 .code {
   display: grid;
   justify-items: start;
   gap: 0.5rem;
-  margin-block: 0.75rem 0;
+  margin-block: 0.75rem 1.5rem;
 }
 
 .code pre {
-  margin: 0;
   justify-self: stretch;
+  margin: 0;
   padding: 1rem 1.25rem;
   overflow-x: auto;
   background: var(--concrete);
@@ -478,80 +556,103 @@ code {
   border-radius: 0.4rem;
   background: var(--paper);
   color: var(--ink);
-  font: inherit;
+  font-family: var(--sans);
   font-size: 0.9375rem;
   font-weight: 700;
   cursor: pointer;
 }
 
-.note {
-  margin-block-start: 1.5rem;
-  color: var(--muted);
-}
-
-.demos {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 1.5rem;
-}
-
-@media (min-width: 48rem) {
-  .demos {
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-  }
-}
-
-.timeline {
-  list-style: none;
-  padding: 0;
-  border-inline-start: 0.25rem solid var(--line);
-}
-
-.timeline li {
-  position: relative;
-  padding: 0 0 1.5rem 1.5rem;
-}
-
-.timeline li::before {
-  content: '';
+.visually-hidden {
   position: absolute;
-  left: -0.625rem;
-  top: 0.35rem;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: var(--paper);
-  border: 0.25rem solid var(--line);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-.timeline li:last-child::before {
-  border-color: var(--guide);
-  background: var(--guide);
+.cite {
+  text-decoration: none;
+  font-family: var(--sans);
+  font-size: 0.9em;
+  white-space: nowrap;
 }
 
-.timeline h3 {
-  font-size: 1.125rem;
-  margin-block-end: 0.25rem;
+.refs {
+  padding-inline-start: 2.25rem;
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
-.timeline p {
-  margin: 0;
+.refs li {
+  padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+  overflow-wrap: anywhere;
 }
 
-.footer {
-  margin-block-start: var(--space);
-  padding-block: 2rem 3rem;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
+.refs li:target {
+  background: var(--concrete);
+  border-radius: 0.3rem;
+}
+
+.cite-as {
+  padding: 1rem 1.25rem;
+  background: var(--concrete);
+  border-radius: 0.5rem;
   font-size: 1rem;
 }
 
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  list-style: none;
-  padding: 0;
+.footer {
+  margin-block-start: 4rem;
+  padding-block: 2rem 3rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 1rem;
+}
+
+.footer p {
+  max-width: var(--measure);
+}
+
+@media print {
+  :root {
+    --paper: #ffffff;
+    --ink: #000000;
+    --muted: #333333;
+    --link: #000000;
+  }
+
+  body {
+    font-size: 10.5pt;
+  }
+
+  .skip,
+  .exits,
+  .copy {
+    display: none;
+  }
+
+  .sign {
+    margin: 0;
+    padding: 0 0 0.5rem;
+    background: none;
+    color: var(--ink);
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .plate {
+    border-color: var(--ink);
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  .data,
+  .ab,
+  .figure {
+    break-inside: avoid;
+  }
 }

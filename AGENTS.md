@@ -15,7 +15,7 @@ A small, tested kit for building apps with AI coding agents. `kit/` is what gets
 - `kit/`: copied into projects as-is. `kit/AGENTS.md` is a template; keep it under ~40 lines.
 - `skills/` and `commands/`: the plugin (`/city-app:*`). `scripts/` holds what they run.
 - `demo/`: small projects built with the kit, one per use case. Each has its own `npm test` (run `npm install` there first).
-- `site/`: the public white paper page (Vercel project `website`). Plain HTML and CSS; see `site/README.md`.
+- `site/`: the public white paper, written as a scientific case study (abstract, method, results, limitations, references), not a product page. Vercel project `website`; see `site/README.md`.
 - `experiments/`: fixture app, context setups ("arms"), tasks, scorer, results.
 - `docs/`: findings and decision records.
 

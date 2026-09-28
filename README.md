@@ -10,7 +10,7 @@ It gives an agent three things it can't get on its own:
 
 Every piece was tested against a real model (Claude Sonnet 5, plus Opus 5.5 and Haiku 4.5 spot checks). Rules that made no difference were cut, and testing caught a bad rule in the kit's own first draft. See [what we found](docs/findings-2026-09.md).
 
-**White paper:** <https://website-pi-one-3ymijizbxt.vercel.app>, a one-page summary (source in [`site/`](site/)).
+**White paper:** <https://website-pi-one-3ymijizbxt.vercel.app>, a scientific case study of the framework: method, results, limitations and references (source in [`site/`](site/)).
 
 ## Quick start
 
@@ -93,7 +93,7 @@ Everything after `npm test` runs real Claude sessions and uses your plan's usage
 | `tests/` | Tests for the hooks, scripts, installer and eval graders (`npm test`); `tests/e2e/` holds live checks of the hooks and commands in real projects |
 | `evals/` | Skill eval cases (`claude plugin eval` format) and `run-local.mjs`, which runs them where the official runner's sandbox can't start |
 | `demo/` | Small projects built with the kit, one per use case, each with its own `npm test` |
-| `site/` | The white paper page: plain HTML and CSS, kept in step with the plugin by `tests/site.test.mjs` |
+| `site/` | The white paper, a scientific case study in plain HTML and CSS, kept in step with the plugin by `tests/site.test.mjs` |
 | `experiments/` | The research harness, fixture app, and results; `checks/` holds hidden checks for live runs, kept out of the agents' sight |
 | `docs/` | Findings, plan, lessons and decision records |
 | `AGENTS.md`, `CLAUDE.md` | Instructions for agents working on this repo |

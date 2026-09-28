@@ -1,13 +1,13 @@
-# The white paper page
+# The white paper
 
-The public one-page summary of City App Framework: what it is, what the experiments found, and how to start. It's plain HTML and CSS with no build step, served as static files.
+*Laws and customs: which instructions change what AI coding agents do* is a scientific case study of City App Framework: abstract, research questions, method, results, the v4 redesign and its evaluation, discussion, limitations and references. It's one page of plain HTML and CSS with no build step, served as static files. Its numbers come from `docs/findings-2026-09.md` and `experiments/results/`; change them there first.
 
 | File | What |
 | --- | --- |
 | `index.html` | The page |
 | `styles.css` | Styles; every color comes from the tokens at the top |
 | `favicon.svg` | Icon |
-| `fonts/` | Overpass and Overpass Mono (Latin), self-hosted so the page makes no outside requests. License: `fonts/OFL.txt` |
+| `fonts/` | Literata (body), Overpass and Overpass Mono (Latin), self-hosted so the page makes no outside requests. License: `fonts/OFL.txt` |
 
 ## Preview
 
@@ -17,7 +17,7 @@ ROOT=site PORT=3000 node demo/habit-web/server.mjs   # from the repo root, then 
 
 ## Checks
 
-- `npm test` (repo root) runs `tests/site.test.mjs`: the page lists every plugin command and no others, shows the current plugin version, links only to files that exist, and takes every color from a token.
+- `npm test` (repo root) runs `tests/site.test.mjs`: the paper keeps its case-study sections, every citation has a reference and every reference is cited, it lists every plugin command and no others, shows the current plugin version, links only to files that exist, and takes every color from a token.
 - The kit's UI check, using the demo's installed browser (run `npm install` in `demo/habit-web` first):
 
   ```sh

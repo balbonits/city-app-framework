@@ -20,6 +20,20 @@ test('lists every plugin command, and no others', () => {
   assert.deepEqual(onPage, pluginCommands());
 });
 
+test('is written as a scientific case study', () => {
+  const sections = ['abstract', 'introduction', 'method', 'results', 'discussion', 'limitations', 'conclusion', 'references'];
+  const missing = sections.filter((id) => !new RegExp(`<section[^>]*\\bid="${id}"`).test(html));
+  assert.deepEqual(missing, [], `site/index.html is the white paper, and the owner wants it to read as a scientific case study, not a product page. Add these sections: ${missing.join(', ')}.`);
+});
+
+test('every citation points to a reference, and every reference is cited', () => {
+  const refs = [...html.matchAll(/<li id="ref-(\d+)"/g)].map((m) => m[1]);
+  const cited = new Set([...html.matchAll(/href="#ref-(\d+)"/g)].map((m) => m[1]));
+  assert.ok(refs.length > 0, 'the paper lists no references');
+  assert.deepEqual([...cited].filter((n) => !refs.includes(n)), [], 'citations with no matching reference');
+  assert.deepEqual(refs.filter((n) => !cited.has(n)), [], 'references the text never cites');
+});
+
 test('shows the current plugin version', () => {
   const { version } = JSON.parse(readFileSync(join(repo, '.claude-plugin/plugin.json'), 'utf8'));
   const shown = [...html.matchAll(/\bv(\d+\.\d+\.\d+)\b/g)].map((m) => m[1]);

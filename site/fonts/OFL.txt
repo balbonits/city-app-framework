@@ -1,6 +1,7 @@
 Copyright 2021 The Overpass Project Authors (https://github.com/RedHatOfficial/Overpass)
+Copyright 2017 The Literata Project Authors (https://github.com/googlefonts/literata)
 
-This Font Software (overpass.woff2 and overpass-mono.woff2, the Latin subset served by Google Fonts) is licensed under the SIL Open Font License, Version 1.1.
+This Font Software (overpass.woff2, overpass-mono.woff2, literata.woff2 and literata-italic.woff2, the Latin subsets served by Google Fonts) is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at: https://openfontlicense.org
 
 -----------------------------------------------------------
