@@ -9,6 +9,7 @@ import { parseArgs } from 'node:util';
 import { runClaude } from './lib/claude.mjs';
 import { score, killStray } from './lib/score.mjs';
 import { TASKS } from './tasks.mjs';
+import { fileURLToPath } from 'node:url';
 
 const { values: opt } = parseArgs({
   options: {
@@ -21,7 +22,7 @@ const { values: opt } = parseArgs({
   },
 });
 
-const here = new URL('.', import.meta.url).pathname;
+const here = fileURLToPath(new URL('.', import.meta.url));
 const outDir = opt.out ?? join(here, 'results', 'e4-review');
 const workDir = opt.work ?? join(here, '.work');
 mkdirSync(join(outDir, 'raw'), { recursive: true });

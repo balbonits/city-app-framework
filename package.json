@@ -4,7 +4,7 @@
   "type": "module",
   "description": "A small, tested kit for building apps with AI coding agents.",
   "scripts": {
-    "test": "node --test \"tests/*.test.mjs\"",
+    "test": "node --test tests/checks.test.mjs tests/example.test.mjs tests/grading.test.mjs tests/guard.test.mjs tests/install.test.mjs tests/rules-prune.test.mjs tests/rules-test.test.mjs tests/site.test.mjs tests/test-gate.test.mjs tests/tokens-check.test.mjs tests/ui-check.test.mjs",
     "install-kit": "node scripts/install.mjs"
   },
   "engines": { "node": ">=22" }

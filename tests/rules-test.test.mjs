@@ -7,8 +7,9 @@ import { join } from 'node:path';
 import { spawnSync, execFileSync } from 'node:child_process';
 import { copyProject, matchingLines, runCheck, verdict, withRule, withoutRule } from '../scripts/lib/rules.mjs';
 import { AGENTS, gitProject, tmp, withFakeClaude } from './helpers/rules.mjs';
+import { fileURLToPath } from 'node:url';
 
-const SCRIPT = new URL('../scripts/rules-test.mjs', import.meta.url).pathname;
+const SCRIPT = fileURLToPath(new URL('../scripts/rules-test.mjs', import.meta.url));
 
 test('a rule already in the file: "without" drops that line, "with" keeps the file as is', () => {
   assert.deepEqual(matchingLines(AGENTS, 'Parse CLI flags with parseArgs'), [6]);

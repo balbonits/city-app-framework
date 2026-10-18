@@ -4,8 +4,9 @@ import { spawnSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const GUARD = new URL('../kit/.claude/hooks/guard.mjs', import.meta.url).pathname;
+const GUARD = fileURLToPath(new URL('../kit/.claude/hooks/guard.mjs', import.meta.url));
 
 function project() {
   const dir = mkdtempSync(join(tmpdir(), 'guard-'));

@@ -8,8 +8,9 @@ import { basename, join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { caseDirs, frontmatter, grade, listFiles, loadCase } from '../evals/lib/grading.mjs';
+import { fileURLToPath } from 'node:url';
 
-const repo = resolve(new URL('..', import.meta.url).pathname);
+const repo = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const load = (suite) => Object.fromEntries(caseDirs(suite).map((d) => [loadCase(d, suite).name, loadCase(d, suite)]));
 const cases = load(join(repo, 'evals'));
 const e2e = load(join(repo, 'tests/e2e'));

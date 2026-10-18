@@ -3,9 +3,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-const repo = new URL('..', import.meta.url).pathname;
-const example = new URL('../demo/habit-web/', import.meta.url).pathname;
+const repo = fileURLToPath(new URL('..', import.meta.url));
+const example = fileURLToPath(new URL('../demo/habit-web/', import.meta.url));
 
 test('the example passes setup --check', () => {
   const r = spawnSync('node', ['scripts/install.mjs', example, '--check'], { cwd: repo, encoding: 'utf8' });
@@ -14,7 +15,7 @@ test('the example passes setup --check', () => {
 });
 
 test('demo/bookmarks-cli is set up, and its acceptance tests pass', () => {
-  const demo = new URL('../demo/bookmarks-cli/', import.meta.url).pathname;
+  const demo = fileURLToPath(new URL('../demo/bookmarks-cli/', import.meta.url));
   const check = spawnSync('node', ['scripts/install.mjs', demo, '--check'], { cwd: repo, encoding: 'utf8' });
   assert.equal(check.status, 0, check.stdout);
   const env = { ...process.env };

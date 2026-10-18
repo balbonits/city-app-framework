@@ -8,8 +8,9 @@ import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { createServer } from 'node:http';
 import { axeProblems, baselineProblem, consoleProblem, fillPort, freePort, groupBySize, overflowProblem, startServer, stopServer } from '../scripts/ui-check.mjs';
+import { fileURLToPath } from 'node:url';
 
-const SCRIPT = new URL('../scripts/ui-check.mjs', import.meta.url).pathname;
+const SCRIPT = fileURLToPath(new URL('../scripts/ui-check.mjs', import.meta.url));
 const tmp = () => mkdtempSync(join(tmpdir(), 'ui-'));
 const cli = (args) => spawnSync('node', [SCRIPT, ...args], { encoding: 'utf8', env: { ...process.env, NODE_PATH: '' } });
 

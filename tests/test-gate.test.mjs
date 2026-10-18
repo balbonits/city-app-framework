@@ -5,8 +5,9 @@ import { mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 
-const GATE = new URL('../kit/.claude/hooks/test-gate.mjs', import.meta.url).pathname;
+const GATE = fileURLToPath(new URL('../kit/.claude/hooks/test-gate.mjs', import.meta.url));
 
 function repo(testBody) {
   const dir = mkdtempSync(join(tmpdir(), 'gate-'));
