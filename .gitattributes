@@ -1,0 +1,18 @@
+# Keep line endings LF in the repo and in every checkout, including Windows.
+# Shell fixtures, JSON, Markdown and scripts break (or change hashes) when git converts them to CRLF.
+* text=auto eol=lf
+
+*.sh text eol=lf
+*.mjs text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.svg text eol=lf
+*.txt text eol=lf
+
+*.png binary
+*.woff2 binary
