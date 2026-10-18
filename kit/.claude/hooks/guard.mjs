@@ -142,8 +142,9 @@ function contentAfterEdit(abs, fallback) {
 }
 
 function checkFileEdit() {
-  const path = input.file_path ?? '';
-  const abs = isAbsolute(path) ? path : join(root, path);
+  const raw = input.file_path ?? '';
+  const abs = isAbsolute(raw) ? raw : join(root, raw);
+  const path = raw.replace(/\\/g, '/'); // Windows paths use backslashes
   if (path.endsWith(APPROVALS)) deny(`Blocked: ${APPROVALS} is the human's approval list. Ask them instead.`);
   if (path.endsWith(RULES)) {
     const { before, after } = contentAfterEdit(abs, '');
