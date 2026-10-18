@@ -45,7 +45,7 @@
         <p><strong>Method.</strong> We tested which parts of that structure change what an agent does: 285 fresh, headless Claude Code sessions and 16 paired review trials, mostly on a small Node.js app under six setups, each scored by fixed checks the agent could not see. We then rebuilt the framework from the parts that worked and evaluated it on a web app and a command-line app.</p>
         <p><strong>Results.</strong> v3's universal rules never reached the agent: 0 of 25 runs fetched them. Rules against overbuilding and new dependencies had no measurable effect, because the model already behaved; 0 of 285 runs added a dependency. Two specific rules did change behavior: offering options on a vague request (0 of 5 runs without the rule, 5 of 5 with it) and writing tests (17 of 25 to 25 of 25). A broad "when in doubt, ask" table made agents stop without building in 3 of 5 runs. A lesson kept in a journal was applied 0 of 5 times; kept as one loaded line or as a failing test, 5 of 5.</p>
         <p><strong>The framework.</strong> Version 4 structures the work, not the code: a short project file the agent loads (customs), hooks for the few must-nevers (laws), a build loop that goes from a short spec to failing tests to code, front-end checks for accessibility, visual changes and design tokens, lessons stored as checks, and commands that re-test each rule on the user's own project.</p>
-        <p><strong>Conclusion.</strong> With current models, a framework for AI-assisted development adds the most by structuring the process and its guarantees (what the agent must know, must never do, and must prove) rather than by prescribing how code is written, which the models already handled well in our tests. Every part of it should be re-tested as the models change.</p>
+        <p><strong>Conclusion.</strong> With current models, a framework for AI-assisted development adds the most by structuring the process and its safeguards (what the agent must know, must never do, and must prove) rather than by prescribing how code is written, which the models already handled well in our tests. Every part of it should be re-tested as the models change.</p>
         <p class="keywords"><strong>Keywords:</strong> AI-assisted software development, AI coding agents, development frameworks, AGENTS.md, Claude Code, hooks, evaluation</p>
       </section>
 
@@ -90,7 +90,7 @@
 
       <section id="framework" aria-labelledby="framework-title">
         <h2 id="framework-title">3 The framework</h2>
-        <p>City App Framework v4 is a Claude Code plugin plus a few files installed in each project. It keeps the city metaphor in the one form the evidence supports: laws are enforced, customs are advice. Its design follows three principles, each traced to results in Section 5.</p>
+        <p>City App Framework v4 is a Claude Code plugin plus a few files installed in each project. It keeps the city metaphor in the one form the evidence supports: laws are best-effort guards, customs are advice. Its design follows three principles, each traced to results in Section 5.</p>
 
         <h3>3.1 Principles</h3>
         <ul class="points">
