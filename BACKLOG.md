@@ -11,10 +11,11 @@ Next steps, most useful first. Each one should end with an experiment result, no
 
 ## Considered, deferred
 
-- **Ship the kit as a Claude Code plugin** (hooks, reviewer, lesson skill) so updates reach every project at once. Deferred until copy-in files cause real drift across projects; copy-in works everywhere today, including cloud sessions and other agents.
-- **Bring back the UI design rules** (v3 `conventions/ui-design/`, in git history at `739c334`) as a skill, and test them against Anthropic's `frontend-design` plugin with screenshot-based scoring. Worth it only if the test shows a visible difference.
+- **Compare the UI checks with `frontend-design`.** The v3 UI design rules came back as `/city-app:ui:check`, `ui:baseline` and `ui:tokens` (pass/fail checks). Still open: test them against Anthropic's `frontend-design` plugin with screenshot-based scoring, and keep them only if the test shows a visible difference. (The v3 rules are in git history at `739c334`.)
 - **Auto-capture lessons** (an agent proposes a check after every correction without being asked). Deferred: a human approving each lesson is the main defense against bad or poisoned memory.
 
 ## Recently shipped
 
 - v4 rebuild: kit, installer, tests, experiment harness, findings (`docs/findings-2026-09.md`, `docs/decisions/001-rebuild-as-tested-kit.md`).
+- Phase 1 and 2 of the plugin ([docs/plan-city-app-skills.md](docs/plan-city-app-skills.md)): `setup`, `start`, `lesson`, `rules:test`, `rules:prune`, `ui:check`, `ui:baseline`, `ui:tokens`, shipped as the `city-app` Claude Code plugin (v0.2.0, this repo is its own marketplace).
+- Worked examples in `demo/` (`habit-web`, `bookmarks-cli`) and the white paper in `site/`.
