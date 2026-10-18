@@ -48,7 +48,7 @@ No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs th
 | --- | --- | --- |
 | `AGENTS.md` | Project facts plus an 8-line working agreement (28 lines total) | Short files that agents load beat long ones they skip |
 | `CLAUDE.md` | One line: `@AGENTS.md` | Without it, Claude doesn't load AGENTS.md when a CLAUDE.md exists |
-| `.claude/hooks/guard.mjs` | Asks you (Allow/Deny) before a new dependency or deleting a test; blocks force-push, prod deploys, publishing, and any rule in `.claude/guard-rules.txt` | Instructions are advice; hooks are guarantees |
+| `.claude/hooks/guard.mjs` | Asks you (Allow/Deny) before a new dependency or deleting a test; blocks force-push, prod deploys, publishing, and any rule in `.claude/guard-rules.txt` | Instructions are advice; the hook is a best-effort guard (it matches command text, so a wrapped command like `bash -c "npm i x"` can slip past it) |
 | `.claude/hooks/test-gate.mjs` | Agent can't finish while tests fail or newly skipped tests appear | "Done" should come with proof |
 
 When an agent adds a package, you get an Allow/Deny prompt, even in auto mode; unattended runs get a no. To approve a package for good, add its name to `.claude/approved-deps.txt` yourself. The agent can't edit that file. It can add rules to `.claude/guard-rules.txt`, but not remove them. Claude Code asks you before any write into `.claude/`, so adding a rule shows a one-click prompt (auto mode decides it for you).

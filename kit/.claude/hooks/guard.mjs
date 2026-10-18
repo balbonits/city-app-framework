@@ -7,6 +7,8 @@
 //   - force-pushing
 //   - deploying to production or publishing a package
 //   - anything matching a project rule in .claude/guard-rules.txt ("<regex> => <message>")
+// Best effort, not a guarantee: it matches the command text with regexes, so a wrapped command
+// (bash -c "npm i x", a script that installs, an alias) can slip past it.
 // Prints an ask or deny decision on stdout, or nothing to let the call through.
 import { readFileSync, existsSync } from 'node:fs';
 import { join, isAbsolute, basename } from 'node:path';
