@@ -106,3 +106,7 @@ Everything after `npm test` runs real Claude sessions and uses your plan's usage
 - **v4** (Sep 2026, this): rebuilt from the evidence. Why: [docs/decisions/001-rebuild-as-tested-kit.md](docs/decisions/001-rebuild-as-tested-kit.md).
 
 The city idea survives in one form: laws (hooks) are enforced; customs (AGENTS.md) are advice. Put anything that must never happen in a law.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
