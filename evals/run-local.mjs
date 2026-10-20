@@ -16,6 +16,7 @@ import { spawnSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
 import { runClaude, toolCalls } from '../experiments/lib/claude.mjs';
 import { caseDirs, grade, listFiles, loadCase } from './lib/grading.mjs';
+import { fileURLToPath } from 'node:url';
 
 const { values: opt } = parseArgs({
   options: {
@@ -28,7 +29,7 @@ const { values: opt } = parseArgs({
   },
 });
 
-const repo = resolve(new URL('..', import.meta.url).pathname);
+const repo = resolve(fileURLToPath(new URL('..', import.meta.url)));
 process.env.EVAL_REPO = repo; // scaffolds and command graders can reach the repo's checks
 const suite = resolve(repo, opt.dir);
 const wanted = opt.cases?.split(',');

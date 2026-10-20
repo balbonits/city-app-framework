@@ -42,7 +42,7 @@ if (!hasTests) process.exit(0);
 
 const env = { ...process.env, CI: '1' };
 delete env.NODE_TEST_CONTEXT; // set when this hook itself runs under `node --test`; it masks failures
-const run = spawnSync('npm', ['test', '--silent'], { cwd: root, encoding: 'utf8', timeout: 300_000, env });
+const run = spawnSync('npm', ['test', '--silent'], { cwd: root, encoding: 'utf8', timeout: 300_000, env, shell: process.platform === 'win32' });
 if (run.status !== 0) {
   const tail = `${run.stdout ?? ''}\n${run.stderr ?? ''}`.trim().split('\n').slice(-30).join('\n');
   block(`npm test is failing. Fix it before finishing (don't weaken or delete tests to get green).\n\n${tail}`);

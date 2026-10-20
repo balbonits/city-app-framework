@@ -3,9 +3,10 @@ import { cpSync, mkdirSync, rmSync, writeFileSync, readFileSync } from 'node:fs'
 import { join } from 'node:path';
 import { execSync } from 'node:child_process';
 import { score } from './lib/score.mjs';
+import { fileURLToPath } from 'node:url';
 
 const root = process.argv[2];
-const here = new URL('.', import.meta.url).pathname;
+const here = fileURLToPath(new URL('.', import.meta.url));
 
 const patch = (dir, file, from, to) => {
   const path = join(dir, file);

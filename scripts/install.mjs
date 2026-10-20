@@ -12,6 +12,7 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
+import { fileURLToPath } from 'node:url';
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -23,7 +24,7 @@ if (values.help || positionals.length !== 1) {
   process.exit(values.help ? 0 : 1);
 }
 
-const kit = resolve(dirname(new URL(import.meta.url).pathname), '..', 'kit');
+const kit = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'kit');
 const target = resolve(positionals[0]);
 
 // --check: say what's missing or unfinished, change nothing, exit 1 if anything required fails.

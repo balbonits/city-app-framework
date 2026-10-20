@@ -196,7 +196,7 @@ For small apps with a clear spec, the promise is simply how today's agents behav
 | Universal AGENTS.md (178 lines) | 8-line working agreement inside each project's AGENTS.md | Only reachable, specific rules showed effects |
 | `CLAUDE.md` / `GROK.md` pointers | `CLAUDE.md` = `@AGENTS.md`; no GROK.md | Pointer blocked loading; Grok reads AGENTS.md |
 | "Build exactly what's asked", anti-overengineering | Kept as 2 short lines | No measured effect on Sonnet 5; Opus diffs got smaller with the kit, and Anthropic still warns Opus-class models expand scope |
-| "Ask before adding dependencies" | Hook plus one line | Models didn't add deps here, but auto mode allows installs; a hook is a guarantee |
+| "Ask before adding dependencies" | Hook plus one line | Models didn't add deps here, but auto mode allows installs; a hook is a best-effort guard, not a guarantee (it matches command text, so wrapped commands can slip past) |
 | Ask-vs-proceed table | "Build the smallest part, then offer options" | Table caused over-asking (3/5); the new rule scored 5/5 |
 | ~40 convention docs, decision patterns | Removed (in git history) | Unreachable by links, and mostly default model behavior now |
 | Journal + BACKLOG learning loop | `lesson` skill: correction → check or one-line rule, logged in `docs/lessons.md` | Journal lessons: 0/5; rules and checks: 5/5 |

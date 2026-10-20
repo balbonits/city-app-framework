@@ -7,6 +7,8 @@
 //   - force-pushing
 //   - deploying to production or publishing a package
 //   - anything matching a project rule in .claude/guard-rules.txt ("<regex> => <message>")
+// Best effort, not a guarantee: it matches the command text with regexes, so a wrapped command
+// (bash -c "npm i x", a script that installs, an alias) can slip past it.
 // Prints an ask or deny decision on stdout, or nothing to let the call through.
 import { readFileSync, existsSync } from 'node:fs';
 import { join, isAbsolute, basename } from 'node:path';
@@ -140,8 +142,9 @@ function contentAfterEdit(abs, fallback) {
 }
 
 function checkFileEdit() {
-  const path = input.file_path ?? '';
-  const abs = isAbsolute(path) ? path : join(root, path);
+  const raw = input.file_path ?? '';
+  const abs = isAbsolute(raw) ? raw : join(root, raw);
+  const path = raw.replace(/\\/g, '/'); // Windows paths use backslashes
   if (path.endsWith(APPROVALS)) deny(`Blocked: ${APPROVALS} is the human's approval list. Ask them instead.`);
   if (path.endsWith(RULES)) {
     const { before, after } = contentAfterEdit(abs, '');

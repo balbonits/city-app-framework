@@ -6,9 +6,10 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { gotchaItems, loadRegistry, pruneVerdict, saveRun } from '../scripts/lib/rules.mjs';
 import { AGENTS, gitProject, tmp, withFakeClaude } from './helpers/rules.mjs';
+import { fileURLToPath } from 'node:url';
 
-const PRUNE = new URL('../scripts/rules-prune.mjs', import.meta.url).pathname;
-const RULES_TEST = new URL('../scripts/rules-test.mjs', import.meta.url).pathname;
+const PRUNE = fileURLToPath(new URL('../scripts/rules-prune.mjs', import.meta.url));
+const RULES_TEST = fileURLToPath(new URL('../scripts/rules-test.mjs', import.meta.url));
 const RULE = 'Parse CLI flags with parseArgs from node:util.';
 const spec = { rule: RULE, file: 'AGENTS.md', task: 'Add a --limit flag.', checks: ['grep -rqw parseArgs src'] };
 const registryOf = (dir) => loadRegistry(join(dir, 'docs/rule-tests.json'));

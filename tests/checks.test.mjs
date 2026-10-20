@@ -7,8 +7,9 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { testsFirst } from '../experiments/checks/tests-first.mjs';
+import { fileURLToPath } from 'node:url';
 
-const BOOKMARKS = new URL('../experiments/checks/bookmarks.mjs', import.meta.url).pathname;
+const BOOKMARKS = fileURLToPath(new URL('../experiments/checks/bookmarks.mjs', import.meta.url));
 const write = (file) => ({ type: 'assistant', message: { content: [{ type: 'tool_use', name: 'Write', input: { file_path: file } }] } });
 
 test('tests-first: a test must be written before the code', () => {

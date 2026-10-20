@@ -4,8 +4,9 @@ import { spawnSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync, readFileSync, existsSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const INSTALL = new URL('../scripts/install.mjs', import.meta.url).pathname;
+const INSTALL = fileURLToPath(new URL('../scripts/install.mjs', import.meta.url));
 const install = (...args) => spawnSync('node', [INSTALL, ...args], { encoding: 'utf8' });
 const read = (dir, file) => readFileSync(join(dir, file), 'utf8');
 

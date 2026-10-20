@@ -2,8 +2,9 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, join, normalize, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = resolve(process.env.ROOT ?? new URL('./public/', import.meta.url).pathname);
+const root = resolve(process.env.ROOT ?? fileURLToPath(new URL('./public/', import.meta.url)));
 const port = Number(process.env.PORT ?? 3000);
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml' };
 

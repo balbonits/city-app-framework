@@ -9,7 +9,7 @@
 //
 // Exits 1 with file:line fix-it messages when it finds raw colors, 0 when there are none.
 import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { dirname, join, relative, resolve } from 'node:path';
+import { dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
@@ -64,7 +64,7 @@ export function findRawColors(dir = '.') {
     if (css) text = text.replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
     return text.split('\n').flatMap((line, i) => {
       const found = css ? rawColorsInCss(line) : rawColorsInMarkup(line);
-      return found.length ? [{ file: relative(root, path), line: i + 1, found }] : [];
+      return found.length ? [{ file: relative(root, path).split(sep).join('/'), line: i + 1, found }] : [];
     });
   });
 }

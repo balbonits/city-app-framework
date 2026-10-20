@@ -5,8 +5,9 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { findRawColors, tokensProblem } from '../scripts/tokens-check.mjs';
+import { fileURLToPath } from 'node:url';
 
-const repo = resolve(new URL('..', import.meta.url).pathname);
+const repo = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const pages = ['index.html', 'instructions.html'];
 const read = (page) => readFileSync(join(repo, 'site', page), 'utf8');
 

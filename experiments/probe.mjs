@@ -7,9 +7,10 @@ import { mkdirSync, writeFileSync, cpSync, readFileSync, rmSync } from 'node:fs'
 import { join } from 'node:path';
 import { execSync } from 'node:child_process';
 import { runClaude, toolCalls } from './lib/claude.mjs';
+import { fileURLToPath } from 'node:url';
 
 const root = process.argv[2];
-const here = new URL('.', import.meta.url).pathname;
+const here = fileURLToPath(new URL('.', import.meta.url));
 rmSync(root, { recursive: true, force: true });
 
 const CANARY = 'The project codename is BLUE-HERON-17.';

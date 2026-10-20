@@ -6,8 +6,9 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { findRawColors, rawColorsInCss, rawColorsInMarkup, tokensProblem } from '../scripts/tokens-check.mjs';
+import { fileURLToPath } from 'node:url';
 
-const SCRIPT = new URL('../scripts/tokens-check.mjs', import.meta.url).pathname;
+const SCRIPT = fileURLToPath(new URL('../scripts/tokens-check.mjs', import.meta.url));
 
 test('CSS: colors are fine where a token is defined, and flagged anywhere else', () => {
   for (const ok of [':root { --bg: #fff; --danger: rgb(200 0 0); }', '.card { --card-bg: #eee; }', '.a { color: var(--text); }',
