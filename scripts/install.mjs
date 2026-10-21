@@ -45,7 +45,13 @@ if (values.check) {
   ];
   for (const [label, ok] of checks) console.log(`  ${ok ? 'ok     ' : 'missing'}  ${label}`);
   console.log(`  ${testScript ? 'ok     ' : 'warning'}  package.json has a test script (the finish gate runs it)`);
-  process.exit(checks.every(([, ok]) => ok) ? 0 : 1);
+  const missing = checks.filter(([, ok]) => !ok).length;
+  if (missing) {
+    console.log(`FAIL install --check: ${missing} missing, run node scripts/install.mjs ${positionals[0]}`);
+    process.exit(1);
+  }
+  console.log('PASS install --check: kit installed');
+  process.exit(0);
 }
 
 mkdirSync(target, { recursive: true });
