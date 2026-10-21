@@ -14,6 +14,8 @@ import { basename, dirname, join, relative, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { fileURLToPath } from 'node:url';
 
+const SELF = resolve(fileURLToPath(import.meta.url));
+
 const { values, positionals } = parseArgs({
   allowPositionals: true,
   options: { name: { type: 'string' }, check: { type: 'boolean' }, help: { type: 'boolean', short: 'h' } },
@@ -47,7 +49,7 @@ if (values.check) {
   console.log(`  ${testScript ? 'ok     ' : 'warning'}  package.json has a test script (the finish gate runs it)`);
   const missing = checks.filter(([, ok]) => !ok).length;
   if (missing) {
-    console.log(`FAIL install --check: ${missing} missing, run node scripts/install.mjs ${positionals[0]}`);
+    console.log(`FAIL install --check: ${missing} missing, run node "${SELF}" ${positionals[0]}`);
     process.exit(1);
   }
   console.log('PASS install --check: kit installed');
