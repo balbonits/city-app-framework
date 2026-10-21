@@ -1,0 +1,2 @@
+refused: demo/ already exists and is not empty
+FAIL new: demo/ already exists and is not empty, run city new <other-name> --template cli
