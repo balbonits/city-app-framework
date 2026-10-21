@@ -105,4 +105,4 @@ Everything after `npm test` runs real Claude sessions and uses your plan's usage
 - **v3** (Apr–May 2026): a universal AGENTS.md, ~40 convention docs, decision patterns, templates, a journal, a demo site. Last version at [`739c334`](https://github.com/balbonits/city-app-framework/tree/739c334).
 - **v4** (Sep 2026, this): rebuilt from the evidence. Why: [docs/decisions/001-rebuild-as-tested-kit.md](docs/decisions/001-rebuild-as-tested-kit.md).
 
-The city idea survives in one form: laws (hooks) are enforced; customs (AGENTS.md) are advice. Put anything that must never happen in a law.
+The city idea survives in one form: laws (hooks) are best-effort guards; customs (AGENTS.md) are advice. Put anything that must never happen in a hook, and don't treat even a hook as a guarantee.

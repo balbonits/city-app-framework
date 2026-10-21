@@ -6,7 +6,7 @@ import { mkdirSync, writeFileSync, readFileSync, existsSync, lstatSync, readlink
 import { join } from 'node:path';
 import { spawnSync, execFileSync } from 'node:child_process';
 import { copyProject, matchingLines, runCheck, verdict, withRule, withoutRule } from '../scripts/lib/rules.mjs';
-import { AGENTS, gitProject, tmp, withFakeClaude } from './helpers/rules.mjs';
+import { AGENTS, SHELL_SKIP, gitProject, tmp, withFakeClaude } from './helpers/rules.mjs';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT = fileURLToPath(new URL('../scripts/rules-test.mjs', import.meta.url));
@@ -64,7 +64,7 @@ test('copies a folder that is not a git repo too', () => {
   assert.ok(existsSync(join(dest, 'src/a.js')));
 });
 
-test('a check passes on exit code 0, in the copy folder', () => {
+test('a check passes on exit code 0, in the copy folder', { skip: SHELL_SKIP }, () => {
   const dir = tmp('rt-check-');
   writeFileSync(join(dir, 'marker'), '');
   assert.equal(runCheck(dir, 'test -f marker'), true);
@@ -74,7 +74,7 @@ test('a check passes on exit code 0, in the copy folder', () => {
 const rulesTest = (project, extra, options) => withFakeClaude(SCRIPT, ['--dir', project, '--rule', 'Parse CLI flags with parseArgs',
   '--task', 'Add a --limit flag.', '--check', 'grep -rqw parseArgs src', ...extra], options);
 
-test('without --yes it starts no sessions and says how many a real run takes', () => {
+test('without --yes it starts no sessions and says how many a real run takes', { skip: SHELL_SKIP }, () => {
   const r = rulesTest(gitProject(), ['--runs', '2']);
   assert.equal(r.status, 0, r.stderr);
   assert.equal(r.calls.length, 0);
@@ -83,7 +83,7 @@ test('without --yes it starts no sessions and says how many a real run takes', (
   assert.match(r.stdout, /Ready: 4 test sessions \(2 with the rule, 2 without\)\. Nothing has run yet/);
 });
 
-test('with --yes it runs both arms in neutral folders, scores them, and keeps node_modules safe', () => {
+test('with --yes it runs both arms in neutral folders, scores them, and keeps node_modules safe', { skip: SHELL_SKIP }, () => {
   const project = gitProject();
   const work = tmp('rt-work-');
   const r = rulesTest(project, ['--runs', '2', '--yes', '--work', work]);
@@ -102,7 +102,7 @@ test('with --yes it runs both arms in neutral folders, scores them, and keeps no
   assert.equal(JSON.parse(readFileSync(join(work, 'results.json'), 'utf8')).results.length, 4);
 });
 
-test('runs that never finish are not counted', () => {
+test('runs that never finish are not counted', { skip: SHELL_SKIP }, () => {
   const r = rulesTest(gitProject(), ['--runs', '1', '--yes'], { mode: 'crash' });
   assert.equal(r.status, 0, r.stderr);
   assert.match(r.stdout, /didn't finish \(not counted\)/);
@@ -119,7 +119,7 @@ test('refuses missing inputs and rule text that matches more than one line', () 
   assert.match(vague.stderr, /matches \d+ lines in AGENTS\.md/);
 });
 
-test('warns when CLAUDE.md does not import AGENTS.md, since the rule would never load', () => {
+test('warns when CLAUDE.md does not import AGENTS.md, since the rule would never load', { skip: SHELL_SKIP }, () => {
   const project = gitProject();
   writeFileSync(join(project, 'CLAUDE.md'), 'Be nice.\n');
   const r = rulesTest(project, []);

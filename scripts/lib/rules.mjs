@@ -3,6 +3,7 @@
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, symlinkSync, appendFileSync, writeFileSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
+import { shellCommand } from './shell.mjs';
 
 const LIST_ITEM = /^\s*([-*]|\d+[.)])\s+/;
 // Compare rules on their words: ignore list markers, markdown formatting, spacing and case.
@@ -69,7 +70,8 @@ export function copyProject(src, dest, prepare = () => {}) {
 export function runCheck(dir, command, timeoutMs = 300_000) {
   const env = { ...process.env, CI: '1' };
   delete env.NODE_TEST_CONTEXT;
-  return spawnSync('sh', ['-c', command], { cwd: dir, env, stdio: 'ignore', timeout: timeoutMs }).status === 0;
+  const [shell, args] = shellCommand(command); // Git Bash on Windows, sh elsewhere
+  return spawnSync(shell, args, { cwd: dir, env, stdio: 'ignore', timeout: timeoutMs }).status === 0;
 }
 
 // withIt, withoutIt: { passed, runs }, counting finished runs only.

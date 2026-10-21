@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { gotchaItems, loadRegistry, pruneVerdict, saveRun } from '../scripts/lib/rules.mjs';
-import { AGENTS, gitProject, tmp, withFakeClaude } from './helpers/rules.mjs';
+import { AGENTS, SHELL_SKIP, gitProject, tmp, withFakeClaude } from './helpers/rules.mjs';
 import { fileURLToPath } from 'node:url';
 
 const PRUNE = fileURLToPath(new URL('../scripts/rules-prune.mjs', import.meta.url));
@@ -46,7 +46,7 @@ test('saving a run adds history to the same rule, matched on its words', () => {
   assert.deepEqual(rules[0].history.map((h) => h.date), ['2026-09-27', '2026-10-01']);
 });
 
-test('rules-test --arms without runs one side and saves it for prune', () => {
+test('rules-test --arms without runs one side and saves it for prune', { skip: SHELL_SKIP }, () => {
   const dir = gitProject();
   const r = withFakeClaude(RULES_TEST, ['--dir', dir, '--rule', RULE, '--task', spec.task, '--check', spec.checks[0], '--runs', '2', '--arms', 'without', '--yes']);
   assert.equal(r.status, 0, r.stderr);
@@ -58,7 +58,7 @@ test('rules-test --arms without runs one side and saves it for prune', () => {
   assert.equal(entry.history[0].with, null);
 });
 
-test('rules-test --save-only records how to test a rule and runs nothing; prune lists it as not measured', () => {
+test('rules-test --save-only records how to test a rule and runs nothing; prune lists it as not measured', { skip: SHELL_SKIP }, () => {
   const dir = gitProject();
   const r = withFakeClaude(RULES_TEST, ['--dir', dir, '--rule', RULE, '--task', spec.task, '--check', spec.checks[0], '--save-only']);
   assert.equal(r.status, 0, r.stderr);
@@ -70,7 +70,7 @@ test('rules-test --save-only records how to test a rule and runs nothing; prune 
   assert.match(plan.stdout, /1\. Parse CLI flags with parseArgs from node:util\.\n {5}not measured yet/);
 });
 
-test('without --yes prune only shows the plan: saved rules, untested lines, sessions needed', () => {
+test('without --yes prune only shows the plan: saved rules, untested lines, sessions needed', { skip: SHELL_SKIP }, () => {
   const dir = withRegistry([
     { ...spec, history: [past], cut: null },
     { ...spec, rule: 'Colors come from tokens.', history: [past], cut: { date: '2026-09-27', why: 'noise' } },
@@ -86,7 +86,7 @@ test('without --yes prune only shows the plan: saved rules, untested lines, sess
   assert.match(r.stdout, /Ready: 3 test sessions\. Nothing has run yet/);
 });
 
-test('prune --yes suggests cutting a rule the agent now follows anyway', () => {
+test('prune --yes suggests cutting a rule the agent now follows anyway', { skip: SHELL_SKIP }, () => {
   const dir = withRegistry([{ ...spec, history: [past], cut: null }]);
   const r = withFakeClaude(PRUNE, ['--dir', dir, '--runs', '2', '--yes'], { mode: 'always' });
   assert.equal(r.status, 0, r.stderr);
@@ -95,7 +95,7 @@ test('prune --yes suggests cutting a rule the agent now follows anyway', () => {
   assert.equal(registryOf(dir).rules[0].history.length, 2);
 });
 
-test('prune --yes keeps a rule the agent still needs; --full re-tests both ways', () => {
+test('prune --yes keeps a rule the agent still needs; --full re-tests both ways', { skip: SHELL_SKIP }, () => {
   const dir = withRegistry([{ ...spec, history: [past], cut: null }]);
   const keep = withFakeClaude(PRUNE, ['--dir', dir, '--runs', '2', '--yes']);
   assert.match(keep.stdout, /\| 0\/2 \| Keep: without the line the agent still gets it wrong/);
@@ -103,7 +103,7 @@ test('prune --yes keeps a rule the agent still needs; --full re-tests both ways'
   assert.equal(full.calls.length, 4);
 });
 
-test('--cut removes the approved rule from AGENTS.md and marks it, once', () => {
+test('--cut removes the approved rule from AGENTS.md and marks it, once', { skip: SHELL_SKIP }, () => {
   const dir = withRegistry([{ ...spec, history: [past], cut: null }]);
   const r = withFakeClaude(PRUNE, ['--dir', dir, '--cut', 'parseArgs']);
   assert.equal(r.status, 0, r.stderr);
