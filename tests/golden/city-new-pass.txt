@@ -1,0 +1,7 @@
+created demo/
+installed the kit
+filled AGENTS.md
+wrote .city-app.json
+install check passed
+log: demo/.city/logs/new.log
+PASS new: demo created (cli), kit 0.1.0 installed

@@ -1,0 +1,2 @@
+# Golden CLI output is compared byte-for-byte; keep LF on every OS.
+tests/golden/*.txt text eol=lf
