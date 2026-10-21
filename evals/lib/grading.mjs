@@ -3,6 +3,7 @@
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { shellCommand } from '../../scripts/lib/shell.mjs';
 
 // The frontmatter subset the case files use: key: value, quoted strings, numbers, flow maps, lists.
 function parseValue(raw) {
@@ -31,10 +32,11 @@ export function frontmatter(text) {
   return { data, body: m[2].trim() };
 }
 
+// Paths are relative to dir and always use '/', so file_exists globs match on Windows too.
 export const listFiles = (dir) => readdirSync(dir).flatMap((entry) => {
   if (entry === '.git') return [];
   const path = join(dir, entry);
-  return statSync(path).isDirectory() ? listFiles(path).map((f) => join(entry, f)) : [entry];
+  return statSync(path).isDirectory() ? listFiles(path).map((f) => `${entry}/${f}`) : [entry];
 });
 
 const globToRegex = (glob) => new RegExp(`^${glob
@@ -71,7 +73,8 @@ export function grade(grader, run) {
   if (g.type === 'command') {
     const env = { ...process.env, CI: '1' };
     delete env.NODE_TEST_CONTEXT;
-    const r = spawnSync('sh', ['-c', g.run], { cwd: run.workspace, env, encoding: 'utf8', timeout: 300_000 });
+    const [shell, args] = shellCommand(g.run);
+    const r = spawnSync(shell, args, { cwd: run.workspace, env, encoding: 'utf8', timeout: 300_000 });
     return { pass: r.status === 0, why: `exit ${r.status}` };
   }
   if (g.type === 'tool_used') {

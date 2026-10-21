@@ -2,6 +2,8 @@
 import { spawn } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { relative, resolve as resolvePath, isAbsolute } from 'node:path';
 
 // Variables that would tie a nested run to the parent session or leak extra context.
 const STRIP = [
@@ -43,6 +45,22 @@ const ALLOWED_TOOLS = [
   'Bash(rm -f /tmp/:*)', 'Bash(rm -rf /tmp/:*)', 'Bash(npx vitest:*)', 'Bash(npx tsc:*)', 'Bash(npx vite build:*)',
 ];
 
+// What to spawn. Normally the real `claude` on PATH. CLAUDE_BIN swaps in another program (the tests'
+// fake). A .js/.mjs/.cjs stand-in runs under this Node, because on Windows spawn can't start a .cmd file.
+// Under `node --test` the real CLI is refused: only a CLAUDE_BIN inside the temp folder is accepted,
+// so a test can never start a paid session by accident (a wrong PATH, a missing fake).
+export function claudeCommand(args, env = process.env) {
+  const bin = env.CLAUDE_BIN;
+  if (env.NODE_TEST_CONTEXT) {
+    const rel = bin ? relative(resolvePath(tmpdir()), resolvePath(bin)) : null;
+    if (rel === null || rel.startsWith('..') || isAbsolute(rel)) {
+      throw new Error(`Refusing to start the real claude CLI from a test run. Set CLAUDE_BIN to a fake inside ${tmpdir()} (got ${bin ?? 'nothing'}).`);
+    }
+  }
+  if (!bin) return ['claude', args];
+  return /\.[cm]?js$/i.test(bin) ? [process.execPath, [bin, ...args]] : [bin, args];
+}
+
 export function runClaude({
   cwd,
   prompt,
@@ -73,7 +91,8 @@ export function runClaude({
   ];
 
   return new Promise((resolve) => {
-    const child = spawn('claude', args, { cwd, env: isolatedEnv(), stdio: ['ignore', 'pipe', 'pipe'] });
+    const [command, commandArgs] = claudeCommand(args);
+    const child = spawn(command, commandArgs, { cwd, env: isolatedEnv(), stdio: ['ignore', 'pipe', 'pipe'] });
     let out = '';
     let err = '';
     child.stdout.on('data', (d) => { out += d; });

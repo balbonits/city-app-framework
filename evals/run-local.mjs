@@ -13,6 +13,7 @@ import { mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
+import { posixShell, NO_SHELL_MESSAGE } from '../scripts/lib/shell.mjs';
 import { parseArgs } from 'node:util';
 import { runClaude, toolCalls } from '../experiments/lib/claude.mjs';
 import { caseDirs, grade, listFiles, loadCase } from './lib/grading.mjs';
@@ -39,7 +40,9 @@ const arms = opt.baseline ? ['with', 'without'] : ['with'];
 async function runOnce(c, arm, n) {
   const workspace = mkdtempSync(join(tmpdir(), `local-eval-${c.name.replace(/\W/g, '-')}-`));
   if (c.scaffold) {
-    const s = spawnSync('bash', [join(c.dir, c.scaffold)], { cwd: workspace, encoding: 'utf8', env: { ...process.env, EVAL_REPO: repo } });
+    const bash = posixShell();
+    if (!bash) throw new Error(NO_SHELL_MESSAGE);
+    const s = spawnSync(bash, [join(c.dir, c.scaffold)], { cwd: workspace, encoding: 'utf8', env: { ...process.env, EVAL_REPO: repo } });
     if (s.status !== 0) throw new Error(`scaffold failed: ${s.stderr}`);
   }
   const before = new Set(listFiles(workspace));

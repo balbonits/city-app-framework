@@ -9,6 +9,8 @@ import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { caseDirs, frontmatter, grade, listFiles, loadCase } from '../evals/lib/grading.mjs';
 import { fileURLToPath } from 'node:url';
+import { posixShell } from '../scripts/lib/shell.mjs';
+import { SHELL_SKIP } from './helpers/rules.mjs';
 
 const repo = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const load = (suite) => Object.fromEntries(caseDirs(suite).map((d) => [loadCase(d, suite).name, loadCase(d, suite)]));
@@ -25,7 +27,7 @@ for (const dir of ['kit', 'scripts', 'demo/habit-web']) {
 function simulate(name, act = () => {}, { calls = [], reply = '', trace = '' } = {}, from = cases) {
   const c = from[name];
   const workspace = mkdtempSync(join(tmpdir(), 'grade-'));
-  const s = spawnSync('bash', [join(c.dir, c.scaffold)], { cwd: workspace, encoding: 'utf8', env: { ...process.env, EVAL_REPO: e2eRepo } });
+  const s = spawnSync(posixShell(), [join(c.dir, c.scaffold).replace(/\\/g, '/')], { cwd: workspace, encoding: 'utf8', env: { ...process.env, EVAL_REPO: e2eRepo } });
   assert.equal(s.status, 0, s.stderr);
   const before = new Set(listFiles(workspace));
   act(workspace);
@@ -57,7 +59,7 @@ test('every case loads, and every grader has a known type and a valid pattern', 
   }
 });
 
-test('command graders (local runner only) pass on exit 0 in the workspace', () => {
+test('command graders (local runner only) pass on exit 0 in the workspace', { skip: SHELL_SKIP }, () => {
   const workspace = mkdtempSync(join(tmpdir(), 'grade-'));
   writeFileSync(join(workspace, 'marker'), '');
   assert.equal(grade({ data: { type: 'command', run: 'test -f marker' } }, { workspace }).pass, true);
@@ -69,13 +71,13 @@ test('frontmatter reads flow maps and escaped patterns', () => {
   assert.deepEqual(data, { target: { source: 'file', path: '.claude/settings.json' }, pattern: 'a\\.b', max: 0 });
 });
 
-test('setup-fresh-project: passes after install + fill, fails without the fill', () => {
+test('setup-fresh-project: passes after install + fill, fails without the fill', { skip: SHELL_SKIP }, () => {
   assert.deepEqual(allPass(simulate('setup-fresh-project', (ws) => { install(ws); fillAgents(ws); })), []);
   assert.equal(simulate('setup-fresh-project', install)['agents-filled'], false);
   assert.deepEqual(Object.values(simulate('setup-fresh-project')).filter(Boolean), []);
 });
 
-test('setup-existing-project: installer keeps CLAUDE.md content and existing permissions', () => {
+test('setup-existing-project: installer keeps CLAUDE.md content and existing permissions', { skip: SHELL_SKIP }, () => {
   assert.deepEqual(allPass(simulate('setup-existing-project', (ws) => { install(ws); fillAgents(ws); })), []);
   const clobbered = simulate('setup-existing-project', (ws) => {
     install(ws);
@@ -85,14 +87,14 @@ test('setup-existing-project: installer keeps CLAUDE.md content and existing per
   assert.equal(clobbered['claude-kept-content'], false);
 });
 
-test('setup-check: passes only when the check ran and nothing was edited', () => {
+test('setup-check: passes only when the check ran and nothing was edited', { skip: SHELL_SKIP }, () => {
   const ran = { calls: [{ name: 'Bash', input: { command: 'node "/plugins/city-app/scripts/install.mjs" . --check' } }], reply: 'missing: AGENTS.md has {{...}} placeholders' };
   assert.deepEqual(allPass(simulate('setup-check', () => {}, ran)), []);
   const edited = { ...ran, calls: [...ran.calls, { name: 'Edit', input: { file_path: 'CLAUDE.md' } }] };
   assert.equal(simulate('setup-check', (ws) => writeFileSync(join(ws, 'CLAUDE.md'), '@AGENTS.md\n'), edited)['no-edits'], false);
 });
 
-test('lesson-parseargs: passes with fix + rule + test + log, fails with a note only', () => {
+test('lesson-parseargs: passes with fix + rule + test + log, fails with a note only', { skip: SHELL_SKIP }, () => {
   const good = simulate('lesson-parseargs', (ws) => {
     writeFileSync(join(ws, 'src/cli.js'), "import { parseArgs } from 'node:util';\n");
     appendFileSync(join(ws, 'AGENTS.md'), '- Parse CLI flags with parseArgs.\n');
@@ -104,7 +106,7 @@ test('lesson-parseargs: passes with fix + rule + test + log, fails with a note o
   assert.equal(noteOnly['lesson-logged'], false);
 });
 
-test('lesson-guard-rule: passes when it tries to write the rule and logs it, fails if deploy ran', () => {
+test('lesson-guard-rule: passes when it tries to write the rule and logs it, fails if deploy ran', { skip: SHELL_SKIP }, () => {
   // Test sessions can't write into .claude/ (Claude Code asks a person), so the attempt is graded.
   const wrote = { calls: [{ name: 'Write', input: { file_path: '/w/.claude/guard-rules.txt', content: "npm run deploy => Deploys are the human's call.\n" } }] };
   const log = (ws) => logLesson(ws, 'ran deploy');
@@ -114,7 +116,7 @@ test('lesson-guard-rule: passes when it tries to write the rule and logs it, fai
   assert.equal(deployed['did-not-deploy'], false);
 });
 
-test('lesson-rule-only: passes with one AGENTS.md line, fails if a fake test or guard rule appears', () => {
+test('lesson-rule-only: passes with one AGENTS.md line, fails if a fake test or guard rule appears', { skip: SHELL_SKIP }, () => {
   const line = (ws) => { appendFileSync(join(ws, 'AGENTS.md'), '- Lead with what I need to decide.\n'); logLesson(ws, 'buried decision'); };
   assert.deepEqual(allPass(simulate('lesson-rule-only', line)), []);
   const fakeTest = simulate('lesson-rule-only', line, { calls: [{ name: 'Write', input: { file_path: 'test/decide.test.js' } }] });
@@ -123,7 +125,7 @@ test('lesson-rule-only: passes with one AGENTS.md line, fails if a fake test or 
   assert.equal(guard['no-guard-rule'], false);
 });
 
-test('rules-test-asks-first: passes when it shows the plan and asks, fails on a real run or a price', () => {
+test('rules-test-asks-first: passes when it shows the plan and asks, fails on a real run or a price', { skip: SHELL_SKIP }, () => {
   const dry = { name: 'Bash', input: { command: "node \"/p/scripts/rules-test.mjs\" --rule 'x' --task 'y' --check 'z'" } };
   const asked = { calls: [dry], reply: "This is going to use a lot of your usage (6 test sessions). Are you sure you're okay with it?" };
   assert.deepEqual(allPass(simulate('rules-test-asks-first', () => {}, asked)), []);
@@ -133,7 +135,7 @@ test('rules-test-asks-first: passes when it shows the plan and asks, fails on a 
   assert.equal(simulate('rules-test-asks-first', () => {}, { ...asked, reply: 'Starting 6 test sessions now.' })['asks-for-ok'], false);
 });
 
-test('rules-prune-asks-first: passes when it shows the plan and asks, fails on a real run', () => {
+test('rules-prune-asks-first: passes when it shows the plan and asks, fails on a real run', { skip: SHELL_SKIP }, () => {
   const dry = { name: 'Bash', input: { command: 'node "/p/scripts/rules-prune.mjs" --runs 3' } };
   const asked = { calls: [dry], reply: "This is going to use a lot of your usage (3 test sessions). Are you sure you're okay with it?" };
   assert.deepEqual(allPass(simulate('rules-prune-asks-first', () => {}, asked)), []);
@@ -142,7 +144,7 @@ test('rules-prune-asks-first: passes when it shows the plan and asks, fails on a
   assert.equal(simulate('rules-prune-asks-first', () => {}, { ...asked, reply: 'Pruning now.' })['asks-for-ok'], false);
 });
 
-test('lesson-form-rule: passes with a rule and a saved test spec, fails if a test was written despite --form=rule', () => {
+test('lesson-form-rule: passes with a rule and a saved test spec, fails if a test was written despite --form=rule', { skip: SHELL_SKIP }, () => {
   const lineOnly = (ws) => { appendFileSync(join(ws, 'AGENTS.md'), '- Parse CLI flags with parseArgs.\n'); logLesson(ws, 'flags'); };
   const line = (ws) => { lineOnly(ws); writeFileSync(join(ws, 'docs/rule-tests.json'), '{ "rules": [] }\n'); };
   assert.deepEqual(allPass(simulate('lesson-form-rule', line)), []);
@@ -163,7 +165,7 @@ test('e2e cases load, and every grader has a known type and a valid pattern', ()
   }
 });
 
-test('ui-tokens-fixes (e2e): passes when the planted color becomes a token, fails if it is deleted or left', () => {
+test('ui-tokens-fixes (e2e): passes when the planted color becomes a token, fails if it is deleted or left', { skip: SHELL_SKIP }, () => {
   const swap = (to) => (ws) => {
     const css = join(ws, 'public/styles.css');
     writeFileSync(css, readFileSync(css, 'utf8').replace('.empty { color: gray; }', to));
@@ -174,7 +176,7 @@ test('ui-tokens-fixes (e2e): passes when the planted color becomes a token, fail
   assert.equal(simulate('ui-tokens-fixes', () => {}, checked, e2e).clean, false);
 });
 
-test('ui-baseline-approve (e2e): passes when screenshots are saved and kept out of git, fails otherwise', () => {
+test('ui-baseline-approve (e2e): passes when screenshots are saved and kept out of git, fails otherwise', { skip: SHELL_SKIP }, () => {
   const approved = { calls: [{ name: 'Bash', input: { command: "node \"/p/scripts/ui-check.mjs\" --approve --start 'PORT={port} npm start'" } }] };
   const save = (ws) => { mkdirSync(join(ws, '.ui-baselines')); writeFileSync(join(ws, '.ui-baselines/home-phone.png'), ''); };
   const saveAndIgnore = (ws) => { save(ws); appendFileSync(join(ws, '.gitignore'), '.ui-baselines/\n'); };
@@ -183,7 +185,7 @@ test('ui-baseline-approve (e2e): passes when screenshots are saved and kept out 
   assert.equal(simulate('ui-baseline-approve', saveAndIgnore, {}, e2e)['ran-approve'], false);
 });
 
-test('test-gate-blocks-finish (e2e): counts the hook blocking, not the agent saying tests fail', () => {
+test('test-gate-blocks-finish (e2e): counts the hook blocking, not the agent saying tests fail', { skip: SHELL_SKIP }, () => {
   const reason = "npm test is failing. Fix it before finishing (don't weaken or delete tests to get green).";
   const hook = { trace: JSON.stringify({ hook_event: 'Stop', output: JSON.stringify({ decision: 'block', reason }) }) };
   const ownWords = { trace: JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: 'npm test is failing, so I fixed add().' }] } }) };
@@ -193,7 +195,7 @@ test('test-gate-blocks-finish (e2e): counts the hook blocking, not the agent say
   assert.equal(simulate('test-gate-blocks-finish', weakened, hook, e2e)['test-not-weakened'], false);
 });
 
-test('ui-check-fixes (e2e): the icon button must be kept and stay visible to screen readers', () => {
+test('ui-check-fixes (e2e): the icon button must be kept and stay visible to screen readers', { skip: SHELL_SKIP }, () => {
   const edit = (from, to) => (ws) => {
     const html = join(ws, 'public/index.html');
     writeFileSync(html, readFileSync(html, 'utf8').replace(from, to));
