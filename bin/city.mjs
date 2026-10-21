@@ -10,6 +10,7 @@ import { dirname, join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
 import { fileURLToPath } from 'node:url';
+import { builtinModules } from 'node:module';
 import { sha256File, ownerFor, writeLockfile } from '../scripts/lib/lockfile.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -17,6 +18,41 @@ const INSTALL = join(ROOT, 'scripts', 'install.mjs');
 const WORKDIR = process.cwd();
 const KIT_VERSION = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).version ?? '0.0.0';
 const USAGE = 'city new <name> --template web|cli';
+
+// Windows reserved device names, case-insensitive, matched on the bare stem (the part
+// before any extension). Includes the superscript forms (COM¹, LPT³, ...) and the
+// CONIN$/CONOUT$/CLOCK$ variants.
+const RESERVED_STEMS = new Set([
+  'CON', 'PRN', 'AUX', 'NUL',
+  'COM0', 'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 'COM6', 'COM7', 'COM8', 'COM9',
+  'LPT0', 'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5', 'LPT6', 'LPT7', 'LPT8', 'LPT9',
+  'COM\u00b9', 'COM\u00b2', 'COM\u00b3',
+  'LPT\u00b9', 'LPT\u00b2', 'LPT\u00b3',
+  'CONIN$', 'CONOUT$', 'CLOCK$',
+]);
+const CORE_MODULES = new Set(builtinModules);
+
+// Returns a short reason string if the name is invalid, or null if it is fine.
+// Runs before anything touches the disk.
+function invalidName(name) {
+  if (typeof name !== 'string' || name.length === 0) return 'empty name';
+  if (name.length > 214) return 'name too long (max 214)';
+  // Checked first so reserved names with $, superscripts or capitals get the right reason.
+  const stem = name.split('.')[0];
+  if (RESERVED_STEMS.has(stem.toUpperCase())) return 'name is a Windows reserved device name';
+  if (/[A-Z]/.test(name)) return 'uppercase letters are not allowed';
+  if (name !== name.trim()) return 'leading or trailing spaces';
+  if (name.endsWith('.') || name.endsWith(' ')) return 'name ends in a dot or space';
+  if (name.startsWith('.') || name.startsWith('_')) return 'name starts with a dot or underscore';
+  if (name.includes('/') || name.includes('\\')) return 'name contains a path separator';
+  if (name === '..') return 'name contains ..';
+  if (/[~'!()*]/.test(name)) return 'name contains a special character';
+  if (encodeURIComponent(name) !== name) return 'name is not URL-safe';
+  if (name === 'node_modules') return 'node_modules is reserved';
+  if (name === 'favicon.ico') return 'favicon.ico is reserved';
+  if (CORE_MODULES.has(name)) return 'name is a Node core module';
+  return null;
+}
 
 let values = {};
 let positionals = [];
@@ -80,8 +116,9 @@ if (!name || !['web', 'cli'].includes(values.template)) {
   quiet(`Missing or invalid --template (need web or cli).`, `Usage: ${USAGE}`);
   finish(false, 'invalid arguments', USAGE);
 }
-if (!/^[a-z0-9][a-z0-9._-]*$/i.test(name)) {
-  quiet(`Invalid name: ${name} (must be a plain folder name: no separators, no ..)`);
+const reason = invalidName(name);
+if (reason) {
+  quiet(`Invalid name: ${name} (${reason})`);
   finish(false, `invalid name ${name}`, USAGE);
 }
 
