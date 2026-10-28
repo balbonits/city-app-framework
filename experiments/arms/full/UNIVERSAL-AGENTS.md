@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Universal instructions for AI coding agents (Claude, Grok, others) working on John Dilig's projects.
+Universal instructions for AI coding agents (Claude, Grok, others) working on the project owner's projects.
 
 This is the **universal layer**. Every project also has its own `AGENTS.md` with project-specific stack, commands, file layout, and naming. Read both. The project-level file overrides anything here.
 
@@ -120,7 +120,7 @@ Every project should have:
 - `README.md` — for humans, what the project is.
 - `AGENTS.md` — for AI agents, project-specific stack and rules.
 - `CLAUDE.md` and `GROK.md` — one-liners pointing at `AGENTS.md`.
-- `BACKLOG.md` — live work queue. Update on every merge to `main`. See [`jdilig-me-v3`](https://github.com/balbonits/jdilig-me-v3) for the pattern.
+- `BACKLOG.md` — live work queue. Update on every merge to `main`. See the reference repo named in `config.local.json` (`backlogReferenceRepo`) for the pattern.
 - `CHANGELOG.md` — visible deltas over time. See [`conventions/changelog.md`](./conventions/changelog.md).
 - `docs/decisions/` — ADRs, written when a non-obvious choice is made.
 

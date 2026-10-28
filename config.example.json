@@ -1,0 +1,27 @@
+{
+  "env": {
+    "CLAUDE_PROJECT_DIR": "",
+    "CI": "1",
+    "PORT": "3000",
+    "ROOT": "./public/",
+    "BM_FILE": "bookmarks.json",
+    "HABITS_FILE": "habits.json",
+    "EVAL_REPO": "",
+    "NODE_PATH": "",
+    "TERM": "xterm-256color",
+    "FAKE_LOG": ""
+  },
+  "_notes": {
+    "CLAUDE_PROJECT_DIR": "Root the hooks resolve paths against; empty means the process working directory.",
+    "CI": "Set to 1 by the test-gate hook so the test command runs non-interactively.",
+    "PORT": "Port the demo server listens on.",
+    "ROOT": "Directory the demo server serves.",
+    "BM_FILE": "Data file the bookmarks demo reads and writes.",
+    "HABITS_FILE": "Data file the habit demos read and write.",
+    "EVAL_REPO": "Path to this repo, set by evals/run-local.mjs so graders can reach its checks.",
+    "NODE_PATH": "Node module resolution path; cleared by the ui-check test.",
+    "TERM": "Terminal type for CLI scoring runs.",
+    "FAKE_LOG": "Where the fake claude stub logs its calls (test helpers only).",
+    "usage": "Copy to config.json (gitignored) or export these as environment variables. The kit itself reads no config file; these are the variables its scripts and hooks read."
+  }
+}

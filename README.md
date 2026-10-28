@@ -8,7 +8,7 @@ It gives an agent three things it can't get on its own:
 2. **Hard stops** for the few things that need you: new dependencies and deleting tests (it asks you), force-push, production deploys, finishing with failing tests.
 3. **A way to make corrections stick**, so the next session doesn't repeat the mistake.
 
-Every piece was tested against a real model (Claude Sonnet 5, plus Opus 5.5 and Haiku 4.5 spot checks). Rules that made no difference were cut, and testing caught a bad rule in the kit's own first draft. See [what we found](docs/findings-2026-09.md).
+Every piece was tested against a real model. Rules that made no difference were cut, and testing caught a bad rule in the kit's own first draft. See [what we found](docs/findings-2026-09.md).
 
 **White paper:** <https://website-pi-one-3ymijizbxt.vercel.app>, a scientific case study of the framework: method, results, limitations and references (source in [`site/`](site/)).
 
@@ -24,6 +24,25 @@ claude plugin install city-app@city-app-framework
 Then, inside a project, run `/city-app:setup`. It installs the per-project files below and fills in `AGENTS.md` from what the repo shows. Commit the result so every session, local or cloud, gets it.
 
 No plugin? `node scripts/install.mjs ~/Projects/my-app` from a clone installs the same per-project files; fill in the `{{...}}` parts of `AGENTS.md` yourself. Needs Node 22+.
+
+## Configuration
+
+The kit reads no config file of its own. The per-project files it installs and the scripts it runs read these environment variables:
+
+| Variable | Where it's read | Default | What it does |
+| --- | --- | --- | --- |
+| `CLAUDE_PROJECT_DIR` | `.claude/hooks/guard.mjs`, `.claude/hooks/test-gate.mjs` | the process working directory | Root the hooks resolve paths against |
+| `CI` | `.claude/hooks/test-gate.mjs` | unset (set to `1` by the hook) | Passed to the test command so it runs non-interactively |
+| `PORT` | demo servers, scoring harness | `3000` | Port the demo server listens on |
+| `ROOT` | demo server | `./public/` | Directory the demo server serves |
+| `BM_FILE` | bookmarks demo, scoring harness | `bookmarks.json` | Data file the bookmarks demo reads and writes |
+| `HABITS_FILE` | habit demos, eval fixtures | `habits.json` | Data file the habit demos read and write |
+| `EVAL_REPO` | `evals/run-local.mjs` | unset (set by the runner) | Path to this repo, so graders can reach its checks |
+| `NODE_PATH` | `scripts/ui-check` | unset (cleared by the test) | Node module resolution path |
+| `TERM` | scoring harness | unset (set to `xterm-256color`) | Terminal type for CLI scoring runs |
+| `FAKE_LOG` | test helpers | unset | Where the fake `claude` stub logs its calls |
+
+There is no `config.json` for the kit itself. If you add project-local settings, keep them in a gitignored file (see `.gitignore`) or in environment variables, never in committed files.
 
 ## What you get
 
@@ -100,9 +119,13 @@ Everything after `npm test` runs real Claude sessions and uses your plan's usage
 
 ## History
 
-- **v1** (Aug–Sep 2025): "Mayor + AI Citizens". A `create-city-app` CLI, specified but never built.
+- **v1** (Aug-Sep 2025): "Mayor + AI Citizens". A `create-city-app` CLI, specified but never built.
 - **v2** (Apr 2026): "City 2.0". The human as Sponsor and an autonomous AI Council of departments. Philosophy only.
-- **v3** (Apr–May 2026): a universal AGENTS.md, ~40 convention docs, decision patterns, templates, a journal, a demo site. Last version at [`739c334`](https://github.com/balbonits/city-app-framework/tree/739c334).
+- **v3** (Apr-May 2026): a universal AGENTS.md, ~40 convention docs, decision patterns, templates, a journal, a demo site. Last version at [`739c334`](https://github.com/balbonits/city-app-framework/tree/739c334).
 - **v4** (Sep 2026, this): rebuilt from the evidence. Why: [docs/decisions/001-rebuild-as-tested-kit.md](docs/decisions/001-rebuild-as-tested-kit.md).
 
 The city idea survives in one form: laws (hooks) are enforced; customs (AGENTS.md) are advice. Put anything that must never happen in a law.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

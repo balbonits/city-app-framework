@@ -3,7 +3,7 @@
   "name": "city-app-framework",
   "description": "A tested skill suite for building apps with AI coding agents.",
   "owner": {
-    "name": "John Dilig"
+    "name": "City App Framework Maintainers"
   },
   "plugins": [
     {
