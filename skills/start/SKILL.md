@@ -1,5 +1,6 @@
 ---
 description: Start a new app or feature from a short spec, tests first. Saves the spec to docs/spec.md, turns each requirement into a failing acceptance test, then builds until they all pass. Use when the human describes something new to build in a few sentences ("build me...", "start a...").
+runs: anywhere
 argument-hint: "[--tests-only] [the spec, in a few sentences]"
 ---
 
