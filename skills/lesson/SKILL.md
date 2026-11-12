@@ -1,5 +1,6 @@
 ---
 description: Make a correction stick across sessions. Use when the human corrects a behavior they want fixed for good ("don't do X", "we always do Y", "you did Z again") or asks you to remember a project rule. Picks the strongest form - a test, a guard rule, or one AGENTS.md line - and logs it.
+runs: anywhere
 argument-hint: "[--form=test|guard|rule] [the correction, if not already said]"
 ---
 

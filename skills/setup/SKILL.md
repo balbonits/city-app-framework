@@ -1,5 +1,6 @@
 ---
 description: Set up this project for AI coding agents. Installs AGENTS.md (with CLAUDE.md importing it) and the safety hooks, then fills AGENTS.md from what the repo shows. Safe to re-run; never overwrites existing files. Use --check to only report what's missing.
+runs: anywhere
 disable-model-invocation: true
 argument-hint: "[--check]"
 allowed-tools: Bash(node *), Bash(npm test *), Read, Glob, Grep, Edit
